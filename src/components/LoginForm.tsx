@@ -20,7 +20,7 @@ export default function LoginForm() {
     <form className="flex flex-col w-full" onSubmit={handleSubmit}>
       <div className="flex flex-col my-2">
         <label htmlFor="id" className="text-lg">
-          아이디
+          이메일
         </label>
         <input
           className="text-2xl border-2"
