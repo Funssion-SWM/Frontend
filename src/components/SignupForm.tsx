@@ -2,8 +2,16 @@
 
 import { ChangeEvent, FormEvent, useState } from 'react';
 
+type SignupData = {
+  id: string;
+  authCode: string;
+  pw: string;
+  confirmPw: string;
+  nickname: string;
+};
+
 export default function SignupForm() {
-  const [signupInfo, setSignupInfo] = useState({
+  const [signupData, setSignupData] = useState<SignupData>({
     id: '',
     authCode: '',
     pw: '',
@@ -12,14 +20,14 @@ export default function SignupForm() {
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value, id } = e.target;
-    setSignupInfo(info => ({ ...info, [id]: value }));
+    const { value, name } = e.target;
+    setSignupData(info => ({ ...info, [name]: value }));
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(signupInfo);
-    setSignupInfo({
+    console.log(signupData);
+    setSignupData({
       id: '',
       authCode: '',
       pw: '',
@@ -39,7 +47,8 @@ export default function SignupForm() {
             className="text-2xl border-2 grow"
             type="email"
             id="id"
-            value={signupInfo.id}
+            name="id"
+            value={signupData.id}
             onChange={handleChange}
             required
           />
@@ -57,7 +66,8 @@ export default function SignupForm() {
             className="text-2xl border-2 grow"
             type="text"
             id="authCode"
-            value={signupInfo.authCode}
+            name="authCode"
+            value={signupData.authCode}
             onChange={handleChange}
             required
           />
@@ -74,7 +84,8 @@ export default function SignupForm() {
           className="text-2xl border-2"
           type="password"
           id="pw"
-          value={signupInfo.pw}
+          name="pw"
+          value={signupData.pw}
           onChange={handleChange}
           required
         />
@@ -87,7 +98,8 @@ export default function SignupForm() {
           className="text-2xl border-2"
           type="password"
           id="confirmPw"
-          value={signupInfo.confirmPw}
+          name="confirmPw"
+          value={signupData.confirmPw}
           onChange={handleChange}
           required
         />
@@ -100,7 +112,8 @@ export default function SignupForm() {
           className="text-2xl border-2"
           type="text"
           id="nickname"
-          value={signupInfo.nickname}
+          name="nickname"
+          value={signupData.nickname}
           onChange={handleChange}
           required
         />

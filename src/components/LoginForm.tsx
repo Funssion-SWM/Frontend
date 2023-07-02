@@ -2,18 +2,23 @@
 
 import { ChangeEvent, FormEvent, useState } from 'react';
 
+type LoginData = {
+  id: string;
+  pw: string;
+};
+
 export default function LoginForm() {
-  const [loginInfo, setLoginInfo] = useState({ id: '', pw: '' });
+  const [loginData, setLoginData] = useState<LoginData>({ id: '', pw: '' });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value, id } = e.target;
-    setLoginInfo(info => ({ ...info, [id]: value }));
+    const { value, name } = e.target;
+    setLoginData(info => ({ ...info, [name]: value }));
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(loginInfo);
-    setLoginInfo({ id: '', pw: '' });
+    console.log(loginData);
+    setLoginData({ id: '', pw: '' });
   };
 
   return (
@@ -26,7 +31,8 @@ export default function LoginForm() {
           className="text-2xl border-2"
           type="email"
           id="id"
-          value={loginInfo.id}
+          name="id"
+          value={loginData.id}
           onChange={handleChange}
           required
         />
@@ -39,7 +45,8 @@ export default function LoginForm() {
           className="text-2xl border-2"
           type="password"
           id="pw"
-          value={loginInfo.pw}
+          name="pw"
+          value={loginData.pw}
           onChange={handleChange}
           required
         />
