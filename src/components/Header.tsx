@@ -13,7 +13,7 @@ export default function Header() {
         <Link href="/stories">Stories</Link>
       </nav>
       <nav className="flex items-center gap-3 text-lg">
-        <Link href="/">
+        <Link href="/create/memo">
           <HiPencil />
         </Link>
         <Link href="/">
