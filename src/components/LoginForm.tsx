@@ -1,38 +1,47 @@
 'use client';
 
+import { LoginFormData, login } from '@/service/auth';
+import { useRouter } from 'next/navigation';
 import { ChangeEvent, FormEvent, useState } from 'react';
 
-type LoginData = {
-  id: string;
-  pw: string;
-};
-
 export default function LoginForm() {
-  const [loginData, setLoginData] = useState<LoginData>({ id: '', pw: '' });
+  const router = useRouter();
+  const [loginData, setLoginData] = useState<LoginFormData>({
+    email: '',
+    pw: '',
+  });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
-    setLoginData(info => ({ ...info, [name]: value }));
+    setLoginData((info) => ({ ...info, [name]: value }));
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(loginData);
-    setLoginData({ id: '', pw: '' });
+    login({ user_email: loginData.email, user_pw: loginData.pw })
+      .then((res) => {
+        if (res.status === 200) {
+          setLoginData({ email: '', pw: '' });
+          router.push('/');
+        }
+        console.log(res.data);
+      })
+      .catch(console.error);
   };
 
   return (
     <form className="flex flex-col w-full" onSubmit={handleSubmit}>
       <div className="flex flex-col my-2">
-        <label htmlFor="id" className="text-lg">
+        <label htmlFor="email" className="text-lg">
           이메일
         </label>
         <input
           className="text-2xl border-2"
           type="email"
-          id="id"
-          name="id"
-          value={loginData.id}
+          id="email"
+          name="email"
+          value={loginData.email}
           onChange={handleChange}
           required
         />

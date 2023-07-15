@@ -1,6 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import { HiPencil } from 'react-icons/hi';
 import { BsFillPersonFill } from 'react-icons/bs';
+import { logout } from '@/service/auth';
 
 export default function Header() {
   return (
@@ -24,6 +27,12 @@ export default function Header() {
             로그인
           </button>
         </Link>
+        <button
+          className=" bg-black text-white px-2 rounded-lg"
+          onClick={() => logout()}
+        >
+          로그아웃
+        </button>
       </nav>
     </header>
   );
