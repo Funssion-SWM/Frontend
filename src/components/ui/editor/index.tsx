@@ -105,7 +105,7 @@ export default function MyEditor({ editor }: { editor: Editor | null }) {
       onClick={() => {
         editor?.chain().focus().run();
       }}
-      className="relative min-h-[550px] w-full border-stone-200 bg-white p-4 sm:rounded-lg sm:border sm:shadow-lg"
+      className="relative min-h-[550px] w-full border-stone-200 bg-white p-10 sm:rounded-lg sm:border sm:shadow-lg"
     >
       {/* <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
         {saveStatus}

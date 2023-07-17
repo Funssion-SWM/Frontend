@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 import './globals.css';
 import { Inter } from 'next/font/google';
+import Providers from './providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,7 +20,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Header />
         <main className="flex flex-col w-full max-w-screen-xl mx-auto">
-          {children}
+          <Providers>{children}</Providers>
         </main>
       </body>
     </html>
