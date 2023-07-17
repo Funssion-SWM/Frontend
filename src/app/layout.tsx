@@ -1,5 +1,6 @@
 import Header from '@/components/Header';
-import './globals.css';
+import '@/styles/globals.css';
+import '@/styles/prosemirror.css';
 import { Inter } from 'next/font/google';
 import Providers from './providers';
 

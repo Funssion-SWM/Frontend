@@ -28,7 +28,7 @@ import LoadingCircle from '../../icons/loading-circle';
 import { toast } from 'sonner';
 // import va from '@vercel/analytics';
 import Magic from '../../icons/magic';
-import { getPrevText } from '@/app/lib/editor';
+import { getPrevText } from '@/lib/editor';
 import { startImageUpload } from '../plugins/upload-images';
 
 interface CommandItemProps {
@@ -215,7 +215,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
         input.click();
       },
     },
-  ].filter(item => {
+  ].filter((item) => {
     if (typeof query === 'string' && query.length > 0) {
       const search = query.toLowerCase();
       return (
@@ -259,7 +259,7 @@ const CommandList = ({
   const { complete, isLoading } = useCompletion({
     id: 'novel',
     api: '/api/generate',
-    onResponse: response => {
+    onResponse: (response) => {
       if (response.status === 429) {
         toast.error('You have reached your request limit for the day.');
         // va.track('Rate Limit Reached');

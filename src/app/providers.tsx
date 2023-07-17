@@ -11,11 +11,10 @@ import {
 import { Toaster } from 'sonner';
 // import { Analytics } from "@vercel/analytics/react";
 // import useLocalStorage from '@/lib/hooks/use-local-storage';
-import {
-  defaultFontMapper,
-  displayFontMapper,
-} from '@/components/ui/editor/styles/fonts';
-import { cn } from './lib/utils';
+// import {
+
+import { cn } from '../lib/utils';
+import { defaultFontMapper, displayFontMapper } from '@/styles/fonts';
 
 export const AppContext = createContext<{
   font: string;

@@ -11,7 +11,7 @@ import {
 import { NodeSelector } from './node-selector';
 import { ColorSelector } from './color-selector';
 import { LinkSelector } from './link-selector';
-import { cn } from '@/app/lib/utils';
+import { cn } from '@/lib/utils';
 
 export interface BubbleMenuItem {
   name: string;
@@ -22,7 +22,7 @@ export interface BubbleMenuItem {
 
 type EditorBubbleMenuProps = Omit<BubbleMenuProps, 'children'>;
 
-export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = props => {
+export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
   const items: BubbleMenuItem[] = [
     {
       name: 'bold',
