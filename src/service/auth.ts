@@ -50,6 +50,34 @@ export function logout() {
   clearToken();
 }
 
+export function sendCodeToEmail(email: string) {
+  return axios.post(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/email_code`,
+    {
+      email,
+    }
+  );
+}
+
+export function confirmCode(code: string) {
+  return axios.post(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/email_code/validity`,
+    { code }
+  );
+}
+
+export function checkNickname(nickname: string) {
+  return axios.get(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/nickname/${nickname}`
+  );
+}
+
+export function checkEmail(email: string) {
+  return axios.get(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/email/${email}`
+  );
+}
+
 function saveToken(type: string, token: string) {
   localStorage.setItem(type, token);
 }

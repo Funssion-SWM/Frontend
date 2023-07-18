@@ -2,7 +2,14 @@
 
 import { ChangeEvent, FormEvent, useState } from 'react';
 import WarningMessage from './WarningMessage';
-import { SignupFormData, signUp } from '@/service/auth';
+import {
+  SignupFormData,
+  checkEmail,
+  checkNickname,
+  confirmCode,
+  sendCodeToEmail,
+  signUp,
+} from '@/service/auth';
 
 export default function SignupForm() {
   const [signupData, setSignupData] = useState<SignupFormData>({
@@ -18,7 +25,7 @@ export default function SignupForm() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
-    setSignupData(info => ({ ...info, [name]: value }));
+    setSignupData((info) => ({ ...info, [name]: value }));
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -50,16 +57,27 @@ export default function SignupForm() {
   };
 
   const handleIsDuplicate1 = () => {
+    checkEmail(signupData.email).then(console.log).catch(console.error);
     setMsgFlag1(true);
     setTimeout(() => {
       setMsgFlag1(false);
     }, 2000);
   };
+
   const handleIsDuplicate2 = () => {
+    checkNickname(signupData.nickname).then(console.log).catch(console.error);
     setMsgFlag2(true);
     setTimeout(() => {
       setMsgFlag2(false);
     }, 2000);
+  };
+
+  const handleSendCode = () => {
+    sendCodeToEmail(signupData.email).then(console.log).catch(console.error);
+  };
+
+  const handleConfirmCode = () => {
+    confirmCode(signupData.authCode).then(console.log).catch(console.error);
   };
 
   return (
@@ -84,6 +102,12 @@ export default function SignupForm() {
           >
             중복확인
           </button>
+          <button
+            className="bg-green-400 rounded-lg mx-2 px-2 font-bold"
+            onClick={handleSendCode}
+          >
+            보내기
+          </button>
         </div>
       </div>
       {msgFlag1 && <WarningMessage text="중복되는 이메일입니다." />}
@@ -101,7 +125,10 @@ export default function SignupForm() {
             onChange={handleChange}
             required
           />
-          <button className="bg-green-400 rounded-lg mx-2 px-2 font-bold">
+          <button
+            className="bg-green-400 rounded-lg mx-2 px-2 font-bold"
+            onClick={handleConfirmCode}
+          >
             확인
           </button>
         </div>
