@@ -17,7 +17,7 @@ export default async function HomePage() {
       memoTitle: 'JPA란?',
       memoText:
         'JPA이다 Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum magni temporibus placeat hic rem.',
-      memoColor: 'black',
+      memoColor: 'red',
       createdDate: '2023-07-19',
       authorId: '2',
       authorName: '김태훈',
@@ -27,7 +27,7 @@ export default async function HomePage() {
       memoTitle: 'JS Promise란 무엇일까?',
       memoText:
         'JS Lorem ipsum adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum.',
-      memoColor: 'black',
+      memoColor: 'yellow',
       createdDate: '2023-07-19',
       authorId: '3',
       authorName: '고동우',
@@ -47,7 +47,7 @@ export default async function HomePage() {
       memoTitle: 'JPA란?',
       memoText:
         'JPA이다 Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum magni temporibus placeat hic rem.',
-      memoColor: 'black',
+      memoColor: 'red',
       createdDate: '2023-07-19',
       authorId: '2',
       authorName: '김태훈',
@@ -57,7 +57,7 @@ export default async function HomePage() {
       memoTitle: 'JS Promise란 무엇일까?',
       memoText:
         'JS Lorem ipsum adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum.',
-      memoColor: 'black',
+      memoColor: 'yellow',
       createdDate: '2023-07-19',
       authorId: '3',
       authorName: '고동우',
@@ -77,7 +77,7 @@ export default async function HomePage() {
       memoTitle: 'JPA란?',
       memoText:
         'JPA이다 Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum magni temporibus placeat hic rem.',
-      memoColor: 'black',
+      memoColor: 'red',
       createdDate: '2023-07-19',
       authorId: '2',
       authorName: '김태훈',
@@ -87,7 +87,7 @@ export default async function HomePage() {
       memoTitle: 'JS Promise란 무엇일까?',
       memoText:
         'JS Lorem ipsum adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum.',
-      memoColor: 'black',
+      memoColor: 'yellow',
       createdDate: '2023-07-19',
       authorId: '3',
       authorName: '고동우',
@@ -107,7 +107,7 @@ export default async function HomePage() {
       memoTitle: 'JPA란?',
       memoText:
         'JPA이다 Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum magni temporibus placeat hic rem.',
-      memoColor: 'black',
+      memoColor: 'red',
       createdDate: '2023-07-19',
       authorId: '2',
       authorName: '김태훈',
@@ -117,7 +117,7 @@ export default async function HomePage() {
       memoTitle: 'JS Promise란 무엇일까?',
       memoText:
         'JS Lorem ipsum adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum.',
-      memoColor: 'black',
+      memoColor: 'yellow',
       createdDate: '2023-07-19',
       authorId: '3',
       authorName: '고동우',
@@ -137,7 +137,7 @@ export default async function HomePage() {
       memoTitle: 'JPA란?',
       memoText:
         'JPA이다 Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum magni temporibus placeat hic rem.',
-      memoColor: 'black',
+      memoColor: 'red',
       createdDate: '2023-07-19',
       authorId: '2',
       authorName: '김태훈',
@@ -147,13 +147,13 @@ export default async function HomePage() {
       memoTitle: 'JS Promise란 무엇일까?',
       memoText:
         'JS Lorem ipsum adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum.',
-      memoColor: 'black',
+      memoColor: 'yellow',
       createdDate: '2023-07-19',
       authorId: '3',
       authorName: '고동우',
     },
     {
-      memoId: 6,
+      memoId: 16,
       memoTitle: 'JDK란?',
       memoText:
         'JDK이다 Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum magni temporibus placeat hic rem.',
@@ -167,7 +167,7 @@ export default async function HomePage() {
       memoTitle: 'JPA란?',
       memoText:
         'JPA이다 Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum magni temporibus placeat hic rem.',
-      memoColor: 'black',
+      memoColor: 'red',
       createdDate: '2023-07-19',
       authorId: '2',
       authorName: '김태훈',
@@ -177,7 +177,7 @@ export default async function HomePage() {
       memoTitle: 'JS Promise란 무엇일까?',
       memoText:
         'JS Lorem ipsum adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum.',
-      memoColor: 'black',
+      memoColor: 'yellow',
       createdDate: '2023-07-19',
       authorId: '3',
       authorName: '고동우',
