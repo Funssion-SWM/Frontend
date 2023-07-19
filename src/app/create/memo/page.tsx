@@ -1,9 +1,12 @@
 'use client';
 
+import ColorCricle from '@/components/ColorCricle';
+import SelectColorBar from '@/components/SelectColorBar';
 import MyEditor from '@/components/ui/editor';
 import { TiptapExtensions } from '@/components/ui/editor/extensions';
 import { TiptapEditorProps } from '@/components/ui/editor/props';
 import { useEditor } from '@tiptap/react';
+import { useState } from 'react';
 
 export default function CreateMemoPage() {
   const editor = useEditor({
@@ -34,25 +37,45 @@ export default function CreateMemoPage() {
     autofocus: 'end',
   });
 
-  const handleClick = () => {
+  const [title, setTitle] = useState('');
+  const [selectedColor, setSelectedColor] = useState('bg-yellow-100');
+  const colors = ['bg-yellow-100', 'bg-red-100', 'bg-green-100', 'bg-blue-100'];
+
+  const handleBtnClick = () => {
+    console.log(title);
+    console.log(selectedColor);
     console.log(editor?.getJSON());
+  };
+
+  const handleColorClick = (color: string) => {
+    setSelectedColor(color);
   };
 
   return (
     <div className="flex flex-col">
       <button
         className=" self-end bg-black text-white rounded-md px-2 py-0.5 my-2"
-        onClick={handleClick}
+        onClick={handleBtnClick}
       >
         등록
       </button>
-      <div className="flex flex-col rounded-lg shadow-lg px-6 py-4 my-2 bg-yellow-100">
+      <div
+        className={`flex flex-col rounded-lg shadow-lg px-6 py-4 my-2 ${selectedColor}`}
+      >
         <input
           type="text"
           placeholder="제목을 입력해주세요."
-          className="w-full outline-none text-3xl px-4 py-3 bg-yellow-50 font-bold mt-4"
+          name="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="w-full outline-none text-3xl px-4 py-3 bg-transparent font-bold mt-4 border-b-2 border-gray-400"
         />
         {/* <h3>tag</h3> */}
+        <SelectColorBar
+          colors={colors}
+          selected={selectedColor}
+          onClick={handleColorClick}
+        />
         <MyEditor editor={editor} />
       </div>
     </div>
