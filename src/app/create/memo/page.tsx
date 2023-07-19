@@ -39,20 +39,22 @@ export default function CreateMemoPage() {
   };
 
   return (
-    <div className="flex flex-col items-center max-w-screen-md m-auto w-full">
-      <input
-        type="text"
-        placeholder="제목..."
-        className="w-full outline-none text-2xl px-4 py-3"
-      />
-      {/* <h3>tag</h3> */}
-      <MyEditor editor={editor} />
+    <div className="flex flex-col">
       <button
-        className=" self-end bg-black text-white rounded-md px-1 py-0.5 mt-1"
+        className=" self-end bg-black text-white rounded-md px-2 py-0.5 my-2"
         onClick={handleClick}
       >
-        만들기
+        등록
       </button>
+      <div className="flex flex-col rounded-lg shadow-lg px-6 py-4 my-2 bg-yellow-100">
+        <input
+          type="text"
+          placeholder="제목을 입력해주세요."
+          className="w-full outline-none text-3xl px-4 py-3 bg-yellow-50 font-bold mt-4"
+        />
+        {/* <h3>tag</h3> */}
+        <MyEditor editor={editor} />
+      </div>
     </div>
   );
 }
