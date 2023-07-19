@@ -7,20 +7,20 @@ import { logout } from '@/service/auth';
 
 export default function Header() {
   return (
-    <header className="flex justify-between items-center bg-gray-100 px-10 py-4">
+    <header className="flex justify-between items-center py-4 border-b-2">
       <Link href="/">
-        <h1 className="text-xl font-bold">LOGO</h1>
+        <h1 className="text-3xl font-bold">SOMA</h1>
       </Link>
-      <nav className="flex gap-4">
+      {/* <nav className="flex gap-4">
         <Link href="/memos">Memos</Link>
         <Link href="/stories">Stories</Link>
-      </nav>
+      </nav> */}
       <nav className="flex items-center gap-3 text-lg">
         <Link href="/create/memo">
-          <HiPencil />
+          <HiPencil className="w-7 h-7" />
         </Link>
         <Link href="/">
-          <BsFillPersonFill />
+          <BsFillPersonFill className="w-7 h-7" />
         </Link>
         <Link href="/login">
           <button className=" bg-black text-white px-2 rounded-lg">
