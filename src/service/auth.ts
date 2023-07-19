@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const ACCESS_TOKEN = 'access_token';
-const REFRESH_TOKEN = 'refresh_token';
 
 type SignUpData = {
   user_name: string;
@@ -41,8 +40,7 @@ export async function login(userData: LoginData) {
     userData
   );
 
-  saveToken(ACCESS_TOKEN, res.data.access_token);
-  saveToken(REFRESH_TOKEN, res.data.refresh_token);
+  saveToken(ACCESS_TOKEN, res.data.token);
   return res;
 }
 
