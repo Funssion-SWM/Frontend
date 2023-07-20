@@ -19,7 +19,7 @@ export default function Header() {
         <Link href="/create/memo">
           <HiPencil className="w-7 h-7" />
         </Link>
-        <Link href="/">
+        <Link href="/me">
           <BsFillPersonFill className="w-7 h-7" />
         </Link>
         <Link href="/login">

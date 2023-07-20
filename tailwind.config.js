@@ -31,6 +31,9 @@ module.exports = {
           900: 'var(--novel-stone-900)',
         },
       },
+      minHeight: {
+        'screen(-header)': 'calc(100vh - 70px)',
+      },
     },
   },
   plugins: [
