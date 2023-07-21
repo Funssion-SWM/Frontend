@@ -80,7 +80,7 @@ function saveToken(type: string, token: string) {
   localStorage.setItem(type, token);
 }
 
-function getToken(type: string) {
+export function getToken(type: string) {
   return localStorage.getItem(type);
 }
 

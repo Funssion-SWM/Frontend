@@ -1,10 +1,10 @@
 'use client';
 
-import ColorCricle from '@/components/ColorCricle';
 import SelectColorBar from '@/components/SelectColorBar';
 import MyEditor from '@/components/ui/editor';
 import { TiptapExtensions } from '@/components/ui/editor/extensions';
 import { TiptapEditorProps } from '@/components/ui/editor/props';
+import { createMemo } from '@/service/memos';
 import { useEditor } from '@tiptap/react';
 import { useState } from 'react';
 
@@ -44,7 +44,13 @@ export default function CreateMemoPage() {
   const handleBtnClick = () => {
     console.log(title);
     console.log(selectedColor);
-    console.log(editor?.getJSON());
+    console.log(JSON.stringify(editor?.getJSON()));
+    createMemo(
+      title,
+      'memo description',
+      JSON.stringify(editor?.getJSON()),
+      selectedColor
+    );
   };
 
   const handleColorClick = (color: string) => {
