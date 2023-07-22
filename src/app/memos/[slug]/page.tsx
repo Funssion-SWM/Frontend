@@ -100,11 +100,21 @@ export default function MemoPage() {
     content: exampleContents,
   });
   return (
-    <div className="rounded-lg shadow-lg p-6 my-8 bg-yellow-100">
-      <h1 className="text-4xl font-bold py-2 mb-5 bg-yellow-50">
-        {exampleTitle}
-      </h1>
-      <EditorContent editor={editor} />
-    </div>
+    <section className="flex flex-col">
+      <div className="my-2 self-end">
+        <button className=" bg-black text-white px-2 rounded-lg mx-1">
+          수정하기
+        </button>
+        <button className=" bg-black text-white px-2 rounded-lg mx-1">
+          삭제하기
+        </button>
+      </div>
+      <div className="rounded-lg shadow-lg p-6 bg-yellow-100 my-2">
+        <h1 className="text-4xl font-bold py-2 mb-5 bg-yellow-50">
+          {exampleTitle}
+        </h1>
+        <EditorContent editor={editor} />
+      </div>
+    </section>
   );
 }
