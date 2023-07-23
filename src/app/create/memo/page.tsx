@@ -6,9 +6,11 @@ import { TiptapExtensions } from '@/components/ui/editor/extensions';
 import { TiptapEditorProps } from '@/components/ui/editor/props';
 import { createMemo } from '@/service/memos';
 import { useEditor } from '@tiptap/react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function CreateMemoPage() {
+  const router = useRouter();
   const editor = useEditor({
     extensions: TiptapExtensions,
     editorProps: TiptapEditorProps,
@@ -38,23 +40,21 @@ export default function CreateMemoPage() {
   });
 
   const [title, setTitle] = useState('');
-  const [selectedColor, setSelectedColor] = useState('bg-yellow-100');
-  const colors = ['bg-yellow-100', 'bg-red-100', 'bg-green-100', 'bg-blue-100'];
+  const [selectedColor, setSelectedColor] = useState('yellow');
+  const colors = ['yellow', 'red', 'green', 'blue'];
 
   const handleBtnClick = () => {
     console.log(title);
     console.log(selectedColor);
-    console.log(JSON.stringify(editor?.getJSON()));
-    createMemo(
-      title,
-      'memo description',
-      JSON.stringify(editor?.getJSON()),
-      selectedColor
-    )
+    console.log(editor?.getJSON());
+    createMemo(title, 'memo description', editor?.getJSON(), selectedColor)
       .then((res) => {
+        console.log(res);
+        console.log(res.json);
         if (!res.ok) {
           throw new Error('error');
         }
+        router.push('/');
         return res.json();
       })
       .catch(console.error);
@@ -73,7 +73,14 @@ export default function CreateMemoPage() {
         등록
       </button>
       <div
-        className={`flex flex-col rounded-lg shadow-lg px-6 py-4 my-2 ${selectedColor}`}
+        className={`flex flex-col rounded-lg shadow-lg px-6 py-4 my-2 ${
+          {
+            yellow: 'bg-yellow-100',
+            red: 'bg-red-100',
+            green: 'bg-green-100',
+            blue: 'bg-blue-100',
+          }[selectedColor]
+        }`}
       >
         <input
           type="text"

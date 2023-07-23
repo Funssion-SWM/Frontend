@@ -1,3 +1,4 @@
+import { JSONContent } from '@tiptap/core';
 import { getToken } from './auth';
 
 export type Memo = {
@@ -29,7 +30,7 @@ export async function getMemoById(id: number) {
 export async function createMemo(
   memoTitle: string,
   memoDescription: string,
-  memoText: string,
+  memoText: JSONContent | undefined,
   memoColor: string // 나중에 enum으로 관리
 ) {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`, {
