@@ -22,6 +22,10 @@ export async function getMemos(
   return fetch(url);
 }
 
+export async function getMemoById(id: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/${id}`);
+}
+
 export async function createMemo(
   memoTitle: string,
   memoDescription: string,
