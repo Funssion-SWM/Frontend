@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { getToken } from './auth';
 
 export type Memo = {
@@ -20,13 +19,7 @@ export async function getMemos(
   const params = { period: period, orderBy: orderBy };
   url.search = new URLSearchParams(params).toString();
 
-  return fetch(url)
-    .then((res) => {
-      if (!res.ok) throw new Error('Network error 발생!');
-      return res.json();
-    })
-    .then((res) => res)
-    .catch(console.error);
+  return fetch(url);
 }
 
 export async function createMemo(
@@ -35,9 +28,12 @@ export async function createMemo(
   memoText: string,
   memoColor: string // 나중에 enum으로 관리
 ) {
-  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/`, {
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`, {
     method: 'post',
-    headers: { Authorization: `Bearer ${getToken('access_token')}` },
+    headers: {
+      Authorization: `Bearer ${getToken('access_token')}`,
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({
       memoTitle,
       memoDescription,

@@ -51,7 +51,12 @@ export default function CreateMemoPage() {
       JSON.stringify(editor?.getJSON()),
       selectedColor
     )
-      .then((res) => console.log(res))
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('error');
+        }
+        return res.json();
+      })
       .catch(console.error);
   };
 

@@ -26,33 +26,19 @@ export type LoginFormData = {
 };
 
 export async function signUp(userData: SignUpData) {
-  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`, {
-    method: 'post',
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(userData),
   });
-
-  // return axios.post(
-  //   `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users`,
-  //   userData
-  // );
 }
 
 export async function login(userData: LoginData) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users/login`,
-    {
-      method: 'post',
-      body: JSON.stringify(userData),
-    }
-  );
-
-  // const res = await axios.post(
-  //   `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users/login`,
-  //   userData
-  // );
-
-  // saveToken(ACCESS_TOKEN, res.data.token);
-  return res;
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(userData),
+  });
 }
 
 export function logout() {
@@ -61,54 +47,34 @@ export function logout() {
 
 export async function sendCodeToEmail(email: string) {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/email_code`, {
-    method: 'post',
+    method: 'POST',
     body: JSON.stringify({ email }),
   });
-
-  // return axios.post(
-  //   `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/email_code`,
-  //   {
-  //     email,
-  //   }
-  // );
 }
 
 export function confirmCode(code: string) {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/email_code/validity`,
     {
-      method: 'post',
+      method: 'POST',
       body: JSON.stringify({ code }),
     }
   );
-
-  // return axios.post(
-  //   `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/email_code/validity`,
-  //   { code }
-  // );
 }
 
 export async function checkNickname(nickname: string) {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/nickname/${nickname}`
   );
-
-  // return axios.get(
-  //   `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/nickname/${nickname}`
-  // );
 }
 
 export function checkEmail(email: string) {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/email/${email}`
   );
-
-  // return axios.get(
-  //   `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/email/${email}`
-  // );
 }
 
-function saveToken(type: string, token: string) {
+export function saveToken(type: string, token: string) {
   localStorage.setItem(type, token);
 }
 

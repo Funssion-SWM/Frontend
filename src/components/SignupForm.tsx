@@ -10,8 +10,10 @@ import {
   sendCodeToEmail,
   signUp,
 } from '@/service/auth';
+import { useRouter } from 'next/navigation';
 
 export default function SignupForm() {
+  const router = useRouter();
   const [signupData, setSignupData] = useState<SignupFormData>({
     email: '',
     authCode: '',
@@ -44,16 +46,15 @@ export default function SignupForm() {
       user_email: signupData.email,
       user_pw: signupData.pw,
     })
-      .then(console.log)
+      .then((res) => {
+        console.log(res);
+        if (res.ok) {
+          throw new Error('error');
+        }
+        router.push('/login');
+        return res.json();
+      })
       .catch(console.error);
-
-    setSignupData({
-      email: '',
-      authCode: '',
-      pw: '',
-      confirmPw: '',
-      nickname: '',
-    });
   };
 
   const handleIsDuplicate1 = () => {

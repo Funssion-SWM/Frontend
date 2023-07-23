@@ -1,6 +1,6 @@
 'use client';
 
-import { LoginFormData, login } from '@/service/auth';
+import { ACCESS_TOKEN, LoginFormData, login, saveToken } from '@/service/auth';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, FormEvent, useState } from 'react';
 
@@ -18,15 +18,15 @@ export default function LoginForm() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(loginData);
     login({ user_email: loginData.email, user_pw: loginData.pw })
       .then((res) => {
-        if (res.ok) {
-          setLoginData({ email: '', pw: '' });
-          router.push('/');
+        if (!res.ok) {
+          throw new Error('error');
         }
-        console.log(res);
+        router.push('/');
+        return res.json();
       })
+      .then((data) => saveToken(ACCESS_TOKEN, data.token))
       .catch(console.error);
   };
 
