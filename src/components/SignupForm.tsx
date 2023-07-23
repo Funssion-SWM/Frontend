@@ -48,11 +48,10 @@ export default function SignupForm() {
     })
       .then((res) => {
         console.log(res);
-        if (res.ok) {
+        if (!res.ok) {
           throw new Error('error');
         }
         router.push('/login');
-        return res.json();
       })
       .catch(console.error);
   };
