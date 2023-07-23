@@ -19,7 +19,7 @@ export async function getMemos(
   const params = { period: period, orderBy: orderBy };
   url.search = new URLSearchParams(params).toString();
 
-  return fetch(url);
+  return fetch(url, { next: { revalidate: 0 } });
 }
 
 export async function getMemoById(id: number) {
