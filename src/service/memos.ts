@@ -1,5 +1,5 @@
-import { JSONContent } from '@tiptap/core';
-import { ACCESS_TOKEN, getToken } from './auth';
+import { ACCESS_TOKEN } from '@/utils/const';
+import { getToken } from './auth';
 
 export type Memo = {
   memoId: number;

@@ -1,5 +1,3 @@
-export const ACCESS_TOKEN = 'access_token';
-
 type SignUpData = {
   user_name: string;
   login_type: number;

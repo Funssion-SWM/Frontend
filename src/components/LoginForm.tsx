@@ -1,6 +1,7 @@
 'use client';
 
-import { ACCESS_TOKEN, LoginFormData, login, saveToken } from '@/service/auth';
+import { LoginFormData, login, saveToken } from '@/service/auth';
+import { ACCESS_TOKEN } from '@/utils/const';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, FormEvent, useState } from 'react';
 

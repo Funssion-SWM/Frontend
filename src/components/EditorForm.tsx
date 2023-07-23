@@ -4,7 +4,8 @@ import SelectColorBar from '@/components/SelectColorBar';
 import MyEditor from '@/components/ui/editor';
 import { TiptapExtensions } from '@/components/ui/editor/extensions';
 import { TiptapEditorProps } from '@/components/ui/editor/props';
-import { ACCESS_TOKEN, getToken } from '@/service/auth';
+import { getToken } from '@/service/auth';
+import { ACCESS_TOKEN } from '@/utils/const';
 import { useEditor } from '@tiptap/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -55,7 +56,6 @@ export default function EditorForm({
   });
   const [title, setTitle] = useState(preTitle);
   const [selectedColor, setSelectedColor] = useState(preColor);
-  const colors = ['yellow', 'red', 'green', 'blue'];
   const handleBtnClick = () => {
     fetch(
       `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos${
@@ -117,11 +117,7 @@ export default function EditorForm({
           className="w-full outline-none text-3xl px-4 py-3 bg-transparent font-bold mt-4 border-b-2 border-gray-400"
         />
         {/* <h3>tag</h3> */}
-        <SelectColorBar
-          colors={colors}
-          selected={selectedColor}
-          onClick={handleColorClick}
-        />
+        <SelectColorBar selected={selectedColor} onClick={handleColorClick} />
         <MyEditor editor={editor} />
       </div>
     </section>
