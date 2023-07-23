@@ -1,4 +1,5 @@
 import MemoViewer from '@/components/MemoViewer';
+import WriterBtns from '@/components/WriterBtns';
 import { getMemoById } from '@/service/memos';
 
 type Props = {
@@ -17,14 +18,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
 
   return (
     <section className="flex flex-col">
-      <div className="my-2 self-end">
-        <button className=" bg-black text-white px-2 rounded-lg mx-1">
-          수정하기
-        </button>
-        <button className=" bg-black text-white px-2 rounded-lg mx-1">
-          삭제하기
-        </button>
-      </div>
+      <WriterBtns memoId={slug} />
       <MemoViewer
         title={memoTitle}
         content={JSON.parse(memoText)}

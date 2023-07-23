@@ -1,5 +1,5 @@
 import { JSONContent } from '@tiptap/core';
-import { getToken } from './auth';
+import { ACCESS_TOKEN, getToken } from './auth';
 
 export type Memo = {
   memoId: number;
@@ -36,7 +36,7 @@ export async function createMemo(
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`, {
     method: 'post',
     headers: {
-      Authorization: `Bearer ${getToken('access_token')}`,
+      Authorization: `Bearer ${getToken(ACCESS_TOKEN)}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -45,5 +45,14 @@ export async function createMemo(
       memoText,
       memoColor,
     }),
+  });
+}
+
+export async function deleteMemo(id: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${getToken(ACCESS_TOKEN)}`,
+    },
   });
 }
