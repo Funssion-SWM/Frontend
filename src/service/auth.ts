@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const ACCESS_TOKEN = 'access_token';
+export const ACCESS_TOKEN = 'access_token';
 
 type SignUpData = {
   user_name: string;
@@ -27,20 +25,33 @@ export type LoginFormData = {
   pw: string;
 };
 
-export function signUp(userData: SignUpData) {
-  return axios.post(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users`,
-    userData
-  );
+export async function signUp(userData: SignUpData) {
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`, {
+    method: 'post',
+    body: JSON.stringify(userData),
+  });
+
+  // return axios.post(
+  //   `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users`,
+  //   userData
+  // );
 }
 
 export async function login(userData: LoginData) {
-  const res = await axios.post(
+  const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users/login`,
-    userData
+    {
+      method: 'post',
+      body: JSON.stringify(userData),
+    }
   );
 
-  saveToken(ACCESS_TOKEN, res.data.token);
+  // const res = await axios.post(
+  //   `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users/login`,
+  //   userData
+  // );
+
+  // saveToken(ACCESS_TOKEN, res.data.token);
   return res;
 }
 
@@ -48,32 +59,53 @@ export function logout() {
   clearToken();
 }
 
-export function sendCodeToEmail(email: string) {
-  return axios.post(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/email_code`,
-    {
-      email,
-    }
-  );
+export async function sendCodeToEmail(email: string) {
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/email_code`, {
+    method: 'post',
+    body: JSON.stringify({ email }),
+  });
+
+  // return axios.post(
+  //   `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/email_code`,
+  //   {
+  //     email,
+  //   }
+  // );
 }
 
 export function confirmCode(code: string) {
-  return axios.post(
+  return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/email_code/validity`,
-    { code }
+    {
+      method: 'post',
+      body: JSON.stringify({ code }),
+    }
   );
+
+  // return axios.post(
+  //   `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/email_code/validity`,
+  //   { code }
+  // );
 }
 
-export function checkNickname(nickname: string) {
-  return axios.get(
+export async function checkNickname(nickname: string) {
+  return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/nickname/${nickname}`
   );
+
+  // return axios.get(
+  //   `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/nickname/${nickname}`
+  // );
 }
 
 export function checkEmail(email: string) {
-  return axios.get(
+  return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/email/${email}`
   );
+
+  // return axios.get(
+  //   `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/email/${email}`
+  // );
 }
 
 function saveToken(type: string, token: string) {

@@ -50,7 +50,9 @@ export default function CreateMemoPage() {
       'memo description',
       JSON.stringify(editor?.getJSON()),
       selectedColor
-    );
+    )
+      .then((res) => console.log(res))
+      .catch(console.error);
   };
 
   const handleColorClick = (color: string) => {

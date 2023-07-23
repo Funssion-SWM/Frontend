@@ -21,11 +21,11 @@ export default function LoginForm() {
     console.log(loginData);
     login({ user_email: loginData.email, user_pw: loginData.pw })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.ok) {
           setLoginData({ email: '', pw: '' });
           router.push('/');
         }
-        console.log(res.data);
+        console.log(res);
       })
       .catch(console.error);
   };

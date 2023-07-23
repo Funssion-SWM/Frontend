@@ -12,15 +12,20 @@ export type Memo = {
   authorName: string;
 };
 
-export async function getMemos(period?: string, orderBy?: string) {
-  return axios
-    .get(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`, {
-      params: {
-        period,
-        orderBy,
-      },
+export async function getMemos(
+  period: string = 'day',
+  orderBy: string = 'new'
+) {
+  const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`);
+  const params = { period: period, orderBy: orderBy };
+  url.search = new URLSearchParams(params).toString();
+
+  return fetch(url)
+    .then((res) => {
+      if (!res.ok) throw new Error('Network error 발생!');
+      return res.json();
     })
-    .then((res) => res.data)
+    .then((res) => res)
     .catch(console.error);
 }
 
@@ -30,19 +35,14 @@ export async function createMemo(
   memoText: string,
   memoColor: string // 나중에 enum으로 관리
 ) {
-  return axios
-    .post(
-      `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`,
-      {
-        memoTitle,
-        memoDescription,
-        memoText,
-        memoColor,
-      },
-      {
-        headers: { Authorization: `Bearer ${getToken('access_token')}` },
-      }
-    )
-    .then((res) => res.data)
-    .catch(console.log);
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/`, {
+    method: 'post',
+    headers: { Authorization: `Bearer ${getToken('access_token')}` },
+    body: JSON.stringify({
+      memoTitle,
+      memoDescription,
+      memoText,
+      memoColor,
+    }),
+  });
 }
