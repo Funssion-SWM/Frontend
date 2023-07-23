@@ -24,27 +24,8 @@ export async function getMemos(
 }
 
 export async function getMemoById(id: number) {
-  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/${id}`);
-}
-
-export async function createMemo(
-  memoTitle: string,
-  memoDescription: string,
-  memoText: JSONContent | undefined,
-  memoColor: string // 나중에 enum으로 관리
-) {
-  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`, {
-    method: 'post',
-    headers: {
-      Authorization: `Bearer ${getToken(ACCESS_TOKEN)}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      memoTitle,
-      memoDescription,
-      memoText,
-      memoColor,
-    }),
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/${id}`, {
+    next: { revalidate: 0 },
   });
 }
 

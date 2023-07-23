@@ -22,7 +22,10 @@ export default function WriterBtns({ memoId }: Props) {
   };
   return (
     <div className="my-2 self-end">
-      <button className=" bg-black text-white px-2 rounded-lg mx-1">
+      <button
+        className=" bg-black text-white px-2 rounded-lg mx-1"
+        onClick={() => router.push(`/create/memo/${memoId}`)}
+      >
         수정하기
       </button>
       <button
