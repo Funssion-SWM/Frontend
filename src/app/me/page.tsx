@@ -7,61 +7,67 @@ export default function MePage() {
     {
       memoId: 3,
       memoTitle: 'JS Promise란 무엇일까?',
-      memoText:
+      memoDescription:
         'JS Lorem ipsum adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum.',
+      memoText: 'aaa',
       memoColor: 'yellow',
       createdDate: '2023-07-19',
-      authorId: '3',
+      authorId: 3,
       authorName: '고동우',
     },
     {
       memoId: 6,
       memoTitle: 'JS Promise란 무엇일까?',
-      memoText:
+      memoDescription:
         'JS Lorem ipsum adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum.',
+      memoText: 'aaa',
       memoColor: 'yellow',
       createdDate: '2023-07-19',
-      authorId: '3',
+      authorId: 3,
       authorName: '고동우',
     },
     {
       memoId: 9,
       memoTitle: 'JS Promise란 무엇일까?',
-      memoText:
+      memoDescription:
         'JS Lorem ipsum adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum.',
+      memoText: 'aaa',
       memoColor: 'yellow',
       createdDate: '2023-07-19',
-      authorId: '3',
+      authorId: 3,
       authorName: '고동우',
     },
     {
       memoId: 12,
       memoTitle: 'JS Promise란 무엇일까?',
-      memoText:
+      memoDescription:
         'JS Lorem ipsum adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum.',
+      memoText: 'aaa',
       memoColor: 'yellow',
       createdDate: '2023-07-19',
-      authorId: '3',
+      authorId: 3,
       authorName: '고동우',
     },
     {
       memoId: 15,
       memoTitle: 'JS Promise란 무엇일까?',
-      memoText:
+      memoDescription:
         'JS Lorem ipsum adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum.',
+      memoText: 'aaa',
       memoColor: 'yellow',
       createdDate: '2023-07-19',
-      authorId: '3',
+      authorId: 3,
       authorName: '고동우',
     },
     {
       memoId: 18,
       memoTitle: 'JS Promise란 무엇일까?',
-      memoText:
+      memoDescription:
         'JS Lorem ipsum adipisicing elit. Molestias laboriosam asperiores, delectus necessitatibus natus, sequi pariatur libero tenetur consequuntur doloribus sit repellendus ipsum.',
+      memoText: 'aaa',
       memoColor: 'yellow',
       createdDate: '2023-07-19',
-      authorId: '3',
+      authorId: 3,
       authorName: '고동우',
     },
   ];
