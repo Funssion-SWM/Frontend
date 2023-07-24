@@ -81,8 +81,13 @@ export default function EditorForm({
         if (!res.ok) {
           throw new Error('error');
         }
-        if (isFirst) router.push('/');
-        else router.push(`/memos/${memoId}`);
+        if (isFirst) {
+          router.push('/');
+          router.refresh();
+        } else {
+          router.push(`/memos/${memoId}`);
+          router.refresh();
+        }
       })
       .catch(console.error);
   };
