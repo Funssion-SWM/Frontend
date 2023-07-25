@@ -50,6 +50,8 @@ export default function Header() {
               className="hover:bg-gray-200 p-2 rounded-b-lg"
               onClick={() => {
                 logout();
+                router.refresh();
+                setIsActive(false);
               }}
             >
               로그아웃
