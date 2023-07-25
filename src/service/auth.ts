@@ -1,3 +1,5 @@
+import { ACCESS_TOKEN } from '@/utils/const';
+
 type SignUpData = {
   user_name: string;
   login_type: number;
@@ -78,6 +80,11 @@ export function saveToken(type: string, token: string) {
 
 export function getToken(type: string) {
   return localStorage.getItem(type);
+}
+
+export function isLogin() {
+  if (getToken(ACCESS_TOKEN) === null) return false;
+  return true;
 }
 
 function clearToken() {
