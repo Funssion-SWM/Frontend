@@ -12,11 +12,11 @@ export default function WriterBtns({ memoId }: Props) {
   const handleDelete = () => {
     deleteMemo(memoId)
       .then((res) => {
-        console.log(res);
         if (!res.ok) {
           throw new Error('error');
         }
         router.push('/');
+        router.refresh();
       })
       .catch(console.error);
   };
