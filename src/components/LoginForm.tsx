@@ -25,6 +25,7 @@ export default function LoginForm() {
           throw new Error('error');
         }
         router.push('/');
+        router.refresh();
         return res.json();
       })
       .then((data) => saveToken(ACCESS_TOKEN, data.token))
