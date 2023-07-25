@@ -83,11 +83,15 @@ export function checkEmail(email: string) {
 }
 
 export function saveToken(type: string, token: string) {
-  localStorage.setItem(type, token);
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(type, token);
+  }
 }
 
 export function getToken(type: string) {
-  return localStorage.getItem(type);
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem(type);
+  }
 }
 
 export function isLogin() {
@@ -96,5 +100,7 @@ export function isLogin() {
 }
 
 function clearToken() {
-  localStorage.clear();
+  if (typeof window !== 'undefined') {
+    localStorage.clear();
+  }
 }
