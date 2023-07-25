@@ -30,8 +30,8 @@ export default function MemoCard({
       >
         <MemoCardHeader createDate={createdDate} authorName={authorName} />
         <div>
-          <h2 className="text-4xl font-bold my-4">{memoTitle}</h2>
-          <p>{memoDescription}</p>
+          <h2 className="text-4xl font-bold my-7">{memoTitle}</h2>
+          <p>{memoDescription}dsfsd</p>
         </div>
       </article>
     </Link>

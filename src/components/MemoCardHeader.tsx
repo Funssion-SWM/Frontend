@@ -14,17 +14,17 @@ export default function MemoCardHeader({ createDate, authorName }: Props) {
         <Image
           src={exampleImg}
           alt="exampleImg"
-          height={40}
+          height={35}
           className="rounded-full"
         />
-        <div className="ml-1">
+        <div className="ml-2">
           <h4>{authorName}</h4>
-          <p className="text-sm text-gray-600">{createDate}</p>
+          <p className="text-xs text-gray-600">{createDate}</p>
         </div>
       </div>
       <div className="flex items-center">
         <AiFillHeart className="w-5 h-5 text-red-500 mr-1" />
-        <p>9999+</p>
+        <p>99+</p>
       </div>
     </div>
   );

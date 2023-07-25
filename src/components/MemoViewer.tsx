@@ -13,7 +13,7 @@ type Props = {
 export default function MemoViewer({ title, content, color }: Props) {
   return (
     <div
-      className={`rounded-lg shadow-lg p-6 ${
+      className={`rounded-lg shadow-lg p-6 min-h-[600px] ${
         {
           yellow: 'bg-yellow-100',
           red: 'bg-red-100',
