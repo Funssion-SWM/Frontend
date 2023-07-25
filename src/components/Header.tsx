@@ -2,7 +2,7 @@
 
 import exampleImg from '../../public/img/wade.jpeg';
 import Link from 'next/link';
-import { isLogin, logout } from '@/service/auth';
+import { getUserId, isLogin, logout } from '@/service/auth';
 import Image from 'next/image';
 import { useRef } from 'react';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
@@ -40,7 +40,13 @@ export default function Header() {
             <button
               className="hover:bg-gray-200 p-2 rounded-t-lg"
               onClick={() => {
-                router.push('/me');
+                getUserId()
+                  .then((res) => {
+                    if (!res.ok) throw new Error('error!!');
+                    return res.json();
+                  })
+                  .then((userId) => router.push(`/me/${userId}`))
+                  .catch(console.error);
                 setIsActive(false);
               }}
             >

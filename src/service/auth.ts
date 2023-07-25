@@ -45,6 +45,14 @@ export function logout() {
   clearToken();
 }
 
+export function getUserId() {
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users/check`, {
+    headers: {
+      Authorization: `Bearer ${getToken(ACCESS_TOKEN)}`,
+    },
+  });
+}
+
 export async function sendCodeToEmail(email: string) {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/auth/email_code`, {
     method: 'POST',

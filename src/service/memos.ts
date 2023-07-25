@@ -29,6 +29,19 @@ export async function getMemoById(id: number) {
   });
 }
 
+export async function getMemosByUserId(userId: number) {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}/memos`,
+    {
+      next: { revalidate: 0 },
+    }
+  );
+}
+
+export async function getUserInfo(userId: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}`);
+}
+
 export async function deleteMemo(id: number) {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/${id}`, {
     method: 'DELETE',
