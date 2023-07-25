@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useRef } from 'react';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import { useRouter } from 'next/navigation';
+import BlueBtn from './BlueBtn';
 
 export default function Header() {
   const router = useRouter();
@@ -63,15 +64,13 @@ export default function Header() {
               로그아웃
             </button>
           </nav>
-          <button
-            className=" bg-blue-500 text-white px-3 py-1 rounded-2xl"
+          <BlueBtn
+            text={'+글쓰기'}
             onClick={() => {
               router.push('/create/memo');
               setIsActive(false);
             }}
-          >
-            + 글쓰기
-          </button>
+          />
         </nav>
       ) : (
         <Link href="/login">

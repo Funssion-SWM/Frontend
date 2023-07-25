@@ -17,13 +17,11 @@ export default async function MemoPage({ params: { slug } }: Props) {
     .catch(console.error);
 
   return (
-    <section className="flex flex-col">
-      <WriterBtns memoId={slug} />
-      <MemoViewer
-        title={memoTitle}
-        content={JSON.parse(memoText)}
-        color={memoColor}
-      />
-    </section>
+    <MemoViewer
+      title={memoTitle}
+      content={JSON.parse(memoText)}
+      color={memoColor}
+      memoId={slug}
+    />
   );
 }

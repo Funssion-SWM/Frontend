@@ -2,6 +2,7 @@
 
 import { deleteMemo } from '@/service/memos';
 import { useRouter } from 'next/navigation';
+import BlueBtn from './BlueBtn';
 
 type Props = {
   memoId: number;
@@ -21,19 +22,13 @@ export default function WriterBtns({ memoId }: Props) {
       .catch(console.error);
   };
   return (
-    <div className="my-2 self-end">
-      <button
-        className=" bg-black text-white px-2 rounded-lg mx-1"
+    <section className="self-end">
+      <BlueBtn
+        text="수정하기"
         onClick={() => router.push(`/create/memo/${memoId}`)}
-      >
-        수정하기
-      </button>
-      <button
-        className=" bg-black text-white px-2 rounded-lg mx-1"
-        onClick={handleDelete}
-      >
-        삭제하기
-      </button>
-    </div>
+        extraStyle="mr-1"
+      />
+      <BlueBtn text="삭제하기" onClick={handleDelete} />
+    </section>
   );
 }

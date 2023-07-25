@@ -3,17 +3,19 @@
 import { EditorContent, useEditor } from '@tiptap/react';
 import { TiptapExtensions } from './ui/editor/extensions';
 import { TiptapEditorProps } from './ui/editor/props';
+import WriterBtns from './WriterBtns';
 
 type Props = {
   title: string;
   content: string;
   color: string;
+  memoId: number;
 };
 
-export default function MemoViewer({ title, content, color }: Props) {
+export default function MemoViewer({ title, content, color, memoId }: Props) {
   return (
-    <div
-      className={`rounded-lg shadow-lg p-6 min-h-[600px] ${
+    <section
+      className={`flex flex-col rounded-lg shadow-lg px-4 py-2 min-h-[650px] ${
         {
           yellow: 'bg-yellow-100',
           red: 'bg-red-100',
@@ -22,8 +24,9 @@ export default function MemoViewer({ title, content, color }: Props) {
         }[color]
       }  my-2`}
     >
+      <WriterBtns memoId={memoId} />
       <h1
-        className={`text-4xl font-bold py-2 mb-5 ${
+        className={`text-4xl font-bold py-3 px-4 mb-5 mt-2 ${
           {
             yellow: 'bg-yellow-50',
             red: 'bg-red-50',
@@ -34,14 +37,16 @@ export default function MemoViewer({ title, content, color }: Props) {
       >
         {title}
       </h1>
-      <EditorContent
-        editor={useEditor({
-          extensions: TiptapExtensions,
-          editorProps: TiptapEditorProps,
-          editable: false,
-          content: content,
-        })}
-      />
-    </div>
+      <div className="px-4">
+        <EditorContent
+          editor={useEditor({
+            extensions: TiptapExtensions,
+            editorProps: TiptapEditorProps,
+            editable: false,
+            content: content,
+          })}
+        />
+      </div>
+    </section>
   );
 }
