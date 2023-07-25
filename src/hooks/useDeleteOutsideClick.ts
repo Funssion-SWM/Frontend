@@ -13,7 +13,6 @@ export const useDetectOutsideClick = (
         setIsActive((pre) => !pre);
       }
     };
-    console.log(isActive);
     // If the item is active (ie open) then listen for clicks outside
     if (isActive) {
       window.addEventListener('click', onClick);
