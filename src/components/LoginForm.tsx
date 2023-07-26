@@ -57,7 +57,7 @@ export default function LoginForm() {
         required
         placeholder="비밀번호"
       />
-      <button className="bg-soma-blue-40 text-soma-white rounded-3xl py-2 my-5 font-bold">
+      <button className="bg-soma-blue-40 text-soma-white rounded-3xl py-3 my-5 font-bold">
         로그인
       </button>
     </form>
