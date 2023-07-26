@@ -25,6 +25,43 @@
   --novel-highlight-orange: #faebdd;
   --novel-highlight-pink: #faf1f5;
   --novel-highlight-gray: #f1f1ef;
+
+  --soma-balck: #000000;
+  --soma-white: #FFFFFF;
+
+  --soma-grey-5: #FEFEFE;
+  --soma-grey-10:#FDFDFD;
+  --soma-grey-20:#F8F9FB;
+  --soma-grey-25:#F2F4F6;
+  --soma-grey-30:#E9EBEE;
+  --soma-grey-40:#C5C8CE;
+  --soma-grey-45:#A7AEB9;
+  --soma-grey-48:#9099A4;
+  --soma-grey-49:#7C8692;
+  --soma-grey-50:#646F7C;
+  --soma-grey-60:#374553;
+  --soma-grey-70:#28323C;
+  --soma-grey-80:#161D24;
+
+  --soma-blue-5 :#F0F7FF;
+  --soma-blue-10 :#ECF4FF;
+  --soma-blue-20 :#DDEBFF;
+  --soma-blue-30 :#A3CAFF;
+  --soma-blue-35 :#7DB3FF;
+  --soma-blue-40 :#4992FF;
+  --soma-blue-50 :#2175F3;
+  --soma-blue-60 :#005BE4;
+
+  --soma-red-20 : #FFECF1;
+  --soma-red-60 : #FF006B;
+
+  --memo-bgcolor-green: #E6FFF0;
+  --memo-bgcolor-yellow: #FFF9E5;
+  --memo-bgcolor-navy: #E4EDFD;
+  --memo-bgcolor-purple: #F0EBFF;
+  --memo-bgcolor-pink: #FFEDF6;
+  --memo-bgcolor-skyblue: #E4F7FD;
+  --memo-bgcolor-orange: #FFEBE0;
 }
 
 body {
