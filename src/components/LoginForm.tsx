@@ -32,38 +32,32 @@ export default function LoginForm() {
       .catch(console.error);
   };
 
+  const INPUT_STYLE =
+    'text-lg border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30';
+
   return (
     <form className="flex flex-col w-full" onSubmit={handleSubmit}>
-      <div className="flex flex-col my-2">
-        <label htmlFor="email" className="text-lg">
-          이메일
-        </label>
-        <input
-          className="text-2xl border-2"
-          type="email"
-          id="email"
-          name="email"
-          value={loginData.email}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div className="flex flex-col  my-2">
-        <label htmlFor="pw" className="text-lg">
-          비밀번호
-        </label>
-        <input
-          className="text-2xl border-2"
-          type="password"
-          id="pw"
-          name="pw"
-          value={loginData.pw}
-          onChange={handleChange}
-          required
-        />
-      </div>
-
-      <button className="bg-green-400 rounded-lg py-2 my-5 font-bold">
+      <input
+        className={INPUT_STYLE}
+        type="email"
+        id="email"
+        name="email"
+        value={loginData.email}
+        onChange={handleChange}
+        required
+        placeholder="이메일"
+      />
+      <input
+        className={INPUT_STYLE}
+        type="password"
+        id="pw"
+        name="pw"
+        value={loginData.pw}
+        onChange={handleChange}
+        required
+        placeholder="비밀번호"
+      />
+      <button className="bg-soma-blue-40 text-soma-white rounded-3xl py-2 my-5 font-bold">
         로그인
       </button>
     </form>
