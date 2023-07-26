@@ -8,14 +8,22 @@ export default function ColorCricle({ color, selected, onClick }: Props) {
   return (
     <div
       onClick={() => onClick(color)}
-      className={`w-6 h-6 rounded-full cursor-pointer ${
+      className={`w-6 h-6 rounded-full cursor-pointer border-[1px] border-black ${
         {
-          yellow: 'bg-yellow-100',
-          red: 'bg-red-100',
-          green: 'bg-green-100',
-          blue: 'bg-blue-100',
+          yellow: 'bg-memo-yellow',
+          green: 'bg-memo-green',
+          skyblue: 'bg-memo-skyblue',
+          orange: 'bg-memo-orange',
+          pink: 'bg-memo-pink',
+          navy: 'bg-memo-navy',
+          purple: 'bg-memo-purple',
         }[color]
-      } ${selected === color && 'border-2 border-black'}`}
-    ></div>
+      } ${
+        selected === color &&
+        'border-[2px] border-soma-blue-50 text-soma-blue-50 text-center'
+      }`}
+    >
+      {selected === color && '✓'}
+    </div>
   );
 }

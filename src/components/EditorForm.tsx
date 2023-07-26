@@ -99,10 +99,13 @@ export default function EditorForm({
     <section
       className={`flex flex-col rounded-lg shadow-lg px-4 py-2 my-2 min-h-[650px] ${
         {
-          yellow: 'bg-yellow-100',
-          red: 'bg-red-100',
-          green: 'bg-green-100',
-          blue: 'bg-blue-100',
+          yellow: 'bg-memo-yellow',
+          green: 'bg-memo-green',
+          skyblue: 'bg-memo-skyblue',
+          orange: 'bg-memo-orange',
+          pink: 'bg-memo-pink',
+          navy: 'bg-memo-navy',
+          purple: 'bg-memo-purple',
         }[selectedColor]
       }`}
     >

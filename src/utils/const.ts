@@ -1,3 +1,11 @@
-export const COLORS = ['yellow', 'red', 'green', 'blue'];
+export const COLORS = [
+  'yellow',
+  'green',
+  'skyblue',
+  'orange',
+  'pink',
+  'navy',
+  'purple',
+];
 
 export const ACCESS_TOKEN = 'access_token';

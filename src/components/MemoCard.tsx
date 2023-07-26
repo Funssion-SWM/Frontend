@@ -21,17 +21,20 @@ export default function MemoCard({
       <article
         className={`rounded-md shadow-md aspect-square p-4 ${
           {
-            yellow: 'bg-yellow-100',
-            red: 'bg-red-100',
-            green: 'bg-green-100',
-            blue: 'bg-blue-100',
+            yellow: 'bg-memo-yellow',
+            green: 'bg-memo-green',
+            skyblue: 'bg-memo-skyblue',
+            orange: 'bg-memo-orange',
+            pink: 'bg-memo-pink',
+            navy: 'bg-memo-navy',
+            purple: 'bg-memo-purple',
           }[memoColor]
         } `}
       >
         <MemoCardHeader createDate={createdDate} authorName={authorName} />
         <div>
           <h2 className="text-4xl font-bold my-7">{memoTitle}</h2>
-          <p>{memoDescription}dsfsd</p>
+          <p>{memoDescription}</p>
         </div>
       </article>
     </Link>

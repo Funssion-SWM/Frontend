@@ -17,10 +17,13 @@ export default function MemoViewer({ title, content, color, memoId }: Props) {
     <section
       className={`flex flex-col rounded-lg shadow-lg px-4 py-2 min-h-[650px] ${
         {
-          yellow: 'bg-yellow-100',
-          red: 'bg-red-100',
-          green: 'bg-green-100',
-          blue: 'bg-blue-100',
+          yellow: 'bg-memo-yellow',
+          green: 'bg-memo-green',
+          skyblue: 'bg-memo-skyblue',
+          orange: 'bg-memo-orange',
+          pink: 'bg-memo-pink',
+          navy: 'bg-memo-navy',
+          purple: 'bg-memo-purple',
         }[color]
       }  my-2`}
     >
@@ -29,9 +32,12 @@ export default function MemoViewer({ title, content, color, memoId }: Props) {
         className={`text-4xl font-bold py-3 px-4 mb-5 mt-2 ${
           {
             yellow: 'bg-yellow-50',
-            red: 'bg-red-50',
             green: 'bg-green-50',
-            blue: 'bg-blue-50',
+            skyblue: 'bg-sky-50',
+            orange: 'bg-orange-50',
+            pink: 'bg-pink-50',
+            navy: 'bg-blue-50',
+            purple: 'bg-purple-50',
           }[color]
         }`}
       >
