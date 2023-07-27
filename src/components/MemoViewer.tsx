@@ -28,12 +28,10 @@ export default function MemoViewer({
       1;
       await checkUser()
         .then((res) => {
-          // if (!res.ok) throw new Error('error!!');
-          console.log(res);
+          if (!res.ok) throw new Error('error!!');
           return res.json();
         })
         .then((data) => {
-          console.log(data);
           setUid(data.id);
         })
         .catch((err) => console.error(err));

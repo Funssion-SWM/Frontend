@@ -20,12 +20,10 @@ export default function Header() {
       1;
       await checkUser()
         .then((res) => {
-          // if (!res.ok) throw new Error('error!!');
-          console.log(res);
+          if (!res.ok) throw new Error('error!!');
           return res.json();
         })
         .then((data) => {
-          console.log(data);
           setIsLogin(data.isLogin);
         })
         .catch((err) => console.error(err));
@@ -87,7 +85,6 @@ export default function Header() {
                 onClick={() => {
                   logout()
                     .then((res) => {
-                      console.log(res);
                       if (!res.ok) throw new Error('error!!');
                       setIsActive(false);
                       router.push('/');
