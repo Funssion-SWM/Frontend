@@ -28,10 +28,10 @@ export default function Header() {
           console.log(data);
           setIsLogin(data.isLogin);
         })
-        .catch((err) => console.error);
+        .catch((err) => console.error(err));
     }
     first();
-  }, []);
+  }, [isActive]);
 
   return (
     <header className=" border-b-2">
@@ -89,8 +89,9 @@ export default function Header() {
                     .then((res) => {
                       console.log(res);
                       if (!res.ok) throw new Error('error!!');
-                      router.refresh();
                       setIsActive(false);
+                      router.push('/');
+                      router.refresh();
                     })
                     .catch(console.error);
                 }}

@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function MemoPage({ params: { slug } }: Props) {
-  const { memoTitle, memoColor, memoText } = await getMemoById(slug)
+  const { memoTitle, memoColor, memoText, userId } = await getMemoById(slug)
     .then((res) => {
       if (!res.ok) throw new Error('error');
       return res.json();
@@ -37,6 +37,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
         content={JSON.parse(memoText)}
         color={memoColor}
         memoId={slug}
+        userId={userId}
       />
     </>
   );
