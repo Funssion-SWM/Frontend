@@ -1,7 +1,6 @@
 'use client';
 
-import { LoginFormData, login, saveToken } from '@/service/auth';
-import { ACCESS_TOKEN } from '@/utils/const';
+import { LoginFormData, login } from '@/service/auth';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, FormEvent, useState } from 'react';
 
@@ -28,7 +27,6 @@ export default function LoginForm() {
         router.refresh();
         return res.json();
       })
-      .then((data) => saveToken(ACCESS_TOKEN, data.token))
       .catch(console.error);
   };
 

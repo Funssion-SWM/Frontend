@@ -1,6 +1,3 @@
-import { ACCESS_TOKEN } from '@/utils/const';
-import { getToken } from './auth';
-
 export type Memo = {
   memoId: number;
   memoTitle: string;
@@ -43,10 +40,11 @@ export async function getUserInfo(userId: number) {
 }
 
 export async function deleteMemo(id: number) {
-  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/${id}`, {
-    method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${getToken(ACCESS_TOKEN)}`,
-    },
-  });
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${id}`,
+    {
+      method: 'DELETE',
+      credentials: 'include',
+    }
+  );
 }
