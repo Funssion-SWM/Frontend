@@ -43,8 +43,13 @@ export async function login(userData: LoginData) {
   );
 }
 
-export function logout() {
-  clearToken();
+export async function logout() {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/logout`,
+    {
+      credentials: 'include',
+    }
+  );
 }
 
 export function checkUser() {

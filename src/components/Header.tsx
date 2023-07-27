@@ -24,15 +24,11 @@ export default function Header() {
           console.log(res);
           return res.json();
         })
-        .then((id) => {
-          console.log(id);
-          setIsLogin(true);
+        .then((data) => {
+          console.log(data);
+          setIsLogin(data.isLogin);
         })
-        .catch((err) => {
-          console.error(err);
-          console.log('hello');
-          setIsLogin(false);
-        });
+        .catch((err) => console.error);
     }
     first();
   }, []);
@@ -77,8 +73,8 @@ export default function Header() {
                       if (!res.ok) throw new Error('error!!');
                       return res.json();
                     })
-                    .then((userId) => {
-                      router.push(`/me/${userId}`);
+                    .then((data) => {
+                      router.push(`/me/${data.id}`);
                     })
                     .catch(console.error);
                   setIsActive(false);
@@ -89,9 +85,14 @@ export default function Header() {
               <button
                 className="hover:bg-gray-200 p-2 rounded-b-lg"
                 onClick={() => {
-                  logout();
-                  router.refresh();
-                  setIsActive(false);
+                  logout()
+                    .then((res) => {
+                      console.log(res);
+                      if (!res.ok) throw new Error('error!!');
+                      router.refresh();
+                      setIsActive(false);
+                    })
+                    .catch(console.error);
                 }}
               >
                 로그아웃
