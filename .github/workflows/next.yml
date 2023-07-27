@@ -37,7 +37,6 @@ jobs:
         username: ec2-user
         key: ${{ secrets.PRIVATE_KEY }}
         script: |
-            ssh -i ${{ secrets.PRIVATE_PEM }} ec2-user@${{ secrets.HOST_NEXT }}
-            sudo docker rm -f $(docker ps -qa)
-            sudo docker pull ${{ secrets.DOCKER_REPO }}/${{ secrets.DOCKER_IMAGE }}
-            sudo docker run -dp 80:8080 ${{ secrets.DOCKER_REPO }}/${{ secrets.DOCKER_IMAGE }}
+            ssh next sudo docker rm -f $(docker ps -qa)
+            ssh next sudo docker pull ${{ secrets.DOCKER_REPO }}/${{ secrets.DOCKER_IMAGE }}
+            ssh next sudo docker run -dp 80:8080 ${{ secrets.DOCKER_REPO }}/${{ secrets.DOCKER_IMAGE }}
