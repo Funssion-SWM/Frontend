@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import exampleImg from '../../public/img/wade.jpeg';
+import exampleImg from '../../public/img/profile.png';
 import { AiFillHeart } from 'react-icons/ai';
 
 type Props = {

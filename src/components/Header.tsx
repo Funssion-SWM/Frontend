@@ -1,6 +1,6 @@
 'use client';
 
-import exampleImg from '../../public/img/wade.jpeg';
+import exampleImg from '../../public/img/profile.png';
 import Link from 'next/link';
 import { getUserId, isLogin, logout } from '@/service/auth';
 import Image from 'next/image';
