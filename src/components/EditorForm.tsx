@@ -58,14 +58,15 @@ export default function EditorForm({
   const [selectedColor, setSelectedColor] = useState(preColor);
   const handleBtnClick = () => {
     fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos${
+      `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos${
         !isFirst ? `/${memoId}` : ''
       }`,
       {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${getToken(ACCESS_TOKEN)}`,
+          // Authorization: `Bearer ${getToken(ACCESS_TOKEN)}`,
           'Content-Type': 'application/json',
+          credential: 'include',
         },
         body: JSON.stringify({
           memoTitle: title,

@@ -34,11 +34,14 @@ export async function signUp(userData: SignUpData) {
 }
 
 export async function login(userData: LoginData) {
-  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users/login`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(userData),
-  });
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/login`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', credential: 'include' },
+      body: JSON.stringify(userData),
+    }
+  );
 }
 
 export function logout() {
