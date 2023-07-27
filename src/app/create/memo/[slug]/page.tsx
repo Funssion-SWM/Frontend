@@ -7,6 +7,19 @@ type Props = {
   };
 };
 
+export async function generateMetadata({ params }: Props) {
+  const { memoTitle } = await getMemoById(params.slug)
+    .then((res) => {
+      if (!res.ok) throw new Error('error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
+
+  return {
+    title: `(수정중) - ${memoTitle}`,
+  };
+}
+
 export default async function CreateMemoPage({ params: { slug } }: Props) {
   const { memoTitle, memoColor, memoText } = await getMemoById(slug)
     .then((res) => {

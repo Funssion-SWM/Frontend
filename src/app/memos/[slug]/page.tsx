@@ -1,5 +1,4 @@
 import MemoViewer from '@/components/MemoViewer';
-import WriterBtns from '@/components/WriterBtns';
 import { getMemoById } from '@/service/memos';
 
 type Props = {
@@ -7,6 +6,19 @@ type Props = {
     slug: number;
   };
 };
+
+export async function generateMetadata({ params }: Props) {
+  const { memoTitle } = await getMemoById(params.slug)
+    .then((res) => {
+      if (!res.ok) throw new Error('error');
+      return res.json();
+    })
+    .catch(console.error);
+
+  return {
+    title: memoTitle,
+  };
+}
 
 export default async function MemoPage({ params: { slug } }: Props) {
   const { memoTitle, memoColor, memoText } = await getMemoById(slug)

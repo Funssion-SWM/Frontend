@@ -9,6 +9,19 @@ type Props = {
   };
 };
 
+export async function generateMetadata({ params }: Props) {
+  const { userName } = await getUserInfo(params.slug)
+    .then((res) => {
+      if (!res.ok) throw new Error('error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
+
+  return {
+    title: userName,
+  };
+}
+
 export default async function MePage({ params: { slug } }: Props) {
   const memos = await getMemosByUserId(slug)
     .then((res) => {

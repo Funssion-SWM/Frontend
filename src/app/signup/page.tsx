@@ -1,5 +1,11 @@
 import SignupForm from '@/components/SignupForm';
+import { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: '회원가입',
+  description: '회원가입을 하는 곳입니다.',
+};
 
 export default function SignupPage() {
   return (
