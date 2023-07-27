@@ -35,7 +35,7 @@ export default function Header() {
         });
     }
     first();
-  }, [isLogin]);
+  }, []);
 
   return (
     <header className=" border-b-2">
