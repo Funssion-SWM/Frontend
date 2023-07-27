@@ -13,23 +13,29 @@ export default function Header() {
   const router = useRouter();
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
-  const [isLogin, setIsLogin] = useState(false);
-  const [userId, setUserId] = useState(-1);
+  const [isLogin, setIsLogin] = useState(null);
 
   useEffect(() => {
-    checkUser()
-      .then((res) => {
-        if (!res.ok) throw new Error('error!!');
-        return res.json();
-      })
-      .then(({ id, isLogin }) => {
-        console.log(id);
-        console.log(isLogin);
-        setUserId(id);
-        setIsLogin(isLogin);
-      })
-      .catch(console.error);
-  }, []);
+    async function first() {
+      1;
+      await checkUser()
+        .then((res) => {
+          // if (!res.ok) throw new Error('error!!');
+          console.log(res);
+          return res.json();
+        })
+        .then((id) => {
+          console.log(id);
+          setIsLogin(true);
+        })
+        .catch((err) => {
+          console.error(err);
+          console.log('hello');
+          setIsLogin(false);
+        });
+    }
+    first();
+  }, [isLogin]);
 
   return (
     <header className=" border-b-2">
@@ -48,7 +54,7 @@ export default function Header() {
         <Link href="/memos">Memos</Link>
         <Link href="/stories">Stories</Link>
       </nav> */}
-        {isLogin ? (
+        {isLogin === true && (
           <nav className="flex items-center gap-3 relative" ref={dropdownRef}>
             <button onClick={() => setIsActive((pre) => !pre)}>
               <Image
@@ -66,14 +72,15 @@ export default function Header() {
               <button
                 className="hover:bg-gray-200 p-2 rounded-t-lg"
                 onClick={() => {
-                  // checkUser()
-                  //   .then((res) => {
-                  //     if (!res.ok) throw new Error('error!!');
-                  //     return res.json();
-                  //   })
-                  //   .then((userId) => router.push(`/me/${userId}`))
-                  //   .catch(console.error);
-                  router.push(`/me/${userId}`);
+                  checkUser()
+                    .then((res) => {
+                      if (!res.ok) throw new Error('error!!');
+                      return res.json();
+                    })
+                    .then((userId) => {
+                      router.push(`/me/${userId}`);
+                    })
+                    .catch(console.error);
                   setIsActive(false);
                 }}
               >
@@ -98,7 +105,8 @@ export default function Header() {
               }}
             />
           </nav>
-        ) : (
+        )}
+        {isLogin === false && (
           <Link href="/login">
             <button className=" bg-blue-500 text-white px-2 py-1 rounded-2xl">
               회원가입/로그인

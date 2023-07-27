@@ -1,3 +1,4 @@
+import Header from '@/components/Header';
 import MemosGrid from '@/components/MemosGrid';
 import { getMemos } from '@/service/memos';
 
@@ -213,6 +214,7 @@ export default async function HomePage() {
   return (
     <section>
       {/* <h2 className="text-xl font-bold my-5">Memos</h2> */}
+      <Header />
       <MemosGrid memos={memos} colNum={4} />
     </section>
   );

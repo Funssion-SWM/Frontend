@@ -1,3 +1,4 @@
+import Header from '@/components/Header';
 import MemoViewer from '@/components/MemoViewer';
 import { getMemoById } from '@/service/memos';
 
@@ -29,11 +30,14 @@ export default async function MemoPage({ params: { slug } }: Props) {
     .catch(console.error);
 
   return (
-    <MemoViewer
-      title={memoTitle}
-      content={JSON.parse(memoText)}
-      color={memoColor}
-      memoId={slug}
-    />
+    <>
+      <Header />
+      <MemoViewer
+        title={memoTitle}
+        content={JSON.parse(memoText)}
+        color={memoColor}
+        memoId={slug}
+      />
+    </>
   );
 }

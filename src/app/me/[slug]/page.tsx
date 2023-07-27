@@ -1,3 +1,4 @@
+import Header from '@/components/Header';
 import History from '@/components/History';
 import MemosGrid from '@/components/MemosGrid';
 import Profile from '@/components/Profile';
@@ -38,15 +39,18 @@ export default async function MePage({ params: { slug } }: Props) {
     .catch(console.error);
 
   return (
-    <div className="flex min-h-screen(-header)">
-      <section className="w-[300px] p-6 bg-gray-100">
-        <Profile userInfo={userInfo} />
-        <History />
-      </section>
-      <section className="grow w-full p-6">
-        <h3 className="font-bold text-2xl mb-1">My Memos</h3>
-        <MemosGrid memos={memos} colNum={3} />
-      </section>
+    <div className="flex flex-col min-h-screen(-header)">
+      <Header />
+      <div className="flex">
+        <section className="w-[300px] p-6 bg-gray-100">
+          <Profile userInfo={userInfo} />
+          <History />
+        </section>
+        <section className="grow w-full p-6">
+          <h3 className="font-bold text-2xl mb-1">My Memos</h3>
+          <MemosGrid memos={memos} colNum={3} />
+        </section>
+      </div>
     </div>
   );
 }

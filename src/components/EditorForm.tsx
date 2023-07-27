@@ -4,8 +4,6 @@ import SelectColorBar from '@/components/SelectColorBar';
 import MyEditor from '@/components/ui/editor';
 import { TiptapExtensions } from '@/components/ui/editor/extensions';
 import { TiptapEditorProps } from '@/components/ui/editor/props';
-import { getToken } from '@/service/auth';
-import { ACCESS_TOKEN } from '@/utils/const';
 import { useEditor } from '@tiptap/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -64,7 +62,6 @@ export default function EditorForm({
       {
         method: 'POST',
         headers: {
-          // Authorization: `Bearer ${getToken(ACCESS_TOKEN)}`,
           'Content-Type': 'application/json',
         },
         credentials: 'include',
@@ -98,7 +95,7 @@ export default function EditorForm({
   };
   return (
     <section
-      className={`flex flex-col rounded-lg shadow-lg px-4 py-2 my-2 min-h-[650px] ${
+      className={`relative flex flex-col rounded-lg shadow-lg px-4 py-2 my-2 min-h-[650px] mt-12 ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
@@ -127,6 +124,12 @@ export default function EditorForm({
       {/* <h3>tag</h3> */}
       <SelectColorBar selected={selectedColor} onClick={handleColorClick} />
       <MyEditor editor={editor} />
+      <button
+        className="absolute bottom-3 right-5 text-soma-grey-50"
+        onClick={() => router.back()}
+      >
+        나가기
+      </button>
     </section>
   );
 }
