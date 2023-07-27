@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - uses: actions/checkout@v3
+    
     - name: Add env
       run: echo "${{ secrets.NEXT_LOCAL_ENV }}" > ./.env.local
       
