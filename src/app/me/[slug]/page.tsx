@@ -32,7 +32,7 @@ export default async function MePage({ params: { slug } }: Props) {
       </section>
       <section className="grow w-full p-6">
         <h3 className="font-bold text-2xl mb-1">My Memos</h3>
-        <MemosGrid memos={memos} />
+        <MemosGrid memos={memos} colNum={3} />
       </section>
     </div>
   );

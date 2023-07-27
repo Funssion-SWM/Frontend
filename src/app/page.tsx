@@ -213,7 +213,7 @@ export default async function HomePage() {
   return (
     <section>
       {/* <h2 className="text-xl font-bold my-5">Memos</h2> */}
-      <MemosGrid memos={memos} />
+      <MemosGrid memos={memos} colNum={4} />
     </section>
   );
 }
