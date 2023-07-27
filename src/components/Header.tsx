@@ -18,7 +18,7 @@ export default function Header() {
     <header className=" border-b-2">
       <div className="flex justify-between items-center py-4 px-10 max-w-screen-xl m-auto">
         <Link href="/">
-          <h1 className="text-2xl font-bold">SOMA</h1>
+          <h1 className="text-2xl font-bold">Inforum</h1>
         </Link>
         {/* <nav className="flex gap-4">
         <Link href="/memos">Memos</Link>
