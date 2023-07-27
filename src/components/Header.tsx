@@ -17,9 +17,16 @@ export default function Header() {
   return (
     <header className=" border-b-2">
       <div className="flex justify-between items-center py-4 px-10 max-w-screen-xl m-auto">
-        <Link href="/">
-          <h1 className="text-2xl font-bold">Inforum</h1>
-        </Link>
+        <h1
+          className="text-2xl font-bold cursor-pointer"
+          onClick={() => {
+            router.push('/');
+            router.refresh();
+          }}
+        >
+          Inforum
+        </h1>
+
         {/* <nav className="flex gap-4">
         <Link href="/memos">Memos</Link>
         <Link href="/stories">Stories</Link>
