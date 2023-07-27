@@ -38,7 +38,7 @@ export async function login(userData: LoginData) {
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/login`,
     {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', credential: 'include' },
+      headers: { 'Content-Type': 'application/json', credentials: 'include' },
       body: JSON.stringify(userData),
     }
   );
