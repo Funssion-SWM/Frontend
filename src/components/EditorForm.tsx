@@ -66,8 +66,8 @@ export default function EditorForm({
         headers: {
           // Authorization: `Bearer ${getToken(ACCESS_TOKEN)}`,
           'Content-Type': 'application/json',
-          credentials: 'include',
         },
+        credentials: 'include',
         body: JSON.stringify({
           memoTitle: title,
           memoDescription: 'test description',
