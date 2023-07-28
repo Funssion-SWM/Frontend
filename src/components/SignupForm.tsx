@@ -102,16 +102,16 @@ export default function SignupForm() {
             required
             placeholder="이메일을 입력해주세요."
           />
-          <button className={GREY_BTN_STYLE} onClick={handleIsDuplicate1}>
+          {/* <button className={GREY_BTN_STYLE} onClick={handleIsDuplicate1}>
             중복확인
-          </button>
+          </button> */}
           {/* <button className={GREY_BTN_STYLE} onClick={handleSendCode}>
             보내기
           </button> */}
         </div>
       </div>
       {msgFlag1 && <WarningMessage text="중복되는 이메일입니다." />}
-      <div className="flex flex-col my-1">
+      {/* <div className="flex flex-col my-1">
         <label htmlFor="authCode" className="text-sm">
           인증번호
         </label>
@@ -130,7 +130,7 @@ export default function SignupForm() {
             인증
           </button>
         </div>
-      </div>
+      </div> */}
       <div className="flex flex-col my-1">
         <label htmlFor="nickname" className="text-sm">
           닉네임
@@ -146,9 +146,9 @@ export default function SignupForm() {
             required
             placeholder="활동할 닉네임을 입력해주세요."
           />
-          <button className={GREY_BTN_STYLE} onClick={handleIsDuplicate2}>
+          {/* <button className={GREY_BTN_STYLE} onClick={handleIsDuplicate2}>
             중복확인
-          </button>
+          </button> */}
         </div>
       </div>
       {msgFlag2 && <WarningMessage text="중복되는 닉네임입니다." />}
