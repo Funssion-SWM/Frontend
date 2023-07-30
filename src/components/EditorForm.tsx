@@ -1,13 +1,13 @@
 'use client';
 
-import SelectColorBar from '@/components/SelectColorBar';
+import SelectColorBar from '@/components/shared/SelectColorBar';
 import MyEditor from '@/components/ui/editor';
 import { TiptapExtensions } from '@/components/ui/editor/extensions';
 import { TiptapEditorProps } from '@/components/ui/editor/props';
 import { useEditor } from '@tiptap/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import BlueBtn from './BlueBtn';
+import BlueBtn from './shared/BlueBtn';
 
 type Props = {
   preTitle?: string;

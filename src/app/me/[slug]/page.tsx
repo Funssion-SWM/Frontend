@@ -1,6 +1,6 @@
-import Header from '@/components/Header';
-import History from '@/components/History';
-import MemosGrid from '@/components/MemosGrid';
+import Header from '@/components/shared/Header';
+import History from '@/components/history/History';
+import MemosGrid from '@/components/memo/MemosGrid';
 import Profile from '@/components/Profile';
 import { getMemosByUserId, getUserInfo } from '@/service/memos';
 

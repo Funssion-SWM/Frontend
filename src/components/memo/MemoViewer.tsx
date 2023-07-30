@@ -1,9 +1,9 @@
 'use client';
 
 import { EditorContent, useEditor } from '@tiptap/react';
-import { TiptapExtensions } from './ui/editor/extensions';
-import { TiptapEditorProps } from './ui/editor/props';
-import WriterBtns from './WriterBtns';
+import { TiptapExtensions } from '../ui/editor/extensions';
+import { TiptapEditorProps } from '../ui/editor/props';
+import WriterBtns from '../shared/WriterBtns';
 import { useEffect, useState } from 'react';
 import { checkUser } from '@/service/auth';
 

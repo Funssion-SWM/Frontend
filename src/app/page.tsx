@@ -1,5 +1,5 @@
-import Header from '@/components/Header';
-import MemosGrid from '@/components/MemosGrid';
+import Header from '@/components/shared/Header';
+import MemosGrid from '@/components/memo/MemosGrid';
 import { getMemos } from '@/service/memos';
 
 export default async function HomePage() {

@@ -1,5 +1,5 @@
-import Header from '@/components/Header';
-import MemoViewer from '@/components/MemoViewer';
+import Header from '@/components/shared/Header';
+import MemoViewer from '@/components/memo/MemoViewer';
 import { getMemoById } from '@/service/memos';
 
 type Props = {

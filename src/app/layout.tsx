@@ -1,4 +1,4 @@
-import Header from '@/components/Header';
+import Header from '@/components/shared/Header';
 import '@/styles/globals.css';
 import '@/styles/prosemirror.css';
 import { Inter } from 'next/font/google';
