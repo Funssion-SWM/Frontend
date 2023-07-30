@@ -23,12 +23,19 @@ export type LoginFormData = {
   pw: string;
 };
 
-export async function signUp(userData: SignUpData) {
+export async function signUp(userData: SignUpData, callback: () => void) {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(userData),
-  });
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('error');
+      }
+      callback();
+    })
+    .catch(console.error);
 }
 
 export async function login(userData: LoginData, callback: () => void) {

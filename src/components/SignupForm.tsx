@@ -12,6 +12,11 @@ import {
 } from '@/service/auth';
 import { useRouter } from 'next/navigation';
 
+const INPUT_STYLE =
+  'text-lg border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow';
+const GREY_BTN_STYLE =
+  'bg-soma-grey-30 rounded-2xl mx-2 px-2 text-soma-grey-45 font-semibold text-lg py-2';
+
 export default function SignupForm() {
   const router = useRouter();
   const [signupData, setSignupData] = useState<SignupFormData>({
@@ -40,20 +45,15 @@ export default function SignupForm() {
       return;
     }
 
-    signUp({
-      user_name: signupData.nickname,
-      login_type: 0,
-      user_email: signupData.email,
-      user_pw: signupData.pw,
-    })
-      .then((res) => {
-        console.log(res);
-        if (!res.ok) {
-          throw new Error('error');
-        }
-        router.push('/login');
-      })
-      .catch(console.error);
+    signUp(
+      {
+        user_name: signupData.nickname,
+        login_type: 0,
+        user_email: signupData.email,
+        user_pw: signupData.pw,
+      },
+      () => router.push('/login')
+    );
   };
 
   const handleIsDuplicate1 = () => {
@@ -79,11 +79,6 @@ export default function SignupForm() {
   const handleConfirmCode = () => {
     confirmCode(signupData.authCode).then(console.log).catch(console.error);
   };
-
-  const INPUT_STYLE =
-    'text-lg border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow';
-  const GREY_BTN_STYLE =
-    'bg-soma-grey-30 rounded-2xl mx-2 px-2 text-soma-grey-45 font-semibold text-lg py-2';
 
   return (
     <form className="flex flex-col w-full" onSubmit={handleSubmit}>
