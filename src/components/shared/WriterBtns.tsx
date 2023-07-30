@@ -10,17 +10,12 @@ type Props = {
 
 export default function WriterBtns({ memoId }: Props) {
   const router = useRouter();
-  const handleDelete = () => {
-    deleteMemo(memoId)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error('error');
-        }
-        router.push('/');
-        router.refresh();
-      })
-      .catch(console.error);
-  };
+  const handleDelete = () =>
+    deleteMemo(memoId, () => {
+      router.push('/');
+      router.refresh();
+    });
+
   return (
     <section className="self-end">
       <BlueBtn

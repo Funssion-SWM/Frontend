@@ -204,12 +204,7 @@ export default async function HomePage() {
   //   },
   // ];
 
-  const memos = await getMemos()
-    .then((res) => {
-      if (!res.ok) throw new Error('error 발생!');
-      return res.json();
-    })
-    .catch(console.error);
+  const memos = await getMemos();
 
   return (
     <section>

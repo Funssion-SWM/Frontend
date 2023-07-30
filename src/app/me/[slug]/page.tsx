@@ -10,33 +10,9 @@ type Props = {
   };
 };
 
-export async function generateMetadata({ params }: Props) {
-  const { userName } = await getUserInfo(params.slug)
-    .then((res) => {
-      if (!res.ok) throw new Error('error 발생!');
-      return res.json();
-    })
-    .catch(console.error);
-
-  return {
-    title: userName,
-  };
-}
-
 export default async function MePage({ params: { slug } }: Props) {
-  const memos = await getMemosByUserId(slug)
-    .then((res) => {
-      if (!res.ok) throw new Error('error 발생!');
-      return res.json();
-    })
-    .catch(console.error);
-
-  const userInfo = await getUserInfo(slug)
-    .then((res) => {
-      if (!res.ok) throw new Error('error 발생!');
-      return res.json();
-    })
-    .catch(console.error);
+  const memos = await getMemosByUserId(slug);
+  const userInfo = await getUserInfo(slug);
 
   return (
     <div className="flex flex-col min-h-screen(-header)">
@@ -53,4 +29,12 @@ export default async function MePage({ params: { slug } }: Props) {
       </div>
     </div>
   );
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { userName } = await getUserInfo(params.slug);
+
+  return {
+    title: userName,
+  };
 }

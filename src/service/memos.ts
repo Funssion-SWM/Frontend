@@ -17,13 +17,23 @@ export async function getMemos(
   const params = { period: period, orderBy: orderBy };
   url.search = new URLSearchParams(params).toString();
 
-  return fetch(url, { next: { revalidate: 0 } });
+  return fetch(url, { next: { revalidate: 0 } })
+    .then((res) => {
+      if (!res.ok) throw new Error('error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
 }
 
 export async function getMemoById(id: number) {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/${id}`, {
     next: { revalidate: 0 },
-  });
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error('error');
+      return res.json();
+    })
+    .catch(console.error);
 }
 
 export async function getMemosByUserId(userId: number) {
@@ -32,19 +42,36 @@ export async function getMemosByUserId(userId: number) {
     {
       next: { revalidate: 0 },
     }
-  );
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
 }
 
 export async function getUserInfo(userId: number) {
-  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}`);
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}`)
+    .then((res) => {
+      if (!res.ok) throw new Error('error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
 }
 
-export async function deleteMemo(id: number) {
+export async function deleteMemo(id: number, callback: () => void) {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${id}`,
     {
       method: 'DELETE',
       credentials: 'include',
     }
-  );
+  )
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('error');
+      }
+      callback();
+    })
+    .catch(console.error);
 }
