@@ -5,8 +5,9 @@ export type Memo = {
   memoDescription: string;
   memoColor: string;
   createdDate: string;
-  authorId: number;
-  authorName: string;
+  updatedDate: string;
+  userId: number;
+  userName: string;
 };
 
 type PostMemoData = {
@@ -16,10 +17,14 @@ type PostMemoData = {
   memoColor: string;
 };
 
+type UserInfo = {
+  userName: string;
+};
+
 export async function getMemos(
   period: string = 'day',
   orderBy: string = 'new'
-) {
+): Promise<Memo[]> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`);
   const params = { period: period, orderBy: orderBy };
   url.search = new URLSearchParams(params).toString();
@@ -32,7 +37,7 @@ export async function getMemos(
     .catch(console.error);
 }
 
-export async function getMemoById(id: number) {
+export async function getMemoById(id: number): Promise<Memo> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/${id}`, {
     next: { revalidate: 0 },
   })
@@ -43,7 +48,7 @@ export async function getMemoById(id: number) {
     .catch(console.error);
 }
 
-export async function getMemosByUserId(userId: number) {
+export async function getMemosByUserId(userId: number): Promise<Memo[]> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}/memos`,
     {
@@ -57,7 +62,7 @@ export async function getMemosByUserId(userId: number) {
     .catch(console.error);
 }
 
-export async function getUserInfo(userId: number) {
+export async function getUserInfo(userId: number): Promise<UserInfo> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}`)
     .then((res) => {
       if (!res.ok) throw new Error('error 발생!');
@@ -70,7 +75,7 @@ export async function createAndUpdateMemo(
   url: string,
   bodyData: PostMemoData,
   callback: () => void
-) {
+): Promise<Memo> {
   return fetch(url, {
     method: 'POST',
     headers: {
@@ -84,6 +89,7 @@ export async function createAndUpdateMemo(
         throw new Error('error');
       }
       callback();
+      return res.json();
     })
     .catch(console.error);
 }

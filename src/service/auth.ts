@@ -25,7 +25,7 @@ export type LoginFormData = {
 
 type CheckUserResponse = {
   id: number;
-  isLogin: true;
+  isLogin: boolean;
 };
 
 export async function signUp(userData: SignUpData, callback: () => void) {
@@ -77,7 +77,7 @@ export async function logout(callback: () => void) {
     .catch(console.error);
 }
 
-export async function checkUser(callback: (data: CheckUserResponse) => void) {
+export async function checkUser(): Promise<CheckUserResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/check`,
     {
@@ -87,9 +87,6 @@ export async function checkUser(callback: (data: CheckUserResponse) => void) {
     .then((res) => {
       if (!res.ok) throw new Error('error!!');
       return res.json();
-    })
-    .then((data) => {
-      callback(data);
     })
     .catch(console.error);
 }

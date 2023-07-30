@@ -16,7 +16,7 @@ export default function Header() {
   const [isLogin, setIsLogin] = useState(null);
 
   async function first() {
-    await checkUser((data) => setIsLogin(data.isLogin));
+    await checkUser().then((data) => setIsLogin(data.isLogin));
   }
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export default function Header() {
               <button
                 className="hover:bg-gray-200 p-2 rounded-t-lg"
                 onClick={() => {
-                  checkUser((data) => router.push(`/me/${data.id}`));
+                  checkUser().then((data) => router.push(`/me/${data.id}`));
                   setIsActive(false);
                 }}
               >
