@@ -9,6 +9,13 @@ export type Memo = {
   authorName: string;
 };
 
+type PostMemoData = {
+  memoTitle: string;
+  memoDescription: string;
+  memoText: string;
+  memoColor: string;
+};
+
 export async function getMemos(
   period: string = 'day',
   orderBy: string = 'new'
@@ -55,6 +62,28 @@ export async function getUserInfo(userId: number) {
     .then((res) => {
       if (!res.ok) throw new Error('error 발생!');
       return res.json();
+    })
+    .catch(console.error);
+}
+
+export async function createAndUpdateMemo(
+  url: string,
+  bodyData: PostMemoData,
+  callback: () => void
+) {
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify(bodyData),
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('error');
+      }
+      callback();
     })
     .catch(console.error);
 }

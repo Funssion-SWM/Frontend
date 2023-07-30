@@ -8,6 +8,7 @@ import { useEditor } from '@tiptap/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import BlueBtn from './shared/BlueBtn';
+import { createAndUpdateMemo } from '@/service/memos';
 
 type Props = {
   preTitle?: string;
@@ -55,39 +56,22 @@ export default function EditorForm({
   const [title, setTitle] = useState(preTitle);
   const [selectedColor, setSelectedColor] = useState(preColor);
   const handleBtnClick = () => {
-    fetch(
+    createAndUpdateMemo(
       `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos${
         !isFirst ? `/${memoId}` : ''
       }`,
       {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          memoTitle: title,
-          memoDescription: 'test description',
-          memoText: JSON.stringify(editor?.getJSON()),
-          memoColor: selectedColor,
-        }),
+        memoTitle: title,
+        memoDescription: 'test description',
+        memoText: JSON.stringify(editor?.getJSON()),
+        memoColor: selectedColor,
+      },
+      () => {
+        if (isFirst) router.push('/');
+        else router.push(`/memos/${memoId}`);
+        router.refresh();
       }
-    )
-      .then((res) => {
-        console.log(res);
-        console.log(res.json);
-        if (!res.ok) {
-          throw new Error('error');
-        }
-        if (isFirst) {
-          router.push('/');
-          router.refresh();
-        } else {
-          router.push(`/memos/${memoId}`);
-          router.refresh();
-        }
-      })
-      .catch(console.error);
+    );
   };
 
   const handleColorClick = (color: string) => {
