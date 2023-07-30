@@ -13,7 +13,7 @@ export default function MemoCard({
     memoDescription,
     memoColor,
     createdDate,
-    authorName,
+    userName,
   },
 }: Props) {
   return (
@@ -31,7 +31,7 @@ export default function MemoCard({
           }[memoColor]
         } `}
       >
-        <MemoCardHeader createDate={createdDate} authorName={authorName} />
+        <MemoCardHeader createDate={createdDate} userName={userName} />
         <h2 className="text-3xl font-bold my-7 line-clamp-2">{memoTitle}</h2>
         <p className="line-clamp-2">
           {/* {memoDescription} */}
