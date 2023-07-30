@@ -3,7 +3,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import WarningMessage from './shared/WarningMessage';
 import {
-  SignupFormData,
   checkEmail,
   checkNickname,
   confirmCode,
@@ -11,6 +10,7 @@ import {
   signUp,
 } from '@/service/auth';
 import { useRouter } from 'next/navigation';
+import { SignupFormData } from '@/types';
 
 const INPUT_STYLE =
   'text-lg border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow';

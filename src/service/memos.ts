@@ -1,25 +1,4 @@
-export type Memo = {
-  memoId: number;
-  memoTitle: string;
-  memoText: string;
-  memoDescription: string;
-  memoColor: string;
-  createdDate: string;
-  updatedDate: string;
-  userId: number;
-  userName: string;
-};
-
-type PostMemoData = {
-  memoTitle: string;
-  memoDescription: string;
-  memoText: string;
-  memoColor: string;
-};
-
-type UserInfo = {
-  userName: string;
-};
+import { Memo, PostMemoData, UserInfo } from '@/types';
 
 export async function getMemos(
   period: string = 'day',

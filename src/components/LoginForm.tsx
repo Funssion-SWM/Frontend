@@ -1,6 +1,7 @@
 'use client';
 
-import { LoginFormData, login } from '@/service/auth';
+import { login } from '@/service/auth';
+import { LoginFormData } from '@/types';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, FormEvent, useState } from 'react';
 

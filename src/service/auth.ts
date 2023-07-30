@@ -1,32 +1,4 @@
-type SignUpData = {
-  user_name: string;
-  login_type: number;
-  user_email: string;
-  user_pw: string;
-};
-
-type LoginData = {
-  user_email: string;
-  user_pw: string;
-};
-
-export type SignupFormData = {
-  email: string;
-  authCode: string;
-  pw: string;
-  confirmPw: string;
-  nickname: string;
-};
-
-export type LoginFormData = {
-  email: string;
-  pw: string;
-};
-
-type CheckUserResponse = {
-  id: number;
-  isLogin: boolean;
-};
+import { CheckUserResponse, LoginData, SignUpData } from '@/types';
 
 export async function signUp(userData: SignUpData) {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users`, {

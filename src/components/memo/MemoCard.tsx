@@ -1,6 +1,6 @@
-import { Memo } from '@/service/memos';
 import Link from 'next/link';
 import MemoCardHeader from './MemoCardHeader';
+import { Memo } from '@/types';
 
 type Props = {
   memo: Memo;
