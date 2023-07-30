@@ -23,21 +23,15 @@ export default function MemoViewer({
   userId,
 }: Props) {
   const [uid, setUid] = useState(null);
+
+  async function first() {
+    await checkUser((data) => setUid(data.id));
+  }
+
   useEffect(() => {
-    async function first() {
-      1;
-      await checkUser()
-        .then((res) => {
-          if (!res.ok) throw new Error('error!!');
-          return res.json();
-        })
-        .then((data) => {
-          setUid(data.id);
-        })
-        .catch((err) => console.error(err));
-    }
     first();
   }, []);
+
   return (
     <section
       className={`flex flex-col rounded-lg shadow-lg px-4 pb-8 min-h-[650px] ${

@@ -23,6 +23,11 @@ export type LoginFormData = {
   pw: string;
 };
 
+type CheckUserResponse = {
+  id: number;
+  isLogin: true;
+};
+
 export async function signUp(userData: SignUpData, callback: () => void) {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users`, {
     method: 'POST',
@@ -58,22 +63,35 @@ export async function login(userData: LoginData, callback: () => void) {
     .catch(console.error);
 }
 
-export async function logout() {
+export async function logout(callback: () => void) {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/logout`,
     {
       credentials: 'include',
     }
-  );
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error!!');
+      callback();
+    })
+    .catch(console.error);
 }
 
-export function checkUser() {
+export async function checkUser(callback: (data: CheckUserResponse) => void) {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/check`,
     {
       credentials: 'include',
     }
-  );
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error!!');
+      return res.json();
+    })
+    .then((data) => {
+      callback(data);
+    })
+    .catch(console.error);
 }
 
 export async function sendCodeToEmail(email: string) {

@@ -15,19 +15,11 @@ export default function Header() {
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const [isLogin, setIsLogin] = useState(null);
 
+  async function first() {
+    await checkUser((data) => setIsLogin(data.isLogin));
+  }
+
   useEffect(() => {
-    async function first() {
-      1;
-      await checkUser()
-        .then((res) => {
-          if (!res.ok) throw new Error('error!!');
-          return res.json();
-        })
-        .then((data) => {
-          setIsLogin(data.isLogin);
-        })
-        .catch((err) => console.error(err));
-    }
     first();
   }, [isActive]);
 
@@ -66,15 +58,7 @@ export default function Header() {
               <button
                 className="hover:bg-gray-200 p-2 rounded-t-lg"
                 onClick={() => {
-                  checkUser()
-                    .then((res) => {
-                      if (!res.ok) throw new Error('error!!');
-                      return res.json();
-                    })
-                    .then((data) => {
-                      router.push(`/me/${data.id}`);
-                    })
-                    .catch(console.error);
+                  checkUser((data) => router.push(`/me/${data.id}`));
                   setIsActive(false);
                 }}
               >
@@ -83,14 +67,11 @@ export default function Header() {
               <button
                 className="hover:bg-gray-200 p-2 rounded-b-lg"
                 onClick={() => {
-                  logout()
-                    .then((res) => {
-                      if (!res.ok) throw new Error('error!!');
-                      setIsActive(false);
-                      router.push('/');
-                      router.refresh();
-                    })
-                    .catch(console.error);
+                  logout(() => {
+                    setIsActive(false);
+                    router.push('/');
+                    router.refresh();
+                  });
                 }}
               >
                 로그아웃
