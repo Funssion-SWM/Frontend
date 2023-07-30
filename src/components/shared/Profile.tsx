@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import exampleImg from '../../public/img/profile.png';
+import exampleImg from '../../../public/img/profile.png';
 
 type Props = {
   userInfo: {

@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEvent, FormEvent, useState } from 'react';
-import WarningMessage from './WarningMessage';
+import WarningMessage from './shared/WarningMessage';
 import {
   SignupFormData,
   checkEmail,

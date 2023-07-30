@@ -1,7 +1,7 @@
 import Header from '@/components/shared/Header';
 import History from '@/components/history/History';
 import MemosGrid from '@/components/memo/MemosGrid';
-import Profile from '@/components/Profile';
+import Profile from '@/components/shared/Profile';
 import { getMemosByUserId, getUserInfo } from '@/service/memos';
 
 type Props = {

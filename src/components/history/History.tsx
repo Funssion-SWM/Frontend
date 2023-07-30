@@ -1,4 +1,4 @@
-import HistoryBox from '../HistoryBox';
+import HistoryBox from './HistoryBox';
 
 export default function History() {
   const data = [
