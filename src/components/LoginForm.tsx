@@ -4,6 +4,9 @@ import { LoginFormData, login } from '@/service/auth';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, FormEvent, useState } from 'react';
 
+const INPUT_STYLE =
+  'text-lg border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30';
+
 export default function LoginForm() {
   const router = useRouter();
   const [loginData, setLoginData] = useState<LoginFormData>({
@@ -18,20 +21,11 @@ export default function LoginForm() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login({ user_email: loginData.email, user_pw: loginData.pw })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error('error');
-        }
-        router.push('/');
-        router.refresh();
-        return res.json();
-      })
-      .catch(console.error);
+    login({ user_email: loginData.email, user_pw: loginData.pw }, () => {
+      router.push('/');
+      router.refresh();
+    });
   };
-
-  const INPUT_STYLE =
-    'text-lg border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30';
 
   return (
     <form className="flex flex-col w-full" onSubmit={handleSubmit}>

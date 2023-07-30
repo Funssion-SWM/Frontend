@@ -31,7 +31,7 @@ export async function signUp(userData: SignUpData) {
   });
 }
 
-export async function login(userData: LoginData) {
+export async function login(userData: LoginData, callback: () => void) {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/login`,
     {
@@ -40,7 +40,15 @@ export async function login(userData: LoginData) {
       credentials: 'include',
       body: JSON.stringify(userData),
     }
-  );
+  )
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('error');
+      }
+      callback();
+      return res.json();
+    })
+    .catch(console.error);
 }
 
 export async function logout() {
