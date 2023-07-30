@@ -73,8 +73,7 @@ export async function getUserInfo(userId: number): Promise<UserInfo> {
 
 export async function createAndUpdateMemo(
   url: string,
-  bodyData: PostMemoData,
-  callback: () => void
+  bodyData: PostMemoData
 ): Promise<Memo> {
   return fetch(url, {
     method: 'POST',
@@ -88,13 +87,12 @@ export async function createAndUpdateMemo(
       if (!res.ok) {
         throw new Error('error');
       }
-      callback();
       return res.json();
     })
     .catch(console.error);
 }
 
-export async function deleteMemo(id: number, callback: () => void) {
+export async function deleteMemo(id: number) {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${id}`,
     {
@@ -106,7 +104,6 @@ export async function deleteMemo(id: number, callback: () => void) {
       if (!res.ok) {
         throw new Error('error');
       }
-      callback();
     })
     .catch(console.error);
 }

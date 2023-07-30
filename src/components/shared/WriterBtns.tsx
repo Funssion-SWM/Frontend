@@ -11,7 +11,7 @@ type Props = {
 export default function WriterBtns({ memoId }: Props) {
   const router = useRouter();
   const handleDelete = () =>
-    deleteMemo(memoId, () => {
+    deleteMemo(memoId).then(() => {
       router.push('/');
       router.refresh();
     });

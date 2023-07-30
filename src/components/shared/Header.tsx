@@ -67,7 +67,7 @@ export default function Header() {
               <button
                 className="hover:bg-gray-200 p-2 rounded-b-lg"
                 onClick={() => {
-                  logout(() => {
+                  logout().then(() => {
                     setIsActive(false);
                     router.push('/');
                     router.refresh();

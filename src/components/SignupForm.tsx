@@ -45,15 +45,12 @@ export default function SignupForm() {
       return;
     }
 
-    signUp(
-      {
-        user_name: signupData.nickname,
-        login_type: 0,
-        user_email: signupData.email,
-        user_pw: signupData.pw,
-      },
-      () => router.push('/login')
-    );
+    signUp({
+      user_name: signupData.nickname,
+      login_type: 0,
+      user_email: signupData.email,
+      user_pw: signupData.pw,
+    }).then(() => router.push('/login'));
   };
 
   const handleIsDuplicate1 = () => {

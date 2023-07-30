@@ -65,13 +65,12 @@ export default function EditorForm({
         memoDescription: 'test description',
         memoText: JSON.stringify(editor?.getJSON()),
         memoColor: selectedColor,
-      },
-      () => {
-        if (isFirst) router.push('/');
-        else router.push(`/memos/${memoId}`);
-        router.refresh();
       }
-    );
+    ).then(() => {
+      if (isFirst) router.push('/');
+      else router.push(`/memos/${memoId}`);
+      router.refresh();
+    });
   };
 
   const handleColorClick = (color: string) => {

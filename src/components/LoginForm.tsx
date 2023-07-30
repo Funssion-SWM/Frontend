@@ -21,7 +21,7 @@ export default function LoginForm() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login({ user_email: loginData.email, user_pw: loginData.pw }, () => {
+    login({ user_email: loginData.email, user_pw: loginData.pw }).then(() => {
       router.push('/');
       router.refresh();
     });

@@ -28,7 +28,7 @@ type CheckUserResponse = {
   isLogin: boolean;
 };
 
-export async function signUp(userData: SignUpData, callback: () => void) {
+export async function signUp(userData: SignUpData) {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -38,12 +38,11 @@ export async function signUp(userData: SignUpData, callback: () => void) {
       if (!res.ok) {
         throw new Error('error');
       }
-      callback();
     })
     .catch(console.error);
 }
 
-export async function login(userData: LoginData, callback: () => void) {
+export async function login(userData: LoginData) {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/login`,
     {
@@ -57,13 +56,12 @@ export async function login(userData: LoginData, callback: () => void) {
       if (!res.ok) {
         throw new Error('error');
       }
-      callback();
       return res.json();
     })
     .catch(console.error);
 }
 
-export async function logout(callback: () => void) {
+export async function logout() {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/logout`,
     {
@@ -72,7 +70,6 @@ export async function logout(callback: () => void) {
   )
     .then((res) => {
       if (!res.ok) throw new Error('error!!');
-      callback();
     })
     .catch(console.error);
 }
