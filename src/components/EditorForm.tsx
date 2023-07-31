@@ -8,13 +8,13 @@ import { useEditor } from '@tiptap/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import BlueBtn from './shared/BlueBtn';
-import { createAndUpdateMemo } from '@/service/memos';
+import { createOrUpdateMemo } from '@/service/memos';
 
 type Props = {
   preTitle?: string;
   preContent?: string;
   preColor?: string;
-  isFirst: boolean;
+  alreadyExists: boolean;
   memoId?: number;
 };
 
@@ -22,7 +22,7 @@ export default function EditorForm({
   preTitle = '',
   preContent,
   preColor = 'yellow',
-  isFirst,
+  alreadyExists,
   memoId,
 }: Props) {
   const router = useRouter();
@@ -55,10 +55,10 @@ export default function EditorForm({
   });
   const [title, setTitle] = useState(preTitle);
   const [selectedColor, setSelectedColor] = useState(preColor);
-  const handleBtnClick = () => {
-    createAndUpdateMemo(
+  const handleBtnClick = () =>
+    createOrUpdateMemo(
       `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos${
-        !isFirst ? `/${memoId}` : ''
+        !alreadyExists ? `/${memoId}` : ''
       }`,
       {
         memoTitle: title,
@@ -67,15 +67,13 @@ export default function EditorForm({
         memoColor: selectedColor,
       }
     ).then(() => {
-      if (isFirst) router.push('/');
+      if (alreadyExists) router.push('/');
       else router.push(`/memos/${memoId}`);
       router.refresh();
     });
-  };
 
-  const handleColorClick = (color: string) => {
-    setSelectedColor(color);
-  };
+  const handleColorClick = (color: string) => setSelectedColor(color);
+
   return (
     <section
       className={`relative flex flex-col rounded-lg shadow-lg px-4 py-2 my-2 min-h-[650px] mt-12 ${
@@ -91,7 +89,7 @@ export default function EditorForm({
       }`}
     >
       <BlueBtn
-        text={isFirst ? '등록' : '수정'}
+        text={alreadyExists ? '등록' : '수정'}
         onClick={handleBtnClick}
         extraStyle="self-end"
       />

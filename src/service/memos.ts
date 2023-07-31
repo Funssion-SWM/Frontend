@@ -50,7 +50,7 @@ export async function getUserInfo(userId: number): Promise<UserInfo> {
     .catch(console.error);
 }
 
-export async function createAndUpdateMemo(
+export async function createOrUpdateMemo(
   url: string,
   bodyData: PostMemoData
 ): Promise<Memo> {

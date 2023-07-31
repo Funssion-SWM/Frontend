@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function CreateMemoPage() {
-  return <EditorForm isFirst={true} />;
+  return <EditorForm alreadyExists={true} />;
 }
