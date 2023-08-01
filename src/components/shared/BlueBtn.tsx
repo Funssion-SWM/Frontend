@@ -4,7 +4,7 @@ type Props = {
   extraStyle?: string;
 };
 
-export default function BlueBtn({ text, onClick, extraStyle = '' }) {
+export default function BlueBtn({ text, onClick, extraStyle = '' }: Props) {
   return (
     <button
       className={`bg-soma-blue-40 text-white px-3 py-1 rounded-2xl ${extraStyle}`}
