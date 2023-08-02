@@ -49,7 +49,12 @@ export default function Providers({ children }: { children: ReactNode }) {
       }}
     >
       {/* <ToasterProvider /> */}
-      <div className={cn(displayFontMapper[font], defaultFontMapper[font])}>
+      <div
+        className={cn(
+          displayFontMapper[font as keyof typeof displayFontMapper],
+          defaultFontMapper[font as keyof typeof displayFontMapper]
+        )}
+      >
         {children}
       </div>
       {/* <Analytics /> */}
