@@ -3,7 +3,7 @@ import MemosGrid from '@/components/memo/MemosGrid';
 import { getMemos } from '@/service/memos';
 
 export default async function HomePage() {
-  const memos = await getMemos();
+  // const memos = await getMemos();
 
   return (
     <section>
