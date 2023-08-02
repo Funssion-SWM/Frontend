@@ -13,7 +13,7 @@ export default function Header() {
   const router = useRouter();
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
-  const [isLogin, setIsLogin] = useState(null);
+  const [isLogin, setIsLogin] = useState<boolean | null>(null);
 
   async function first() {
     await checkUser().then((data) => setIsLogin(data.isLogin));
