@@ -22,7 +22,7 @@ export default function MemoViewer({
   memoId,
   userId,
 }: Props) {
-  const [uid, setUid] = useState(null);
+  const [uid, setUid] = useState<number | null>(null);
 
   async function first() {
     await checkUser().then((data) => setUid(data.id));
