@@ -37,8 +37,8 @@ export type Memo = {
   memoColor: string;
   createdDate: string;
   updatedDate: string;
-  userId: number;
-  userName: string;
+  authorId: number;
+  authorName: string;
 };
 
 export type PostMemoData = {

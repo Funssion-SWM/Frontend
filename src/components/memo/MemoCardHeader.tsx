@@ -4,10 +4,10 @@ import { AiFillHeart } from 'react-icons/ai';
 
 type Props = {
   createDate: string;
-  userName: string;
+  authorName: string;
 };
 
-export default function MemoCardHeader({ createDate, userName }: Props) {
+export default function MemoCardHeader({ createDate, authorName }: Props) {
   return (
     <div className="flex justify-between items-center">
       <div className="flex items-center">
@@ -18,7 +18,7 @@ export default function MemoCardHeader({ createDate, userName }: Props) {
           className="rounded-full"
         />
         <div className="ml-2">
-          <h4>{userName}</h4>
+          <h4>{authorName}</h4>
           <p className="text-xs text-gray-600">{createDate}</p>
         </div>
       </div>
