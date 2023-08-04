@@ -12,7 +12,7 @@ type Props = {
   content: string;
   color: string;
   memoId: number;
-  userId: number;
+  authorId: number;
 };
 
 export default function MemoViewer({
@@ -20,14 +20,14 @@ export default function MemoViewer({
   content,
   color,
   memoId,
-  userId,
+  authorId,
 }: Props) {
   const [uid, setUid] = useState<number | null>(null);
 
   async function first() {
     await checkUser().then((data) => setUid(data.id));
   }
-
+  console.log(authorId);
   useEffect(() => {
     first();
   }, []);
@@ -46,7 +46,7 @@ export default function MemoViewer({
         }[color]
       }  my-2`}
     >
-      {userId === uid ? (
+      {authorId === uid ? (
         <WriterBtns memoId={memoId} />
       ) : (
         <div className="py-1 opacity-0">.</div>

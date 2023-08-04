@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default async function MemoPage({ params: { slug } }: Props) {
-  const { memoTitle, memoColor, memoText, userId } = await getMemoById(slug);
+  const { memoTitle, memoColor, memoText, authorId } = await getMemoById(slug);
 
   return (
     <>
@@ -19,7 +19,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
         content={JSON.parse(memoText)}
         color={memoColor}
         memoId={slug}
-        userId={userId}
+        authorId={authorId}
       />
     </>
   );
