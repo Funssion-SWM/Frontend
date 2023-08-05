@@ -88,9 +88,7 @@ export default function Header() {
         )}
         {isLogin === false && (
           <Link href="/login">
-            <button className=" bg-blue-500 text-white px-2 py-1 rounded-2xl">
-              회원가입/로그인
-            </button>
+            <BlueBtn text="회원가입/로그인" onClick={() => {}} />
           </Link>
         )}
       </div>

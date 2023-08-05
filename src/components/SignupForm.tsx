@@ -11,11 +11,11 @@ import {
 } from '@/service/auth';
 import { useRouter } from 'next/navigation';
 import { SignupFormData } from '@/types';
+import BlueBtn from './shared/BlueBtn';
+import LightBlueBtn from './shared/LightBlueBtn';
 
 const INPUT_STYLE =
-  'text-lg border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow';
-const GREY_BTN_STYLE =
-  'bg-soma-grey-30 rounded-2xl mx-2 px-2 text-soma-grey-45 font-semibold text-lg py-2';
+  'border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow';
 
 export default function SignupForm() {
   const router = useRouter();
@@ -94,16 +94,12 @@ export default function SignupForm() {
             required
             placeholder="이메일을 입력해주세요."
           />
-          {/* <button className={GREY_BTN_STYLE} onClick={handleIsDuplicate1}>
-            중복확인
-          </button> */}
-          {/* <button className={GREY_BTN_STYLE} onClick={handleSendCode}>
-            보내기
-          </button> */}
+          <LightBlueBtn text="중복확인" onClick={handleIsDuplicate1} />
+          {/* <LightBlueBtn text="보내기" onClick={handleSendCode} /> */}
         </div>
       </div>
       {msgFlag1 && <WarningMessage text="중복되는 이메일입니다." />}
-      {/* <div className="flex flex-col my-1">
+      <div className="flex flex-col my-1">
         <label htmlFor="authCode" className="text-sm">
           인증번호
         </label>
@@ -118,11 +114,9 @@ export default function SignupForm() {
             required
             placeholder="인증번호 6자리를 입력해주세요."
           />
-          <button className={GREY_BTN_STYLE} onClick={handleConfirmCode}>
-            인증
-          </button>
+          <LightBlueBtn text="인증" onClick={handleConfirmCode} />
         </div>
-      </div> */}
+      </div>
       <div className="flex flex-col my-1">
         <label htmlFor="nickname" className="text-sm">
           닉네임
@@ -138,9 +132,7 @@ export default function SignupForm() {
             required
             placeholder="활동할 닉네임을 입력해주세요."
           />
-          {/* <button className={GREY_BTN_STYLE} onClick={handleIsDuplicate2}>
-            중복확인
-          </button> */}
+          <LightBlueBtn text="중복확인" onClick={handleIsDuplicate2} />
         </div>
       </div>
       {msgFlag2 && <WarningMessage text="중복되는 닉네임입니다." />}
@@ -175,9 +167,8 @@ export default function SignupForm() {
         />
       </div>
       {msgFlag3 && <WarningMessage text="비밀번호가 같지 않습니다." />}
-      <button className="bg-soma-blue-40 text-soma-white rounded-3xl py-3 my-5 font-bold">
-        회원가입
-      </button>
+
+      <BlueBtn text="회원가입" onClick={() => {}} extraStyle="my-5" />
     </form>
   );
 }

@@ -4,6 +4,7 @@ import { login } from '@/service/auth';
 import { LoginFormData } from '@/types';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import BlueBtn from './shared/BlueBtn';
 
 const INPUT_STYLE =
   'text-lg border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30';
@@ -50,9 +51,7 @@ export default function LoginForm() {
         required
         placeholder="비밀번호"
       />
-      <button className="bg-soma-blue-40 text-soma-white rounded-3xl py-3 my-5 font-bold">
-        로그인
-      </button>
+      <BlueBtn text="로그인" onClick={() => {}} extraStyle="my-5" />
     </form>
   );
 }
