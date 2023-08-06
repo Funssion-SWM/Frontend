@@ -27,7 +27,7 @@ export default function MemoViewer({
   async function first() {
     await checkUser().then((data) => setUid(data.id));
   }
-  console.log(authorId);
+
   useEffect(() => {
     first();
   }, []);
