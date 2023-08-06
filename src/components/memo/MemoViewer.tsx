@@ -44,7 +44,7 @@ export default function MemoViewer({
           navy: 'bg-memo-navy',
           purple: 'bg-memo-purple',
         }[color]
-      }  my-2`}
+      } `}
     >
       {authorId === uid ? (
         <WriterBtns memoId={memoId} />

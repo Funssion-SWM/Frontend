@@ -24,8 +24,8 @@ export default function Header() {
   }, [isActive]);
 
   return (
-    <header className=" border-b-2">
-      <div className="flex justify-between items-center py-4 px-10 max-w-screen-xl m-auto">
+    <section className="border-b-2">
+      <header className="flex justify-between items-center py-4 max-w-screen-xl m-auto">
         <h1
           className="text-2xl font-bold cursor-pointer"
           onClick={() => {
@@ -91,7 +91,7 @@ export default function Header() {
             <BlueBtn text="회원가입/로그인" onClick={() => {}} />
           </Link>
         )}
-      </div>
-    </header>
+      </header>
+    </section>
   );
 }

@@ -141,7 +141,7 @@ export default function EditorForm({
 
   return (
     <section
-      className={`relative flex flex-col rounded-lg shadow-lg px-4 py-2 my-2 min-h-[650px] mt-12 ${
+      className={`relative flex flex-col rounded-lg shadow-lg px-4 py-2 min-h-[650px]  ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',

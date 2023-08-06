@@ -17,7 +17,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.className}>
-      <body className="flex flex-col w-full max-w-screen-xl mx-auto px-10">
+      <body className="flex flex-col">
         <Providers>{children}</Providers>
       </body>
     </html>
