@@ -14,10 +14,16 @@ export default function SignupPage() {
         메인으로
       </Link>
       <h1 className="text-3xl font-bold my-5">Inforum</h1>
-      <Link href="/login" className="self-end my-2 font-semibold">
-        로그인
-      </Link>
       <SignupForm />
+      <div className="flex items-center">
+        <p className="text-soma-grey-50 text-sm mr-3">계정이 이미 있나요?</p>
+        <Link
+          href="/login"
+          className="self-end my-2 font-semibold text-soma-blue-50"
+        >
+          로그인하기
+        </Link>
+      </div>
     </section>
   );
 }

@@ -1,4 +1,5 @@
 import { CheckUserResponse, LoginData, SignUpData } from '@/types';
+import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url';
 
 export async function signUp(userData: SignUpData) {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users`, {
@@ -60,52 +61,46 @@ export async function checkUser(): Promise<CheckUserResponse> {
     .catch(console.error);
 }
 
-export async function sendCodeToEmail(email: string) {
+export async function checkEmailAndSendCode(email: string) {
   return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/auth/email_code`,
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/authenticate-email`,
     {
       method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email }),
     }
-  );
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error!!');
+      return res.json();
+    })
+    .catch(console.error);
 }
 
-export function confirmCode(code: string) {
+export async function confirmCode(email: string, code: string) {
   return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/auth/email_code/validity`,
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/authenticate-code`,
     {
       method: 'POST',
-      body: JSON.stringify({ code }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, code }),
     }
-  );
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error!!');
+      return res.json();
+    })
+    .catch(console.error);
 }
 
 export async function checkNickname(nickname: string) {
   return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/auth/nickname/${nickname}`
-  );
-}
-
-export function checkEmail(email: string) {
-  return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/auth/email/${email}`
-  );
-}
-
-// export function saveToken(type: string, token: string) {
-//   if (typeof window !== 'undefined') {
-//     localStorage.setItem(type, token);
-//   }
-// }
-
-// export function getToken(type: string) {
-//   if (typeof window !== 'undefined') {
-//     return localStorage.getItem(type);
-//   }
-// }
-
-function clearToken() {
-  if (typeof window !== 'undefined') {
-    localStorage.clear();
-  }
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/check-duplication?` +
+      new URLSearchParams({ name: nickname })
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error!!');
+      return res.json();
+    })
+    .catch(console.error);
 }

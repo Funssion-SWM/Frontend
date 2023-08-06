@@ -1,18 +1,17 @@
 'use client';
 
 import { ChangeEvent, FormEvent, useState } from 'react';
-import WarningMessage from './shared/WarningMessage';
 import {
-  checkEmail,
+  checkEmailAndSendCode,
   checkNickname,
   confirmCode,
-  sendCodeToEmail,
   signUp,
 } from '@/service/auth';
 import { useRouter } from 'next/navigation';
 import { SignupFormData } from '@/types';
 import BlueBtn from './shared/BlueBtn';
-import LightBlueBtn from './shared/LightBlueBtn';
+import IsValidBtn from './shared/IsValidBtn';
+import PromptgMessage from './shared/PromptMessage';
 
 const INPUT_STYLE =
   'border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow';
@@ -26,9 +25,13 @@ export default function SignupForm() {
     confirmPw: '',
     nickname: '',
   });
-  const [msgFlag1, setMsgFlag1] = useState(false);
-  const [msgFlag2, setMsgFlag2] = useState(false);
-  const [msgFlag3, setMsgFlag3] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(false);
+  const [isValidCode, setIsValidCode] = useState(false);
+  const [isValidNickname, setIsValudNickname] = useState(false);
+
+  const [messageText, setMessageText] = useState('');
+  const [messageType, setMessageType] = useState(false); // true : 성공 메시지  false : 경고 메시지
+  const [isMessageVisible, setIsMessageVisible] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
@@ -37,11 +40,13 @@ export default function SignupForm() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!(isValidEmail && isValidCode && isValidNickname)) {
+      showWarning('중복확인, 인증 처리에 문제가 있습니다.', false);
+      return;
+    }
+
     if (signupData.pw !== signupData.confirmPw) {
-      setMsgFlag3(true);
-      setTimeout(() => {
-        setMsgFlag3(false);
-      }, 2000);
+      showWarning('비밀번호가 같지 않습니다.', false);
       return;
     }
 
@@ -53,32 +58,44 @@ export default function SignupForm() {
     }).then(() => router.push('/login'));
   };
 
-  const handleIsDuplicate1 = () => {
-    checkEmail(signupData.email).then(console.log).catch(console.error);
-    setMsgFlag1(true);
-    setTimeout(() => {
-      setMsgFlag1(false);
-    }, 2000);
-  };
-
-  const handleIsDuplicate2 = () => {
-    checkNickname(signupData.nickname).then(console.log).catch(console.error);
-    setMsgFlag2(true);
-    setTimeout(() => {
-      setMsgFlag2(false);
-    }, 2000);
-  };
-
-  const handleSendCode = () => {
-    sendCodeToEmail(signupData.email).then(console.log).catch(console.error);
+  const handleIsValidEmail = () => {
+    checkEmailAndSendCode(signupData.email).then((data) => {
+      setIsValidCode(false);
+      showWarning(data.message, data.isSuccess);
+      data.isSuccess ? setIsValidEmail(true) : setIsValidEmail(false);
+    });
   };
 
   const handleConfirmCode = () => {
-    confirmCode(signupData.authCode).then(console.log).catch(console.error);
+    confirmCode(signupData.email, signupData.authCode).then((data) => {
+      showWarning(data.message, data.valid);
+      data.valid ? setIsValidCode(true) : setIsValidCode(false);
+    });
+  };
+
+  const handleIsValidNickname = () => {
+    checkNickname(signupData.nickname).then((data) => {
+      showWarning(data.message, data.valid);
+      data.valid ? setIsValudNickname(true) : setIsValudNickname(false);
+    });
+  };
+
+  const showWarning = (text: string, type: boolean) => {
+    setMessageText(text);
+    setMessageType(type);
+    setIsMessageVisible(true);
+    setTimeout(() => {
+      setIsMessageVisible(false);
+    }, 2000);
   };
 
   return (
     <form className="flex flex-col w-full" onSubmit={handleSubmit}>
+      <PromptgMessage
+        text={messageText}
+        type={messageType}
+        isVisible={isMessageVisible}
+      />
       <div className="flex flex-col my-1">
         <label htmlFor="email" className="text-sm">
           이메일
@@ -93,30 +110,42 @@ export default function SignupForm() {
             onChange={handleChange}
             required
             placeholder="이메일을 입력해주세요."
+            readOnly={isValidCode}
           />
-          <LightBlueBtn text="중복확인" onClick={handleIsDuplicate1} />
-          {/* <LightBlueBtn text="보내기" onClick={handleSendCode} /> */}
+          <IsValidBtn
+            text="중복확인"
+            onClick={handleIsValidEmail}
+            isValid={isValidEmail}
+            disabled={isValidCode}
+          />
         </div>
       </div>
-      {msgFlag1 && <WarningMessage text="중복되는 이메일입니다." />}
-      <div className="flex flex-col my-1">
-        <label htmlFor="authCode" className="text-sm">
-          인증번호
-        </label>
-        <div className="flex items-center">
-          <input
-            className={INPUT_STYLE}
-            type="text"
-            id="authCode"
-            name="authCode"
-            value={signupData.authCode}
-            onChange={handleChange}
-            required
-            placeholder="인증번호 6자리를 입력해주세요."
-          />
-          <LightBlueBtn text="인증" onClick={handleConfirmCode} />
+      {isValidEmail && (
+        <div className="flex flex-col my-1">
+          <label htmlFor="authCode" className="text-sm">
+            인증번호
+          </label>
+          <div className="flex items-center">
+            <input
+              className={INPUT_STYLE}
+              type="text"
+              id="authCode"
+              name="authCode"
+              value={signupData.authCode}
+              onChange={handleChange}
+              required
+              placeholder="인증번호 6자리를 입력해주세요."
+              readOnly={isValidCode}
+            />
+            <IsValidBtn
+              text="인증"
+              onClick={handleConfirmCode}
+              isValid={isValidCode}
+              disabled={isValidCode}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className="flex flex-col my-1">
         <label htmlFor="nickname" className="text-sm">
           닉네임
@@ -132,10 +161,13 @@ export default function SignupForm() {
             required
             placeholder="활동할 닉네임을 입력해주세요."
           />
-          <LightBlueBtn text="중복확인" onClick={handleIsDuplicate2} />
+          <IsValidBtn
+            text="중복확인"
+            onClick={handleIsValidNickname}
+            isValid={isValidNickname}
+          />
         </div>
       </div>
-      {msgFlag2 && <WarningMessage text="중복되는 닉네임입니다." />}
       <div className="flex flex-col  my-1">
         <label htmlFor="pw" className="text-sm">
           비밀번호
@@ -166,8 +198,6 @@ export default function SignupForm() {
           placeholder="입력한 비밀번호를 다시 입력해주세요."
         />
       </div>
-      {msgFlag3 && <WarningMessage text="비밀번호가 같지 않습니다." />}
-
       <BlueBtn text="회원가입" onClick={() => {}} extraStyle="my-5" />
     </form>
   );
