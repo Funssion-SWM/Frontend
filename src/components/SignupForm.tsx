@@ -12,6 +12,7 @@ import { SignupFormData } from '@/types';
 import BlueBtn from './shared/BlueBtn';
 import IsValidBtn from './shared/IsValidBtn';
 import PromptgMessage from './shared/PromptMessage';
+import { validateNickname, validatePassword } from '@/service/validation';
 
 const INPUT_STYLE =
   'border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow';
@@ -27,7 +28,7 @@ export default function SignupForm() {
   });
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidCode, setIsValidCode] = useState(false);
-  const [isValidNickname, setIsValudNickname] = useState(false);
+  const [isValidNickname, setIsValidNickname] = useState(false);
 
   const [messageText, setMessageText] = useState('');
   const [messageType, setMessageType] = useState(false); // true : 성공 메시지  false : 경고 메시지
@@ -40,13 +41,25 @@ export default function SignupForm() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!(isValidEmail && isValidCode && isValidNickname)) {
-      showWarning('중복확인, 인증 처리에 문제가 있습니다.', false);
+    if (
+      !(
+        isValidEmail &&
+        isValidCode &&
+        isValidNickname &&
+        validateNickname(signupData.nickname)
+      )
+    ) {
+      showMessage('중복확인, 인증 처리에 문제가 있습니다.', false);
+      return;
+    }
+
+    if (!validatePassword(signupData.pw)) {
+      showMessage('비밀번호 형식에 맞지 않습니다.', false);
       return;
     }
 
     if (signupData.pw !== signupData.confirmPw) {
-      showWarning('비밀번호가 같지 않습니다.', false);
+      showMessage('비밀번호가 같지 않습니다.', false);
       return;
     }
 
@@ -61,26 +74,32 @@ export default function SignupForm() {
   const handleIsValidEmail = () => {
     checkEmailAndSendCode(signupData.email).then((data) => {
       setIsValidCode(false);
-      showWarning(data.message, data.isSuccess);
-      data.isSuccess ? setIsValidEmail(true) : setIsValidEmail(false);
+      showMessage(data.message, data.isSuccess);
+      setIsValidEmail(data.isSuccess ? true : false);
     });
   };
 
   const handleConfirmCode = () => {
     confirmCode(signupData.email, signupData.authCode).then((data) => {
-      showWarning(data.message, data.valid);
-      data.valid ? setIsValidCode(true) : setIsValidCode(false);
+      showMessage(data.message, data.valid);
+      setIsValidCode(data.valid ? true : false);
     });
   };
 
   const handleIsValidNickname = () => {
+    if (!validateNickname(signupData.nickname)) {
+      showMessage('닉네임 형식에 맞지 않습니다.', false);
+      setIsValidNickname(false);
+      return;
+    }
+
     checkNickname(signupData.nickname).then((data) => {
-      showWarning(data.message, data.valid);
-      data.valid ? setIsValudNickname(true) : setIsValudNickname(false);
+      showMessage(data.message, data.valid);
+      setIsValidNickname(data.valid ? true : false);
     });
   };
 
-  const showWarning = (text: string, type: boolean) => {
+  const showMessage = (text: string, type: boolean) => {
     setMessageText(text);
     setMessageType(type);
     setIsMessageVisible(true);
@@ -113,7 +132,7 @@ export default function SignupForm() {
             readOnly={isValidCode}
           />
           <IsValidBtn
-            text="중복확인"
+            text="코드전송"
             onClick={handleIsValidEmail}
             isValid={isValidEmail}
             disabled={isValidCode}
@@ -159,7 +178,7 @@ export default function SignupForm() {
             value={signupData.nickname}
             onChange={handleChange}
             required
-            placeholder="활동할 닉네임을 입력해주세요."
+            placeholder="4~14자리 (영어, 숫자 : 1자, 한글 : 2자)"
           />
           <IsValidBtn
             text="중복확인"
@@ -180,7 +199,7 @@ export default function SignupForm() {
           value={signupData.pw}
           onChange={handleChange}
           required
-          placeholder="비밀번호를 입력해주세요."
+          placeholder="8~20자리 (영어, 숫자, 특수문자(@$!%*#?&)) 포함)"
         />
       </div>
       <div className="flex flex-col  my-1">
