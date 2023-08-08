@@ -10,8 +10,8 @@ export async function getUserInfo(userId: number): Promise<UserInfo> {
 }
 
 
-export async function getHistory(userId: number,year: number, month: number): Promise<Record[]> {
-    return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}/history?year=${year}&month=${month}`)
+export async function getHistory(userId: number,year: number, month: number, isSSR: boolean): Promise<Record[]> {
+    return fetch(`${isSSR ? process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS : process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/mypage/${userId}/history?year=${year}&month=${month}`)
       .then((res) => {
         if (res.status === 204) {
             return [{

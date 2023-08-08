@@ -76,7 +76,7 @@ export default function History({ history, userId }:Props) {
 
         onActiveStartDateChange={async ({ activeStartDate, view }) => {
           activeStartDate = activeStartDate ? activeStartDate : new Date()
-          const curHistories = await getHistory(userId, activeStartDate?.getFullYear(), activeStartDate?.getMonth());
+          const curHistories = await getHistory(userId, activeStartDate?.getFullYear(), activeStartDate?.getMonth(), false);
           setHistories(() => {
             console.log(curHistories);
             return curHistories;}
