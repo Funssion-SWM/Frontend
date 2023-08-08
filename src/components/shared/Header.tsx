@@ -25,7 +25,7 @@ export default function Header() {
 
   return (
     <section className="border-b-2">
-      <header className="flex justify-between items-center py-4 max-w-screen-xl m-auto">
+      <header className="flex justify-between items-center py-4 px-5 max-w-screen-xl m-auto">
         <h1
           className="text-2xl font-bold cursor-pointer"
           onClick={() => {
