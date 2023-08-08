@@ -12,7 +12,11 @@ import { SignupFormData } from '@/types';
 import BlueBtn from './shared/BlueBtn';
 import IsValidBtn from './shared/IsValidBtn';
 import PromptgMessage from './shared/PromptMessage';
-import { validateNickname, validatePassword } from '@/service/validation';
+import {
+  validateEmail,
+  validateNickname,
+  validatePassword,
+} from '@/service/validation';
 
 const INPUT_STYLE =
   'border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow';
@@ -72,6 +76,12 @@ export default function SignupForm() {
   };
 
   const handleIsValidEmail = () => {
+    if (!validateEmail(signupData.email)) {
+      showMessage('이메일 형식에 맞지 않습니다.', false);
+      setIsValidNickname(false);
+      return;
+    }
+
     checkEmailAndSendCode(signupData.email).then((data) => {
       setIsValidCode(false);
       showMessage(data.message, data.isSuccess);
