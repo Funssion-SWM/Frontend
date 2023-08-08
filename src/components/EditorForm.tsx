@@ -11,6 +11,7 @@ import BlueBtn from './shared/BlueBtn';
 import { createOrUpdateMemo } from '@/service/memos';
 import { getPrevText } from '@/lib/editor';
 import { useCompletion } from 'ai/react';
+import { getDescription } from '@/service/description';
 
 type Props = {
   preTitle?: string;
@@ -120,15 +121,18 @@ export default function EditorForm({
 
   const [title, setTitle] = useState(preTitle);
   const [selectedColor, setSelectedColor] = useState(preColor);
-  const handleBtnClick = () =>
+  const handleBtnClick = () => {
+    const memoText = JSON.stringify(editor?.getJSON());
+    const memoDescription = getDescription(memoText);
+    console.log(memoDescription);
     createOrUpdateMemo(
       `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos${
         !alreadyExists ? `/${memoId}` : ''
       }`,
       {
         memoTitle: title,
-        memoDescription: 'test description',
-        memoText: JSON.stringify(editor?.getJSON()),
+        memoDescription,
+        memoText,
         memoColor: selectedColor,
       }
     ).then(() => {
@@ -136,6 +140,7 @@ export default function EditorForm({
       else router.push(`/memos/${memoId}`);
       router.refresh();
     });
+  };
 
   const handleColorClick = (color: string) => setSelectedColor(color);
 

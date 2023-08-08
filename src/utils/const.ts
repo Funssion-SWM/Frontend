@@ -9,3 +9,5 @@ export const COLORS = [
 ];
 
 export const ACCESS_TOKEN = 'access_token';
+
+export const DESCRIPTION_MAX_LENGTH = 120;
