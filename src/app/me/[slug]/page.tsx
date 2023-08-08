@@ -14,8 +14,7 @@ type Props = {
 export default async function MePage({ params: { slug } }: Props) {
   const memos = await getMemosByUserId(slug);
   const userInfo = await getUserInfo(slug);
-  const history = await getHistory(slug, (new Date()).getFullYear(), (new Date()).getMonth(), true);
-
+  const history = await getHistory(slug, (new Date()).getFullYear(), (new Date()).getMonth() + 1, true);
   return (
     <section>
       <Header />
