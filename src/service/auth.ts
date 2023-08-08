@@ -1,4 +1,9 @@
-import { CheckUserResponse, LoginData, SignUpData } from '@/types';
+import {
+  CheckUserResponse,
+  LoginData,
+  LoginResponse,
+  SignUpData,
+} from '@/types';
 import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url';
 
 export async function signUp(userData: SignUpData) {
@@ -15,7 +20,7 @@ export async function signUp(userData: SignUpData) {
     .catch(console.error);
 }
 
-export async function login(userData: LoginData) {
+export async function login(userData: LoginData): Promise<LoginResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/login`,
     {
@@ -24,14 +29,7 @@ export async function login(userData: LoginData) {
       credentials: 'include',
       body: JSON.stringify(userData),
     }
-  )
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('error');
-      }
-      return res.json();
-    })
-    .catch(console.error);
+  ).then((res) => res.json());
 }
 
 export async function logout() {

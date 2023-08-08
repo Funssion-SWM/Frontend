@@ -51,3 +51,8 @@ export type PostMemoData = {
 export type UserInfo = {
   userName: string;
 };
+
+export type LoginResponse = {
+  isSuccess: boolean;
+  message: string;
+};
