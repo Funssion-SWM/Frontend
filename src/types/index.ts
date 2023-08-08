@@ -61,3 +61,9 @@ export type PostMemoData = {
 export type UserInfo = {
   userName: string;
 };
+
+export type Record = {
+  historyId: number;
+  date: string;
+  postCnt: number;
+};
