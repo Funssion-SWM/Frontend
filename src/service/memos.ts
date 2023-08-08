@@ -1,4 +1,4 @@
-import { Memo, PostMemoData, UserInfo } from '@/types';
+import { Memo, PostMemoData } from '@/types';
 
 export async function getMemos(
   period: string = 'day',
@@ -22,29 +22,6 @@ export async function getMemoById(id: number): Promise<Memo> {
   })
     .then((res) => {
       if (!res.ok) throw new Error('error');
-      return res.json();
-    })
-    .catch(console.error);
-}
-
-export async function getMemosByUserId(userId: number): Promise<Memo[]> {
-  return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}/memos`,
-    {
-      next: { revalidate: 0 },
-    }
-  )
-    .then((res) => {
-      if (!res.ok) throw new Error('error 발생!');
-      return res.json();
-    })
-    .catch(console.error);
-}
-
-export async function getUserInfo(userId: number): Promise<UserInfo> {
-  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}`)
-    .then((res) => {
-      if (!res.ok) throw new Error('error 발생!');
       return res.json();
     })
     .catch(console.error);
