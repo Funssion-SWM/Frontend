@@ -1,7 +1,8 @@
 import {
   CheckUserResponse,
+  IsSuccessResponse,
+  IsValidResponse,
   LoginData,
-  LoginResponse,
   SignUpData,
 } from '@/types';
 import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url';
@@ -20,7 +21,7 @@ export async function signUp(userData: SignUpData) {
     .catch(console.error);
 }
 
-export async function login(userData: LoginData): Promise<LoginResponse> {
+export async function login(userData: LoginData): Promise<IsSuccessResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/login`,
     {
@@ -59,7 +60,9 @@ export async function checkUser(): Promise<CheckUserResponse> {
     .catch(console.error);
 }
 
-export async function checkEmailAndSendCode(email: string) {
+export async function checkEmailAndSendCode(
+  email: string
+): Promise<IsSuccessResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/authenticate-email`,
     {
@@ -75,7 +78,10 @@ export async function checkEmailAndSendCode(email: string) {
     .catch(console.error);
 }
 
-export async function confirmCode(email: string, code: string) {
+export async function confirmCode(
+  email: string,
+  code: string
+): Promise<IsValidResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/authenticate-code`,
     {
@@ -91,7 +97,9 @@ export async function confirmCode(email: string, code: string) {
     .catch(console.error);
 }
 
-export async function checkNickname(nickname: string) {
+export async function checkNickname(
+  nickname: string
+): Promise<IsValidResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/check-duplication?` +
       new URLSearchParams({ name: nickname })

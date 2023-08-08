@@ -28,6 +28,16 @@ export type CheckUserResponse = {
   isLogin: boolean;
 };
 
+export type IsSuccessResponse = {
+  isSuccess: boolean;
+  message: string;
+};
+
+export type IsValidResponse = {
+  valid: boolean;
+  message: string;
+};
+
 // Memo
 export type Memo = {
   memoId: number;
@@ -50,9 +60,4 @@ export type PostMemoData = {
 
 export type UserInfo = {
   userName: string;
-};
-
-export type LoginResponse = {
-  isSuccess: boolean;
-  message: string;
 };
