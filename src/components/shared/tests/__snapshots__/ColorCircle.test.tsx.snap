@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ColorCircle renders correctly when not selected 1`] = `
+<div
+  className="w-6 h-6 rounded-full cursor-pointer border-[1px] border-black bg-memo-yellow "
+  onClick={[Function]}
+/>
+`;
+
+exports[`ColorCircle renders correctly when selected 1`] = `
+<div
+  className="w-6 h-6 rounded-full cursor-pointer border-[1px] border-black bg-memo-yellow border-[2px] border-soma-blue-50 text-soma-blue-50 text-center"
+  onClick={[Function]}
+>
+  ✓
+</div>
+`;

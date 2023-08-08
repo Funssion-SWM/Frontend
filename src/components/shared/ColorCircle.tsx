@@ -19,8 +19,9 @@ export default function ColorCricle({ color, selected, onClick }: Props) {
           purple: 'bg-memo-purple',
         }[color]
       } ${
-        selected === color &&
-        'border-[2px] border-soma-blue-50 text-soma-blue-50 text-center'
+        selected === color
+          ? 'border-[2px] border-soma-blue-50 text-soma-blue-50 text-center'
+          : ''
       }`}
     >
       {selected === color && '✓'}
