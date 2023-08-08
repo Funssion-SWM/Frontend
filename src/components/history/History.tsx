@@ -33,16 +33,16 @@ export default function History({ history, userId }:Props) {
   let index = 0;
 
   function formatMonth(date:Date) {
-    return shortMonthName[date.getMonth()-1 >= 0 ? date.getMonth()-1 : 11];
+    return shortMonthName[date.getMonth()];
   }
 
   function getItem(date:Date) {
 
-    // if (date.getDate() === 1) index = 0;
+    let curMonth = date.getMonth()+1;
 
     let item:Record = {
       historyId: 0,
-      date: `${date.getFullYear()}-${Math.floor(date.getMonth()/10)}${date.getMonth()%10}-${Math.floor(date.getDate()/10)}${date.getDate()%10}`,
+      date: `${date.getFullYear()}-${Math.floor(curMonth/10)}${curMonth%10}-${Math.floor(date.getDate()/10)}${date.getDate()%10}`,
       postCnt: 0
     };
 
@@ -76,12 +76,8 @@ export default function History({ history, userId }:Props) {
 
         onActiveStartDateChange={async ({ activeStartDate, view }) => {
           activeStartDate = activeStartDate ? activeStartDate : new Date()
-          const curHistories = await getHistory(userId, activeStartDate?.getFullYear(), activeStartDate?.getMonth(), false);
-          setHistories(() => {
-            console.log(curHistories);
-            return curHistories;}
-            );
-
+          const curHistories = await getHistory(userId, activeStartDate?.getFullYear(), activeStartDate?.getMonth() + 1, false);
+          setHistories(curHistories);
           if (view === 'month' || view === 'year') {
             setActiveStartDate(activeStartDate ? activeStartDate : new Date());
 
