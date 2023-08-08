@@ -1,9 +1,7 @@
 import '@/styles/globals.css';
 import '@/styles/prosemirror.css';
-import { Inter } from 'next/font/google';
 import Providers from './providers';
-
-const inter = Inter({ subsets: ['latin'] });
+import { pretendard } from '@/styles/fonts';
 
 export const metadata = {
   title: 'Inforum',
@@ -16,7 +14,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.className}>
+    <html lang="en" className={pretendard.className}>
       <body className="flex flex-col">
         <Providers>{children}</Providers>
       </body>

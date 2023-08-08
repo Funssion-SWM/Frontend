@@ -52,7 +52,7 @@ export default function Providers({ children }: { children: ReactNode }) {
       <div
         className={cn(
           displayFontMapper[font as keyof typeof displayFontMapper],
-          defaultFontMapper[font as keyof typeof displayFontMapper]
+          defaultFontMapper[font as keyof typeof defaultFontMapper]
         )}
       >
         {children}
