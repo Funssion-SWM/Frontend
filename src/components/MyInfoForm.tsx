@@ -16,7 +16,11 @@ import BlueBtn2 from './shared/BlueBtn2';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-export default function MyInfoForm() {
+type Props = {
+  userId: number;
+};
+
+export default function MyInfoForm({ userId }: Props) {
   const router = useRouter();
 
   const [imageFile, setImageFile] = useState<File | null>(null);
