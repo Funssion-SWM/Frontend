@@ -135,3 +135,14 @@ export async function registerUserInfo(
     })
     .catch(console.error);
 }
+
+export async function getUserInfo2(userId: number) {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users/profile/${userId}`
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
+}
