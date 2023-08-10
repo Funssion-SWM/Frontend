@@ -1,6 +1,6 @@
 'use client';
 
-import exampleImg from '../../../public/img/profile.png';
+import basicProfileImg from '../../assets/profile.svg';
 import Link from 'next/link';
 import { checkUser, getUserInfo2, logout } from '@/service/auth';
 import Image from 'next/image';
@@ -19,9 +19,9 @@ export default function Header() {
   async function first() {
     await checkUser().then((data) => {
       setIsLogin(data.isLogin);
-      getUserInfo2(data.id).then((info) =>
-        setImageUrl(info.profileImageFilePath)
-      );
+      getUserInfo2(data.id).then((info) => {
+        setImageUrl(info.profileImageFilePath);
+      });
     });
   }
 
@@ -48,17 +48,15 @@ export default function Header() {
       </nav> */}
         {isLogin === true && (
           <nav className="flex items-center gap-3 relative" ref={dropdownRef}>
-            {imageUrl && (
-              <button onClick={() => setIsActive((pre) => !pre)}>
-                <Image
-                  src={imageUrl}
-                  alt="profileImg"
-                  width={32}
-                  height={32}
-                  className="rounded-full"
-                />
-              </button>
-            )}
+            <button onClick={() => setIsActive((pre) => !pre)}>
+              <Image
+                src={imageUrl ? imageUrl : basicProfileImg}
+                alt="profileImg"
+                width={32}
+                height={32}
+                className="rounded-full"
+              />
+            </button>
 
             <nav
               className={`absolute top-10 bg-white flex flex-col gap-1 rounded-lg shadow-inner ${
