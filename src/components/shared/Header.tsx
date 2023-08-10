@@ -19,9 +19,10 @@ export default function Header() {
   async function first() {
     await checkUser().then((data) => {
       setIsLogin(data.isLogin);
-      getUserInfo2(data.id).then((info) => {
-        setImageUrl(info.profileImageFilePath);
-      });
+      data.isLogin &&
+        getUserInfo2(data.id).then((info) => {
+          setImageUrl(info.profileImageFilePath);
+        });
     });
   }
 
