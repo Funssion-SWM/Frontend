@@ -113,12 +113,12 @@ export async function checkNickname(
 
 export async function registerUserInfo(
   id: number,
-  image: File | string,
+  image: File | null,
   introduce: string,
   tags: string
 ) {
   const formdata = new FormData();
-  formdata.append('image', image);
+  if (image !== null) formdata.append('image', image);
   formdata.append('introduce', introduce === '' ? '안녕하세요' : introduce);
   formdata.append('tags', tags === '' ? 'tags' : tags);
 

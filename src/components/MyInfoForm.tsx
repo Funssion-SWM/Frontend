@@ -24,7 +24,7 @@ type Props = {
 export default function MyInfoForm({ userId }: Props) {
   const router = useRouter();
 
-  const [imageFile, setImageFile] = useState<File | string>('');
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState('');
   const [intro, setIntro] = useState('');
   const [tags, setTags] = useState('');
