@@ -15,6 +15,7 @@ import BlueBtn from './shared/BlueBtn';
 import BlueBtn2 from './shared/BlueBtn2';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { registerUserInfo } from '@/service/auth';
 
 type Props = {
   userId: number;
@@ -23,19 +24,27 @@ type Props = {
 export default function MyInfoForm({ userId }: Props) {
   const router = useRouter();
 
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageFile, setImageFile] = useState<File | string>('');
+  const [imageUrl, setImageUrl] = useState('');
   const [intro, setIntro] = useState('');
+  const [tags, setTags] = useState('');
 
   const fileInput = useRef() as MutableRefObject<HTMLInputElement>;
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files !== null) setImageFile(e.target.files[0]);
+    if (e.target.files !== null) {
+      const file = e.target.files[0];
+      const url = window.URL.createObjectURL(file);
+      setImageFile(file);
+      setImageUrl(url);
+    }
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(imageFile);
-    console.log(intro);
+    registerUserInfo(userId, imageFile, intro, tags).then(() => {
+      router.push('/login');
+    });
   };
 
   return (
@@ -56,11 +65,11 @@ export default function MyInfoForm({ userId }: Props) {
           onClick={() => fileInput.current.click()}
         >
           <Image
-            src={profileImage}
-            width={96}
-            height={96}
+            src={imageUrl === '' ? profileImage : imageUrl}
+            width={0}
+            height={0}
             alt="profile"
-            className="rounded-full"
+            className="rounded-full w-24 h-24"
           />
           <Image
             src={editIcon}

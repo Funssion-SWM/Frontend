@@ -110,3 +110,28 @@ export async function checkNickname(
     })
     .catch(console.error);
 }
+
+export async function registerUserInfo(
+  id: number,
+  image: File | string,
+  introduce: string,
+  tags: string
+) {
+  const formdata = new FormData();
+  formdata.append('image', image);
+  formdata.append('introduce', introduce === '' ? '안녕하세요' : introduce);
+  formdata.append('tags', tags === '' ? 'tags' : tags);
+
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${id}`,
+    {
+      method: 'POST',
+      body: formdata,
+    }
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error!!');
+      return res.json();
+    })
+    .catch(console.error);
+}
