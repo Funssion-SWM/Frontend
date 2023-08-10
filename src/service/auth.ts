@@ -138,7 +138,7 @@ export async function registerUserInfo(
 
 export async function getUserInfo2(userId: number) {
   return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users/profile/${userId}`
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${userId}`
   )
     .then((res) => {
       if (!res.ok) throw new Error('error 발생!');
