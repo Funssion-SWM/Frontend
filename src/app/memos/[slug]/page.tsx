@@ -10,8 +10,7 @@ type Props = {
 };
 
 export default async function MemoPage({ params: { slug } }: Props) {
-  const { memoTitle, memoColor, memoText, authorId } = await getMemoById(slug);
-
+  const { memoTitle, memoColor, memoText, authorId, likes } = await getMemoById(slug);
   return (
     <section>
       <Header />
@@ -22,6 +21,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
           color={memoColor}
           memoId={slug}
           authorId={authorId}
+          likes={likes}
         />
       </LayoutWrapper>
     </section>
