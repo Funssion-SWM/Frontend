@@ -4,10 +4,11 @@ import basicProfileImg from '../../assets/profile.svg';
 import Link from 'next/link';
 import { checkUser, getUserInfo2, logout } from '@/service/auth';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import { useRouter } from 'next/navigation';
 import BlueBtn from './BlueBtn';
+import { ModalContext } from '@/context/ModalProvider';
 
 export default function Header() {
   const router = useRouter();
@@ -15,6 +16,7 @@ export default function Header() {
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const [isLogin, setIsLogin] = useState<boolean | null>(null);
   const [imageUrl, setImageUrl] = useState(null);
+  const { open } = useContext(ModalContext);
 
   async function first() {
     await checkUser().then((data) => {
@@ -28,7 +30,7 @@ export default function Header() {
 
   useEffect(() => {
     first();
-  }, [isActive]);
+  }, [isActive, open]);
 
   return (
     <section className="border-b-2">
@@ -76,10 +78,12 @@ export default function Header() {
               <button
                 className="hover:bg-gray-200 p-2 rounded-b-lg"
                 onClick={() => {
-                  logout().then(() => {
-                    setIsActive(false);
-                    router.push('/');
-                    router.refresh();
+                  open('로그아웃 하시겠습니까?', () => {
+                    logout().then(() => {
+                      setIsActive(false);
+                      router.push('/');
+                      router.refresh();
+                    });
                   });
                 }}
               >
