@@ -1,27 +1,36 @@
 'use client';
 
-import exampleImg from '../../../public/img/profile.png';
+import basicProfileImg from '../../assets/profile.svg';
 import Link from 'next/link';
-import { checkUser, logout } from '@/service/auth';
+import { checkUser, getUserInfo2, logout } from '@/service/auth';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import { useRouter } from 'next/navigation';
 import BlueBtn from './BlueBtn';
+import { ModalContext } from '@/context/ModalProvider';
 
 export default function Header() {
   const router = useRouter();
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const [isLogin, setIsLogin] = useState<boolean | null>(null);
+  const [imageUrl, setImageUrl] = useState(null);
+  const { open } = useContext(ModalContext);
 
   async function first() {
-    await checkUser().then((data) => setIsLogin(data.isLogin));
+    await checkUser().then((data) => {
+      setIsLogin(data.isLogin);
+      data.isLogin &&
+        getUserInfo2(data.id).then((info) => {
+          setImageUrl(info.profileImageFilePath);
+        });
+    });
   }
 
   useEffect(() => {
     first();
-  }, [isActive]);
+  }, [isActive, open]);
 
   return (
     <section className="border-b-2">
@@ -44,12 +53,14 @@ export default function Header() {
           <nav className="flex items-center gap-3 relative" ref={dropdownRef}>
             <button onClick={() => setIsActive((pre) => !pre)}>
               <Image
-                src={exampleImg}
-                alt="exampleImg"
-                height={30}
+                src={imageUrl ? imageUrl : basicProfileImg}
+                alt="profileImg"
+                width={32}
+                height={32}
                 className="rounded-full"
               />
             </button>
+
             <nav
               className={`absolute top-10 bg-white flex flex-col gap-1 rounded-lg shadow-inner ${
                 isActive ? 'visible' : 'invisible'
@@ -67,10 +78,12 @@ export default function Header() {
               <button
                 className="hover:bg-gray-200 p-2 rounded-b-lg"
                 onClick={() => {
-                  logout().then(() => {
-                    setIsActive(false);
-                    router.push('/');
-                    router.refresh();
+                  open('로그아웃 하시겠습니까?', () => {
+                    logout().then(() => {
+                      setIsActive(false);
+                      router.push('/');
+                      router.refresh();
+                    });
                   });
                 }}
               >

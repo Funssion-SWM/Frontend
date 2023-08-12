@@ -38,6 +38,14 @@ export type IsValidResponse = {
   message: string;
 };
 
+export type SignupResponse = {
+  id: number;
+  name: string;
+  loginType: string;
+  createdDate: string;
+  email: string;
+};
+
 // Memo
 export type Memo = {
   memoId: number;

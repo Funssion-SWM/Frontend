@@ -1,12 +1,12 @@
 import renderer from 'react-test-renderer';
+import BlueBtn2 from '../BlueBtn2';
 import { render, screen } from '@testing-library/react';
-import BlueBtn from '../BlueBtn';
 import userEvent from '@testing-library/user-event';
 
-describe('Blue Btn', () => {
+describe('BlueBtn2', () => {
   it('renders correctly', () => {
     const component = renderer.create(
-      <BlueBtn text="text" onClick={() => {}} />
+      <BlueBtn2 text="text" onClick={() => {}} />
     );
     expect(component.toJSON()).toMatchSnapshot();
   });
@@ -14,7 +14,7 @@ describe('Blue Btn', () => {
   it('when button clicked', async () => {
     const mockCallBack = jest.fn();
 
-    render(<BlueBtn text="text" onClick={mockCallBack} />);
+    render(<BlueBtn2 text="text" onClick={mockCallBack} />);
 
     const btn = screen.getByRole('button');
     await userEvent.click(btn);

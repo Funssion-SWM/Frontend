@@ -72,7 +72,7 @@ export default function SignupForm() {
       login_type: 0,
       user_email: signupData.email,
       user_pw: signupData.pw,
-    }).then(() => router.push('/login'));
+    }).then((data) => router.push(`/signup/setting/${data.id}`));
   };
 
   const handleIsValidEmail = () => {

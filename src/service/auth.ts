@@ -4,10 +4,11 @@ import {
   IsValidResponse,
   LoginData,
   SignUpData,
+  SignupResponse,
 } from '@/types';
 import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url';
 
-export async function signUp(userData: SignUpData) {
+export async function signUp(userData: SignUpData): Promise<SignupResponse> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -17,6 +18,7 @@ export async function signUp(userData: SignUpData) {
       if (!res.ok) {
         throw new Error('error');
       }
+      return res.json();
     })
     .catch(console.error);
 }
@@ -106,6 +108,42 @@ export async function checkNickname(
   )
     .then((res) => {
       if (!res.ok) throw new Error('error!!');
+      return res.json();
+    })
+    .catch(console.error);
+}
+
+export async function registerUserInfo(
+  id: number,
+  image: File | null,
+  introduce: string,
+  tags: string
+) {
+  const formdata = new FormData();
+  if (image !== null) formdata.append('image', image);
+  formdata.append('introduce', introduce === '' ? '안녕하세요' : introduce);
+  formdata.append('tags', tags === '' ? 'tags' : tags);
+
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${id}`,
+    {
+      method: 'POST',
+      body: formdata,
+    }
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error!!');
+      return res.json();
+    })
+    .catch(console.error);
+}
+
+export async function getUserInfo2(userId: number) {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${userId}`
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error 발생!');
       return res.json();
     })
     .catch(console.error);

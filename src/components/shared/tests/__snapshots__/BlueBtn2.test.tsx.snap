@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BlueBtn2 renders correctly 1`] = `
+<button
+  className="bg-white text-soma-blue-50 border-soma-grey-40 border-2 px-3.5 py-2 rounded-3xl transition hover:bg-soma-grey-40 "
+  onClick={[Function]}
+  type="button"
+>
+  text
+</button>
+`;

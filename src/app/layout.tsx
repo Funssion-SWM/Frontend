@@ -2,6 +2,8 @@ import '@/styles/globals.css';
 import '@/styles/prosemirror.css';
 import Providers from './providers';
 import { pretendard } from '@/styles/fonts';
+import ModalProvider from '@/context/ModalProvider';
+import Modal from '@/components/Modal';
 
 export const metadata = {
   title: 'Inforum',
@@ -16,7 +18,10 @@ export default async function RootLayout({
   return (
     <html lang="en" className={pretendard.className}>
       <body className="flex flex-col">
-        <Providers>{children}</Providers>
+        <ModalProvider>
+          <Providers>{children}</Providers>
+          <Modal />
+        </ModalProvider>
       </body>
     </html>
   );
