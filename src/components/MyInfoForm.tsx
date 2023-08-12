@@ -16,18 +16,21 @@ import BlueBtn2 from './shared/BlueBtn2';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { registerUserInfo } from '@/service/auth';
+import { UserInfo2 } from '@/types';
 
 type Props = {
   userId: number;
+  userInfo?: UserInfo2;
+  isSignup: boolean;
 };
 
-export default function MyInfoForm({ userId }: Props) {
+export default function MyInfoForm({ userId, userInfo, isSignup }: Props) {
   const router = useRouter();
 
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState('');
-  const [intro, setIntro] = useState('');
-  const [tags, setTags] = useState('');
+  const [imageUrl, setImageUrl] = useState(userInfo?.profileImageFilePath);
+  const [intro, setIntro] = useState(userInfo?.introduce ?? '');
+  const [tags, setTags] = useState(userInfo?.tags ?? '');
 
   const fileInput = useRef() as MutableRefObject<HTMLInputElement>;
 
@@ -43,7 +46,7 @@ export default function MyInfoForm({ userId }: Props) {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     registerUserInfo(userId, imageFile, intro, tags).then(() => {
-      router.push('/login');
+      isSignup ? router.push('/login') : router.push(`/me/${userId}`);
     });
   };
 
@@ -66,10 +69,10 @@ export default function MyInfoForm({ userId }: Props) {
         >
           <Image
             src={imageUrl === '' ? profileImage : imageUrl}
-            width={0}
-            height={0}
+            width={96}
+            height={96}
             alt="profile"
-            className="rounded-full w-24 h-24"
+            className="rounded-full"
           />
           <Image
             src={editIcon}
@@ -93,10 +96,12 @@ export default function MyInfoForm({ userId }: Props) {
         />
       </div>
       <div className="flex flex-col gap-2 my-3">
-        <BlueBtn text="등록" onClick={() => {}} />
-        <Link href="/login">
-          <BlueBtn2 text="나중에" onClick={() => {}} extraStyle="w-full" />
-        </Link>
+        <BlueBtn text={isSignup ? '등록' : '수정'} onClick={() => {}} />
+        {isSignup && (
+          <Link href="/login">
+            <BlueBtn2 text="나중에" onClick={() => {}} extraStyle="w-full" />
+          </Link>
+        )}
       </div>
     </form>
   );

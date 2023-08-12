@@ -1,10 +1,9 @@
 import Image from 'next/image';
-import exampleImg from '../../../public/img/profile.png';
+import basicProfileImg from '../../assets/profile.svg';
+import { UserInfo2 } from '@/types';
 
 type Props = {
-  userInfo: {
-    userName: string;
-  };
+  userInfo: UserInfo2;
 };
 
 export default function Profile({ userInfo }: Props) {
@@ -12,24 +11,21 @@ export default function Profile({ userInfo }: Props) {
     <section className="flex flex-col items-center">
       <div className="text-center">
         <Image
-          src={exampleImg}
-          alt="exampleImg"
-          height={130}
+          src={userInfo.profileImageFilePath ?? basicProfileImg}
+          alt="profileImg"
+          width={100}
+          height={100}
           className="rounded-full"
         />
-        <p className="font-bold mt-1">{userInfo.userName}</p>
+        <p className="font-bold mt-1">{userInfo.nickname}</p>
         {/* <p>15301</p> */}
       </div>
-
-      {/* <div className="self-start mt-5">
+      <div className="self-start mt-5 w-full">
         <h3 className="font-semibold">자기소개</h3>
-        <p className="bg-gray-200 p-3 rounded-md mt-1">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum
-          explicabo deserunt at minima! Eligendi impedit culpa, natus vero
-          repudiandae suscipit voluptatem at nobis iste quibusdam tempore labore
-          rerum nemo accusantium!
+        <p className="bg-soma-blue-5 p-3 rounded-md mt-1 w-full text-sm h-[150px] overflow-scroll text-soma-grey-60">
+          {userInfo.introduce}
         </p>
-      </div> */}
+      </div>
     </section>
   );
 }

@@ -15,7 +15,7 @@ export default function Header() {
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const [isLogin, setIsLogin] = useState<boolean | null>(null);
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const { open } = useContext(ModalContext);
 
   async function first() {
