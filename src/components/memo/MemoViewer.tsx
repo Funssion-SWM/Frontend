@@ -3,9 +3,7 @@
 import { EditorContent, useEditor } from '@tiptap/react';
 import { TiptapExtensions } from '../ui/editor/extensions';
 import { TiptapEditorProps } from '../ui/editor/props';
-import WriterBtns from '../shared/WriterBtns';
-import { useEffect, useState } from 'react';
-import { checkUser } from '@/service/auth';
+import MemoViewerHeader from './MemoViewerHeader';
 
 type Props = {
   title: string;
@@ -13,6 +11,8 @@ type Props = {
   color: string;
   memoId: number;
   authorId: number;
+  likes: number;
+  isLike: boolean;
 };
 
 export default function MemoViewer({
@@ -21,20 +21,12 @@ export default function MemoViewer({
   color,
   memoId,
   authorId,
+  likes,
 }: Props) {
-  const [uid, setUid] = useState<number | null>(null);
-
-  async function first() {
-    await checkUser().then((data) => setUid(data.id));
-  }
-
-  useEffect(() => {
-    first();
-  }, []);
 
   return (
     <section
-      className={`flex flex-col rounded-lg shadow-lg px-4 pb-8 min-h-[650px] ${
+      className={`flex flex-col rounded-lg shadow-lg px-4 min-h-[calc(100vh-100px)] ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
@@ -46,11 +38,8 @@ export default function MemoViewer({
         }[color]
       } `}
     >
-      {authorId === uid ? (
-        <WriterBtns memoId={memoId} />
-      ) : (
-        <div className="py-1 opacity-0">.</div>
-      )}
+      <MemoViewerHeader memoId={memoId} authorId={authorId} likes={likes} />
+
       <h1
         className={`text-4xl font-bold py-3 px-4 mb-5 mt-2 ${
           {
@@ -66,7 +55,8 @@ export default function MemoViewer({
       >
         {title}
       </h1>
-      <div className="px-4">
+
+      <div className="px-4 flex-grow">
         <EditorContent
           editor={useEditor({
             extensions: TiptapExtensions,

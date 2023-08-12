@@ -57,6 +57,7 @@ export type Memo = {
   updatedDate: string;
   authorId: number;
   authorName: string;
+  likes: number;
 };
 
 export type PostMemoData = {
@@ -74,4 +75,8 @@ export type Record = {
   historyId: number;
   date: string;
   postCnt: number;
+};
+
+export type Like = {
+  isLike: boolean;
 };
