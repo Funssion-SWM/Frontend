@@ -1,11 +1,12 @@
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import { checkUser } from '@/service/auth';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import Like from '../shared/Like';
 import { useRouter } from 'next/navigation';
 import { deleteMemo } from '@/service/memos';
 import more from '../../assets/icons/more.svg';
 import Image from 'next/image';
+import { ModalContext } from '@/context/ModalProvider';
 
 type Props = {
   memoId: number;
@@ -18,6 +19,7 @@ export default function MemoViewerHeader({ memoId, authorId, likes }: Props) {
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const [uid, setUid] = useState<number | null>(null);
   const router = useRouter();
+  const { open } = useContext(ModalContext);
 
   async function first() {
     await checkUser().then((data) => setUid(data.id));
@@ -60,7 +62,9 @@ export default function MemoViewerHeader({ memoId, authorId, likes }: Props) {
                 className="hover:bg-gray-200 p-2 rounded-b-lg"
                 onClick={() => {
                   setIsActive(false);
-                  handleDelete();
+                  open('메모를 삭제하시겠습니까?', () => {
+                    handleDelete();
+                  });
                 }}
               >
                 삭제하기

@@ -78,9 +78,9 @@ export default function Header() {
               <button
                 className="hover:bg-gray-200 p-2 rounded-b-lg"
                 onClick={() => {
+                  setIsActive(false);
                   open('로그아웃 하시겠습니까?', () => {
                     logout().then(() => {
-                      setIsActive(false);
                       router.push('/');
                       router.refresh();
                     });
