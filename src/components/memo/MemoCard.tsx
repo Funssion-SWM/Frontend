@@ -32,8 +32,12 @@ export default function MemoCard({
           }[memoColor]
         } `}
       >
-        <MemoCardHeader createDate={createdDate} authorName={authorName} likes={likes} />
-        
+        <MemoCardHeader
+          createDate={createdDate}
+          authorName={authorName}
+          likes={likes}
+        />
+
         <h2 className="text-2xl font-bold my-5 line-clamp-2 break-all">
           {memoTitle}
         </h2>

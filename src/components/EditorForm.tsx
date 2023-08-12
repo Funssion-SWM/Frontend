@@ -124,7 +124,6 @@ export default function EditorForm({
   const handleBtnClick = () => {
     const memoText = JSON.stringify(editor?.getJSON());
     const memoDescription = getDescription(memoText);
-    console.log(memoDescription);
     createOrUpdateMemo(
       `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos${
         !alreadyExists ? `/${memoId}` : ''
@@ -146,7 +145,7 @@ export default function EditorForm({
 
   return (
     <section
-      className={`relative flex flex-col rounded-lg shadow-lg px-4 py-2 min-h-[650px]  ${
+      className={`relative flex flex-col rounded-lg shadow-lg px-4 py-2 min-h-[calc(100vh-100px)]  ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',

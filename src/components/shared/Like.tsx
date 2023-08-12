@@ -1,11 +1,10 @@
-'use-client'
+'use-client';
 
-import { useEffect, useState } from "react";
-import FillHeart from "../ui/icons/fill-heart";
-import OutlineHeart from "../ui/icons/outline-heart";
-import { getIsLiked, like, unlike } from "@/service/like";
-import { checkUser } from "@/service/auth";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from 'react';
+import { getIsLiked, like, unlike } from '@/service/like';
+import Image from 'next/image';
+import fillHeart from '../../assets/icons/heart_fill.svg';
+import emptyHeart from '../../assets/icons/heart_empty.svg';
 
 type Props = {
   likes: number;
@@ -14,59 +13,58 @@ type Props = {
 };
 
 export default function Like({ likes, memoId, uid }: Props) {
-
-  const [fakeLikes, setFakeLikes] = useState<number>(likes);
+  const [likeNums, setLikeNums] = useState<number>(likes);
   const [isLike, setIsLike] = useState<Boolean>(false);
-  const router = useRouter();
 
   async function first() {
-    await getIsLiked("memos", memoId).then(data => setIsLike(data.isLike));
+    await getIsLiked('memos', memoId).then((data) => setIsLike(data.isLike));
   }
 
   useEffect(() => {
     first();
   }, []);
 
-  async function onClickLike() {
-    if (uid == null) {
-      alert("로그인 후 이용할 수 있습니다.");
-      router.push("/login");
-    }
-    // 이미 클릭됨
-    if (fakeLikes == likes + 1 || isLike) return;
-    
-    setFakeLikes(fakeLikes + 1);
-    setIsLike(true);
+  function handleClickUnlike() {
+    if (uid == -1) return;
 
-    like("memos", memoId).then(data => console.log(data));
+    setLikeNums((pre) => pre + 1);
+    setIsLike((pre) => !pre);
+    like('memos', memoId);
   }
 
-  function onClickUnlike() {
-    if (uid == null) {
-      alert("로그인 후 이용할 수 있습니다.");
-      router.push("/login");
-    }
-    // 이미 클릭됨
-    if (fakeLikes == likes - 1 || !isLike) return;
+  function handleClickLike() {
+    if (uid == -1) return;
 
-    setFakeLikes(fakeLikes - 1);
-    setIsLike(false);
+    setLikeNums((pre) => pre - 1);
+    setIsLike((pre) => !pre);
 
-    unlike("memos", memoId);
+    unlike('memos', memoId);
   }
 
   return (
     <>
-      <span className="cursor-pointer" onClick={() => isLike ? onClickUnlike() : onClickLike()}>
-          {
-            isLike ? 
-            <FillHeart className="inline-block w-5 h-5 text-red-500 mr-2 mb-1" /> :
-            <OutlineHeart className="inline-block w-5 h-5 text-red-500 mr-2 mb-1" />
-          }
-        </span>
-      <span className='mr-3'>{fakeLikes}</span>
+      <button>
+        {isLike ? (
+          <Image
+            src={fillHeart}
+            alt="fill_heart"
+            width={20}
+            height={20}
+            onClick={() => handleClickLike()}
+          />
+        ) : (
+          <Image
+            src={emptyHeart}
+            alt="empty_heart"
+            width={20}
+            height={20}
+            onClick={() => handleClickUnlike()}
+          />
+        )}
+      </button>
+      <span className="w-6 text-center text-soma-grey-49 text-sm mx-2">
+        {likeNums}
+      </span>
     </>
   );
 }
-
-

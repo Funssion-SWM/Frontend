@@ -62,7 +62,7 @@ export default function Header() {
             </button>
 
             <nav
-              className={`absolute top-10 bg-white flex flex-col gap-1 rounded-lg shadow-inner ${
+              className={`absolute top-10 bg-white flex flex-col gap-1 rounded-lg shadow-inner z-10 ${
                 isActive ? 'visible' : 'invisible'
               }`}
             >

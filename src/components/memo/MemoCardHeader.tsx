@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import exampleImg from '../../../public/img/profile.png';
-import { AiFillHeart } from 'react-icons/ai';
-import FillHeart from '../ui/icons/fill-heart';
-import OutlineHeart from '../ui/icons/outline-heart';
+import fillHeart from '../../assets/icons/heart_fill.svg';
 
 type Props = {
   createDate: string;
@@ -10,7 +8,11 @@ type Props = {
   likes: number;
 };
 
-export default function MemoCardHeader({ createDate, authorName, likes }: Props) {
+export default function MemoCardHeader({
+  createDate,
+  authorName,
+  likes,
+}: Props) {
   return (
     <div className="flex justify-between items-center">
       <div className="flex items-center">
@@ -26,8 +28,10 @@ export default function MemoCardHeader({ createDate, authorName, likes }: Props)
         </div>
       </div>
       <div className="flex items-center">
-        <FillHeart className="w-5 h-5 text-red-500 mr-2" />
-        <p>{likes}</p>
+        <Image src={fillHeart} alt="fill_heart" width={16} height={16} />
+        <p className="text-soma-grey-49 text-xs w-5 text-center ml-0.5">
+          {likes}
+        </p>
       </div>
     </div>
   );
