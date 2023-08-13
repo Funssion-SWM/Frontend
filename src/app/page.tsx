@@ -9,7 +9,7 @@ export default async function HomePage() {
   return (
     <section>
       <Header />
-      <LayoutWrapper paddingY="py-5">
+      <LayoutWrapper paddingY="sm:py-5">
         <MemosGrid memos={memos} colNum={4} />
       </LayoutWrapper>
     </section>

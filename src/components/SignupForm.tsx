@@ -19,7 +19,7 @@ import {
 } from '@/service/validation';
 
 const INPUT_STYLE =
-  'border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow';
+  'border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow text-sm sm:text-base';
 
 export default function SignupForm() {
   const router = useRouter();
@@ -126,7 +126,7 @@ export default function SignupForm() {
         isVisible={isMessageVisible}
       />
       <div className="flex flex-col my-1">
-        <label htmlFor="email" className="text-sm">
+        <label htmlFor="email" className="text-xs sm:text-sm">
           이메일
         </label>
         <div className="flex items-center">
@@ -151,7 +151,7 @@ export default function SignupForm() {
       </div>
       {isValidEmail && (
         <div className="flex flex-col my-1">
-          <label htmlFor="authCode" className="text-sm">
+          <label htmlFor="authCode" className="text-xs sm:text-sm">
             인증번호
           </label>
           <div className="flex items-center">
@@ -176,7 +176,7 @@ export default function SignupForm() {
         </div>
       )}
       <div className="flex flex-col my-1">
-        <label htmlFor="nickname" className="text-sm">
+        <label htmlFor="nickname" className="text-xs sm:text-sm">
           닉네임
         </label>
         <div className="flex items-center">
@@ -198,7 +198,7 @@ export default function SignupForm() {
         </div>
       </div>
       <div className="flex flex-col  my-1">
-        <label htmlFor="pw" className="text-sm">
+        <label htmlFor="pw" className="text-xs sm:text-sm">
           비밀번호
         </label>
         <input
@@ -213,7 +213,7 @@ export default function SignupForm() {
         />
       </div>
       <div className="flex flex-col  my-1">
-        <label htmlFor="confirmPw" className="text-sm">
+        <label htmlFor="confirmPw" className="text-xs sm:text-sm">
           비밀번호 확인
         </label>
         <input

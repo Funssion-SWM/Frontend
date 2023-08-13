@@ -8,7 +8,7 @@ import BlueBtn from './shared/BlueBtn';
 import PromptgMessage from './shared/PromptMessage';
 
 const INPUT_STYLE =
-  'text-lg border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30';
+  'text-lg border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 text-sm sm:text-base';
 
 export default function LoginForm() {
   const router = useRouter();

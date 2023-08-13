@@ -17,7 +17,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
   return (
     <section>
       <Header />
-      <LayoutWrapper paddingY="py-5" bgColor="bg-soma-grey-10">
+      <LayoutWrapper paddingY="sm:py-5" bgColor="bg-soma-grey-10">
         <MemoViewer
           title={memoTitle}
           content={JSON.parse(memoText)}

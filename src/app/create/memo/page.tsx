@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function CreateMemoPage() {
   return (
-    <LayoutWrapper paddingY="py-10" bgColor="bg-soma-grey-10">
+    <LayoutWrapper paddingY="sm:py-10" bgColor="bg-soma-grey-10">
       <EditorForm alreadyExists={true} />
     </LayoutWrapper>
   );

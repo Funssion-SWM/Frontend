@@ -145,7 +145,7 @@ export default function EditorForm({
 
   return (
     <section
-      className={`relative flex flex-col rounded-lg shadow-lg px-4 py-2 min-h-[calc(100vh-100px)]  ${
+      className={`relative flex flex-col rounded-lg shadow-lg px-4 py-2 min-h-screen sm:min-h-[calc(100vh-100px)]  ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
@@ -168,7 +168,7 @@ export default function EditorForm({
         name="title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="w-full outline-none text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-2 border-gray-400"
+        className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-2 border-gray-400"
         autoFocus
       />
       {/* <h3>tag</h3> */}

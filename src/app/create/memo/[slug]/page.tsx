@@ -12,7 +12,7 @@ export default async function CreateMemoPage({ params: { slug } }: Props) {
   const { memoTitle, memoColor, memoText } = await getMemoById(slug);
 
   return (
-    <LayoutWrapper paddingY="py-10" bgColor="bg-soma-grey-10">
+    <LayoutWrapper paddingY="sm:py-10" bgColor="bg-soma-grey-10">
       <EditorForm
         preTitle={memoTitle}
         preContent={JSON.parse(memoText)}
