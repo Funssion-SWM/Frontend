@@ -6,12 +6,13 @@ import { TiptapExtensions } from '@/components/ui/editor/extensions';
 import { TiptapEditorProps } from '@/components/ui/editor/props';
 import { useEditor } from '@tiptap/react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import BlueBtn from './shared/BlueBtn';
 import { createOrUpdateMemo } from '@/service/memos';
 import { getPrevText } from '@/lib/editor';
 import { useCompletion } from 'ai/react';
 import { getDescription } from '@/service/description';
+import { ModalContext } from '@/context/ModalProvider';
 
 type Props = {
   preTitle?: string;
@@ -29,6 +30,7 @@ export default function EditorForm({
   memoId,
 }: Props) {
   const router = useRouter();
+  const { open } = useContext(ModalContext);
   const editor = useEditor({
     extensions: TiptapExtensions,
     editorProps: TiptapEditorProps,
@@ -122,7 +124,18 @@ export default function EditorForm({
   const [title, setTitle] = useState(preTitle);
   const [selectedColor, setSelectedColor] = useState(preColor);
   const handleBtnClick = () => {
+    if (title === '') {
+      alert('제목을 작성해주세요!');
+      return;
+    }
+
     const memoText = JSON.stringify(editor?.getJSON());
+
+    if (!memoText.includes('text')) {
+      alert('내용을 작성해주세요!');
+      return;
+    }
+
     const memoDescription = getDescription(memoText);
     createOrUpdateMemo(
       `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos${
@@ -176,7 +189,11 @@ export default function EditorForm({
       <MyEditor editor={editor} />
       <button
         className="absolute bottom-3 right-5 text-soma-grey-50"
-        onClick={() => router.back()}
+        onClick={() =>
+          open('나가시겠습니까?', () => {
+            router.back();
+          })
+        }
       >
         나가기
       </button>
