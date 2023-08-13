@@ -15,7 +15,7 @@ import BlueBtn from './shared/BlueBtn';
 import BlueBtn2 from './shared/BlueBtn2';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { registerUserInfo } from '@/service/auth';
+import { registerUserInfo, updateUserInfo } from '@/service/auth';
 import { UserInfo2 } from '@/types';
 
 type Props = {
@@ -47,15 +47,25 @@ export default function MyInfoForm({ userId, userInfo, isSignup }: Props) {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    registerUserInfo(
-      userId,
-      imageFile,
-      intro,
-      tags,
-      imageUrl === '' && imageFile === null ? 'true' : 'false'
-    ).then(() => {
-      isSignup ? router.push('/login') : router.push(`/me/${userId}`);
-    });
+    isSignup
+      ? registerUserInfo(
+          userId,
+          imageFile,
+          intro,
+          tags,
+          imageUrl === '' && imageFile === null ? 'true' : 'false'
+        ).then(() => {
+          router.push('/login');
+        })
+      : updateUserInfo(
+          userId,
+          imageFile,
+          intro,
+          tags,
+          imageUrl === '' && imageFile === null ? 'true' : 'false'
+        ).then(() => {
+          router.push(`/me/${userId}`);
+        });
   };
 
   return (

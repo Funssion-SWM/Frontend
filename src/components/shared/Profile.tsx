@@ -13,9 +13,9 @@ export default function Profile({ userInfo }: Props) {
         <Image
           src={userInfo.profileImageFilePath ?? basicProfileImg}
           alt="profileImg"
-          width={100}
-          height={100}
-          className="rounded-full"
+          width={96}
+          height={96}
+          className="rounded-full w-24 h-24 object-cover"
         />
         <p className="font-bold mt-1">{userInfo.nickname}</p>
         {/* <p>15301</p> */}

@@ -142,6 +142,34 @@ export async function registerUserInfo(
     .catch(console.error);
 }
 
+export async function updateUserInfo(
+  id: number,
+  image: File | null,
+  introduce: string,
+  tags: string,
+  isEmptyProfileImage: string
+) {
+  const formdata = new FormData();
+  formdata.append('isEmptyProfileImage', isEmptyProfileImage);
+  if (image !== null) formdata.append('image', image);
+  formdata.append('introduce', introduce === '' ? '안녕하세요' : introduce);
+  formdata.append('tags', tags === '' ? 'tags' : tags);
+
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${id}`,
+    {
+      method: 'PATCH',
+      body: formdata,
+    }
+  )
+    .then((res) => {
+      console.log(res);
+      if (!res.ok) throw new Error('error!!');
+      return res.json();
+    })
+    .catch(console.error);
+}
+
 export async function getUserInfo2(userId: number): Promise<UserInfo2> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${userId}`

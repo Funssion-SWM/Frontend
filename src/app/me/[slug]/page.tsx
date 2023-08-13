@@ -30,7 +30,7 @@ export default async function MePage({ params: { slug } }: Props) {
           <section className="flex flex-col items-center sm:w-[300px] min-h-screen p-6 bg-soma-grey-20">
             <Profile userInfo={userInfo} />
             <History history={history} userId={slug} />
-            {/* <SettingBtns userId={slug} /> */}
+            <SettingBtns userId={slug} />
           </section>
           <section className="grow w-full sm:px-4 sm:py-2">
             <h3 className="font-bold text-lg sm:text-2xl mb-1 my-1 text-center sm:text-start">

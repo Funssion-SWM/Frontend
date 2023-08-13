@@ -1,5 +1,7 @@
 import MyInfoForm from '@/components/MyInfoForm';
 import { getUserInfo2 } from '@/service/auth';
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 type Props = {
   params: {
