@@ -14,6 +14,7 @@ export default function MemoCard({
     memoColor,
     createdDate,
     authorName,
+    authorProfileImagePath,
     likes,
   },
 }: Props) {
@@ -36,6 +37,7 @@ export default function MemoCard({
           createDate={createdDate}
           authorName={authorName}
           likes={likes}
+          imagePath={authorProfileImagePath}
         />
 
         <h2 className="text-2xl font-bold my-5 line-clamp-2 break-all">

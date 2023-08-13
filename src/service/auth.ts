@@ -118,9 +118,11 @@ export async function registerUserInfo(
   id: number,
   image: File | null,
   introduce: string,
-  tags: string
+  tags: string,
+  isEmptyProfileImage: string
 ) {
   const formdata = new FormData();
+  formdata.append('isEmptyProfileImage', isEmptyProfileImage);
   if (image !== null) formdata.append('image', image);
   formdata.append('introduce', introduce === '' ? '안녕하세요' : introduce);
   formdata.append('tags', tags === '' ? 'tags' : tags);
@@ -133,6 +135,7 @@ export async function registerUserInfo(
     }
   )
     .then((res) => {
+      console.log(res);
       if (!res.ok) throw new Error('error!!');
       return res.json();
     })

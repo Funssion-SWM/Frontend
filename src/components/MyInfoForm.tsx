@@ -28,7 +28,9 @@ export default function MyInfoForm({ userId, userInfo, isSignup }: Props) {
   const router = useRouter();
 
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState(userInfo?.profileImageFilePath);
+  const [imageUrl, setImageUrl] = useState(
+    userInfo?.profileImageFilePath ?? ''
+  );
   const [intro, setIntro] = useState(userInfo?.introduce ?? '');
   const [tags, setTags] = useState(userInfo?.tags ?? '');
 
@@ -45,7 +47,13 @@ export default function MyInfoForm({ userId, userInfo, isSignup }: Props) {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    registerUserInfo(userId, imageFile, intro, tags).then(() => {
+    registerUserInfo(
+      userId,
+      imageFile,
+      intro,
+      tags,
+      imageUrl === '' && imageFile === null ? 'true' : 'false'
+    ).then(() => {
       isSignup ? router.push('/login') : router.push(`/me/${userId}`);
     });
   };
@@ -72,7 +80,7 @@ export default function MyInfoForm({ userId, userInfo, isSignup }: Props) {
             width={96}
             height={96}
             alt="profile"
-            className="rounded-full"
+            className="rounded-full w-24 h-24 object-cover"
           />
           <Image
             src={editIcon}
@@ -81,6 +89,16 @@ export default function MyInfoForm({ userId, userInfo, isSignup }: Props) {
           />
         </button>
       </div>
+      <button
+        type="button"
+        className="w-fit text-xs bg-soma-grey-25 hover:bg-soma-grey-30 self-center p-2 rounded-2xl"
+        onClick={() => {
+          setImageFile(null);
+          setImageUrl('');
+        }}
+      >
+        기본 이미지 설정
+      </button>
 
       <div className="flex flex-col my-3">
         <label htmlFor="confirmPw" className="text-sm">

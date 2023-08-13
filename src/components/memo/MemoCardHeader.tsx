@@ -6,21 +6,24 @@ type Props = {
   createDate: string;
   authorName: string;
   likes: number;
+  imagePath: string;
 };
 
 export default function MemoCardHeader({
   createDate,
   authorName,
   likes,
+  imagePath,
 }: Props) {
   return (
     <div className="flex justify-between items-center">
       <div className="flex items-center">
         <Image
-          src={exampleImg}
+          src={imagePath ?? exampleImg}
           alt="exampleImg"
-          height={35}
-          className="rounded-full"
+          width={40}
+          height={40}
+          className="rounded-full w-10 h-10 object-cover"
         />
         <div className="ml-2">
           <h4>{authorName}</h4>

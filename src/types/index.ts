@@ -57,6 +57,7 @@ export type Memo = {
   updatedDate: string;
   authorId: number;
   authorName: string;
+  authorProfileImagePath: string;
   likes: number;
 };
 
