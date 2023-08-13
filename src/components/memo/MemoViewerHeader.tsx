@@ -31,7 +31,7 @@ export default function MemoViewerHeader({ memoId, authorId, likes }: Props) {
 
   const handleDelete = () =>
     deleteMemo(memoId).then(() => {
-      router.push('/');
+      router.push('/memos');
       router.refresh();
     });
 

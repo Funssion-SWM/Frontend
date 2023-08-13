@@ -12,7 +12,7 @@ export default function SignupSettingPage({ params: { slug } }: Props) {
   const headersList = headers();
   const referer = headersList.get('referer');
 
-  if (referer === null) redirect('/');
+  if (referer === null) redirect('/memos');
 
   return (
     <section className="flex flex-col w-full items-center max-w-screen-sm mx-auto mt-24 py-5 px-10 sm:px-32">

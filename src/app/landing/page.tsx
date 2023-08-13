@@ -1,6 +1,5 @@
 'use client';
 
-import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import Link from 'next/link';
 import { useState } from 'react';
 import TypeIt from 'typeit-react';
@@ -12,14 +11,16 @@ export default function LandingPage() {
       <h1 className="text-4xl sm:text-7xl font-bold text-center overflow-hidden">
         <TypeIt
           options={{
-            strings: ['개발 기록을 쉽고 즐겁게, 인포럼'],
+            strings: [''],
             speed: 70,
             waitUntilVisible: true,
             afterComplete: () => {
               setState(true);
             },
           }}
-        ></TypeIt>
+        >
+          개발 기록을 쉽고 즐겁게, 인포럼
+        </TypeIt>
       </h1>
       <div
         className={`text-center transition-opacity ${

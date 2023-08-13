@@ -38,7 +38,7 @@ export default function Header() {
         <h1
           className="text-2xl font-bold cursor-pointer"
           onClick={() => {
-            router.push('/');
+            router.push('/memos');
             router.refresh();
           }}
         >
@@ -81,7 +81,7 @@ export default function Header() {
                   setIsActive(false);
                   open('로그아웃 하시겠습니까?', () => {
                     logout().then(() => {
-                      router.push('/');
+                      router.push('/memos');
                       router.refresh();
                     });
                   });

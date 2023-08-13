@@ -32,7 +32,7 @@ export default function LoginForm() {
       (data) => {
         showMessage(data.message, data.isSuccess);
         if (data.isSuccess) {
-          router.push('/');
+          router.push('/memos');
           router.refresh();
         }
       }

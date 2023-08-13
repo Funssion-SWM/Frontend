@@ -135,7 +135,7 @@ export default function EditorForm({
         memoColor: selectedColor,
       }
     ).then(() => {
-      if (alreadyExists) router.push('/');
+      if (alreadyExists) router.push('/memos');
       else router.push(`/memos/${memoId}`);
       router.refresh();
     });
