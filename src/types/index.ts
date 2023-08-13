@@ -86,4 +86,5 @@ export type Record = {
 
 export type Like = {
   isLike: boolean;
+  likes: number;
 };

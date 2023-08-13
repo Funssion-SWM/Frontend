@@ -35,9 +35,7 @@ export async function unlike(postType: string, postId: number): Promise<void> {
     { method: 'POST', credentials: 'include' }
   )
     .then((res) => {
-      console.log(res);
       if (!res.ok) throw new Error('error 발생!');
-      return res.json();
     })
     .catch(console.error);
 }

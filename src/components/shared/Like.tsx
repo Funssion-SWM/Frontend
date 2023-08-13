@@ -17,7 +17,10 @@ export default function Like({ likes, memoId, uid }: Props) {
   const [isLike, setIsLike] = useState<Boolean>(false);
 
   async function first() {
-    await getIsLiked('memos', memoId).then((data) => setIsLike(data.isLike));
+    await getIsLiked('memos', memoId).then((data) => {
+      setIsLike(data.isLike);
+      setLikeNums(data.likes);
+    });
   }
 
   useEffect(() => {
