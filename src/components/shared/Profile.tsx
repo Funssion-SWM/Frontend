@@ -8,7 +8,7 @@ type Props = {
 
 export default function Profile({ userInfo }: Props) {
   return (
-    <section className="flex flex-col items-center">
+    <section className="flex flex-col items-center w-full">
       <div className="text-center">
         <Image
           src={userInfo.profileImageFilePath ?? basicProfileImg}
