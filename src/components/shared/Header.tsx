@@ -91,7 +91,7 @@ export default function Header() {
               </button>
             </nav>
             <BlueBtn
-              text={'+글쓰기'}
+              text={'글쓰기'}
               onClick={() => {
                 router.push('/create/memo');
                 setIsActive(false);
@@ -101,7 +101,7 @@ export default function Header() {
         )}
         {isLogin === false && (
           <Link href="/login">
-            <BlueBtn text="회원가입/로그인" onClick={() => {}} />
+            <BlueBtn text="로그인" onClick={() => {}} />
           </Link>
         )}
       </header>
