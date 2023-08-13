@@ -11,7 +11,7 @@ export default function LoginPage() {
   return (
     <section className="relative flex flex-col w-full items-center max-w-screen-sm mx-auto mt-40 py-5 px-10 sm:px-32">
       <Link
-        href="/"
+        href="/memos"
         className="absolute top-2 right-4 text-soma-grey-50 text-sm sm:text-base"
       >
         메인으로
