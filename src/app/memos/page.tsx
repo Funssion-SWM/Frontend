@@ -1,4 +1,4 @@
-import MemosGrid from '@/components/memo/MemosGrid';
+import MemosContainer from '@/components/memo/MemosContainer';
 import Footer from '@/components/shared/Footer';
 import Header from '@/components/shared/Header';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
@@ -11,7 +11,7 @@ export default async function MemosPage() {
     <section>
       <Header />
       <LayoutWrapper paddingY="sm:py-5">
-        <MemosGrid memos={memos} colNum={4} />
+        <MemosContainer memos={memos} />
       </LayoutWrapper>
       <Footer />
     </section>
