@@ -1,4 +1,5 @@
 import EditorForm from '@/components/EditorForm';
+import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { getMemoById } from '@/service/memos';
 
 type Props = {
@@ -11,13 +12,15 @@ export default async function CreateMemoPage({ params: { slug } }: Props) {
   const { memoTitle, memoColor, memoText } = await getMemoById(slug);
 
   return (
-    <EditorForm
-      preTitle={memoTitle}
-      preContent={JSON.parse(memoText)}
-      preColor={memoColor}
-      alreadyExists={false}
-      memoId={slug}
-    />
+    <LayoutWrapper paddingY="sm:py-10" bgColor="bg-soma-grey-10">
+      <EditorForm
+        preTitle={memoTitle}
+        preContent={JSON.parse(memoText)}
+        preColor={memoColor}
+        alreadyExists={false}
+        memoId={slug}
+      />
+    </LayoutWrapper>
   );
 }
 

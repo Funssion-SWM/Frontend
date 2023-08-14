@@ -1,21 +1,25 @@
 'use client';
 
 import { ChangeEvent, FormEvent, useState } from 'react';
-import WarningMessage from './shared/WarningMessage';
 import {
-  checkEmail,
+  checkEmailAndSendCode,
   checkNickname,
   confirmCode,
-  sendCodeToEmail,
   signUp,
 } from '@/service/auth';
 import { useRouter } from 'next/navigation';
 import { SignupFormData } from '@/types';
+import BlueBtn from './shared/BlueBtn';
+import IsValidBtn from './shared/IsValidBtn';
+import PromptgMessage from './shared/PromptMessage';
+import {
+  validateEmail,
+  validateNickname,
+  validatePassword,
+} from '@/service/validation';
 
 const INPUT_STYLE =
-  'text-lg border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow';
-const GREY_BTN_STYLE =
-  'bg-soma-grey-30 rounded-2xl mx-2 px-2 text-soma-grey-45 font-semibold text-lg py-2';
+  'border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow text-sm sm:text-base';
 
 export default function SignupForm() {
   const router = useRouter();
@@ -26,9 +30,13 @@ export default function SignupForm() {
     confirmPw: '',
     nickname: '',
   });
-  const [msgFlag1, setMsgFlag1] = useState(false);
-  const [msgFlag2, setMsgFlag2] = useState(false);
-  const [msgFlag3, setMsgFlag3] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(false);
+  const [isValidCode, setIsValidCode] = useState(false);
+  const [isValidNickname, setIsValidNickname] = useState(false);
+
+  const [messageText, setMessageText] = useState('');
+  const [messageType, setMessageType] = useState(false); // true : 성공 메시지  false : 경고 메시지
+  const [isMessageVisible, setIsMessageVisible] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
@@ -37,11 +45,25 @@ export default function SignupForm() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (
+      !(
+        isValidEmail &&
+        isValidCode &&
+        isValidNickname &&
+        validateNickname(signupData.nickname)
+      )
+    ) {
+      showMessage('중복확인, 인증 처리에 문제가 있습니다.', false);
+      return;
+    }
+
+    if (!validatePassword(signupData.pw)) {
+      showMessage('비밀번호 형식에 맞지 않습니다.', false);
+      return;
+    }
+
     if (signupData.pw !== signupData.confirmPw) {
-      setMsgFlag3(true);
-      setTimeout(() => {
-        setMsgFlag3(false);
-      }, 2000);
+      showMessage('비밀번호가 같지 않습니다.', false);
       return;
     }
 
@@ -50,37 +72,61 @@ export default function SignupForm() {
       login_type: 0,
       user_email: signupData.email,
       user_pw: signupData.pw,
-    }).then(() => router.push('/login'));
+    }).then((data) => router.push(`/signup/setting/${data.id}`));
   };
 
-  const handleIsDuplicate1 = () => {
-    checkEmail(signupData.email).then(console.log).catch(console.error);
-    setMsgFlag1(true);
-    setTimeout(() => {
-      setMsgFlag1(false);
-    }, 2000);
-  };
+  const handleIsValidEmail = () => {
+    if (!validateEmail(signupData.email)) {
+      showMessage('이메일 형식에 맞지 않습니다.', false);
+      setIsValidNickname(false);
+      return;
+    }
 
-  const handleIsDuplicate2 = () => {
-    checkNickname(signupData.nickname).then(console.log).catch(console.error);
-    setMsgFlag2(true);
-    setTimeout(() => {
-      setMsgFlag2(false);
-    }, 2000);
-  };
-
-  const handleSendCode = () => {
-    sendCodeToEmail(signupData.email).then(console.log).catch(console.error);
+    checkEmailAndSendCode(signupData.email).then((data) => {
+      setIsValidCode(false);
+      showMessage(data.message, data.isSuccess);
+      setIsValidEmail(data.isSuccess ? true : false);
+    });
   };
 
   const handleConfirmCode = () => {
-    confirmCode(signupData.authCode).then(console.log).catch(console.error);
+    confirmCode(signupData.email, signupData.authCode).then((data) => {
+      showMessage(data.message, data.valid);
+      setIsValidCode(data.valid ? true : false);
+    });
+  };
+
+  const handleIsValidNickname = () => {
+    if (!validateNickname(signupData.nickname)) {
+      showMessage('닉네임 형식에 맞지 않습니다.', false);
+      setIsValidNickname(false);
+      return;
+    }
+
+    checkNickname(signupData.nickname).then((data) => {
+      showMessage(data.message, data.valid);
+      setIsValidNickname(data.valid ? true : false);
+    });
+  };
+
+  const showMessage = (text: string, type: boolean) => {
+    setMessageText(text);
+    setMessageType(type);
+    setIsMessageVisible(true);
+    setTimeout(() => {
+      setIsMessageVisible(false);
+    }, 2000);
   };
 
   return (
     <form className="flex flex-col w-full" onSubmit={handleSubmit}>
+      <PromptgMessage
+        text={messageText}
+        type={messageType}
+        isVisible={isMessageVisible}
+      />
       <div className="flex flex-col my-1">
-        <label htmlFor="email" className="text-sm">
+        <label htmlFor="email" className="text-xs sm:text-sm">
           이메일
         </label>
         <div className="flex items-center">
@@ -93,38 +139,44 @@ export default function SignupForm() {
             onChange={handleChange}
             required
             placeholder="이메일을 입력해주세요."
+            readOnly={isValidCode}
           />
-          {/* <button className={GREY_BTN_STYLE} onClick={handleIsDuplicate1}>
-            중복확인
-          </button> */}
-          {/* <button className={GREY_BTN_STYLE} onClick={handleSendCode}>
-            보내기
-          </button> */}
+          <IsValidBtn
+            text="코드전송"
+            onClick={handleIsValidEmail}
+            isValid={isValidEmail}
+            disabled={isValidCode}
+          />
         </div>
       </div>
-      {msgFlag1 && <WarningMessage text="중복되는 이메일입니다." />}
-      {/* <div className="flex flex-col my-1">
-        <label htmlFor="authCode" className="text-sm">
-          인증번호
-        </label>
-        <div className="flex items-center">
-          <input
-            className={INPUT_STYLE}
-            type="text"
-            id="authCode"
-            name="authCode"
-            value={signupData.authCode}
-            onChange={handleChange}
-            required
-            placeholder="인증번호 6자리를 입력해주세요."
-          />
-          <button className={GREY_BTN_STYLE} onClick={handleConfirmCode}>
-            인증
-          </button>
+      {isValidEmail && (
+        <div className="flex flex-col my-1">
+          <label htmlFor="authCode" className="text-xs sm:text-sm">
+            인증번호
+          </label>
+          <div className="flex items-center">
+            <input
+              className={INPUT_STYLE}
+              type="text"
+              id="authCode"
+              name="authCode"
+              value={signupData.authCode}
+              onChange={handleChange}
+              required
+              placeholder="인증번호 6자리를 입력해주세요."
+              readOnly={isValidCode}
+            />
+            <IsValidBtn
+              text="인증"
+              onClick={handleConfirmCode}
+              isValid={isValidCode}
+              disabled={isValidCode}
+            />
+          </div>
         </div>
-      </div> */}
+      )}
       <div className="flex flex-col my-1">
-        <label htmlFor="nickname" className="text-sm">
+        <label htmlFor="nickname" className="text-xs sm:text-sm">
           닉네임
         </label>
         <div className="flex items-center">
@@ -136,16 +188,17 @@ export default function SignupForm() {
             value={signupData.nickname}
             onChange={handleChange}
             required
-            placeholder="활동할 닉네임을 입력해주세요."
+            placeholder="4~14자리 (영어, 숫자 : 1자, 한글 : 2자)"
           />
-          {/* <button className={GREY_BTN_STYLE} onClick={handleIsDuplicate2}>
-            중복확인
-          </button> */}
+          <IsValidBtn
+            text="중복확인"
+            onClick={handleIsValidNickname}
+            isValid={isValidNickname}
+          />
         </div>
       </div>
-      {msgFlag2 && <WarningMessage text="중복되는 닉네임입니다." />}
       <div className="flex flex-col  my-1">
-        <label htmlFor="pw" className="text-sm">
+        <label htmlFor="pw" className="text-xs sm:text-sm">
           비밀번호
         </label>
         <input
@@ -156,11 +209,11 @@ export default function SignupForm() {
           value={signupData.pw}
           onChange={handleChange}
           required
-          placeholder="비밀번호를 입력해주세요."
+          placeholder="8~20자리 (영어, 숫자, 특수문자(@$!%*#?&)) 포함)"
         />
       </div>
       <div className="flex flex-col  my-1">
-        <label htmlFor="confirmPw" className="text-sm">
+        <label htmlFor="confirmPw" className="text-xs sm:text-sm">
           비밀번호 확인
         </label>
         <input
@@ -174,10 +227,7 @@ export default function SignupForm() {
           placeholder="입력한 비밀번호를 다시 입력해주세요."
         />
       </div>
-      {msgFlag3 && <WarningMessage text="비밀번호가 같지 않습니다." />}
-      <button className="bg-soma-blue-40 text-soma-white rounded-3xl py-3 my-5 font-bold">
-        회원가입
-      </button>
+      <BlueBtn text="회원가입" onClick={() => {}} extraStyle="my-5" />
     </form>
   );
 }

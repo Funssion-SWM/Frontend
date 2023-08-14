@@ -1,241 +1,120 @@
+'use client';
 import HistoryBox from './HistoryBox';
+import Calendar from 'react-calendar';
+import { useState } from 'react';
+import { getHistory } from '@/service/me';
+import { Record } from '@/types';
+import '../../styles/calendar/Calendar.css';
 
-export default function History() {
-  const data = [
-    {
-      date: '2023-06-03',
-      postCnt: 0,
-    },
-    {
-      date: '2023-06-04',
-      postCnt: 1,
-    },
-    {
-      date: '2023-06-05',
-      postCnt: 2,
-    },
-    {
-      date: '2023-06-06',
-      postCnt: 3,
-    },
-    {
-      date: '2023-06-07',
-      postCnt: 3,
-    },
-    {
-      date: '2023-06-08',
-      postCnt: 4,
-    },
-    {
-      date: '2023-06-09',
-      postCnt: 5,
-    },
-    {
-      date: '2023-06-10',
-      postCnt: 10,
-    },
-    {
-      date: '2023-06-11',
-      postCnt: 8,
-    },
-    {
-      date: '2023-06-12',
-      postCnt: 3,
-    },
-    {
-      date: '2023-06-13',
-      postCnt: 7,
-    },
-    {
-      date: '2023-06-14',
-      postCnt: 6,
-    },
-    {
-      date: '2023-06-15',
-      postCnt: 9,
-    },
-    {
-      date: '2023-06-16',
-      postCnt: 5,
-    },
-    {
-      date: '2023-06-17',
-      postCnt: 13,
-    },
-    {
-      date: '2023-06-18',
-      postCnt: 17,
-    },
-    {
-      date: '2023-06-19',
-      postCnt: 1,
-    },
-    {
-      date: '2023-06-20',
-      postCnt: 0,
-    },
-    {
-      date: '2023-06-21',
-      postCnt: 1,
-    },
-    {
-      date: '2023-06-22',
-      postCnt: 3,
-    },
-    {
-      date: '2023-06-23',
-      postCnt: 1,
-    },
-    {
-      date: '2023-06-24',
-      postCnt: 9,
-    },
-    {
-      date: '2023-06-25',
-      postCnt: 4,
-    },
-    {
-      date: '2023-06-26',
-      postCnt: 1,
-    },
-    {
-      date: '2023-06-27',
-      postCnt: 5,
-    },
-    {
-      date: '2023-06-28',
-      postCnt: 5,
-    },
-    {
-      date: '2023-06-29',
-      postCnt: 7,
-    },
-    {
-      date: '2023-06-30',
-      postCnt: 4,
-    },
-    {
-      date: '2023-07-01',
-      postCnt: 0,
-    },
-    {
-      date: '2023-07-02',
-      postCnt: 1,
-    },
-    {
-      date: '2023-07-03',
-      postCnt: 2,
-    },
-    {
-      date: '2023-07-04',
-      postCnt: 3,
-    },
-    {
-      date: '2023-07-05',
-      postCnt: 3,
-    },
-    {
-      date: '2023-07-06',
-      postCnt: 4,
-    },
-    {
-      date: '2023-07-07',
-      postCnt: 5,
-    },
-    {
-      date: '2023-07-08',
-      postCnt: 10,
-    },
-    {
-      date: '2023-07-09',
-      postCnt: 8,
-    },
-    {
-      date: '2023-07-10',
-      postCnt: 3,
-    },
-    {
-      date: '2023-07-11',
-      postCnt: 7,
-    },
-    {
-      date: '2023-07-12',
-      postCnt: 6,
-    },
-    {
-      date: '2023-07-13',
-      postCnt: 9,
-    },
-    {
-      date: '2023-07-14',
-      postCnt: 5,
-    },
-    {
-      date: '2023-07-15',
-      postCnt: 13,
-    },
-    {
-      date: '2023-07-16',
-      postCnt: 17,
-    },
-    {
-      date: '2023-07-17',
-      postCnt: 1,
-    },
-    {
-      date: '2023-07-18',
-      postCnt: 0,
-    },
-    {
-      date: '2023-07-19',
-      postCnt: 1,
-    },
-    {
-      date: '2023-07-20',
-      postCnt: 3,
-    },
-    {
-      date: '2023-07-21',
-      postCnt: 1,
-    },
-    {
-      date: '2023-07-22',
-      postCnt: 9,
-    },
-    {
-      date: '2023-07-23',
-      postCnt: 4,
-    },
-    {
-      date: '2023-07-24',
-      postCnt: 1,
-    },
-    {
-      date: '2023-07-25',
-      postCnt: 5,
-    },
-    {
-      date: '2023-07-26',
-      postCnt: 5,
-    },
-    {
-      date: '2023-07-27',
-      postCnt: 7,
-    },
-    {
-      date: '2023-07-28',
-      postCnt: 4,
-    },
+type View = 'century' | 'decade' | 'year' | 'month';
+type ValuePiece = Date | null;
+type Value = ValuePiece | [ValuePiece, ValuePiece];
+
+type Props = {
+  history: Record[];
+  userId: number;
+};
+
+type Params = {
+  date: Date;
+  view: String;
+};
+
+export default function History({ history, userId }: Props) {
+  const [value, onChange] = useState<Value>(new Date());
+  const [month, setMonth] = useState<number | undefined>(new Date().getMonth());
+  const [monthlyHistories, setHistories] = useState<Record[]>(history);
+  const [curView, setView] = useState<View>('month');
+  const [curActiveStartDate, setActiveStartDate] = useState<Date>(new Date());
+
+  const shortMonthName: string[] = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
+
+  let index = 0;
+
+  function formatMonth(date: Date) {
+    return shortMonthName[date.getMonth()];
+  }
+
+  function getItem(date: Date) {
+    let curMonth = date.getMonth() + 1;
+
+    let item: Record = {
+      historyId: 0,
+      date: `${date.getFullYear()}-${Math.floor(curMonth / 10)}${
+        curMonth % 10
+      }-${Math.floor(date.getDate() / 10)}${date.getDate() % 10}`,
+      postCnt: 0,
+    };
+
+    if (
+      monthlyHistories.length > index &&
+      monthlyHistories[index].date === item.date
+    ) {
+      item = monthlyHistories[index];
+      index += 1;
+    }
+
+    return item;
+  }
+
+  function tileContent({ date, view }: Params) {
+    if (view === 'month' && month != undefined && date.getMonth() == month) {
+      let item = getItem(date);
+
+      return <HistoryBox key={date.toDateString()} item={item} />;
+    }
+
+    if (view == 'year') {
+      return shortMonthName[date.getMonth()];
+    }
+  }
 
   return (
     <section className="self-start w-full mt-5">
-      <p className="font-semibold my-2">History</p>
-      <div className="grid grid-cols-7 gap-2 bg-white p-2">
-        {data.map((item) => (
-          <HistoryBox key={item.date} item={item} />
-        ))}
-      </div>
+      <Calendar
+        calendarType="gregory"
+        locale="en"
+        onActiveStartDateChange={async ({ activeStartDate, view }) => {
+          activeStartDate = activeStartDate ? activeStartDate : new Date();
+          const curHistories = await getHistory(
+            userId,
+            activeStartDate?.getFullYear(),
+            activeStartDate?.getMonth() + 1,
+            false
+          );
+          setHistories(curHistories);
+          if (view === 'month' || view === 'year') {
+            setActiveStartDate(activeStartDate ? activeStartDate : new Date());
+          }
+          setMonth(activeStartDate?.getMonth());
+        }}
+        onDrillUp={({ view }) => {
+          view === 'decade' ? setView('year') : setView(view);
+        }}
+        onDrillDown={({ view }) => setView(view)}
+        onChange={onChange}
+        formatDay={() => ''}
+        formatShortWeekday={() => ''}
+        formatMonth={() => ''}
+        formatMonthYear={(locale, date) => formatMonth(date)}
+        tileContent={tileContent}
+        activeStartDate={curActiveStartDate}
+        view={curView}
+        value={value}
+      />
     </section>
   );
 }

@@ -1,4 +1,5 @@
 import EditorForm from '@/components/EditorForm';
+import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function CreateMemoPage() {
-  return <EditorForm alreadyExists={true} />;
+  return (
+    <LayoutWrapper paddingY="sm:py-10" bgColor="bg-soma-grey-10">
+      <EditorForm alreadyExists={true} />
+    </LayoutWrapper>
+  );
 }

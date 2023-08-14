@@ -1,6 +1,15 @@
-import { CheckUserResponse, LoginData, SignUpData } from '@/types';
+import {
+  CheckUserResponse,
+  IsSuccessResponse,
+  IsValidResponse,
+  LoginData,
+  SignUpData,
+  SignupResponse,
+  UserInfo2,
+} from '@/types';
+import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url';
 
-export async function signUp(userData: SignUpData) {
+export async function signUp(userData: SignUpData): Promise<SignupResponse> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -10,11 +19,12 @@ export async function signUp(userData: SignUpData) {
       if (!res.ok) {
         throw new Error('error');
       }
+      return res.json();
     })
     .catch(console.error);
 }
 
-export async function login(userData: LoginData) {
+export async function login(userData: LoginData): Promise<IsSuccessResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/login`,
     {
@@ -23,14 +33,7 @@ export async function login(userData: LoginData) {
       credentials: 'include',
       body: JSON.stringify(userData),
     }
-  )
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('error');
-      }
-      return res.json();
-    })
-    .catch(console.error);
+  ).then((res) => res.json());
 }
 
 export async function logout() {
@@ -60,52 +63,120 @@ export async function checkUser(): Promise<CheckUserResponse> {
     .catch(console.error);
 }
 
-export async function sendCodeToEmail(email: string) {
+export async function checkEmailAndSendCode(
+  email: string
+): Promise<IsSuccessResponse> {
   return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/auth/email_code`,
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/authenticate-email`,
     {
       method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email }),
     }
-  );
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error!!');
+      return res.json();
+    })
+    .catch(console.error);
 }
 
-export function confirmCode(code: string) {
+export async function confirmCode(
+  email: string,
+  code: string
+): Promise<IsValidResponse> {
   return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/auth/email_code/validity`,
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/authenticate-code`,
     {
       method: 'POST',
-      body: JSON.stringify({ code }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, code }),
     }
-  );
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error!!');
+      return res.json();
+    })
+    .catch(console.error);
 }
 
-export async function checkNickname(nickname: string) {
+export async function checkNickname(
+  nickname: string
+): Promise<IsValidResponse> {
   return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/auth/nickname/${nickname}`
-  );
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/check-duplication?` +
+      new URLSearchParams({ name: nickname })
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error!!');
+      return res.json();
+    })
+    .catch(console.error);
 }
 
-export function checkEmail(email: string) {
+export async function registerUserInfo(
+  id: number,
+  image: File | null,
+  introduce: string,
+  tags: string,
+  isEmptyProfileImage: string
+) {
+  const formdata = new FormData();
+  formdata.append('isEmptyProfileImage', isEmptyProfileImage);
+  if (image !== null) formdata.append('image', image);
+  formdata.append('introduce', introduce === '' ? '안녕하세요' : introduce);
+  formdata.append('tags', tags === '' ? 'tags' : tags);
+
   return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/auth/email/${email}`
-  );
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${id}`,
+    {
+      method: 'POST',
+      body: formdata,
+    }
+  )
+    .then((res) => {
+      console.log(res);
+      if (!res.ok) throw new Error('error!!');
+      return res.json();
+    })
+    .catch(console.error);
 }
 
-// export function saveToken(type: string, token: string) {
-//   if (typeof window !== 'undefined') {
-//     localStorage.setItem(type, token);
-//   }
-// }
+export async function updateUserInfo(
+  id: number,
+  image: File | null,
+  introduce: string,
+  tags: string,
+  isEmptyProfileImage: string
+) {
+  const formdata = new FormData();
+  formdata.append('isEmptyProfileImage', isEmptyProfileImage);
+  if (image !== null) formdata.append('image', image);
+  formdata.append('introduce', introduce === '' ? '안녕하세요' : introduce);
+  formdata.append('tags', tags === '' ? 'tags' : tags);
 
-// export function getToken(type: string) {
-//   if (typeof window !== 'undefined') {
-//     return localStorage.getItem(type);
-//   }
-// }
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${id}`,
+    {
+      method: 'PATCH',
+      body: formdata,
+    }
+  )
+    .then((res) => {
+      console.log(res);
+      if (!res.ok) throw new Error('error!!');
+      return res.json();
+    })
+    .catch(console.error);
+}
 
-function clearToken() {
-  if (typeof window !== 'undefined') {
-    localStorage.clear();
-  }
+export async function getUserInfo2(userId: number): Promise<UserInfo2> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${userId}`
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
 }

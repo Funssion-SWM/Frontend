@@ -3,16 +3,15 @@
 import { EditorContent, useEditor } from '@tiptap/react';
 import { TiptapExtensions } from '../ui/editor/extensions';
 import { TiptapEditorProps } from '../ui/editor/props';
-import WriterBtns from '../shared/WriterBtns';
-import { useEffect, useState } from 'react';
-import { checkUser } from '@/service/auth';
+import MemoViewerHeader from './MemoViewerHeader';
 
 type Props = {
   title: string;
   content: string;
   color: string;
   memoId: number;
-  userId: number;
+  authorId: number;
+  likes: number;
 };
 
 export default function MemoViewer({
@@ -20,21 +19,12 @@ export default function MemoViewer({
   content,
   color,
   memoId,
-  userId,
+  authorId,
+  likes,
 }: Props) {
-  const [uid, setUid] = useState<number | null>(null);
-
-  async function first() {
-    await checkUser().then((data) => setUid(data.id));
-  }
-
-  useEffect(() => {
-    first();
-  }, []);
-
   return (
     <section
-      className={`flex flex-col rounded-lg shadow-lg px-4 pb-8 min-h-[650px] ${
+      className={`flex flex-col sm:rounded-lg sm:shadow-lg px-4 min-h-screen sm:min-h-[calc(100vh-120px)] pb-8 ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
@@ -44,15 +34,11 @@ export default function MemoViewer({
           navy: 'bg-memo-navy',
           purple: 'bg-memo-purple',
         }[color]
-      }  my-2`}
+      } `}
     >
-      {userId === uid ? (
-        <WriterBtns memoId={memoId} />
-      ) : (
-        <div className="py-1 opacity-0">.</div>
-      )}
+      <MemoViewerHeader memoId={memoId} authorId={authorId} likes={likes} />
       <h1
-        className={`text-4xl font-bold py-3 px-4 mb-5 mt-2 ${
+        className={`text-2xl sm:text-4xl font-bold py-3 px-4 mb-5 ${
           {
             yellow: 'bg-yellow-50',
             green: 'bg-green-50',
@@ -66,7 +52,7 @@ export default function MemoViewer({
       >
         {title}
       </h1>
-      <div className="px-4">
+      <div className="px-4 flex-grow">
         <EditorContent
           editor={useEditor({
             extensions: TiptapExtensions,

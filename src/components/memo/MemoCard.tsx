@@ -13,7 +13,9 @@ export default function MemoCard({
     memoDescription,
     memoColor,
     createdDate,
-    userName,
+    authorName,
+    authorProfileImagePath,
+    likes,
   },
 }: Props) {
   return (
@@ -31,15 +33,17 @@ export default function MemoCard({
           }[memoColor]
         } `}
       >
-        <MemoCardHeader createDate={createdDate} userName={userName} />
-        <h2 className="text-3xl font-bold my-7 line-clamp-2">{memoTitle}</h2>
-        <p className="line-clamp-2">
-          {/* {memoDescription} */}
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium
-          dolores porro qui. Illum expedita iste, molestiae accusamus blanditiis
-          totam facere molestias ut explicabo magni voluptatum! Nisi dicta sed
-          quisquam vel.
-        </p>
+        <MemoCardHeader
+          createDate={createdDate}
+          authorName={authorName}
+          likes={likes}
+          imagePath={authorProfileImagePath}
+        />
+
+        <h2 className="text-2xl font-bold my-5 line-clamp-2 break-all">
+          {memoTitle}
+        </h2>
+        <p className="line-clamp-3 break-all">{memoDescription}</p>
       </article>
     </Link>
   );

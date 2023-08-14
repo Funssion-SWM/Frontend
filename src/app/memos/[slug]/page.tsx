@@ -1,6 +1,7 @@
 import Header from '@/components/shared/Header';
 import MemoViewer from '@/components/memo/MemoViewer';
 import { getMemoById } from '@/service/memos';
+import LayoutWrapper from '@/components/shared/LayoutWrapper';
 
 type Props = {
   params: {
@@ -9,19 +10,24 @@ type Props = {
 };
 
 export default async function MemoPage({ params: { slug } }: Props) {
-  const { memoTitle, memoColor, memoText, userId } = await getMemoById(slug);
+  const { memoTitle, memoColor, memoText, authorId, likes } = await getMemoById(
+    slug
+  );
 
   return (
-    <>
+    <section>
       <Header />
-      <MemoViewer
-        title={memoTitle}
-        content={JSON.parse(memoText)}
-        color={memoColor}
-        memoId={slug}
-        userId={userId}
-      />
-    </>
+      <LayoutWrapper paddingY="sm:py-5" bgColor="bg-soma-grey-10">
+        <MemoViewer
+          title={memoTitle}
+          content={JSON.parse(memoText)}
+          color={memoColor}
+          memoId={slug}
+          authorId={authorId}
+          likes={likes}
+        />
+      </LayoutWrapper>
+    </section>
   );
 }
 

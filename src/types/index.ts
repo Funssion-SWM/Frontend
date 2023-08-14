@@ -28,6 +28,24 @@ export type CheckUserResponse = {
   isLogin: boolean;
 };
 
+export type IsSuccessResponse = {
+  isSuccess: boolean;
+  message: string;
+};
+
+export type IsValidResponse = {
+  valid: boolean;
+  message: string;
+};
+
+export type SignupResponse = {
+  id: number;
+  name: string;
+  loginType: string;
+  createdDate: string;
+  email: string;
+};
+
 // Memo
 export type Memo = {
   memoId: number;
@@ -37,8 +55,10 @@ export type Memo = {
   memoColor: string;
   createdDate: string;
   updatedDate: string;
-  userId: number;
-  userName: string;
+  authorId: number;
+  authorName: string;
+  authorProfileImagePath: string;
+  likes: number;
 };
 
 export type PostMemoData = {
@@ -50,4 +70,22 @@ export type PostMemoData = {
 
 export type UserInfo = {
   userName: string;
+};
+
+export type UserInfo2 = {
+  profileImageFilePath: string;
+  nickname: string;
+  introduce: string;
+  tags: string;
+};
+
+export type Record = {
+  historyId: number;
+  date: string;
+  postCnt: number;
+};
+
+export type Like = {
+  isLike: boolean;
+  likes: number;
 };
