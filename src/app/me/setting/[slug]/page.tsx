@@ -10,6 +10,10 @@ type Props = {
 };
 
 export default async function MySettingPage({ params: { slug } }: Props) {
+  const headersList = headers();
+  const referer = headersList.get('referer');
+  if (referer === null) redirect('/memos');
+
   const userInfo = await getUserInfo2(slug);
 
   return (
