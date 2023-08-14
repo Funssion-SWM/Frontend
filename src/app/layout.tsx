@@ -4,6 +4,7 @@ import Providers from './providers';
 import { pretendard } from '@/styles/fonts';
 import ModalProvider from '@/context/ModalProvider';
 import Modal from '@/components/Modal';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 export const metadata = {
   title: 'Inforum',
@@ -17,6 +18,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en" className={pretendard.className}>
+      <GoogleAnalytics />
       <body className="flex flex-col">
         <ModalProvider>
           <Providers>{children}</Providers>
