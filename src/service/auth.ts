@@ -172,7 +172,8 @@ export async function updateUserInfo(
 
 export async function getUserInfo2(userId: number): Promise<UserInfo2> {
   return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${userId}`
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${userId}`,
+    { next: { revalidate: 0 } }
   )
     .then((res) => {
       if (!res.ok) throw new Error('error 발생!');

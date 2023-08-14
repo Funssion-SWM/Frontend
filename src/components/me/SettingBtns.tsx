@@ -21,7 +21,11 @@ export default function SettingBtns({ userId }: Props) {
   return (
     uid === Number(userId) && (
       <div className="flex flex-col">
-        <Link href={`/me/setting/${userId}`} className="text-center">
+        <Link
+          href={`/me/setting/${userId}`}
+          prefetch={false}
+          className="text-center"
+        >
           <button className="mt-8 text-soma-grey-50 text-sm">
             회원 정보 수정
           </button>
