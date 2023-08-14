@@ -13,10 +13,10 @@ export default function Modal() {
       <div className="fixed">
         <Overay onClick={() => close()} />
         <div
-          className="fixed flex flex-col items-center bg-white rounded-2xl p-10 
+          className="fixed flex flex-col items-center bg-white rounded-2xl p-5 sm:p-10 
       top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 gap-2 "
         >
-          <p className="text-lg">{modalText}</p>
+          <p className="sm:text-lg">{modalText}</p>
           <div className="flex gap-2">
             <BlueBtn
               text="확인"

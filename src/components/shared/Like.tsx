@@ -14,7 +14,7 @@ type Props = {
 
 export default function Like({ likes, memoId, uid }: Props) {
   const [likeNums, setLikeNums] = useState<number>(likes);
-  const [isLike, setIsLike] = useState<Boolean>(false);
+  const [isLike, setIsLike] = useState<Boolean | null>(null);
 
   async function first() {
     await getIsLiked('memos', memoId).then((data) => {
@@ -47,7 +47,7 @@ export default function Like({ likes, memoId, uid }: Props) {
   return (
     <>
       <button>
-        {isLike ? (
+        {isLike === true && (
           <Image
             src={fillHeart}
             alt="fill_heart"
@@ -55,7 +55,8 @@ export default function Like({ likes, memoId, uid }: Props) {
             height={20}
             onClick={() => handleClickLike()}
           />
-        ) : (
+        )}
+        {isLike === false && (
           <Image
             src={emptyHeart}
             alt="empty_heart"

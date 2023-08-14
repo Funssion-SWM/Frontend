@@ -6,6 +6,7 @@ import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import History from '@/components/history/History';
 import { getUserInfo2 } from '@/service/auth';
 import SettingBtns from '@/components/me/SettingBtns';
+import MeMainContainer from '@/components/me/MeMainContainer';
 
 type Props = {
   params: {
@@ -32,12 +33,7 @@ export default async function MePage({ params: { slug } }: Props) {
             <History history={history} userId={slug} />
             <SettingBtns userId={slug} />
           </section>
-          <section className="grow w-full sm:px-4 sm:py-2">
-            <h3 className="font-bold text-lg sm:text-2xl mb-1 my-1 text-center sm:text-start">
-              My Memos
-            </h3>
-            <MemosGrid memos={memos} colNum={3} />
-          </section>
+          <MeMainContainer memos={memos} userId={slug} />
         </div>
       </LayoutWrapper>
     </section>
