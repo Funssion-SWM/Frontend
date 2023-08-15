@@ -3,7 +3,7 @@ import { OrderBy, Period } from '@/types/enum';
 
 export async function getMemos(
   period: Period = Period.Month,
-  orderBy: OrderBy = OrderBy.Hot
+  orderBy: OrderBy = OrderBy.New
 ): Promise<Memo[]> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`);
   const params = { period: period, orderBy: orderBy };

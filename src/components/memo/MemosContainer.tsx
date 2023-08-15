@@ -13,7 +13,7 @@ type Props = {
 
 export default function MemosContainer({ memos }: Props) {
   const [memoData, setMemodata] = useState(memos);
-  const [selectedOrderType, setSelectedOrderType] = useState(OrderBy.Hot);
+  const [selectedOrderType, setSelectedOrderType] = useState(OrderBy.New);
 
   const handleClick = async (orderBy: OrderBy) => {
     const memos = await getMemos(Period.Month, orderBy);
@@ -25,14 +25,14 @@ export default function MemosContainer({ memos }: Props) {
     <div>
       <div className="flex gap-2 mb-5">
         <CategoryBtn
-          text="Hot🔥"
-          onClick={() => handleClick(OrderBy.Hot)}
-          isSelected={selectedOrderType === OrderBy.Hot}
-        />
-        <CategoryBtn
           text="New✨"
           onClick={() => handleClick(OrderBy.New)}
           isSelected={selectedOrderType === OrderBy.New}
+        />
+        <CategoryBtn
+          text="Hot🔥"
+          onClick={() => handleClick(OrderBy.Hot)}
+          isSelected={selectedOrderType === OrderBy.Hot}
         />
       </div>
       <MemosGrid memos={memoData} colNum={4} />
