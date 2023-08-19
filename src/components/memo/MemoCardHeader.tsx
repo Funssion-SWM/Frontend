@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import exampleImg from '../../../public/img/profile.png';
+import basicProfileImg from '@/assets/profile.svg';
 import fillHeart from '../../assets/icons/heart_fill.svg';
 import Link from 'next/link';
 
@@ -23,8 +23,8 @@ export default function MemoCardHeader({
       <div className="flex items-center">
         <Link href={`/me/${authorId}`}>
           <Image
-            src={imagePath ?? exampleImg}
-            alt="exampleImg"
+            src={imagePath ?? basicProfileImg}
+            alt="profileImg"
             width={40}
             height={40}
             className="rounded-full w-10 h-10 object-cover"
