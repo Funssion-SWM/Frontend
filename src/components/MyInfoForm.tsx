@@ -15,7 +15,7 @@ import BlueBtn from './shared/BlueBtn';
 import BlueBtn2 from './shared/BlueBtn2';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { registerUserInfo, updateUserInfo } from '@/service/auth';
+import { checkUser, registerUserInfo, updateUserInfo } from '@/service/auth';
 import { UserInfo2 } from '@/types';
 
 type Props = {
@@ -55,7 +55,9 @@ export default function MyInfoForm({ userId, userInfo, isSignup }: Props) {
           tags,
           imageUrl === '' && imageFile === null ? 'true' : 'false'
         ).then(() => {
-          router.push('/login');
+          checkUser().then((data) => {
+            router.push(data.isLogin ? '/memos' : '/login');
+          });
         })
       : updateUserInfo(
           userId,
