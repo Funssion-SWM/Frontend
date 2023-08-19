@@ -184,7 +184,7 @@ export async function getUserInfo2(userId: number): Promise<UserInfo2> {
 
 export async function registerNickname(nickname: string, userId: number) {
   return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/nickname${userId}`,
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/nickname/${userId}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
