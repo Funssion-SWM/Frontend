@@ -1,3 +1,4 @@
+import GoogleLoginBtn from '@/components/GoogleLoginBtn';
 import LoginForm from '@/components/LoginForm';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -18,7 +19,8 @@ export default function LoginPage() {
       </Link>
       <h1 className="text-3xl font-bold my-5">Inforum</h1>
       <LoginForm />
-      <div className="flex items-center">
+      <GoogleLoginBtn />
+      <div className="flex items-center mt-7">
         <p className="text-soma-grey-50 mr-3 text-xs sm:text-sm">
           계정이 없으신가요?
         </p>

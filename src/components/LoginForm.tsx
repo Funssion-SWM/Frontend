@@ -75,7 +75,7 @@ export default function LoginForm() {
         required
         placeholder="비밀번호"
       />
-      <BlueBtn text="로그인" onClick={() => {}} extraStyle="my-5" />
+      <BlueBtn text="로그인" onClick={() => {}} extraStyle="my-2" />
     </form>
   );
 }
