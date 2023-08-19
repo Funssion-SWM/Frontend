@@ -181,3 +181,16 @@ export async function getUserInfo2(userId: number): Promise<UserInfo2> {
     })
     .catch(console.error);
 }
+
+export async function registerNickname(nickname: string, userId: number) {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/nickname${userId}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nickname }),
+    }
+  )
+    .then((res) => res.json())
+    .catch(console.error);
+}
