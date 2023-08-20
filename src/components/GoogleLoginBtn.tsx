@@ -7,7 +7,10 @@ import Image from 'next/image';
 
 export default function GoogleLoginBtn() {
   return (
-    <Link href="/api/oauth2/authorization/google" className="w-full">
+    <Link
+      href={`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/oauth2/authorization/google`}
+      className="w-full"
+    >
       <button
         className={`flex w-full justify-between items-center px-3.5 py-2 rounded-3xl transition border-2 border-soma-grey-30 hover:bg-soma-grey-20 text-sm sm:text-base`}
         onClick={() => {}}
