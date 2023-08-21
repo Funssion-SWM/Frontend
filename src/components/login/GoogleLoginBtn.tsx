@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import googleIcon from '../assets/icons/google_icon.svg';
+import googleIcon from '@/assets/icons/google_icon.svg';
 
 import Image from 'next/image';
 

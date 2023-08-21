@@ -1,5 +1,5 @@
-import GoogleLoginBtn from '@/components/GoogleLoginBtn';
-import LoginForm from '@/components/LoginForm';
+import GoogleLoginBtn from '@/components/login/GoogleLoginBtn';
+import LoginForm from '@/components/login/LoginForm';
 import { Metadata } from 'next';
 import Link from 'next/link';
 

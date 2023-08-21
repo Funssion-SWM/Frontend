@@ -1,9 +1,8 @@
 import Header from '@/components/shared/Header';
-import MemosGrid from '@/components/memo/MemosGrid';
-import Profile from '@/components/shared/Profile';
+import Profile from '@/components/me/Profile';
 import { getHistory, getMemosByUserId } from '@/service/me';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
-import History from '@/components/history/History';
+import History from '@/components/me/History';
 import { getUserInfo2 } from '@/service/auth';
 import SettingBtns from '@/components/me/SettingBtns';
 import MeMainContainer from '@/components/me/MeMainContainer';

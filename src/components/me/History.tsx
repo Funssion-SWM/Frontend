@@ -1,10 +1,11 @@
 'use client';
-import HistoryBox from './HistoryBox';
+
 import Calendar from 'react-calendar';
 import { useState } from 'react';
 import { getHistory } from '@/service/me';
 import { Record } from '@/types';
 import '../../styles/calendar/Calendar.css';
+import HistoryBox from '@/components/me/HistoryBox';
 
 type View = 'century' | 'decade' | 'year' | 'month';
 type ValuePiece = Date | null;

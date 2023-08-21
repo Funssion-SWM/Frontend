@@ -2,7 +2,7 @@
 
 import { Memo } from '@/types';
 import MemosGrid from '../memo/MemosGrid';
-import BarBtn from '../shared/BarBtn';
+import BarBtn from '@/components/shared/btn/BarBtn';
 import { useState } from 'react';
 import { getLikedMemosByUserId, getMemosByUserId } from '@/service/me';
 

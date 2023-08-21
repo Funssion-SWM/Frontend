@@ -11,8 +11,8 @@ import {
 
 import profileImage from '../assets/profile.svg';
 import editIcon from '../assets/icons/edit.svg';
-import BlueBtn from './shared/BlueBtn';
-import BlueBtn2 from './shared/BlueBtn2';
+import BlueBtn from './shared/btn/BlueBtn';
+import BlueBtn2 from './shared/btn/BlueBtn2';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { checkUser, registerUserInfo, updateUserInfo } from '@/service/auth';

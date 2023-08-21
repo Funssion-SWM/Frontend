@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import { useRouter } from 'next/navigation';
-import BlueBtn from './BlueBtn';
+import BlueBtn from './btn/BlueBtn';
 import { ModalContext } from '@/context/ModalProvider';
 
 export default function Header() {

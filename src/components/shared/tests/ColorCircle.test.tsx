@@ -1,5 +1,5 @@
 import renderer from 'react-test-renderer';
-import ColorCricle from '../ColorCircle';
+import ColorCricle from '../../create/memo/ColorCircle';
 import { mock } from 'node:test';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

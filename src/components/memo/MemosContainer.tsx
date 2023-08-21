@@ -5,7 +5,8 @@ import MemosGrid from './MemosGrid';
 import { useState } from 'react';
 import { getMemos } from '@/service/memos';
 import { OrderBy, Period } from '@/types/enum';
-import CategoryBtn from '../shared/CategoryBtn';
+import CategoryBtn from '@/components/shared/btn/CategoryBtn';
+// import CategoryBtn from '../shared/btn/CategoryBtn';
 
 type Props = {
   memos: Memo[];
