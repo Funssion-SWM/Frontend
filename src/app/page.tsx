@@ -9,7 +9,6 @@ import {
   BsFillArrowDownCircleFill,
   BsFillArrowUpCircleFill,
 } from 'react-icons/bs';
-
 export default function LandingPage() {
   const [readyState, setReadyState] = useState(false);
   const firstScreenRef = useRef<null | HTMLDivElement>(null);
@@ -21,9 +20,9 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="snap-y snap-mandatory overflow-scroll w-screen h-screen">
+    <div className="snap-y snap-mandatory overflow-y-scroll h-screen ">
       <div
-        className="flex relative flex-col justify-center items-center h-screen px-3 snap-always snap-center"
+        className="flex relative flex-col justify-center items-center h-full snap-always snap-center "
         ref={firstScreenRef}
       >
         <h1 className="text-4xl sm:text-7xl font-bold text-center overflow-hidden">
@@ -45,7 +44,7 @@ export default function LandingPage() {
             readyState ? 'opacity-100' : 'opacity-0 invisible'
           }  duration-1000 ease-in-out`}
         >
-          <p className="text-sm sm:text-2xl my-7 text-center">
+          <p className="text-sm sm:text-2xl my-7 text-center ">
             자동 텍스트 생성 기능을 통해 글을 쉽고 빠르게 작성하세요
             <br />
             파스텔톤 메모에 개발 기록을 간단하게 작성해보세요
@@ -57,13 +56,13 @@ export default function LandingPage() {
           </Link>
         </div>
         <BsFillArrowDownCircleFill
-          className={`absolute bottom-10 animate-bounce text-soma-blue-40 w-10 h-10 transition-opacity
+          className={`absolute bottom-10 animate-bounce text-soma-blue-40 w-10 h-10 transition-opacity bg-white rounded-full
         ${
           readyState ? 'opacity-100' : 'opacity-0 invisible'
         } duration-1000 ease-in-out duration`}
         />
       </div>
-      <div className="flex flex-col items-center justify-center h-screen font-semibold snap-always snap-center bg-soma-grey-20">
+      <div className="flex flex-col items-center justify-center h-full font-semibold snap-always snap-center ">
         <p className="sm:text-2xl ">
           질문을 작성 후 ++를 입력해 text를 자동 생성해보세요!
         </p>
@@ -75,7 +74,7 @@ export default function LandingPage() {
           className="rounded-2xl p-2"
         />
       </div>
-      <div className="h-screen relative flex flex-col items-center justify-center snap-always snap-center">
+      <div className="h-full relative flex flex-col items-center justify-center snap-always snap-center">
         <p className="text-lg sm:text-2xl font-semibold">지원 예정</p>
         <br />
         <ul className="grid grid-cols-2  gap-20 items-center sm:text-lg">
