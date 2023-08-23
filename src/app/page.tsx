@@ -22,7 +22,7 @@ export default function LandingPage() {
   return (
     <div className="snap-y snap-mandatory overflow-y-scroll h-screen ">
       <div
-        className="flex relative flex-col justify-center items-center h-full snap-always snap-center "
+        className="flex relative flex-col justify-center items-center h-full snap-always snap-center bg-[url('../assets/landing_background.jpg')] bg-cover bg-center  "
         ref={firstScreenRef}
       >
         <h1 className="text-4xl sm:text-7xl font-bold text-center overflow-hidden">
