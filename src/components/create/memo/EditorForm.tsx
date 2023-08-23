@@ -1,18 +1,18 @@
 'use client';
 
-import SelectColorBar from '@/components/shared/SelectColorBar';
-import MyEditor from '@/components/ui/editor';
-import { TiptapExtensions } from '@/components/ui/editor/extensions';
-import { TiptapEditorProps } from '@/components/ui/editor/props';
+import SelectColorBar from '@/components/create/memo/SelectColorBar';
+import MyEditor from '@/components/editor';
 import { useEditor } from '@tiptap/react';
 import { useRouter } from 'next/navigation';
 import { useContext, useEffect, useRef, useState } from 'react';
-import BlueBtn from './shared/BlueBtn';
+import BlueBtn from '../../shared/btn/BlueBtn';
 import { createOrUpdateMemo } from '@/service/memos';
 import { getPrevText } from '@/lib/editor';
 import { useCompletion } from 'ai/react';
 import { getDescription } from '@/service/description';
 import { ModalContext } from '@/context/ModalProvider';
+import { TiptapExtensions } from '@/components/editor/extensions';
+import { TiptapEditorProps } from '@/components/editor/props';
 
 type Props = {
   preTitle?: string;

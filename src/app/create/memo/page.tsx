@@ -1,4 +1,4 @@
-import EditorForm from '@/components/EditorForm';
+import EditorForm from '@/components/create/memo/EditorForm';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { Metadata } from 'next';
 

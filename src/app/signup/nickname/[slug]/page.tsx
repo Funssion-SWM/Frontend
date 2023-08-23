@@ -1,7 +1,7 @@
 'use client';
 
-import BlueBtn from '@/components/shared/BlueBtn';
-import IsValidBtn from '@/components/shared/IsValidBtn';
+import BlueBtn from '@/components/shared/btn/BlueBtn';
+import IsValidBtn from '@/components/shared/btn/IsValidBtn';
 import PromptgMessage from '@/components/shared/PromptMessage';
 import { checkNickname, registerNickname } from '@/service/auth';
 import { validateNickname } from '@/service/validation';

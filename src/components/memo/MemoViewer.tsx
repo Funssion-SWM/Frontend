@@ -1,9 +1,10 @@
 'use client';
 
 import { EditorContent, useEditor } from '@tiptap/react';
-import { TiptapExtensions } from '../ui/editor/extensions';
-import { TiptapEditorProps } from '../ui/editor/props';
+
 import MemoViewerHeader from './MemoViewerHeader';
+import { TiptapExtensions } from '@/components/editor/extensions';
+import { TiptapEditorProps } from '@/components/editor/props';
 
 type Props = {
   title: string;

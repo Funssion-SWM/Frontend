@@ -2,8 +2,8 @@
 
 import { ModalContext } from '@/context/ModalProvider';
 import { useContext } from 'react';
-import BlueBtn from './shared/BlueBtn';
-import BlueBtn2 from './shared/BlueBtn2';
+import BlueBtn from './btn/BlueBtn';
+import BlueBtn2 from './btn/BlueBtn2';
 
 export default function Modal() {
   const { isOpen, close, onSuccess, modalText } = useContext(ModalContext);

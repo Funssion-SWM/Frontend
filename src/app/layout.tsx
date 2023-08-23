@@ -3,7 +3,7 @@ import '@/styles/prosemirror.css';
 import Providers from './providers';
 import { pretendard } from '@/styles/fonts';
 import ModalProvider from '@/context/ModalProvider';
-import Modal from '@/components/Modal';
+import Modal from '@/components/shared/Modal';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 export const metadata = {

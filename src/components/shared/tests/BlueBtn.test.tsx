@@ -1,6 +1,6 @@
 import renderer from 'react-test-renderer';
 import { render, screen } from '@testing-library/react';
-import BlueBtn from '../BlueBtn';
+import BlueBtn from '../btn/BlueBtn';
 import userEvent from '@testing-library/user-event';
 
 describe('Blue Btn', () => {

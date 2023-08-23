@@ -1,5 +1,5 @@
 import renderer from 'react-test-renderer';
-import BlueBtn2 from '../BlueBtn2';
+import BlueBtn2 from '../btn/BlueBtn2';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 

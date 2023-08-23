@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import IsValidBtn from '../IsValidBtn';
+import IsValidBtn from '../btn/IsValidBtn';
 import renderer from 'react-test-renderer';
 import userEvent from '@testing-library/user-event';
 
