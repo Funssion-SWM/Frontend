@@ -1,9 +1,8 @@
-import { Memo, PostMemoData } from '@/types';
-import { OrderBy, Period } from '@/types/enum';
+import { Memo, Orderby, Period, PostMemoData } from '@/types';
 
 export async function getMemos(
-  period: Period = Period.Month,
-  orderBy: OrderBy = OrderBy.New
+  period: Period = 'month',
+  orderBy: Orderby = 'new'
 ): Promise<Memo[]> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`);
   const params = { period: period, orderBy: orderBy };

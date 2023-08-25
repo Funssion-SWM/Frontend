@@ -89,3 +89,7 @@ export type Like = {
   isLike: boolean;
   likes: number;
 };
+
+export type Period = 'day' | 'week' | 'month' | 'year';
+
+export type Orderby = 'hot' | 'new';
