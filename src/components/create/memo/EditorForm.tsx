@@ -13,11 +13,12 @@ import { getDescription } from '@/service/description';
 import { ModalContext } from '@/context/ModalProvider';
 import { TiptapExtensions } from '@/components/editor/extensions';
 import { TiptapEditorProps } from '@/components/editor/props';
+import { MemoColor } from '@/types';
 
 type Props = {
   preTitle?: string;
   preContent?: string;
-  preColor?: string;
+  preColor?: MemoColor;
   alreadyExists: boolean;
   memoId?: number;
 };
@@ -122,7 +123,7 @@ export default function EditorForm({
   }, [stop, isLoading, editor, complete, completion.length]);
 
   const [title, setTitle] = useState(preTitle);
-  const [selectedColor, setSelectedColor] = useState(preColor);
+  const [selectedColor, setSelectedColor] = useState<MemoColor>(preColor);
   const handleBtnClick = () => {
     if (title === '') {
       alert('제목을 작성해주세요!');
@@ -154,7 +155,7 @@ export default function EditorForm({
     });
   };
 
-  const handleColorClick = (color: string) => setSelectedColor(color);
+  const handleColorClick = (color: MemoColor) => setSelectedColor(color);
 
   return (
     <section

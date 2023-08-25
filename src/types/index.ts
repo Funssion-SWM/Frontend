@@ -52,7 +52,7 @@ export type Memo = {
   memoTitle: string;
   memoText: string;
   memoDescription: string;
-  memoColor: string;
+  memoColor: MemoColor;
   createdDate: string;
   updatedDate: string;
   authorId: number;
@@ -93,3 +93,12 @@ export type Like = {
 export type Period = 'day' | 'week' | 'month' | 'year';
 
 export type Orderby = 'hot' | 'new';
+
+export type MemoColor =
+  | 'yellow'
+  | 'green'
+  | 'skyblue'
+  | 'orange'
+  | 'pink'
+  | 'navy'
+  | 'purple';

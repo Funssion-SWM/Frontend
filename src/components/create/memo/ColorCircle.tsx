@@ -1,7 +1,9 @@
+import { MemoColor } from '@/types';
+
 type Props = {
-  color: string;
-  selected: string;
-  onClick: (color: string) => void;
+  color: MemoColor;
+  selected: MemoColor;
+  onClick: (color: MemoColor) => void;
 };
 
 export default function ColorCricle({ color, selected, onClick }: Props) {

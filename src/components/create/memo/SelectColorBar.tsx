@@ -1,9 +1,10 @@
 import { COLORS } from '@/utils/const';
 import ColorCircle from './ColorCircle';
+import { MemoColor } from '@/types';
 
 type Props = {
-  selected: string;
-  onClick: (color: string) => void;
+  selected: MemoColor;
+  onClick: (color: MemoColor) => void;
 };
 
 export default function SelectColorBar({ selected, onClick }: Props) {
