@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import BlueBtn from '../shared/btn/BlueBtn';
 import PromptgMessage from '../shared/PromptMessage';
+import { useMessage } from '@/hooks/useMessage';
 
 const INPUT_STYLE =
   'text-lg border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 text-sm sm:text-base';
@@ -16,10 +17,7 @@ export default function LoginForm() {
     email: '',
     pw: '',
   });
-
-  const [messageText, setMessageText] = useState('');
-  const [messageType, setMessageType] = useState(false); // true : 성공 메시지  false : 경고 메시지
-  const [isMessageVisible, setIsMessageVisible] = useState(false);
+  const [messageProperty, showMessage] = useMessage();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
@@ -30,7 +28,7 @@ export default function LoginForm() {
     e.preventDefault();
     login({ user_email: loginData.email, user_pw: loginData.pw }).then(
       (data) => {
-        showMessage(data.message, data.isSuccess);
+        showMessage(data.message, data.isSuccess ? 'success' : 'fail');
         if (data.isSuccess) {
           router.push('/memos');
           router.refresh();
@@ -39,22 +37,9 @@ export default function LoginForm() {
     );
   };
 
-  const showMessage = (text: string, type: boolean) => {
-    setMessageText(text);
-    setMessageType(type);
-    setIsMessageVisible(true);
-    setTimeout(() => {
-      setIsMessageVisible(false);
-    }, 2000);
-  };
-
   return (
     <form className="flex flex-col w-full" onSubmit={handleSubmit}>
-      <PromptgMessage
-        text={messageText}
-        type={messageType}
-        isVisible={isMessageVisible}
-      />
+      <PromptgMessage property={messageProperty} />
       <input
         className={INPUT_STYLE}
         type="email"

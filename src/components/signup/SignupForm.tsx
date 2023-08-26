@@ -17,6 +17,7 @@ import {
   validateNickname,
   validatePassword,
 } from '@/service/validation';
+import { useMessage } from '@/hooks/useMessage';
 
 const INPUT_STYLE =
   'border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow text-sm sm:text-base';
@@ -34,9 +35,7 @@ export default function SignupForm() {
   const [isValidCode, setIsValidCode] = useState(false);
   const [isValidNickname, setIsValidNickname] = useState(false);
 
-  const [messageText, setMessageText] = useState('');
-  const [messageType, setMessageType] = useState(false); // true : 성공 메시지  false : 경고 메시지
-  const [isMessageVisible, setIsMessageVisible] = useState(false);
+  const [messageProperty, showMessage] = useMessage();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
@@ -53,17 +52,17 @@ export default function SignupForm() {
         validateNickname(signupData.nickname)
       )
     ) {
-      showMessage('중복확인, 인증 처리에 문제가 있습니다.', false);
+      showMessage('중복확인, 인증 처리에 문제가 있습니다.', 'fail');
       return;
     }
 
     if (!validatePassword(signupData.pw)) {
-      showMessage('비밀번호 형식에 맞지 않습니다.', false);
+      showMessage('비밀번호 형식에 맞지 않습니다.', 'fail');
       return;
     }
 
     if (signupData.pw !== signupData.confirmPw) {
-      showMessage('비밀번호가 같지 않습니다.', false);
+      showMessage('비밀번호가 같지 않습니다.', 'fail');
       return;
     }
 
@@ -77,54 +76,41 @@ export default function SignupForm() {
 
   const handleIsValidEmail = () => {
     if (!validateEmail(signupData.email)) {
-      showMessage('이메일 형식에 맞지 않습니다.', false);
+      showMessage('이메일 형식에 맞지 않습니다.', 'fail');
       setIsValidNickname(false);
       return;
     }
 
     checkEmailAndSendCode(signupData.email).then((data) => {
       setIsValidCode(false);
-      showMessage(data.message, data.isSuccess);
+      showMessage(data.message, data.isSuccess ? 'success' : 'fail');
       setIsValidEmail(data.isSuccess ? true : false);
     });
   };
 
   const handleConfirmCode = () => {
     confirmCode(signupData.email, signupData.authCode).then((data) => {
-      showMessage(data.message, data.valid);
+      showMessage(data.message, data.valid ? 'success' : 'fail');
       setIsValidCode(data.valid ? true : false);
     });
   };
 
   const handleIsValidNickname = () => {
     if (!validateNickname(signupData.nickname)) {
-      showMessage('닉네임 형식에 맞지 않습니다.', false);
+      showMessage('닉네임 형식에 맞지 않습니다.', 'fail');
       setIsValidNickname(false);
       return;
     }
 
     checkNickname(signupData.nickname).then((data) => {
-      showMessage(data.message, data.valid);
+      showMessage(data.message, data.valid ? 'success' : 'fail');
       setIsValidNickname(data.valid ? true : false);
     });
   };
 
-  const showMessage = (text: string, type: boolean) => {
-    setMessageText(text);
-    setMessageType(type);
-    setIsMessageVisible(true);
-    setTimeout(() => {
-      setIsMessageVisible(false);
-    }, 2000);
-  };
-
   return (
     <form className="flex flex-col w-full" onSubmit={handleSubmit}>
-      <PromptgMessage
-        text={messageText}
-        type={messageType}
-        isVisible={isMessageVisible}
-      />
+      <PromptgMessage property={messageProperty} />
       <div className="flex flex-col my-1">
         <label htmlFor="email" className="text-xs sm:text-sm">
           이메일

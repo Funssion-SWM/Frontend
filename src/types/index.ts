@@ -102,3 +102,11 @@ export type MemoColor =
   | 'pink'
   | 'navy'
   | 'purple';
+
+export type MessageType = 'success' | 'fail';
+
+export type MessageProperty = {
+  text: string;
+  type: MessageType;
+  isVisible: boolean;
+};
