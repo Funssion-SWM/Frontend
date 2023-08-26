@@ -47,10 +47,6 @@ export type SignupResponse = {
 };
 
 export type UserInfo = {
-  userName: string;
-};
-
-export type UserInfo2 = {
   profileImageFilePath: string;
   nickname: string;
   introduce: string;

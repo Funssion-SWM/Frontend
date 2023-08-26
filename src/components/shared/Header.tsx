@@ -2,7 +2,7 @@
 
 import basicProfileImg from '../../assets/profile.svg';
 import Link from 'next/link';
-import { checkUser, getUserInfo2, logout } from '@/service/auth';
+import { checkUser, getUserInfo, logout } from '@/service/auth';
 import Image from 'next/image';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
@@ -22,7 +22,7 @@ export default function Header() {
     await checkUser().then((data) => {
       setIsLogin(data.isLogin);
       data.isLogin &&
-        getUserInfo2(data.id).then((info) => {
+        getUserInfo(data.id).then((info) => {
           setImageUrl(info.profileImageFilePath);
         });
     });

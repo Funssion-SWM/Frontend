@@ -3,7 +3,7 @@ import Profile from '@/components/me/Profile';
 import { getHistory, getMemosByUserId } from '@/service/me';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import History from '@/components/me/History';
-import { getUserInfo2 } from '@/service/auth';
+import { getUserInfo } from '@/service/auth';
 import SettingBtns from '@/components/me/SettingBtns';
 import MeMainContainer from '@/components/me/MeMainContainer';
 
@@ -15,7 +15,7 @@ type Props = {
 
 export default async function MePage({ params: { slug } }: Props) {
   const memos = await getMemosByUserId(slug);
-  const userInfo = await getUserInfo2(slug);
+  const userInfo = await getUserInfo(slug);
   const history = await getHistory(
     slug,
     new Date().getFullYear(),
@@ -40,7 +40,7 @@ export default async function MePage({ params: { slug } }: Props) {
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { nickname } = await getUserInfo2(params.slug);
+  const { nickname } = await getUserInfo(params.slug);
 
   return {
     title: nickname,

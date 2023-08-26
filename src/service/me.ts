@@ -1,14 +1,5 @@
-import { UserInfo, HistoryItem } from '@/types';
+import { HistoryItem } from '@/types';
 import { Memo } from '@/types/memo';
-
-export async function getUserInfo(userId: number): Promise<UserInfo> {
-  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}`)
-    .then((res) => {
-      if (!res.ok) throw new Error('error 발생!');
-      return res.json();
-    })
-    .catch(console.error);
-}
 
 export async function getHistory(
   userId: number,
