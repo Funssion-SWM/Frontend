@@ -1,4 +1,5 @@
-import { UserInfo, Record, Memo } from '@/types';
+import { UserInfo, HistoryItem } from '@/types';
+import { Memo } from '@/types/memo';
 
 export async function getUserInfo(userId: number): Promise<UserInfo> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}`)
@@ -14,7 +15,7 @@ export async function getHistory(
   year: number,
   month: number,
   isSSR: boolean
-): Promise<Record[]> {
+): Promise<HistoryItem[]> {
   return fetch(
     `${
       isSSR
