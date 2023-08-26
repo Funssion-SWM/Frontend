@@ -1,6 +1,7 @@
 'use client';
 
-import { Memo, Orderby } from '@/types';
+import { Memo } from '@/types/memo';
+import { Orderby } from '@/types';
 import MemosGrid from './MemosGrid';
 import { useState } from 'react';
 import { getMemos } from '@/service/memos';
