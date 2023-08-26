@@ -1,4 +1,4 @@
-import { Memo } from '@/types';
+import { Memo } from '@/types/memo';
 import MemoCard from './MemoCard';
 
 type Props = {
