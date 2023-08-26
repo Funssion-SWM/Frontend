@@ -46,28 +46,6 @@ export type SignupResponse = {
   email: string;
 };
 
-// Memo
-export type Memo = {
-  memoId: number;
-  memoTitle: string;
-  memoText: string;
-  memoDescription: string;
-  memoColor: MemoColor;
-  createdDate: string;
-  updatedDate: string;
-  authorId: number;
-  authorName: string;
-  authorProfileImagePath: string;
-  likes: number;
-};
-
-export type PostMemoData = {
-  memoTitle: string;
-  memoDescription: string;
-  memoText: string;
-  memoColor: string;
-};
-
 export type UserInfo = {
   userName: string;
 };
@@ -79,8 +57,8 @@ export type UserInfo2 = {
   tags: string;
 };
 
-export type Record = {
-  historyId: number;
+export type HistoryItem = {
+  id: number;
   date: string;
   postCnt: number;
 };
@@ -93,20 +71,3 @@ export type Like = {
 export type Period = 'day' | 'week' | 'month' | 'year';
 
 export type Orderby = 'hot' | 'new';
-
-export type MemoColor =
-  | 'yellow'
-  | 'green'
-  | 'skyblue'
-  | 'orange'
-  | 'pink'
-  | 'navy'
-  | 'purple';
-
-export type MessageType = 'success' | 'fail';
-
-export type MessageProperty = {
-  text: string;
-  type: MessageType;
-  isVisible: boolean;
-};

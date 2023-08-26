@@ -1,4 +1,4 @@
-import { MemoColor } from '@/types';
+import { MemoColor } from '@/types/memo';
 
 type Props = {
   color: MemoColor;

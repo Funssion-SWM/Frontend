@@ -1,4 +1,4 @@
-import { MessageProperty, MessageType } from '@/types';
+import { MessageProperty, MessageType } from '@/types/message';
 import { useState } from 'react';
 
 export const useMessage = (): [

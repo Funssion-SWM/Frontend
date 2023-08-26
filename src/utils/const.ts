@@ -1,4 +1,4 @@
-import { MemoColor } from '@/types';
+import { MemoColor } from '@/types/memo';
 
 export const COLORS: MemoColor[] = [
   'yellow',

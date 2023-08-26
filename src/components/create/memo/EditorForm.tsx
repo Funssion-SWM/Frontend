@@ -13,7 +13,7 @@ import { getDescription } from '@/service/description';
 import { ModalContext } from '@/context/ModalProvider';
 import { TiptapExtensions } from '@/components/editor/extensions';
 import { TiptapEditorProps } from '@/components/editor/props';
-import { MemoColor } from '@/types';
+import { MemoColor } from '@/types/memo';
 
 type Props = {
   preTitle?: string;

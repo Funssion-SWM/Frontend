@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import errorIcon from '@/assets/icons/icon_error.svg';
-import { MessageProperty } from '@/types';
+import { MessageProperty } from '@/types/message';
 
 type Props = {
   property: MessageProperty;

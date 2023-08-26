@@ -1,4 +1,5 @@
-import { Memo, Orderby, Period, PostMemoData } from '@/types';
+import { Orderby, Period } from '@/types';
+import { Memo, PostMemoData } from '@/types/memo';
 
 export async function getMemos(
   period: Period = 'month',

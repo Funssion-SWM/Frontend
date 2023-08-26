@@ -1,6 +1,6 @@
 import { COLORS } from '@/utils/const';
 import ColorCircle from './ColorCircle';
-import { MemoColor } from '@/types';
+import { MemoColor } from '@/types/memo';
 
 type Props = {
   selected: MemoColor;
