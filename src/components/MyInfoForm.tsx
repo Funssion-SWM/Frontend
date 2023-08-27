@@ -16,11 +16,11 @@ import BlueBtn2 from './shared/btn/BlueBtn2';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { checkUser, registerUserInfo, updateUserInfo } from '@/service/auth';
-import { UserInfo2 } from '@/types';
+import { UserInfo } from '@/types';
 
 type Props = {
   userId: number;
-  userInfo?: UserInfo2;
+  userInfo?: UserInfo;
   isSignup: boolean;
 };
 
