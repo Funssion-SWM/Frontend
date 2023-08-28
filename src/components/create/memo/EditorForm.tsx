@@ -130,6 +130,11 @@ export default function EditorForm({
       return;
     }
 
+    if (title.length > 50) {
+      alert('제목 수 제한 50자를 초과하였습니다!');
+      return;
+    }
+
     const memoText = JSON.stringify(editor?.getJSON());
 
     if (!memoText.includes('text')) {
