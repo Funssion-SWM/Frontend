@@ -17,6 +17,7 @@ export type PostMemoData = {
   memoDescription: string;
   memoText: string;
   memoColor: string;
+  isTemporary ?: boolean;
 };
 
 export type MemoColor =

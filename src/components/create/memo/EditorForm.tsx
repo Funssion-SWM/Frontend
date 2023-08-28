@@ -124,7 +124,8 @@ export default function EditorForm({
 
   const [title, setTitle] = useState(preTitle);
   const [selectedColor, setSelectedColor] = useState<MemoColor>(preColor);
-  const handleBtnClick = () => {
+
+  const save = (saveMode:string) => {
     if (title === '') {
       alert('제목을 작성해주세요!');
       return;
@@ -147,13 +148,17 @@ export default function EditorForm({
         memoDescription,
         memoText,
         memoColor: selectedColor,
+        isTemporary: saveMode=="temporary",
       }
     ).then(() => {
       if (alreadyExists) router.push('/memos');
       else router.push(`/memos/${memoId}`);
       router.refresh();
     });
-  };
+  }
+
+  const handleBtnClickSave = () => save("permanent");
+  const handleBtnClickTemporalSave = () => save("temporary");
 
   const handleColorClick = (color: MemoColor) => setSelectedColor(color);
 
@@ -171,11 +176,17 @@ export default function EditorForm({
         }[selectedColor]
       }`}
     >
-      <BlueBtn
-        text={alreadyExists ? '등록' : '수정'}
-        onClick={handleBtnClick}
-        extraStyle="self-end"
-      />
+      <div className='text-right'>
+        <BlueBtn
+          text="임시저장"
+          onClick={handleBtnClickTemporalSave}
+          extraStyle='mr-2'
+        />
+        <BlueBtn
+          text={alreadyExists ? '등록' : '수정'}
+          onClick={handleBtnClickSave}
+        />
+      </div>
       <input
         type="text"
         placeholder="제목을 입력해주세요."
