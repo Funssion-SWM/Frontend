@@ -17,6 +17,7 @@ export default function MemoCard({
     authorName,
     authorProfileImagePath,
     likes,
+    isTemporary,
   },
 }: Props) {
   return (
@@ -40,7 +41,9 @@ export default function MemoCard({
         imagePath={authorProfileImagePath}
         authorId={authorId}
       />
-      <Link href={`/memos/${memoId}`}>
+      <Link href={isTemporary ?
+        `/create/memo/${memoId}` :
+        `/memos/${memoId}`}>
         <h2 className="text-2xl font-bold my-5 line-clamp-2 break-all">
           {memoTitle}
         </h2>

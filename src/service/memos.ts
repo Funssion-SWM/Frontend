@@ -17,6 +17,21 @@ export async function getMemos(
     .catch(console.error);
 }
 
+export async function getMemoDrafts(): Promise<Memo[]> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/drafts`,
+    {
+      next: { revalidate: 0 },
+      credentials: 'include',
+    }
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
+}
+
 export async function getMemoById(id: number): Promise<Memo> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/${id}`, {
     next: { revalidate: 0 },
