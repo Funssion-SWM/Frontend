@@ -195,7 +195,7 @@ export default function SignupForm() {
           value={signupData.pw}
           onChange={handleChange}
           required
-          placeholder="8~20자리 (영어, 숫자, 특수문자(@$!%*#?&)) 포함)"
+          placeholder="8~15자리 (영어, 숫자, 특수문자(@$!%*#?&)) 포함)"
         />
       </div>
       <div className="flex flex-col  my-1">
