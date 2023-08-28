@@ -130,8 +130,8 @@ export default function EditorForm({
       return;
     }
 
-    if (title.length > 50) {
-      alert('제목 수 제한 50자를 초과하였습니다!');
+    if (title.length > 75) {
+      alert('제목 수 제한 75자를 초과하였습니다!');
       return;
     }
 
