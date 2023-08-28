@@ -76,6 +76,15 @@ export default function Header() {
                 프로필
               </button>
               <button
+                className="hover:bg-gray-200 p-2 rounded-t-lg"
+                onClick={() => {
+                  checkUser().then((data) => router.push(`/me/${data.id}/drafts`));
+                  setIsActive(false);
+                }}
+              >
+                임시 글
+              </button>
+              <button
                 className="hover:bg-gray-200 p-2 rounded-b-lg"
                 onClick={() => {
                   setIsActive(false);

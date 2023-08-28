@@ -35,6 +35,20 @@ export async function getMemosByUserId(userId: number): Promise<Memo[]> {
     .catch(console.error);
 }
 
+export async function getMemosDraftsByUserId(userId: number): Promise<Memo[]> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}/memos/drafts`,
+    {
+      next: { revalidate: 0 },
+    }
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
+}
+
 export async function getLikedMemosByUserId(userId: number): Promise<Memo[]> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}/memos/liked`,
