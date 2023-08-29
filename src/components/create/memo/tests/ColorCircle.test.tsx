@@ -1,6 +1,5 @@
 import renderer from 'react-test-renderer';
 import ColorCricle from '../ColorCircle';
-import { mock } from 'node:test';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -20,7 +19,7 @@ describe('ColorCircle', () => {
   });
 
   it('clicks correctly', async () => {
-    const mockCallBack = mock.fn();
+    const mockCallBack = jest.fn();
 
     render(
       <ColorCricle
@@ -33,6 +32,7 @@ describe('ColorCircle', () => {
     const circle = screen.getByText('✓');
     await userEvent.click(circle);
 
-    expect(mockCallBack.mock.calls.length).toEqual(1);
+    // expect(mockCallBack.mock.calls.length).toEqual(1);
+    expect(mockCallBack).toHaveBeenCalledTimes(1);
   });
 });
