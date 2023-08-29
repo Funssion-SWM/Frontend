@@ -6,14 +6,15 @@ import { useEditor } from '@tiptap/react';
 import { useRouter } from 'next/navigation';
 import { useContext, useEffect, useRef, useState } from 'react';
 import BlueBtn from '../../shared/btn/BlueBtn';
-import { createOrUpdateMemo } from '@/service/memos';
+import { createOrUpdateMemo, getMemoDrafts } from '@/service/memos';
 import { getPrevText } from '@/lib/editor';
 import { useCompletion } from 'ai/react';
 import { getDescription } from '@/service/description';
 import { ModalContext } from '@/context/ModalProvider';
 import { TiptapExtensions } from '@/components/editor/extensions';
 import { TiptapEditorProps } from '@/components/editor/props';
-import { MemoColor } from '@/types/memo';
+import { Memo, MemoColor } from '@/types/memo';
+import BlueBtnWithCount from '@/components/shared/btn/BlueBtnWithCount';
 
 type Props = {
   preTitle?: string;
@@ -122,9 +123,19 @@ export default function EditorForm({
     };
   }, [stop, isLoading, editor, complete, completion.length]);
 
+  const [memos, setMemos] = useState<Memo[]>([]);
   const [title, setTitle] = useState(preTitle);
   const [selectedColor, setSelectedColor] = useState<MemoColor>(preColor);
-  const handleBtnClick = () => {
+
+  const first = async () => {
+    getMemoDrafts().then((data) => setMemos(data));
+  }
+
+  useEffect(() => {
+    first();
+  }, [])
+
+  const save = (saveMode:string) => {
     if (title === '') {
       alert('제목을 작성해주세요!');
       return;
@@ -152,19 +163,23 @@ export default function EditorForm({
         memoDescription,
         memoText,
         memoColor: selectedColor,
+        isTemporary: saveMode=="temporary",
       }
     ).then(() => {
       if (alreadyExists) router.push('/memos');
       else router.push(`/memos/${memoId}`);
       router.refresh();
     });
-  };
+  }
+
+  const handleBtnClickSave = () => save("permanent");
+  const handleBtnClickTemporalSave = () => save("temporary");
 
   const handleColorClick = (color: MemoColor) => setSelectedColor(color);
 
   return (
     <section
-      className={`relative flex flex-col rounded-lg shadow-lg px-4 py-2 min-h-screen sm:min-h-[calc(100vh-100px)]  ${
+      className={`relative flex flex-col rounded-lg shadow-lg px-4 py-2 min-h-screen sm:min-h-[calc(100vh-100px)] ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
@@ -176,11 +191,21 @@ export default function EditorForm({
         }[selectedColor]
       }`}
     >
-      <BlueBtn
-        text={alreadyExists ? '등록' : '수정'}
-        onClick={handleBtnClick}
-        extraStyle="self-end"
-      />
+      <div className='text-right'>
+        <BlueBtnWithCount
+          text='임시저장'
+          count={memos.length}
+          onClickBtn={handleBtnClickTemporalSave}
+          onClickCount={() => 
+            open("임시 저장된 글", () => {router.refresh()} , "draft", memos)
+          }
+          extraStyle={`mr-2 ${alreadyExists?"visible":"hidden"}`}
+        />
+        <BlueBtn
+          text={alreadyExists ? '등록' : '수정'}
+          onClick={handleBtnClickSave}
+        />
+      </div>
       <input
         type="text"
         placeholder="제목을 입력해주세요."
@@ -197,7 +222,7 @@ export default function EditorForm({
         className="absolute bottom-3 right-5 text-soma-grey-50"
         onClick={() =>
           open('나가시겠습니까?', () => {
-            router.back();
+            router.push(`/memos`);
           })
         }
       >
