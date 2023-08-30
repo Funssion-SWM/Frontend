@@ -11,9 +11,15 @@ type Props = {
 };
 
 export default async function MemoPage({ params: { slug } }: Props) {
-  const { memoTitle, memoColor, memoText, authorId, likes } = await getMemoById(
-    slug
-  );
+  const {
+    memoTitle,
+    memoColor,
+    memoText,
+    authorId,
+    likes,
+    authorName,
+    authorProfileImagePath,
+  } = await getMemoById(slug);
 
   return (
     <section>
@@ -28,7 +34,11 @@ export default async function MemoPage({ params: { slug } }: Props) {
             authorId={authorId}
             likes={likes}
           />
-          <MemoSideBar />
+          <MemoSideBar
+            authorName={authorName}
+            authorProfileImagePath={authorProfileImagePath}
+            authorId={authorId}
+          />
         </div>
       </LayoutWrapper>
     </section>
