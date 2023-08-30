@@ -57,7 +57,7 @@ export default function Header() {
                 alt="profileImg"
                 width={32}
                 height={32}
-                className="rounded-full"
+                className="rounded-full w-8 h-8 object-cover"
               />
             </button>
 
@@ -78,7 +78,9 @@ export default function Header() {
               <button
                 className="hover:bg-gray-200 p-2 rounded-t-lg"
                 onClick={() => {
-                  checkUser().then((data) => router.push(`/me/${data.id}/drafts`));
+                  checkUser().then((data) =>
+                    router.push(`/me/${data.id}/drafts`)
+                  );
                   setIsActive(false);
                 }}
               >
