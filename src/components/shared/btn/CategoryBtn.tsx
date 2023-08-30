@@ -7,7 +7,7 @@ type Props = {
 export default function CategoryBtn({ text, onClick, isSelected }: Props) {
   return (
     <button
-      className={`border-2 texsomb20 py-2 px-4 rounded-3xl transition
+      className={`border-2 texsomb20 py-2 px-4 rounded-3xl transition text-sm
           ${
             isSelected
               ? 'border-soma-blue-50 text-soma-blue-50 bg-soma-blue-10'
