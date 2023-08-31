@@ -17,7 +17,7 @@ export default async function CreateMemoPage({ params: { slug } }: Props) {
         preTitle={memoTitle}
         preContent={JSON.parse(memoText)}
         preColor={memoColor}
-        alreadyExists={false}
+        alreadyExists={true}
         memoId={slug}
       />
     </LayoutWrapper>
