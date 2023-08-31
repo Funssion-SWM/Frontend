@@ -3,44 +3,28 @@ import Comment from './Comment';
 export default function Comments() {
   const mockData = [
     {
-      title: 'async, await이 무엇인가요??',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, nesciunt provident pariatur inventore deserunt porro assumenda at quae tempora deleniti aliquid veniam numquam hic magnam aspernatur impedit dolorem exercitationem officiis.',
+      text: 'async, await이 무엇인가요??',
     },
     {
-      title: 'async, await이 무엇인가요??',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, nesciunt provident pariatur inventore deserunt porro assumenda at quae tempora deleniti aliquid veniam numquam hic magnam aspernatur impedit dolorem exercitationem officiis.',
+      text: 'async, await이 무엇인가요??',
     },
     {
-      title: 'async, await이 무엇인가요??',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, nesciunt provident pariatur inventore deserunt porro assumenda at quae tempora deleniti aliquid veniam numquam hic magnam aspernatur impedit dolorem exercitationem officiis.',
+      text: 'async, await이 무엇인가요??',
     },
     {
-      title: 'async, await이 무엇인가요??',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, nesciunt provident pariatur inventore deserunt porro assumenda at quae tempora deleniti aliquid veniam numquam hic magnam aspernatur impedit dolorem exercitationem officiis.',
+      text: 'async, await이 무엇인가요??',
     },
     {
-      title: 'async, await이 무엇인가요??',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, nesciunt provident pariatur inventore deserunt porro assumenda at quae tempora deleniti aliquid veniam numquam hic magnam aspernatur impedit dolorem exercitationem officiis.',
+      text: 'async, await이 무엇인가요??',
     },
     {
-      title: 'async, await이 무엇인가요??',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, nesciunt provident pariatur inventore deserunt porro assumenda at quae tempora deleniti aliquid veniam numquam hic magnam aspernatur impedit dolorem exercitationem officiis.',
+      text: 'async, await이 무엇인가요??',
     },
     {
-      title: 'async, await이 무엇인가요??',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, nesciunt provident pariatur inventore deserunt porro assumenda at quae tempora deleniti aliquid veniam numquam hic magnam aspernatur impedit dolorem exercitationem officiis.',
+      text: 'async, await이 무엇인가요??',
     },
     {
-      title: 'async, await이 무엇인가요??',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, nesciunt provident pariatur inventore deserunt porro assumenda at quae tempora deleniti aliquid veniam numquam hic magnam aspernatur impedit dolorem exercitationem officiis.',
+      text: 'async, await이 무엇인가요??',
     },
   ];
   return (
