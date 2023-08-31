@@ -33,7 +33,7 @@ export default function Header() {
   }, [isActive, open]);
 
   return (
-    <section className="border-b-2">
+    <section className="border-b-2 sticky top-0 bg-white z-10">
       <header className="flex justify-between items-center py-4 px-5 max-w-screen-xl m-auto">
         <h1
           className="text-2xl font-bold cursor-pointer"
