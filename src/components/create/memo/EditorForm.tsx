@@ -16,6 +16,7 @@ import { TiptapEditorProps } from '@/components/editor/props';
 import { Memo, MemoColor } from '@/types/memo';
 import BlueBtnWithCount from '@/components/shared/btn/BlueBtnWithCount';
 import { useDebounce } from '@/hooks/useDebounce';
+import { toast } from 'react-toastify';
 
 type Props = {
   preTitle?: string;
@@ -152,7 +153,13 @@ export default function EditorForm({
         memoColor: selectedColor,
         isTemporary: true,
       }
-    ).then(() => console.log('임시 저장되었습니다'));
+    ).then(() =>
+      toast('임시 저장되었습니다.', {
+        hideProgressBar: true,
+        autoClose: 2000,
+        type: 'success',
+      })
+    );
   }, [temporaryContents]);
 
   const first = async () => {

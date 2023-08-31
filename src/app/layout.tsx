@@ -5,6 +5,7 @@ import { pretendard } from '@/styles/fonts';
 import ModalProvider from '@/context/ModalProvider';
 import Modal from '@/components/shared/Modal';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
+import ToastProvider from '@/components/ToastProvider';
 
 export const metadata = {
   title: 'Inforum',
@@ -20,10 +21,12 @@ export default async function RootLayout({
     <html lang="en" className={pretendard.className}>
       <GoogleAnalytics />
       <body className="flex flex-col">
-        <ModalProvider>
-          <Providers>{children}</Providers>
-          <Modal />
-        </ModalProvider>
+        <ToastProvider>
+          <ModalProvider>
+            <Providers>{children}</Providers>
+            <Modal />
+          </ModalProvider>
+        </ToastProvider>
       </body>
     </html>
   );
