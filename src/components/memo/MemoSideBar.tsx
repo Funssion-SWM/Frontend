@@ -5,7 +5,6 @@ import BlueBtn2 from '@/components/shared/btn/BlueBtn2';
 import CategoryBtn from '../shared/btn/CategoryBtn';
 import Comments from './Comments';
 import Link from 'next/link';
-import { HEIGHT_TO_REMOVE_FOR_FIT_SCREEN } from '@/utils/const';
 import basicProfileImg from '@/assets/profile.svg';
 
 type Props = {
@@ -14,8 +13,6 @@ type Props = {
   authorId: number;
 };
 
-const SIDE_BAR_WIDTH = '300px';
-
 export default function MemoSideBar({
   authorName,
   authorProfileImagePath,
@@ -23,7 +20,7 @@ export default function MemoSideBar({
 }: Props) {
   return (
     <aside
-      className={`ml-3 sticky top-24 rounded-lg basis-1/4 border-[1px] border-soma-grey-30 max-h-[calc(100vh-${HEIGHT_TO_REMOVE_FOR_FIT_SCREEN})] overflow-y-scroll min-w-[${SIDE_BAR_WIDTH}]`}
+      className={`ml-3 sticky top-24 rounded-lg basis-1/4 border-[1px] min-h border-soma-grey-30 max-h-for-fit-screen overflow-y-scroll min-w-[300px]`}
     >
       <div className="bg-white sticky top-0 p-3 border-b-2 border-soma-grey-30">
         <div className="flex justify-between items-center">

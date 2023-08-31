@@ -5,7 +5,6 @@ import { EditorContent, useEditor } from '@tiptap/react';
 import MemoViewerHeader from './MemoViewerHeader';
 import { TiptapExtensions } from '@/components/editor/extensions';
 import { TiptapEditorProps } from '@/components/editor/props';
-import { HEIGHT_TO_REMOVE_FOR_FIT_SCREEN } from '@/utils/const';
 
 type Props = {
   title: string;
@@ -26,7 +25,7 @@ export default function MemoViewer({
 }: Props) {
   return (
     <section
-      className={`flex flex-col sm:rounded-lg sm:shadow-lg px-4 min-h-screen sm:min-h-[calc(100vh-${HEIGHT_TO_REMOVE_FOR_FIT_SCREEN})] w-full pb-8 ${
+      className={`flex flex-col sm:rounded-lg sm:shadow-lg px-4 min-h-screen sm:min-h-for-fit-screen] w-full pb-8 ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
