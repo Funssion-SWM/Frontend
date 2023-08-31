@@ -6,6 +6,7 @@ import CategoryBtn from '../shared/btn/CategoryBtn';
 import Comments from './Comments';
 import Link from 'next/link';
 import { HEIGHT_TO_REMOVE_FOR_FIT_SCREEN } from '@/utils/const';
+import basicProfileImg from '@/assets/profile.svg';
 
 type Props = {
   authorName: string;
@@ -29,7 +30,7 @@ export default function MemoSideBar({
           <div className="flex items-center text-xs">
             <Link href={`/me/${authorId}`}>
               <Image
-                src={authorProfileImagePath}
+                src={authorProfileImagePath ?? basicProfileImg}
                 alt="profileImg"
                 width={36}
                 height={36}
