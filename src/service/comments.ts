@@ -36,6 +36,27 @@ export async function createComment(bodyData: PostCommentData) {
     .catch(console.error);
 }
 
+export async function updateComment(id: number, commentText: string) {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/${id}`,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ commentText }),
+    }
+  )
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('error');
+      }
+      return res.json();
+    })
+    .catch(console.error);
+}
+
 export async function deleteComeent(id: number) {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/${id}`,

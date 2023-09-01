@@ -2,8 +2,10 @@ import Image from 'next/image';
 import basicProfileImg from '@/assets/profile.svg';
 import { Comment } from '@/types/comment';
 import Link from 'next/link';
-import { deleteComeent } from '@/service/comments';
+import { deleteComeent, updateComment } from '@/service/comments';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import BlueBtn from '../shared/btn/BlueBtn';
 
 type Props = {
   commentProperty: Comment;
@@ -20,6 +22,8 @@ export default function CommentItem({ commentProperty, isMyComment }: Props) {
     createdDate,
   } = commentProperty;
 
+  const [updatedText, setUpdatedText] = useState(commentText);
+  const [isEditMode, setIsEditMode] = useState(false);
   const router = useRouter();
 
   return (
@@ -41,22 +45,57 @@ export default function CommentItem({ commentProperty, isMyComment }: Props) {
           </p>
         </div>
       </div>
-      <p className="text-sm my-2 text-soma-grey-60">{commentText}</p>
+      {isEditMode ? (
+        <textarea
+          value={updatedText}
+          onChange={(e) => setUpdatedText(e.target.value)}
+          className="text-sm my-2 text-soma-grey-60 outline-none resize-none"
+        />
+      ) : (
+        <p className="text-sm my-2 text-soma-grey-60">{commentText}</p>
+      )}
       <div className="flex justify-between items-center text-[10px]">
         <p>답글 보기</p>
-        {isMyComment && (
-          <div className="flex gap-2 ">
-            <button>수정</button>
-            <button
-              onClick={() => {
-                deleteComeent(id);
-                router.refresh();
-              }}
-            >
-              삭제
-            </button>
-          </div>
-        )}
+        {isMyComment &&
+          (!isEditMode ? (
+            <div className="flex gap-2 ">
+              <button
+                onClick={() => {
+                  setIsEditMode(true);
+                }}
+              >
+                수정
+              </button>
+              <button
+                onClick={() => {
+                  deleteComeent(id);
+                  router.refresh();
+                }}
+              >
+                삭제
+              </button>
+            </div>
+          ) : (
+            <div className="flex gap-2 ">
+              <button
+                onClick={() => {
+                  setIsEditMode(false);
+                  setUpdatedText(commentText);
+                }}
+              >
+                취소
+              </button>
+              <BlueBtn
+                text="수정"
+                size="small"
+                onClick={() => {
+                  updateComment(id, updatedText);
+                  setIsEditMode(false);
+                  router.refresh();
+                }}
+              />
+            </div>
+          ))}
       </div>
     </div>
   );

@@ -28,7 +28,9 @@ export default function MemoSideBar({
         authorProfileImagePath={authorProfileImagePath}
       />
       <CommentsList comments={comments} />
-      <CommentForm postId={memoId} />
+      <div className="sticky bottom-0 p-1 bg-white shadow-inner">
+        <CommentForm postId={memoId} />
+      </div>
     </aside>
   );
 }
