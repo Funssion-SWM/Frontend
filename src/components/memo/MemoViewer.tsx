@@ -25,7 +25,7 @@ export default function MemoViewer({
 }: Props) {
   return (
     <section
-      className={`flex flex-col sm:rounded-lg sm:shadow-lg px-4 min-h-screen sm:min-h-for-fit-screen] w-full pb-8 ${
+      className={`flex flex-col sm:rounded-lg sm:shadow-lg px-4 min-h-screen sm:min-h-for-fit-screen w-full pb-8 ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',

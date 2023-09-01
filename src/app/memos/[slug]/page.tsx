@@ -3,6 +3,7 @@ import MemoViewer from '@/components/memo/MemoViewer';
 import { getMemoById } from '@/service/memos';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import MemoSideBar from '@/components/memo/MemoSideBar';
+import { getCommentsByPostTypeAndPostId } from '@/service/comments';
 
 type Props = {
   params: {
@@ -20,7 +21,8 @@ export default async function MemoPage({ params: { slug } }: Props) {
     authorName,
     authorProfileImagePath,
   } = await getMemoById(slug);
-
+  const comments = await getCommentsByPostTypeAndPostId('memo', slug);
+  console.log(comments);
   return (
     <section>
       <Header />
@@ -38,6 +40,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
             authorName={authorName}
             authorProfileImagePath={authorProfileImagePath}
             authorId={authorId}
+            comments={comments}
           />
         </div>
       </LayoutWrapper>

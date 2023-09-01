@@ -67,3 +67,5 @@ export type Like = {
 export type Period = 'day' | 'week' | 'month' | 'year';
 
 export type Orderby = 'hot' | 'new';
+
+export type PostType = 'memo' | 'question';
