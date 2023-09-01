@@ -27,7 +27,7 @@ export default function MemoSideBar({
         authorName={authorName}
         authorProfileImagePath={authorProfileImagePath}
       />
-      <CommentsList comments={comments} authorId={authorId} />
+      <CommentsList comments={comments} />
       <CommentForm postId={memoId} />
     </aside>
   );

@@ -7,10 +7,9 @@ import { useEffect, useState } from 'react';
 
 type Props = {
   comments: Comment[];
-  authorId: number;
 };
 
-export default function CommentsList({ comments, authorId }: Props) {
+export default function CommentsList({ comments }: Props) {
   const [uid, setUid] = useState<number | null>(null);
 
   async function first() {
@@ -29,7 +28,10 @@ export default function CommentsList({ comments, authorId }: Props) {
     <ul className="flex flex-col h-full overflow-y-scroll">
       {comments.map((item) => (
         <li key={item.id}>
-          <CommentItem commentProperty={item} isMyComment={uid === authorId} />
+          <CommentItem
+            commentProperty={item}
+            isMyComment={uid === item.authorId}
+          />
         </li>
       ))}
     </ul>
