@@ -1,13 +1,8 @@
 'use client';
 
 import { Editor, EditorContent } from '@tiptap/react';
-import { EditorBubbleMenu } from './components';
-// import useLocalStorage from '@/lib/hooks/use-local-storage';
-// import { useDebouncedCallback } from 'use-debounce';
-// import va from '@vercel/analytics';
-// import { getPrevText } from '@/app/lib/editor';
 
-export default function MyEditor({ editor }: { editor: Editor | null }) {
+export default function FakeEditor({ editor, extraClass }: { editor: Editor | null, extraClass?: string }) {
   // const [content, setContent] = useLocalStorage(
   //   'content',
   //   DEFAULT_EDITOR_CONTENT
@@ -40,13 +35,14 @@ export default function MyEditor({ editor }: { editor: Editor | null }) {
       onClick={() => {
         editor?.chain().focus().run();
       }}
-      id='editor-content-area'
-      className="relative w-full p-4 rounded-lg"
+      className={`fixed bg-inherit z-10 top-1/12 w-11/12 min-h-screen(-header) p-4 rounded-lg ${extraClass}`}
     >
       {/* <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
         {saveStatus}
       </div> */}
-      {editor && <EditorBubbleMenu editor={editor} />}
+      <div className='text-center'>
+        AI Writing...
+      </div>
       <EditorContent editor={editor} />
     </div>
   );

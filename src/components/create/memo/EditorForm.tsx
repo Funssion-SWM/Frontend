@@ -15,6 +15,7 @@ import { TiptapExtensions } from '@/components/editor/extensions';
 import { TiptapEditorProps } from '@/components/editor/props';
 import { Memo, MemoColor } from '@/types/memo';
 import BlueBtnWithCount from '@/components/shared/btn/BlueBtnWithCount';
+import FakeEditor from '@/components/editor/components/FakeEditor';
 
 type Props = {
   preTitle?: string;
@@ -32,13 +33,13 @@ export default function EditorForm({
   memoId,
 }: Props) {
   const router = useRouter();
+  const [height, setHeight] = useState(0);
   const { open } = useContext(ModalContext);
   const editor = useEditor({
     extensions: TiptapExtensions,
     editorProps: TiptapEditorProps,
     content: preContent,
     onUpdate: (e) => {
-      // setSaveStatus('Unsaved');
       const selection = e.editor.state.selection;
       const lastTwo = getPrevText(e.editor, {
         chars: 2,
@@ -61,10 +62,22 @@ export default function EditorForm({
     },
   });
 
+  const fakeEditor = useEditor({
+    extensions: TiptapExtensions,
+    editorProps: TiptapEditorProps,
+    editable: false
+  })
+
   const { complete, completion, isLoading, stop } = useCompletion({
     id: 'novel',
     api: '/api/generate',
     onFinish: (_prompt, completion) => {
+      fakeEditor?.commands.clearContent();
+      editor?.commands.insertContent(completion, {
+        parseOptions: {
+          preserveWhitespace: false
+        }
+      });
       editor?.commands.setTextSelection({
         from: editor.state.selection.from - completion.length,
         to: editor.state.selection.from,
@@ -82,9 +95,20 @@ export default function EditorForm({
 
   // Insert chunks of the generated text
   useEffect(() => {
-    const diff = completion.slice(prev.current.length);
-    prev.current = completion;
-    editor?.commands.insertContent(diff);
+    // const diff = completion.slice(prev.current.length);
+    // prev.current = completion;
+
+    // // Escape markdown syntax
+    // const escapedDiff = diff.replace(/([#*_{}[\]()`~>#+-.!|])/g, '\\$1');
+
+    // editor?.commands.insertContent(escapedDiff, {
+    //   parseOptions: {
+    //     preserveWhitespace: false
+    //   }
+    // })
+
+    fakeEditor?.commands.setContent(completion);
+
   }, [isLoading, editor, completion]);
 
   useEffect(() => {
@@ -194,7 +218,7 @@ export default function EditorForm({
           onClickCount={() => 
             open("임시 저장된 글", () => {router.refresh()} , "draft", memos)
           }
-          extraStyle={`mr-2 ${alreadyExists?"visible":"hidden"}`}
+          extraStyle={`mr-2 bg-inherit ${alreadyExists?"visible":"hidden"}`}
         />
         <BlueBtn
           text={alreadyExists ? '등록' : '수정'}
@@ -212,6 +236,7 @@ export default function EditorForm({
       />
       {/* <h3>tag</h3> */}
       <SelectColorBar selected={selectedColor} onClick={handleColorClick} />
+      <FakeEditor editor={fakeEditor} extraClass={`${isLoading ? 'visible' : 'hidden'}`}/>
       <MyEditor editor={editor} />
       <button
         className="absolute bottom-3 right-5 text-soma-grey-50"
