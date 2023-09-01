@@ -9,7 +9,7 @@ type Props = {
 
 export default function SelectColorBar({ selected, onClick }: Props) {
   return (
-    <div className="flex gap-1 mt-2 mx-4">
+    <div className="flex gap-1 mt-2 mb-1.5 mx-4">
       {COLORS.map((color) => (
         <ColorCircle
           key={color}
