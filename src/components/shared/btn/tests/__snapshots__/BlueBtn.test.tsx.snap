@@ -1,8 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Blue Btn renders correctly 1`] = `
+exports[`Blue Btn renders correctly when size is big 1`] = `
 <button
-  className="bg-soma-blue-40 text-white px-3.5 py-2 rounded-3xl transition hover:bg-soma-blue-50 text-sm sm:text-base  "
+  className="bg-soma-blue-40 text-white px-3.5 py-2 rounded-3xl transition hover:bg-soma-blue-50 text-sm sm:text-base   "
+  onClick={[Function]}
+>
+  text
+</button>
+`;
+
+exports[`Blue Btn renders correctly when size is medium 1`] = `
+<button
+  className="bg-soma-blue-40 text-white px-3.5 py-2 rounded-3xl transition hover:bg-soma-blue-50 text-xs sm:text-sm   "
+  onClick={[Function]}
+>
+  text
+</button>
+`;
+
+exports[`Blue Btn renders correctly when size is small 1`] = `
+<button
+  className="bg-soma-blue-40 text-white px-3.5 py-2 rounded-3xl transition hover:bg-soma-blue-50 text-[10px] sm:text-xs   "
   onClick={[Function]}
 >
   text
