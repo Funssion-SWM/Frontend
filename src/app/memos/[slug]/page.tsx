@@ -4,6 +4,7 @@ import { getMemoById } from '@/service/memos';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import MemoSideBar from '@/components/memo/MemoSideBar';
 import { getCommentsByPostTypeAndPostId } from '@/service/comments';
+import { checkUser } from '@/service/auth';
 
 type Props = {
   params: {

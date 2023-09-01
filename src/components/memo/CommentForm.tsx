@@ -1,3 +1,5 @@
+'use client';
+
 import { createComment } from '@/service/comments';
 import { FormEvent, useState } from 'react';
 

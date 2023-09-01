@@ -35,3 +35,19 @@ export async function createComment(bodyData: PostCommentData) {
     })
     .catch(console.error);
 }
+
+export async function deleteComeent(id: number) {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/${id}`,
+    {
+      method: 'DELETE',
+      credentials: 'include',
+    }
+  )
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('error');
+      }
+    })
+    .catch(console.error);
+}
