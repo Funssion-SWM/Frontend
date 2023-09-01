@@ -95,18 +95,6 @@ export default function EditorForm({
 
   // Insert chunks of the generated text
   useEffect(() => {
-    // const diff = completion.slice(prev.current.length);
-    // prev.current = completion;
-
-    // // Escape markdown syntax
-    // const escapedDiff = diff.replace(/([#*_{}[\]()`~>#+-.!|])/g, '\\$1');
-
-    // editor?.commands.insertContent(escapedDiff, {
-    //   parseOptions: {
-    //     preserveWhitespace: false
-    //   }
-    // })
-
     fakeEditor?.commands.setContent(completion);
 
   }, [isLoading, editor, completion]);
