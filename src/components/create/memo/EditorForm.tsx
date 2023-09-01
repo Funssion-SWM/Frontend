@@ -16,10 +16,12 @@ import { TiptapEditorProps } from '@/components/editor/props';
 import { Memo, MemoColor } from '@/types/memo';
 import BlueBtnWithCount from '@/components/shared/btn/BlueBtnWithCount';
 import FakeEditor from '@/components/editor/components/FakeEditor';
+import { useDebounce } from '@/hooks/useDebounce';
+import { toast } from 'react-toastify';
 
 type Props = {
   preTitle?: string;
-  preContent?: string;
+  preContent?: object;
   preColor?: MemoColor;
   alreadyExists: boolean;
   memoId?: number;
@@ -40,6 +42,8 @@ export default function EditorForm({
     editorProps: TiptapEditorProps,
     content: preContent,
     onUpdate: (e) => {
+      setContents(JSON.stringify(e.editor.getJSON()));
+      // setSaveStatus('Unsaved');
       const selection = e.editor.state.selection;
       const lastTwo = getPrevText(e.editor, {
         chars: 2,
@@ -138,18 +142,57 @@ export default function EditorForm({
   const [memos, setMemos] = useState<Memo[]>([]);
   const [title, setTitle] = useState(preTitle);
   const [selectedColor, setSelectedColor] = useState<MemoColor>(preColor);
+  const [contents, setContents] = useState(JSON.stringify(preContent));
+  const temporaryContents = useDebounce(contents, 5000);
+  const [currentMemoId, setCurrentMemoId] = useState(memoId);
+
+  useEffect(() => {
+    if (
+      !title ||
+      !temporaryContents ||
+      !contents ||
+      temporaryContents === JSON.stringify(preContent)
+    )
+      return;
+
+    const memoDescription = getDescription(contents);
+    createOrUpdateMemo(
+      `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos${
+        currentMemoId ? `/${currentMemoId}` : ''
+      }`,
+      {
+        memoTitle: title,
+        memoDescription,
+        memoText: temporaryContents,
+        memoColor: selectedColor,
+        isTemporary: true,
+      }
+    ).then((data) => {
+      toast('임시 저장되었습니다.', {
+        hideProgressBar: true,
+        autoClose: 2000,
+        type: 'success',
+      });
+      if (!currentMemoId) setCurrentMemoId(data.memoId);
+    });
+  }, [temporaryContents]);
 
   const first = async () => {
     getMemoDrafts().then((data) => setMemos(data));
-  }
+  };
 
   useEffect(() => {
     first();
-  }, [])
+  }, []);
 
-  const save = (saveMode:string) => {
+  const save = (saveMode: string) => {
     if (title === '') {
       alert('제목을 작성해주세요!');
+      return;
+    }
+
+    if (title.length > 75) {
+      alert('제목 수 제한 75자를 초과하였습니다!');
       return;
     }
 
@@ -163,24 +206,24 @@ export default function EditorForm({
     const memoDescription = getDescription(memoText);
     createOrUpdateMemo(
       `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos${
-        !alreadyExists ? `/${memoId}` : ''
+        alreadyExists ? `/${memoId}` : ''
       }`,
       {
         memoTitle: title,
         memoDescription,
         memoText,
         memoColor: selectedColor,
-        isTemporary: saveMode=="temporary",
+        isTemporary: saveMode == 'temporary',
       }
     ).then(() => {
-      if (alreadyExists) router.push('/memos');
-      else router.push(`/memos/${memoId}`);
+      if (alreadyExists) router.push(`/memos/${memoId}`);
+      else router.push('/memos');
       router.refresh();
     });
-  }
+  };
 
-  const handleBtnClickSave = () => save("permanent");
-  const handleBtnClickTemporalSave = () => save("temporary");
+  const handleBtnClickSave = () => save('permanent');
+  const handleBtnClickTemporalSave = () => save('temporary');
 
   const handleColorClick = (color: MemoColor) => setSelectedColor(color);
 
@@ -198,20 +241,24 @@ export default function EditorForm({
         }[selectedColor]
       }`}
     >
-      <div className='text-right'>
+      <div className="text-right">
         <BlueBtnWithCount
-          text='임시저장'
+          text="임시저장"
           count={memos.length}
           onClickBtn={handleBtnClickTemporalSave}
-          onClickCount={() => 
-            open("임시 저장된 글", () => {router.refresh()} , "draft", memos)
+          onClickCount={() =>
+            open(
+              '임시 저장된 글',
+              () => {
+                router.refresh();
+              },
+              'draft',
+              memos
+            )
           }
-          extraStyle={`mr-2 bg-inherit ${alreadyExists?"visible":"hidden"}`}
+          extraStyle={`mr-2`}
         />
-        <BlueBtn
-          text={alreadyExists ? '등록' : '수정'}
-          onClick={handleBtnClickSave}
-        />
+        <BlueBtn text="등록" onClick={handleBtnClickSave} />
       </div>
       <input
         type="text"

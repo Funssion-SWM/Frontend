@@ -25,7 +25,7 @@ export default function MemoViewer({
 }: Props) {
   return (
     <section
-      className={`flex flex-col sm:rounded-lg sm:shadow-lg px-4 min-h-screen sm:min-h-[calc(100vh-120px)] pb-8 ${
+      className={`flex flex-col sm:rounded-lg sm:shadow-lg px-4 min-h-screen sm:min-h-for-fit-screen] w-full pb-8 ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
@@ -39,7 +39,7 @@ export default function MemoViewer({
     >
       <MemoViewerHeader memoId={memoId} authorId={authorId} likes={likes} />
       <h1
-        className={`text-2xl sm:text-4xl font-bold py-3 px-4 mb-5 ${
+        className={`text-2xl sm:text-4xl font-bold py-3 px-4 mb-5 break-all ${
           {
             yellow: 'bg-yellow-50',
             green: 'bg-green-50',
@@ -53,7 +53,7 @@ export default function MemoViewer({
       >
         {title}
       </h1>
-      <div className="px-4 flex-grow">
+      <div className="px-4 flex-grow break-all">
         <EditorContent
           editor={useEditor({
             extensions: TiptapExtensions,

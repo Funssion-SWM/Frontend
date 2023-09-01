@@ -1,5 +1,5 @@
 export function validateNickname(nickname: string): boolean {
-  if (!checkIsValid(nickname)) return false;
+  if (!checkIsEngOrKorOrNum(nickname)) return false;
 
   let totalWeight = 0;
 
@@ -14,7 +14,7 @@ export function validateNickname(nickname: string): boolean {
   return true;
 }
 
-function checkIsValid(string: string): boolean {
+function checkIsEngOrKorOrNum(string: string): boolean {
   return /^[a-zA-z0-9가-힣]*$/.test(string);
 }
 

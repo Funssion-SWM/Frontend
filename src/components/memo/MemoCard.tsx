@@ -41,14 +41,22 @@ export default function MemoCard({
         imagePath={authorProfileImagePath}
         authorId={authorId}
       />
-      <Link href={isTemporary ?
-        `/create/memo/${memoId}` :
-        `/memos/${memoId}`}>
-        <h2 className="text-2xl font-bold my-5 line-clamp-2 break-all">
-          {memoTitle}
-        </h2>
-        <p className="line-clamp-3 break-all">{memoDescription}</p>
-      </Link>
+
+      {isTemporary ? (
+        <Link href={`/create/memo/${memoId}`} prefetch={false}>
+          <h2 className="text-2xl font-bold my-5 line-clamp-2 break-all">
+            {memoTitle}
+          </h2>
+          <p className="line-clamp-3 break-all">{memoDescription}</p>
+        </Link>
+      ) : (
+        <Link href={`/memos/${memoId}`}>
+          <h2 className="text-2xl font-bold my-5 line-clamp-2 break-all">
+            {memoTitle}
+          </h2>
+          <p className="line-clamp-3 break-all">{memoDescription}</p>
+        </Link>
+      )}
     </article>
   );
 }

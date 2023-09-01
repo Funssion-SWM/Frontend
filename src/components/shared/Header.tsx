@@ -33,7 +33,7 @@ export default function Header() {
   }, [isActive, open]);
 
   return (
-    <section className="border-b-2">
+    <section className="border-b-2 sticky top-0 bg-white z-10">
       <header className="flex justify-between items-center py-4 px-5 max-w-screen-xl m-auto">
         <h1
           className="text-2xl font-bold cursor-pointer"
@@ -57,7 +57,7 @@ export default function Header() {
                 alt="profileImg"
                 width={32}
                 height={32}
-                className="rounded-full"
+                className="rounded-full w-8 h-8 object-cover"
               />
             </button>
 
@@ -78,7 +78,9 @@ export default function Header() {
               <button
                 className="hover:bg-gray-200 p-2 rounded-t-lg"
                 onClick={() => {
-                  checkUser().then((data) => router.push(`/me/${data.id}/drafts`));
+                  checkUser().then((data) =>
+                    router.push(`/me/${data.id}/drafts`)
+                  );
                   setIsActive(false);
                 }}
               >
