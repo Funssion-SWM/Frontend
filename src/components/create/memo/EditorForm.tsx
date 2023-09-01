@@ -131,6 +131,7 @@ export default function EditorForm({
   const [selectedColor, setSelectedColor] = useState<MemoColor>(preColor);
   const [contents, setContents] = useState(JSON.stringify(preContent));
   const temporaryContents = useDebounce(contents, 5000);
+  const [currentMemoId, setCurrentMemoId] = useState(memoId);
 
   useEffect(() => {
     if (
@@ -144,7 +145,7 @@ export default function EditorForm({
     const memoDescription = getDescription(contents);
     createOrUpdateMemo(
       `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos${
-        alreadyExists ? `/${memoId}` : ''
+        currentMemoId ? `/${currentMemoId}` : ''
       }`,
       {
         memoTitle: title,
@@ -153,13 +154,14 @@ export default function EditorForm({
         memoColor: selectedColor,
         isTemporary: true,
       }
-    ).then(() =>
+    ).then((data) => {
       toast('임시 저장되었습니다.', {
         hideProgressBar: true,
         autoClose: 2000,
         type: 'success',
-      })
-    );
+      });
+      if (!currentMemoId) setCurrentMemoId(data.memoId);
+    });
   }, [temporaryContents]);
 
   const first = async () => {
