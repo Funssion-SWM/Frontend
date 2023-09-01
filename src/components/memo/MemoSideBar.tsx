@@ -3,12 +3,14 @@
 import CommentsList from './CommentsList';
 import { Comment } from '@/types/comment';
 import MemoSidebarHeader from './MemoSidebarHeader';
+import CommentForm from './CommentForm';
 
 type Props = {
   authorName: string;
   authorProfileImagePath: string;
   authorId: number;
   comments: Comment[];
+  memoId: number;
 };
 
 export default function MemoSideBar({
@@ -16,6 +18,7 @@ export default function MemoSideBar({
   authorProfileImagePath,
   authorId,
   comments,
+  memoId,
 }: Props) {
   return (
     <aside
@@ -27,15 +30,7 @@ export default function MemoSideBar({
         authorProfileImagePath={authorProfileImagePath}
       />
       <CommentsList comments={comments} />
-      <div className="sticky bottom-0 p-1 bg-white shadow-inner">
-        <div className="flex w-full my-2 text-[13px]">
-          <textarea
-            placeholder="댓글을 작성하세요.."
-            className="grow pl-2 outline-none resize-none align-middle	inline-block"
-          />
-          <button className="w-fit px-2 text-soma-grey-45">작성</button>
-        </div>
-      </div>
+      <CommentForm postId={memoId} />
     </aside>
   );
 }

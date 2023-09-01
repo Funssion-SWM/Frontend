@@ -9,3 +9,9 @@ export type Comment = {
   likes: number;
   reComments: number;
 };
+
+export type PostCommentData = {
+  postTypeWithComment: 'MEMO' | 'QUESTION';
+  postId: number;
+  commentText: string;
+};

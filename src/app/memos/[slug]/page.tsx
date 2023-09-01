@@ -22,7 +22,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
     authorProfileImagePath,
   } = await getMemoById(slug);
   const comments = await getCommentsByPostTypeAndPostId('memo', slug);
-  console.log(comments);
+
   return (
     <section>
       <Header />
@@ -41,6 +41,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
             authorProfileImagePath={authorProfileImagePath}
             authorId={authorId}
             comments={comments}
+            memoId={slug}
           />
         </div>
       </LayoutWrapper>
