@@ -1,6 +1,7 @@
 'use client';
 
 import { createComment } from '@/service/comments';
+import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 
 type Props = {
@@ -9,9 +10,13 @@ type Props = {
 
 export default function CommentForm({ postId }: Props) {
   const [commentText, setCommentText] = useState('');
+  const router = useRouter();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     createComment({ postTypeWithComment: 'MEMO', postId, commentText });
+    setCommentText('');
+    router.refresh();
   };
 
   return (
