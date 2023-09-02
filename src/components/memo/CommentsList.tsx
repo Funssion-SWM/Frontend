@@ -17,7 +17,7 @@ export default function CommentsList({ comments }: Props) {
   }
 
   useEffect(() => {
-    comments.length !== 0 && first();
+    first();
   }, []);
 
   return comments.length === 0 ? (
