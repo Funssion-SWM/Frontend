@@ -48,9 +48,13 @@ export default function CommentItem({ commentProperty, isMyComment }: Props) {
       </div>
       {isEditMode ? (
         <textarea
+          className="text-sm my-2 text-soma-grey-60 outline-none resize-none"
           value={updatedText}
           onChange={(e) => setUpdatedText(e.target.value)}
-          className="text-sm my-2 text-soma-grey-60 outline-none resize-none"
+          onFocus={(e) => {
+            e.target.selectionStart = e.target.value.length;
+          }}
+          autoFocus
         />
       ) : (
         <p className="text-sm my-2 text-soma-grey-60">{commentText}</p>
