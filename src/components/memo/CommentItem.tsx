@@ -4,9 +4,10 @@ import { Comment } from '@/types/comment';
 import Link from 'next/link';
 import { deleteComeent, updateComment } from '@/service/comments';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import BlueBtn from '../shared/btn/BlueBtn';
 import WhiteBtn from '../shared/btn/WhiteBtn';
+import { ModalContext } from '@/context/ModalProvider';
 
 type Props = {
   commentProperty: Comment;
@@ -25,6 +26,7 @@ export default function CommentItem({ commentProperty, isMyComment }: Props) {
 
   const [updatedText, setUpdatedText] = useState(commentText);
   const [isEditMode, setIsEditMode] = useState(false);
+  const { open } = useContext(ModalContext);
   const router = useRouter();
 
   return (
@@ -73,8 +75,10 @@ export default function CommentItem({ commentProperty, isMyComment }: Props) {
               </button>
               <button
                 onClick={() => {
-                  deleteComeent(id);
-                  router.refresh();
+                  open('댓글을 삭제하시겠습니까?', () => {
+                    deleteComeent(id);
+                    router.refresh();
+                  });
                 }}
               >
                 삭제
