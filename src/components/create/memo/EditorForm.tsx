@@ -4,7 +4,7 @@ import SelectColorBar from '@/components/create/memo/SelectColorBar';
 import MyEditor from '@/components/editor';
 import { useEditor } from '@tiptap/react';
 import { useRouter } from 'next/navigation';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import BlueBtn from '../../shared/btn/BlueBtn';
 import { createOrUpdateMemo, getMemoDrafts } from '@/service/memos';
 import { getPrevText } from '@/lib/editor';
@@ -35,15 +35,35 @@ export default function EditorForm({
   memoId,
 }: Props) {
   const router = useRouter();
-  const [height, setHeight] = useState(0);
   const { open } = useContext(ModalContext);
+
+  const { complete, completion, isLoading, stop } = useCompletion({
+    id: 'inforum',
+    api: '/api/generate',
+    onFinish: (_prompt, completion) => {
+      fakeEditor?.commands.clearContent();
+      editor?.commands.insertContent(completion, {
+        parseOptions: {
+          preserveWhitespace: false,
+        },
+      });
+      editor?.commands.setTextSelection({
+        from: editor.state.selection.from - completion.length,
+        to: editor.state.selection.from,
+      });
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
+  const [contents, setContents] = useState(JSON.stringify(preContent));
   const editor = useEditor({
     extensions: TiptapExtensions,
     editorProps: TiptapEditorProps,
     content: preContent,
     onUpdate: (e) => {
       setContents(JSON.stringify(e.editor.getJSON()));
-      // setSaveStatus('Unsaved');
       const selection = e.editor.state.selection;
       const lastTwo = getPrevText(e.editor, {
         chars: 2,
@@ -58,10 +78,6 @@ export default function EditorForm({
             chars: 5000,
           })
         );
-        // complete(e.editor.storage.markdown.getMarkdown());
-        // va.track('Autocomplete Shortcut Used');
-      } else {
-        // debouncedUpdates(e);
       }
     },
   });
@@ -69,39 +85,12 @@ export default function EditorForm({
   const fakeEditor = useEditor({
     extensions: TiptapExtensions,
     editorProps: TiptapEditorProps,
-    editable: false
-  })
-
-  const { complete, completion, isLoading, stop } = useCompletion({
-    id: 'novel',
-    api: '/api/generate',
-    onFinish: (_prompt, completion) => {
-      fakeEditor?.commands.clearContent();
-      editor?.commands.insertContent(completion, {
-        parseOptions: {
-          preserveWhitespace: false
-        }
-      });
-      editor?.commands.setTextSelection({
-        from: editor.state.selection.from - completion.length,
-        to: editor.state.selection.from,
-      });
-    },
-    onError: (err) => {
-      // toast.error(err.message);
-      // if (err.message === 'You have reached your request limit for the day.') {
-      //   va.track('Rate Limit Reached');
-      // }
-    },
+    editable: false,
   });
 
-  const prev = useRef('');
-
-  // Insert chunks of the generated text
   useEffect(() => {
     fakeEditor?.commands.setContent(completion);
-
-  }, [isLoading, editor, completion]);
+  }, [isLoading, fakeEditor, completion]);
 
   useEffect(() => {
     // if user presses escape or cmd + z and it's loading,
@@ -142,10 +131,11 @@ export default function EditorForm({
   const [memos, setMemos] = useState<Memo[]>([]);
   const [title, setTitle] = useState(preTitle);
   const [selectedColor, setSelectedColor] = useState<MemoColor>(preColor);
-  const [contents, setContents] = useState(JSON.stringify(preContent));
+
   const temporaryContents = useDebounce(contents, 5000);
   const [currentMemoId, setCurrentMemoId] = useState(memoId);
 
+  // 자동 임시 저장
   useEffect(() => {
     if (
       !title ||
@@ -185,7 +175,7 @@ export default function EditorForm({
     first();
   }, []);
 
-  const save = (saveMode: string) => {
+  const savePost = (saveMode: 'permanent' | 'temporary') => {
     if (title === '') {
       alert('제목을 작성해주세요!');
       return;
@@ -213,7 +203,7 @@ export default function EditorForm({
         memoDescription,
         memoText,
         memoColor: selectedColor,
-        isTemporary: saveMode == 'temporary',
+        isTemporary: saveMode === 'temporary',
       }
     ).then(() => {
       if (alreadyExists) router.push(`/memos/${memoId}`);
@@ -221,11 +211,6 @@ export default function EditorForm({
       router.refresh();
     });
   };
-
-  const handleBtnClickSave = () => save('permanent');
-  const handleBtnClickTemporalSave = () => save('temporary');
-
-  const handleColorClick = (color: MemoColor) => setSelectedColor(color);
 
   return (
     <section
@@ -245,7 +230,7 @@ export default function EditorForm({
         <BlueBtnWithCount
           text="임시저장"
           count={memos.length}
-          onClickBtn={handleBtnClickTemporalSave}
+          onClickBtn={() => savePost('temporary')}
           onClickCount={() =>
             open(
               '임시 저장된 글',
@@ -258,7 +243,7 @@ export default function EditorForm({
           }
           extraStyle={`mr-2`}
         />
-        <BlueBtn text="등록" onClick={handleBtnClickSave} />
+        <BlueBtn text="등록" onClick={() => savePost('permanent')} />
       </div>
       <input
         type="text"
@@ -270,8 +255,14 @@ export default function EditorForm({
         autoFocus
       />
       {/* <h3>tag</h3> */}
-      <SelectColorBar selected={selectedColor} onClick={handleColorClick} />
-      <FakeEditor editor={fakeEditor} extraClass={`${isLoading ? 'visible' : 'hidden'}`}/>
+      <SelectColorBar
+        selected={selectedColor}
+        onClick={(color: MemoColor) => setSelectedColor(color)}
+      />
+      <FakeEditor
+        editor={fakeEditor}
+        extraClass={`${isLoading ? 'visible' : 'hidden'}`}
+      />
       <MyEditor editor={editor} />
       <button
         className="absolute bottom-3 right-5 text-soma-grey-50"
