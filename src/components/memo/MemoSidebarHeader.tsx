@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import BlueBtn2 from '../shared/btn/BlueBtn2';
+import WhiteBtn from '../shared/btn/WhiteBtn';
 import CategoryBtn from '../shared/btn/CategoryBtn';
 import basicProfileImg from '@/assets/profile.svg';
 
@@ -34,12 +34,11 @@ export default function MemoSidebarHeader({
             <div className="text-soma-grey-60 font-medium">{authorName}</div>
           </div>
         </div>
-        <BlueBtn2
+        <WhiteBtn
           text="팔로우"
           onClick={() => {
             alert('지원 예정입니다! 개발자들이 열심히 개발하고 있어요 :)');
           }}
-          extraStyle="text-sm"
         />
       </div>
       <div className="flex gap-1 my-3">

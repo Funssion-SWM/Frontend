@@ -6,6 +6,7 @@ import { deleteComeent, updateComment } from '@/service/comments';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import BlueBtn from '../shared/btn/BlueBtn';
+import WhiteBtn from '../shared/btn/WhiteBtn';
 
 type Props = {
   commentProperty: Comment;
@@ -76,15 +77,15 @@ export default function CommentItem({ commentProperty, isMyComment }: Props) {
               </button>
             </div>
           ) : (
-            <div className="flex gap-2 ">
-              <button
+            <div className="flex gap-1 ">
+              <WhiteBtn
+                text="취소"
                 onClick={() => {
                   setIsEditMode(false);
                   setUpdatedText(commentText);
                 }}
-              >
-                취소
-              </button>
+                size="small"
+              />
               <BlueBtn
                 text="수정"
                 size="small"

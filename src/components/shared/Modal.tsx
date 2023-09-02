@@ -3,15 +3,16 @@
 import { ModalContext } from '@/context/ModalProvider';
 import { useContext } from 'react';
 import BlueBtn from './btn/BlueBtn';
-import BlueBtn2 from './btn/BlueBtn2';
+import WhiteBtn from './btn/WhiteBtn';
 import MemosGrid from '../memo/MemosGrid';
 import { Memo } from '@/types/memo';
 
 export default function Modal() {
-  const { isOpen, mode, memos, close, onSuccess, modalText } = useContext(ModalContext);
+  const { isOpen, mode, memos, close, onSuccess, modalText } =
+    useContext(ModalContext);
 
   return (
-    (isOpen && mode =='' && (
+    (isOpen && mode == '' && (
       <div className="fixed">
         <Overay onClick={() => close()} />
         <div
@@ -27,13 +28,13 @@ export default function Modal() {
                 onSuccess();
               }}
             />
-            <BlueBtn2 text="취소" onClick={() => close()} />
+            <WhiteBtn text="취소" onClick={() => close()} />
           </div>
         </div>
       </div>
     )) ||
     (isOpen && mode == 'draft' && (
-      <div className='fixed'>
+      <div className="fixed">
         <Overay onClick={() => close()} />
         <div
           className="fixed flex flex-col items-center bg-white rounded-2xl p-5 sm:p-10 w-1/2 h-3/4 overflow-scroll
