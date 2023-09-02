@@ -14,10 +14,11 @@ import { ModalContext } from '@/context/ModalProvider';
 import { TiptapExtensions } from '@/components/editor/extensions';
 import { TiptapEditorProps } from '@/components/editor/props';
 import { Memo, MemoColor } from '@/types/memo';
-import BlueBtnWithCount from '@/components/shared/btn/BlueBtnWithCount';
+import WhiteBtnWithCount from '@/components/shared/btn/WhiteBtnWithCount';
 import FakeEditor from '@/components/editor/components/FakeEditor';
 import { useDebounce } from '@/hooks/useDebounce';
 import { toast } from 'react-toastify';
+import { DraftsInModalContext } from '@/context/DraftsInModalProvider';
 
 type Props = {
   preTitle?: string;
@@ -36,6 +37,7 @@ export default function EditorForm({
 }: Props) {
   const router = useRouter();
   const { open } = useContext(ModalContext);
+  const { openDrafts } = useContext(DraftsInModalContext);
 
   const { complete, completion, isLoading, stop } = useCompletion({
     id: 'inforum',
@@ -128,7 +130,6 @@ export default function EditorForm({
     };
   }, [stop, isLoading, editor, complete, completion.length]);
 
-  const [memos, setMemos] = useState<Memo[]>([]);
   const [title, setTitle] = useState(preTitle);
   const [selectedColor, setSelectedColor] = useState<MemoColor>(preColor);
 
@@ -167,8 +168,10 @@ export default function EditorForm({
     });
   }, [temporaryContents]);
 
+  const [drafts, setDrafts] = useState<Memo[]>([]);
+
   const first = async () => {
-    getMemoDrafts().then((data) => setMemos(data));
+    getMemoDrafts().then((data) => setDrafts(data));
   };
 
   useEffect(() => {
@@ -227,20 +230,11 @@ export default function EditorForm({
       }`}
     >
       <div className="text-right">
-        <BlueBtnWithCount
+        <WhiteBtnWithCount
           text="임시저장"
-          count={memos.length}
+          count={drafts.length}
           onClickBtn={() => savePost('temporary')}
-          onClickCount={() =>
-            open(
-              '임시 저장된 글',
-              () => {
-                router.refresh();
-              },
-              'draft',
-              memos
-            )
-          }
+          onClickCount={() => openDrafts(drafts)}
           extraStyle={`mr-2`}
         />
         <BlueBtn text="등록" onClick={() => savePost('permanent')} />
