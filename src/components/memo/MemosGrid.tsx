@@ -1,12 +1,18 @@
 import { Memo } from '@/types/memo';
 import MemoCard from './MemoCard';
+import MemoCardTemporary from './MemoCardTemporary';
 
 type Props = {
   memos: Memo[];
   colNum: number;
+  isTemporary?: boolean;
 };
 
-export default function MemosGrid({ memos, colNum }: Props) {
+export default function MemosGrid({
+  memos,
+  colNum,
+  isTemporary = false,
+}: Props) {
   return (
     <ul
       className={`grid gap-4 grid-cols-1 
@@ -21,7 +27,11 @@ export default function MemosGrid({ memos, colNum }: Props) {
     >
       {memos.map((memo) => (
         <li key={memo.memoId}>
-          <MemoCard memo={memo} />
+          {isTemporary ? (
+            <MemoCardTemporary memo={memo} />
+          ) : (
+            <MemoCard memo={memo} />
+          )}
         </li>
       ))}
     </ul>

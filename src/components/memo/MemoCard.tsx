@@ -17,12 +17,11 @@ export default function MemoCard({
     authorName,
     authorProfileImagePath,
     likes,
-    isTemporary,
   },
 }: Props) {
   return (
     <article
-      className={`rounded-md shadow-md aspect-square p-4 ${
+      className={`flex flex-col relative rounded-md shadow-md aspect-square p-4 ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
@@ -41,22 +40,12 @@ export default function MemoCard({
         imagePath={authorProfileImagePath}
         authorId={authorId}
       />
-
-      {isTemporary ? (
-        <Link href={`/create/memo/${memoId}`} prefetch={false}>
-          <h2 className="text-2xl font-bold my-5 line-clamp-2 break-all">
-            {memoTitle}
-          </h2>
-          <p className="line-clamp-3 break-all">{memoDescription}</p>
-        </Link>
-      ) : (
-        <Link href={`/memos/${memoId}`}>
-          <h2 className="text-2xl font-bold my-5 line-clamp-2 break-all">
-            {memoTitle}
-          </h2>
-          <p className="line-clamp-3 break-all">{memoDescription}</p>
-        </Link>
-      )}
+      <Link href={`/memos/${memoId}`}>
+        <h2 className="text-2xl font-bold my-5 line-clamp-2 break-all">
+          {memoTitle}
+        </h2>
+        <p className="line-clamp-3 break-all">{memoDescription}</p>
+      </Link>
     </article>
   );
 }

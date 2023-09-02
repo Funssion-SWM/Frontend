@@ -2,7 +2,7 @@
 
 import { useContext } from 'react';
 import { DraftsInModalContext } from '@/context/DraftsInModalProvider';
-import MemoCard from '../memo/MemoCard';
+import MemoCardTemporary from '../memo/MemoCardTemporary';
 
 export default function Modal() {
   const { isOpen, drafts, closeDrafts } = useContext(DraftsInModalContext);
@@ -23,7 +23,7 @@ export default function Modal() {
           >
             {drafts.map((draft) => (
               <li className="flex" key={draft.memoId}>
-                <MemoCard memo={draft} />
+                <MemoCardTemporary memo={draft} />
               </li>
             ))}
           </ul>
