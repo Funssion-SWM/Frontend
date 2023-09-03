@@ -1,46 +1,31 @@
 'use client';
 
 import { Editor, EditorContent } from '@tiptap/react';
+import { useEffect, useRef } from 'react';
+import { RingLoader } from 'react-spinners';
 
-export default function FakeEditor({ editor, extraClass }: { editor: Editor | null, extraClass?: string }) {
-  // const [content, setContent] = useLocalStorage(
-  //   'content',
-  //   DEFAULT_EDITOR_CONTENT
-  // );
+export default function FakeEditor({ editor }: { editor: Editor | null }) {
+  const edirotRef = useRef<HTMLDivElement>(null);
 
-  // const [saveStatus, setSaveStatus] = useState('Saved');
-
-  // const [hydrated, setHydrated] = useState(false);
-
-  // const debouncedUpdates = useDebouncedCallback(async ({ editor }) => {
-  //   const json = editor.getJSON();
-  //   setSaveStatus('Saving...');
-  //   setContent(json);
-  //   // Simulate a delay in saving.
-  //   setTimeout(() => {
-  //     setSaveStatus('Saved');
-  //   }, 500);
-  // }, 750);
-
-  // Hydrate the editor with the content from localStorage.
-  // useEffect(() => {
-  //   if (editor && content && !hydrated) {
-  //     editor.commands.setContent(content);
-  //     setHydrated(true);
-  //   }
-  // }, [editor, content, hydrated]);
+  useEffect(() => {
+    if (
+      edirotRef.current &&
+      edirotRef.current.scrollTop <= edirotRef.current.scrollHeight
+    ) {
+      edirotRef.current.scrollTop = edirotRef.current.scrollHeight;
+    }
+  }, [editor?.state.selection]);
 
   return (
     <div
       onClick={() => {
         editor?.chain().focus().run();
       }}
-      className={`fixed bg-inherit z-10 top-1/12 w-11/12 min-h-screen(-header) p-4 rounded-lg ${extraClass}`}
+      ref={edirotRef}
+      className={`absolute flex flex-col top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-white z-10 top-1/12 p-6 rounded-xl shadow-lg overflow-y-scroll`}
     >
-      {/* <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
-        {saveStatus}
-      </div> */}
-      <div className='text-center'>
+      <RingLoader className="self-center" color="#4992FF" />
+      <div className="text-center bg-soma-blue-20 opacity-80 font-medium text-sm my-5">
         AI Writing...
       </div>
       <EditorContent editor={editor} />

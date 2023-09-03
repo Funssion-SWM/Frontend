@@ -216,58 +216,57 @@ export default function EditorForm({
   };
 
   return (
-    <section
-      className={`relative flex flex-col rounded-lg shadow-lg px-4 py-2 min-h-screen sm:min-h-[calc(100vh-100px)] ${
-        {
-          yellow: 'bg-memo-yellow',
-          green: 'bg-memo-green',
-          skyblue: 'bg-memo-skyblue',
-          orange: 'bg-memo-orange',
-          pink: 'bg-memo-pink',
-          navy: 'bg-memo-navy',
-          purple: 'bg-memo-purple',
-        }[selectedColor]
-      }`}
-    >
-      <div className="text-right">
-        <WhiteBtnWithCount
-          text="임시저장"
-          count={drafts.length}
-          onClickBtn={() => savePost('temporary')}
-          onClickCount={() => openDrafts(drafts)}
-          extraStyle={`mr-2`}
-        />
-        <BlueBtn text="등록" onClick={() => savePost('permanent')} />
-      </div>
-      <input
-        type="text"
-        placeholder="제목을 입력해주세요."
-        name="title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-2 border-gray-400"
-        autoFocus
-      />
-      {/* <h3>tag</h3> */}
-      <SelectColorBar
-        selected={selectedColor}
-        onClick={(color: MemoColor) => setSelectedColor(color)}
-      />
-      <FakeEditor
-        editor={fakeEditor}
-        extraClass={`${isLoading ? 'visible' : 'hidden'}`}
-      />
-      <MyEditor editor={editor} />
-      <button
-        className="absolute bottom-3 right-5 text-soma-grey-50"
-        onClick={() =>
-          open('나가시겠습니까?', () => {
-            router.push(`/memos`);
-          })
-        }
+    <div className="flex w-full">
+      <div
+        className={`relative flex flex-col rounded-lg shadow-lg px-4 py-2 min-h-screen sm:min-h-for-fit-screen w-full ${
+          {
+            yellow: 'bg-memo-yellow',
+            green: 'bg-memo-green',
+            skyblue: 'bg-memo-skyblue',
+            orange: 'bg-memo-orange',
+            pink: 'bg-memo-pink',
+            navy: 'bg-memo-navy',
+            purple: 'bg-memo-purple',
+          }[selectedColor]
+        }`}
       >
-        나가기
-      </button>
-    </section>
+        <div className="text-right">
+          <WhiteBtnWithCount
+            text="임시저장"
+            count={drafts.length}
+            onClickBtn={() => savePost('temporary')}
+            onClickCount={() => openDrafts(drafts)}
+            extraStyle={`mr-2`}
+          />
+          <BlueBtn text="등록" onClick={() => savePost('permanent')} />
+        </div>
+        <input
+          type="text"
+          placeholder="제목을 입력해주세요."
+          name="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-2 border-gray-400"
+          autoFocus
+        />
+        {/* <h3>tag</h3> */}
+        <SelectColorBar
+          selected={selectedColor}
+          onClick={(color: MemoColor) => setSelectedColor(color)}
+        />
+        <MyEditor editor={editor} />
+        <button
+          className="absolute bottom-3 right-5 text-soma-grey-50"
+          onClick={() =>
+            open('나가시겠습니까?', () => {
+              router.push(`/memos`);
+            })
+          }
+        >
+          나가기
+        </button>
+      </div>
+      {isLoading && <FakeEditor editor={fakeEditor} />}
+    </div>
   );
 }
