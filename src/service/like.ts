@@ -39,3 +39,31 @@ export async function unlike(postType: string, postId: number): Promise<void> {
     })
     .catch(console.error);
 }
+
+export async function likeComment(commentId: number, isReComment: boolean) {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/like/${commentId}?isReComment=${isReComment}`,
+    {
+      method: 'POST',
+      credentials: 'include',
+    }
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error 발생!');
+    })
+    .catch(console.error);
+}
+
+export async function unlikeComment(commentId: number, isReComment: boolean) {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/like/${commentId}?isReComment=${isReComment}`,
+    {
+      method: 'DELETE',
+      credentials: 'include',
+    }
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error 발생!');
+    })
+    .catch(console.error);
+}

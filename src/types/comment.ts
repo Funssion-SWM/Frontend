@@ -8,6 +8,7 @@ export type Comment = {
   updatedDate: string;
   likes: number;
   reComments?: number;
+  isLike: boolean;
 };
 
 export type PostCommentData = {
