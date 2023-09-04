@@ -18,7 +18,7 @@ export default function Modal() {
           <p className="sm:text-lg text-soma-grey-60 font-semibold">임시저장</p>
           <div className="w-full h-[2px] bg-black"></div>
           <ul
-            className="flex gap-4 w-full h-full overflow-x-scroll my-5"
+            className="flex gap-4 w-full h-full overflow-x-scroll py-5"
             onClick={closeDrafts}
           >
             {drafts.map((draft) => (

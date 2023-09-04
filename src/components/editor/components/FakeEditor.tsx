@@ -25,7 +25,7 @@ export default function FakeEditor({ editor }: { editor: Editor | null }) {
       className={`absolute flex flex-col top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-white z-10 top-1/12 p-6 rounded-xl shadow-lg overflow-y-scroll`}
     >
       <RingLoader className="self-center" color="#4992FF" />
-      <div className="text-center bg-soma-blue-20 opacity-80 font-medium text-sm my-5">
+      <div className="text-center font-medium text-soma-grey-49 text-sm my-5">
         AI Writing...
       </div>
       <EditorContent editor={editor} />

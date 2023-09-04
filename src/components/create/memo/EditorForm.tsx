@@ -134,7 +134,6 @@ export default function EditorForm({
   const [selectedColor, setSelectedColor] = useState<MemoColor>(preColor);
 
   const temporaryContents = useDebounce(contents, 5000);
-  const [currentMemoId, setCurrentMemoId] = useState(memoId);
 
   // 자동 임시 저장
   useEffect(() => {
@@ -149,7 +148,7 @@ export default function EditorForm({
     const memoDescription = getDescription(contents);
     createOrUpdateMemo(
       `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos${
-        currentMemoId ? `/${currentMemoId}` : ''
+        alreadyExists ? `/${memoId}` : ''
       }`,
       {
         memoTitle: title,
@@ -164,7 +163,7 @@ export default function EditorForm({
         autoClose: 2000,
         type: 'success',
       });
-      if (!currentMemoId) setCurrentMemoId(data.memoId);
+      !alreadyExists && router.push(`/create/memo/${data.memoId}`);
     });
   }, [temporaryContents]);
 
@@ -208,9 +207,12 @@ export default function EditorForm({
         memoColor: selectedColor,
         isTemporary: saveMode === 'temporary',
       }
-    ).then(() => {
-      if (alreadyExists) router.push(`/memos/${memoId}`);
-      else router.push('/memos');
+    ).then((data) => {
+      if (saveMode === 'temporary') {
+        !alreadyExists && router.push(`/create/memo/${data.memoId}`);
+      } else {
+        alreadyExists ? router.push(`/memos/${memoId}`) : router.push('/memos');
+      }
       router.refresh();
     });
   };
