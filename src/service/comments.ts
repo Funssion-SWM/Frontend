@@ -8,6 +8,7 @@ export async function getCommentsByPostTypeAndPostId(
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/comments/${postType}/${postId}`,
     {
+      credentials: 'include',
       next: { revalidate: 0 },
     }
   )
