@@ -1,6 +1,6 @@
 type Props = {
   text: string;
-  count?: number;
+  count: number;
   onClickBtn: () => void;
   onClickCount: () => void;
   extraStyle?: string;
@@ -8,13 +8,13 @@ type Props = {
 
 export default function WhiteBtnWithCount({
   text,
-  count = 0,
+  count,
   onClickBtn,
   onClickCount,
   extraStyle = '',
 }: Props) {
   return (
-    <span className={extraStyle}>
+    <div className={extraStyle}>
       <button
         type="button"
         className={`bg-white text-soma-blue-50 border-soma-grey-40 border-r-0 border-[1px] pl-3.5 pr-1 py-2 rounded-l-3xl transition hover:bg-soma-grey-40 text-xs sm:text-sm`}
@@ -29,6 +29,6 @@ export default function WhiteBtnWithCount({
       >
         {count}
       </button>
-    </span>
+    </div>
   );
 }

@@ -232,13 +232,13 @@ export default function EditorForm({
           }[selectedColor]
         }`}
       >
-        <div className="text-right">
+        <div className="flex justify-end">
           <WhiteBtnWithCount
             text="임시저장"
             count={drafts.length}
             onClickBtn={() => savePost('temporary')}
             onClickCount={() => openDrafts(drafts)}
-            extraStyle={`mr-2`}
+            extraStyle="mr-2"
           />
           <BlueBtn text="등록" onClick={() => savePost('permanent')} />
         </div>
