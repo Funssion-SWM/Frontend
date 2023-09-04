@@ -38,7 +38,7 @@ export default function LoginForm() {
   };
 
   return (
-    <form className="flex flex-col w-full" onSubmit={handleSubmit}>
+    <form className="flex flex-col w-full" role="form" onSubmit={handleSubmit}>
       <PromptgMessage property={messageProperty} />
       <input
         className={INPUT_STYLE}
