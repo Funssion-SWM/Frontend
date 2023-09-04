@@ -1,7 +1,7 @@
-import CommentsList from './CommentsList';
+import CommentsList from '@/components/memo/comment/CommentsList';
 import { Comment } from '@/types/comment';
 import MemoSidebarHeader from './MemoSidebarHeader';
-import CommentForm from './CommentForm';
+import CommentForm from '@/components/memo/comment/CommentForm';
 
 type Props = {
   authorName: string;

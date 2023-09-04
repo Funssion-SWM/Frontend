@@ -1,30 +1,21 @@
-import { Comment } from '@/types/comment';
-import basicProfileImg from '@/assets/profile.svg';
 import Image from 'next/image';
+import basicProfileImg from '@/assets/profile.svg';
+import { Comment } from '@/types/comment';
 import Link from 'next/link';
+import { deleteComeent, updateComment } from '@/service/comments';
+import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';
-import WhiteBtn from '../shared/btn/WhiteBtn';
-import BlueBtn from '../shared/btn/BlueBtn';
+import BlueBtn from '@/components/shared/btn/BlueBtn';
+import WhiteBtn from '@/components/shared/btn/WhiteBtn';
 import { ModalContext } from '@/context/ModalProvider';
-import {
-  deleteRecomeent,
-  getRecommentsByCommentId,
-  updateRecomment,
-} from '@/service/comments';
+import RecommentContainer from '@/components/memo/recomment/RecommentContainer';
 
 type Props = {
   commentProperty: Comment;
-  commentId: number;
   isMyComment: boolean;
-  onClick: (recomments: Comment[]) => void;
 };
 
-export default function RecommentItem({
-  commentProperty,
-  commentId,
-  isMyComment,
-  onClick,
-}: Props) {
+export default function CommentItem({ commentProperty, isMyComment }: Props) {
   const {
     id,
     commentText,
@@ -36,11 +27,13 @@ export default function RecommentItem({
 
   const [updatedText, setUpdatedText] = useState(commentText);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [isRecommentBtnClicked, setIsRecommentBtnClicked] = useState(false);
   const { open } = useContext(ModalContext);
+  const router = useRouter();
 
   return (
-    <div className="w-full border-t-2 border-soma-grey-30 p-3 pl-6 bg-soma-grey-20">
-      <div className="flex items-center">
+    <div className="w-full border-b-2 border-soma-grey-30 pt-3">
+      <div className="flex items-center pl-3">
         <Link href={`/me/${authorId}`}>
           <Image
             src={authorImagePath ?? basicProfileImg}
@@ -59,7 +52,7 @@ export default function RecommentItem({
       </div>
       {isEditMode ? (
         <textarea
-          className="text-sm my-2 text-soma-grey-60 outline-none w-full resize-none"
+          className="px-3 text-sm my-2 text-soma-grey-60 outline-none w-full resize-none"
           value={updatedText}
           onChange={(e) => setUpdatedText(e.target.value)}
           onFocus={(e) => {
@@ -68,12 +61,15 @@ export default function RecommentItem({
           autoFocus
         />
       ) : (
-        <p className="text-sm my-2 text-soma-grey-60">{commentText}</p>
+        <p className="pl-3 text-sm my-2 text-soma-grey-60">{commentText}</p>
       )}
-      <div className="flex justify-end items-center text-[10px]">
+      <div className="flex justify-between items-center text-[10px] mb-3 pl-3 mr-2">
+        <button onClick={() => setIsRecommentBtnClicked((pre) => !pre)}>
+          {isRecommentBtnClicked ? '답글 닫기' : '답글 보기'}
+        </button>
         {isMyComment &&
           (!isEditMode ? (
-            <div className="flex gap-2 ">
+            <div className="flex gap-2 r-3">
               <button
                 onClick={() => {
                   setIsEditMode(true);
@@ -83,13 +79,9 @@ export default function RecommentItem({
               </button>
               <button
                 onClick={() => {
-                  open('답글을 삭제하시겠습니까?', () => {
-                    deleteRecomeent(id).then(async () => {
-                      const recomments = await getRecommentsByCommentId(
-                        commentId
-                      );
-                      onClick(recomments);
-                    });
+                  open('댓글을 삭제하시겠습니까?', () => {
+                    deleteComeent(id);
+                    router.refresh();
                   });
                 }}
               >
@@ -114,18 +106,17 @@ export default function RecommentItem({
                     window.alert('댓글을 작성해주세요');
                     return;
                   }
-                  updateRecomment(id, updatedText).then(async () => {
-                    const recomments = await getRecommentsByCommentId(
-                      commentId
-                    );
-                    onClick(recomments);
-                  });
+                  updateComment(id, updatedText);
                   setIsEditMode(false);
+                  router.refresh();
                 }}
               />
             </div>
           ))}
       </div>
+      {isRecommentBtnClicked && (
+        <RecommentContainer commentId={id} authorId={authorId} />
+      )}
     </div>
   );
 }
