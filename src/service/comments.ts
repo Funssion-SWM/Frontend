@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers';
 import { PostType } from '@/types';
 import { Comment, PostCommentData, PostRecoomentData } from '@/types/comment';
 
@@ -10,6 +11,7 @@ export async function getCommentsByPostTypeAndPostId(
     {
       credentials: 'include',
       next: { revalidate: 0 },
+      headers: { Cookie: `accessToken=${cookies().get('accessToken')}` },
     }
   )
     .then((res) => {
