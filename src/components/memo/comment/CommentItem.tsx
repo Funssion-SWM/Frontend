@@ -1,7 +1,4 @@
-import Image from 'next/image';
-import basicProfileImg from '@/assets/profile.svg';
 import { Comment } from '@/types/comment';
-import Link from 'next/link';
 import { deleteComeent, updateComment } from '@/service/comments';
 import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';
@@ -9,6 +6,7 @@ import BlueBtn from '@/components/shared/btn/BlueBtn';
 import WhiteBtn from '@/components/shared/btn/WhiteBtn';
 import { ModalContext } from '@/context/ModalProvider';
 import RecommentContainer from '@/components/memo/recomment/RecommentContainer';
+import CommentHeader from './CommentHeader';
 
 type Props = {
   commentProperty: Comment;
@@ -23,6 +21,8 @@ export default function CommentItem({ commentProperty, isMyComment }: Props) {
     authorImagePath,
     authorName,
     createdDate,
+    isLike,
+    likes,
   } = commentProperty;
 
   const [updatedText, setUpdatedText] = useState(commentText);
@@ -33,23 +33,15 @@ export default function CommentItem({ commentProperty, isMyComment }: Props) {
 
   return (
     <div className="w-full border-b-2 border-soma-grey-30 pt-3">
-      <div className="flex items-center pl-3">
-        <Link href={`/me/${authorId}`}>
-          <Image
-            src={authorImagePath ?? basicProfileImg}
-            alt="profileImg"
-            width={28}
-            height={28}
-            className="rounded-full w-7 h-7 object-cover "
-          />
-        </Link>
-        <div className="ml-2 text-xs">
-          <div className="text-soma-grey-60">{authorName}</div>
-          <p className="text-xs text-soma-grey-49">
-            {createdDate.substring(0, 10)}
-          </p>
-        </div>
-      </div>
+      <CommentHeader
+        commentId={id}
+        authorId={authorId}
+        authorImagePath={authorImagePath}
+        authorName={authorName}
+        createdDate={createdDate}
+        isLike={isLike}
+        likeNum={likes}
+      />
       {isEditMode ? (
         <textarea
           className="px-3 text-sm my-2 text-soma-grey-60 outline-none w-full resize-none"
