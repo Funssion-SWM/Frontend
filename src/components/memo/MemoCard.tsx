@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import MemoCardHeader from './MemoCardHeader';
-import { Memo } from '@/types';
+import { Memo } from '@/types/memo';
 
 type Props = {
   memo: Memo;
@@ -21,7 +21,7 @@ export default function MemoCard({
 }: Props) {
   return (
     <article
-      className={`rounded-md shadow-md aspect-square p-4 ${
+      className={`flex flex-col relative rounded-md shadow-md aspect-square p-4 ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',

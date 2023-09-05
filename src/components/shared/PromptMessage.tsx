@@ -1,20 +1,20 @@
 import Image from 'next/image';
 import errorIcon from '@/assets/icons/icon_error.svg';
+import { MessageProperty } from '@/types/message';
 
 type Props = {
-  text: string;
-  type: boolean;
-  isVisible: boolean;
+  property: MessageProperty;
 };
 
-export default function PromptgMessage({ text, type, isVisible }: Props) {
+export default function PromptgMessage({ property }: Props) {
+  const { text, type, isVisible } = property;
   return (
     <div
       className={`flex ${
-        type ? 'bg-soma-blue-20' : 'bg-soma-red-20'
+        type === 'success' ? 'bg-soma-blue-20' : 'bg-soma-red-20'
       } rounded-3xl p-4 w-fit m-auto ${!isVisible && 'invisible'}`}
     >
-      {!type && <Image src={errorIcon} alt="errorIcon" />}
+      {type !== 'success' && <Image src={errorIcon} alt="errorIcon" />}
       <p className="ml-1 text-sm">{text}</p>
     </div>
   );

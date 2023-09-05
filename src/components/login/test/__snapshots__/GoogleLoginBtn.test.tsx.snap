@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoogleLoginBtn renders correctly 1`] = `
+<a
+  className="flex w-full justify-between items-center px-3.5 py-2 rounded-3xl transition border-2 border-soma-grey-30 hover:bg-soma-grey-20 text-sm sm:text-base"
+  href="undefined/oauth2/authorization/google"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+  onTouchStart={[Function]}
+>
+  <img
+    alt="googleIcon"
+    data-nimg="1"
+    decoding="async"
+    height={20}
+    loading="lazy"
+    onError={[Function]}
+    onLoad={[Function]}
+    src="/_next/image?url=%2Fimg.jpg&w=48&q=75"
+    srcSet="/_next/image?url=%2Fimg.jpg&w=32&q=75 1x, /_next/image?url=%2Fimg.jpg&w=48&q=75 2x"
+    style={
+      {
+        "color": "transparent",
+      }
+    }
+    width={20}
+  />
+  <p>
+    구글 계정 로그인
+  </p>
+  <div
+    className="w-5 h-5"
+  />
+</a>
+`;

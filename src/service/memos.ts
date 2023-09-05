@@ -1,15 +1,30 @@
-import { Memo, PostMemoData } from '@/types';
-import { OrderBy, Period } from '@/types/enum';
+import { Orderby, Period } from '@/types';
+import { Memo, PostMemoData } from '@/types/memo';
 
 export async function getMemos(
-  period: Period = Period.Month,
-  orderBy: OrderBy = OrderBy.New
+  period: Period = 'month',
+  orderBy: Orderby = 'new'
 ): Promise<Memo[]> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`);
   const params = { period: period, orderBy: orderBy };
   url.search = new URLSearchParams(params).toString();
 
   return fetch(url, { next: { revalidate: 0 } })
+    .then((res) => {
+      if (!res.ok) throw new Error('error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
+}
+
+export async function getMemoDrafts(): Promise<Memo[]> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/drafts`,
+    {
+      next: { revalidate: 0 },
+      credentials: 'include',
+    }
+  )
     .then((res) => {
       if (!res.ok) throw new Error('error 발생!');
       return res.json();

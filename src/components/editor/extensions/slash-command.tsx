@@ -74,12 +74,12 @@ const Command = Extension.create({
 
 const getSuggestionItems = ({ query }: { query: string }) => {
   return [
-    {
-      title: 'Continue writing',
-      description: 'Use AI to expand your thoughts.',
-      searchTerms: ['gpt'],
-      icon: <Magic className="w-7" />,
-    },
+    // {
+    //   title: 'Continue writing',
+    //   description: 'Use AI to expand your thoughts.',
+    //   searchTerms: ['gpt'],
+    //   icon: <Magic className="w-7" />,
+    // },
     // {
     //   title: 'Send Feedback',
     //   description: 'Let us know how we can improve.',
@@ -257,7 +257,7 @@ const CommandList = ({
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const { complete, isLoading } = useCompletion({
-    id: 'novel',
+    id: 'inforum',
     api: '/api/generate',
     onResponse: (response) => {
       if (response.status === 429) {

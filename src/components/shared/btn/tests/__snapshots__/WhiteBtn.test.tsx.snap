@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BlueBtn2 renders correctly when size is big 1`] = `
+<button
+  className="bg-white text-soma-blue-50 border-soma-grey-40 border-[1px] px-3.5 py-2 rounded-3xl transition hover:bg-soma-grey-40 w-fit text-sm sm:text-base "
+  onClick={[Function]}
+  type="button"
+>
+  text
+</button>
+`;
+
+exports[`BlueBtn2 renders correctly when size is medium 1`] = `
+<button
+  className="bg-white text-soma-blue-50 border-soma-grey-40 border-[1px] px-3.5 py-2 rounded-3xl transition hover:bg-soma-grey-40 w-fit text-xs sm:text-sm "
+  onClick={[Function]}
+  type="button"
+>
+  text
+</button>
+`;
+
+exports[`BlueBtn2 renders correctly when size is small 1`] = `
+<button
+  className="bg-white text-soma-blue-50 border-soma-grey-40 border-[1px] px-3.5 py-2 rounded-3xl transition hover:bg-soma-grey-40 w-fit text-[10px] sm:text-xs "
+  onClick={[Function]}
+  type="button"
+>
+  text
+</button>
+`;

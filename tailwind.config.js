@@ -74,7 +74,10 @@ module.exports = {
         },
       },
       minHeight: {
-        'screen(-header)': 'calc(100vh - 70px)',
+        'for-fit-screen': 'calc(100vh - 120px)',
+      },
+      maxHeight: {
+        'for-fit-screen': 'calc(100vh - 120px)',
       },
     },
   },
@@ -82,6 +85,5 @@ module.exports = {
     // Tailwind plugins
     require('@tailwindcss/typography'),
     require('tailwindcss-animate'),
-    require('@tailwindcss/line-clamp'),
   ],
 };

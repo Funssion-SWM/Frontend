@@ -54,6 +54,7 @@ export default function MemoViewerHeader({ memoId, authorId, likes }: Props) {
                 onClick={() => {
                   setIsActive(false);
                   router.push(`/create/memo/${memoId}`);
+                  router.refresh();
                 }}
               >
                 수정하기

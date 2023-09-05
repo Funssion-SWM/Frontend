@@ -1,6 +1,6 @@
 'use client';
 
-import { Memo } from '@/types';
+import { Memo } from '@/types/memo';
 import MemosGrid from '../memo/MemosGrid';
 import BarBtn from '@/components/shared/btn/BarBtn';
 import { useState } from 'react';

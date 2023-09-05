@@ -2,7 +2,7 @@
 
 import basicProfileImg from '../../assets/profile.svg';
 import Link from 'next/link';
-import { checkUser, getUserInfo2, logout } from '@/service/auth';
+import { checkUser, getUserInfo, logout } from '@/service/auth';
 import Image from 'next/image';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
@@ -22,7 +22,7 @@ export default function Header() {
     await checkUser().then((data) => {
       setIsLogin(data.isLogin);
       data.isLogin &&
-        getUserInfo2(data.id).then((info) => {
+        getUserInfo(data.id).then((info) => {
           setImageUrl(info.profileImageFilePath);
         });
     });
@@ -33,7 +33,7 @@ export default function Header() {
   }, [isActive, open]);
 
   return (
-    <section className="border-b-2">
+    <section className="border-b-2 sticky top-0 bg-white z-10">
       <header className="flex justify-between items-center py-4 px-5 max-w-screen-xl m-auto">
         <h1
           className="text-2xl font-bold cursor-pointer"
@@ -57,7 +57,7 @@ export default function Header() {
                 alt="profileImg"
                 width={32}
                 height={32}
-                className="rounded-full"
+                className="rounded-full w-8 h-8 object-cover"
               />
             </button>
 
@@ -74,6 +74,17 @@ export default function Header() {
                 }}
               >
                 프로필
+              </button>
+              <button
+                className="hover:bg-gray-200 p-2 rounded-t-lg"
+                onClick={() => {
+                  checkUser().then((data) =>
+                    router.push(`/me/${data.id}/drafts`)
+                  );
+                  setIsActive(false);
+                }}
+              >
+                임시 글
               </button>
               <button
                 className="hover:bg-gray-200 p-2 rounded-b-lg"

@@ -1,10 +1,10 @@
 'use client';
 
-import { Memo } from '@/types';
+import { Memo } from '@/types/memo';
+import { Orderby } from '@/types';
 import MemosGrid from './MemosGrid';
 import { useState } from 'react';
 import { getMemos } from '@/service/memos';
-import { OrderBy, Period } from '@/types/enum';
 import CategoryBtn from '@/components/shared/btn/CategoryBtn';
 // import CategoryBtn from '../shared/btn/CategoryBtn';
 
@@ -14,10 +14,10 @@ type Props = {
 
 export default function MemosContainer({ memos }: Props) {
   const [memoData, setMemodata] = useState(memos);
-  const [selectedOrderType, setSelectedOrderType] = useState(OrderBy.New);
+  const [selectedOrderType, setSelectedOrderType] = useState<Orderby>('new');
 
-  const handleClick = async (orderBy: OrderBy) => {
-    const memos = await getMemos(Period.Month, orderBy);
+  const handleClick = async (orderBy: Orderby) => {
+    const memos = await getMemos('month', orderBy);
     setMemodata(memos);
     setSelectedOrderType(orderBy);
   };
@@ -27,13 +27,13 @@ export default function MemosContainer({ memos }: Props) {
       <div className="flex gap-2 mb-5">
         <CategoryBtn
           text="New✨"
-          onClick={() => handleClick(OrderBy.New)}
-          isSelected={selectedOrderType === OrderBy.New}
+          onClick={() => handleClick('new')}
+          isSelected={selectedOrderType === 'new'}
         />
         <CategoryBtn
           text="Hot🔥"
-          onClick={() => handleClick(OrderBy.Hot)}
-          isSelected={selectedOrderType === OrderBy.Hot}
+          onClick={() => handleClick('hot')}
+          isSelected={selectedOrderType === 'hot'}
         />
       </div>
       <MemosGrid memos={memoData} colNum={4} />

@@ -12,15 +12,15 @@ import {
 import profileImage from '../assets/profile.svg';
 import editIcon from '../assets/icons/edit.svg';
 import BlueBtn from './shared/btn/BlueBtn';
-import BlueBtn2 from './shared/btn/BlueBtn2';
+import WhiteBtn from './shared/btn/WhiteBtn';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { checkUser, registerUserInfo, updateUserInfo } from '@/service/auth';
-import { UserInfo2 } from '@/types';
+import { UserInfo } from '@/types';
 
 type Props = {
   userId: number;
-  userInfo?: UserInfo2;
+  userInfo?: UserInfo;
   isSignup: boolean;
 };
 
@@ -129,7 +129,7 @@ export default function MyInfoForm({ userId, userInfo, isSignup }: Props) {
         <BlueBtn text={isSignup ? '등록' : '수정'} onClick={() => {}} />
         {isSignup && (
           <Link href="/login">
-            <BlueBtn2 text="나중에" onClick={() => {}} extraStyle="w-full" />
+            <WhiteBtn text="나중에" onClick={() => {}} extraStyle="w-full" />
           </Link>
         )}
       </div>

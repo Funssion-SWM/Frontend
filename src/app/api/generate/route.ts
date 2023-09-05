@@ -43,9 +43,9 @@ export async function POST(req: Request): Promise<Response> {
       {
         role: 'system',
         content:
-          'You are an AI writing assistant that continues existing text based on context from prior text. ' +
+          'You are an AI writing assistant that continues existing text based on context from prior text. And You are a Software Engineer ' +
           'Give more weight/priority to the later characters than the beginning ones. ' +
-          'Limit your response to no more than 400 characters, but make sure to construct complete sentences.',
+          'Limit your response to no more than 400 characters, but make sure to construct complete sentences. Please answer in Korean unless last sentence in other languages ',
       },
       {
         role: 'user',

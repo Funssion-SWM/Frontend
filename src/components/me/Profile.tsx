@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import basicProfileImg from '../../assets/profile.svg';
-import { UserInfo2 } from '@/types';
+import { UserInfo } from '@/types';
 
 type Props = {
-  userInfo: UserInfo2;
+  userInfo: UserInfo;
 };
 
 export default function Profile({ userInfo }: Props) {

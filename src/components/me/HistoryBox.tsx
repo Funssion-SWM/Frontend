@@ -1,9 +1,7 @@
+import { HistoryItem } from '@/types';
+
 type Props = {
-  item: {
-    historyId: number;
-    date: string;
-    postCnt: number;
-  };
+  item: HistoryItem;
 };
 
 export default function HistoryBox({ item }: Props) {

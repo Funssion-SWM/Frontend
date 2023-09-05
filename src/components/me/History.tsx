@@ -3,7 +3,7 @@
 import Calendar from 'react-calendar';
 import { useState } from 'react';
 import { getHistory } from '@/service/me';
-import { Record } from '@/types';
+import { HistoryItem } from '@/types';
 import '../../styles/calendar/Calendar.css';
 import HistoryBox from '@/components/me/HistoryBox';
 
@@ -12,7 +12,7 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 type Props = {
-  history: Record[];
+  history: HistoryItem[];
   userId: number;
 };
 
@@ -24,7 +24,7 @@ type Params = {
 export default function History({ history, userId }: Props) {
   const [value, onChange] = useState<Value>(new Date());
   const [month, setMonth] = useState<number | undefined>(new Date().getMonth());
-  const [monthlyHistories, setHistories] = useState<Record[]>(history);
+  const [monthlyHistories, setHistories] = useState<HistoryItem[]>(history);
   const [curView, setView] = useState<View>('month');
   const [curActiveStartDate, setActiveStartDate] = useState<Date>(new Date());
 
@@ -52,8 +52,8 @@ export default function History({ history, userId }: Props) {
   function getItem(date: Date) {
     let curMonth = date.getMonth() + 1;
 
-    let item: Record = {
-      historyId: 0,
+    let item: HistoryItem = {
+      id: 0,
       date: `${date.getFullYear()}-${Math.floor(curMonth / 10)}${
         curMonth % 10
       }-${Math.floor(date.getDate() / 10)}${date.getDate() % 10}`,

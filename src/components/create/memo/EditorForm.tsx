@@ -4,20 +4,26 @@ import SelectColorBar from '@/components/create/memo/SelectColorBar';
 import MyEditor from '@/components/editor';
 import { useEditor } from '@tiptap/react';
 import { useRouter } from 'next/navigation';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import BlueBtn from '../../shared/btn/BlueBtn';
-import { createOrUpdateMemo } from '@/service/memos';
+import { createOrUpdateMemo, getMemoDrafts } from '@/service/memos';
 import { getPrevText } from '@/lib/editor';
 import { useCompletion } from 'ai/react';
 import { getDescription } from '@/service/description';
 import { ModalContext } from '@/context/ModalProvider';
 import { TiptapExtensions } from '@/components/editor/extensions';
 import { TiptapEditorProps } from '@/components/editor/props';
+import { Memo, MemoColor } from '@/types/memo';
+import WhiteBtnWithCount from '@/components/shared/btn/WhiteBtnWithCount';
+import FakeEditor from '@/components/editor/components/FakeEditor';
+import { useDebounce } from '@/hooks/useDebounce';
+import { toast } from 'react-toastify';
+import { DraftsInModalContext } from '@/context/DraftsInModalProvider';
 
 type Props = {
   preTitle?: string;
-  preContent?: string;
-  preColor?: string;
+  preContent?: object;
+  preColor?: MemoColor;
   alreadyExists: boolean;
   memoId?: number;
 };
@@ -31,12 +37,35 @@ export default function EditorForm({
 }: Props) {
   const router = useRouter();
   const { open } = useContext(ModalContext);
+  const { openDrafts } = useContext(DraftsInModalContext);
+
+  const { complete, completion, isLoading, stop } = useCompletion({
+    id: 'inforum',
+    api: '/api/generate',
+    onFinish: (_prompt, completion) => {
+      fakeEditor?.commands.clearContent();
+      editor?.commands.insertContent(completion, {
+        parseOptions: {
+          preserveWhitespace: false,
+        },
+      });
+      editor?.commands.setTextSelection({
+        from: editor.state.selection.from - completion.length,
+        to: editor.state.selection.from,
+      });
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
+  const [contents, setContents] = useState(JSON.stringify(preContent));
   const editor = useEditor({
     extensions: TiptapExtensions,
     editorProps: TiptapEditorProps,
     content: preContent,
     onUpdate: (e) => {
-      // setSaveStatus('Unsaved');
+      setContents(JSON.stringify(e.editor.getJSON()));
       const selection = e.editor.state.selection;
       const lastTwo = getPrevText(e.editor, {
         chars: 2,
@@ -51,39 +80,19 @@ export default function EditorForm({
             chars: 5000,
           })
         );
-        // complete(e.editor.storage.markdown.getMarkdown());
-        // va.track('Autocomplete Shortcut Used');
-      } else {
-        // debouncedUpdates(e);
       }
     },
   });
 
-  const { complete, completion, isLoading, stop } = useCompletion({
-    id: 'novel',
-    api: '/api/generate',
-    onFinish: (_prompt, completion) => {
-      editor?.commands.setTextSelection({
-        from: editor.state.selection.from - completion.length,
-        to: editor.state.selection.from,
-      });
-    },
-    onError: (err) => {
-      // toast.error(err.message);
-      // if (err.message === 'You have reached your request limit for the day.') {
-      //   va.track('Rate Limit Reached');
-      // }
-    },
+  const fakeEditor = useEditor({
+    extensions: TiptapExtensions,
+    editorProps: TiptapEditorProps,
+    editable: false,
   });
 
-  const prev = useRef('');
-
-  // Insert chunks of the generated text
   useEffect(() => {
-    const diff = completion.slice(prev.current.length);
-    prev.current = completion;
-    editor?.commands.insertContent(diff);
-  }, [isLoading, editor, completion]);
+    fakeEditor?.commands.setContent(completion);
+  }, [isLoading, fakeEditor, completion]);
 
   useEffect(() => {
     // if user presses escape or cmd + z and it's loading,
@@ -122,10 +131,60 @@ export default function EditorForm({
   }, [stop, isLoading, editor, complete, completion.length]);
 
   const [title, setTitle] = useState(preTitle);
-  const [selectedColor, setSelectedColor] = useState(preColor);
-  const handleBtnClick = () => {
+  const [selectedColor, setSelectedColor] = useState<MemoColor>(preColor);
+
+  const temporaryContents = useDebounce(contents, 5000);
+
+  // 자동 임시 저장
+  useEffect(() => {
+    if (
+      !title ||
+      !temporaryContents ||
+      !contents ||
+      temporaryContents === JSON.stringify(preContent)
+    )
+      return;
+
+    const memoDescription = getDescription(contents);
+    createOrUpdateMemo(
+      `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos${
+        alreadyExists ? `/${memoId}` : ''
+      }`,
+      {
+        memoTitle: title,
+        memoDescription,
+        memoText: temporaryContents,
+        memoColor: selectedColor,
+        isTemporary: true,
+      }
+    ).then((data) => {
+      toast('임시 저장되었습니다.', {
+        hideProgressBar: true,
+        autoClose: 2000,
+        type: 'success',
+      });
+      !alreadyExists && router.push(`/create/memo/${data.memoId}`);
+    });
+  }, [temporaryContents]);
+
+  const [drafts, setDrafts] = useState<Memo[]>([]);
+
+  const first = async () => {
+    getMemoDrafts().then((data) => setDrafts(data));
+  };
+
+  useEffect(() => {
+    first();
+  }, []);
+
+  const savePost = (saveMode: 'permanent' | 'temporary') => {
     if (title === '') {
       alert('제목을 작성해주세요!');
+      return;
+    }
+
+    if (title.length > 75) {
+      alert('제목 수 제한 75자를 초과하였습니다!');
       return;
     }
 
@@ -139,64 +198,77 @@ export default function EditorForm({
     const memoDescription = getDescription(memoText);
     createOrUpdateMemo(
       `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos${
-        !alreadyExists ? `/${memoId}` : ''
+        alreadyExists ? `/${memoId}` : ''
       }`,
       {
         memoTitle: title,
         memoDescription,
         memoText,
         memoColor: selectedColor,
+        isTemporary: saveMode === 'temporary',
       }
-    ).then(() => {
-      if (alreadyExists) router.push('/memos');
-      else router.push(`/memos/${memoId}`);
+    ).then((data) => {
+      if (saveMode === 'temporary') {
+        !alreadyExists && router.push(`/create/memo/${data.memoId}`);
+      } else {
+        alreadyExists ? router.push(`/memos/${memoId}`) : router.push('/memos');
+      }
       router.refresh();
     });
   };
 
-  const handleColorClick = (color: string) => setSelectedColor(color);
-
   return (
-    <section
-      className={`relative flex flex-col rounded-lg shadow-lg px-4 py-2 min-h-screen sm:min-h-[calc(100vh-100px)]  ${
-        {
-          yellow: 'bg-memo-yellow',
-          green: 'bg-memo-green',
-          skyblue: 'bg-memo-skyblue',
-          orange: 'bg-memo-orange',
-          pink: 'bg-memo-pink',
-          navy: 'bg-memo-navy',
-          purple: 'bg-memo-purple',
-        }[selectedColor]
-      }`}
-    >
-      <BlueBtn
-        text={alreadyExists ? '등록' : '수정'}
-        onClick={handleBtnClick}
-        extraStyle="self-end"
-      />
-      <input
-        type="text"
-        placeholder="제목을 입력해주세요."
-        name="title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-2 border-gray-400"
-        autoFocus
-      />
-      {/* <h3>tag</h3> */}
-      <SelectColorBar selected={selectedColor} onClick={handleColorClick} />
-      <MyEditor editor={editor} />
-      <button
-        className="absolute bottom-3 right-5 text-soma-grey-50"
-        onClick={() =>
-          open('나가시겠습니까?', () => {
-            router.back();
-          })
-        }
+    <div className="flex w-full">
+      <div
+        className={`relative flex flex-col rounded-lg shadow-lg px-4 py-2 min-h-screen sm:min-h-for-fit-screen w-full ${
+          {
+            yellow: 'bg-memo-yellow',
+            green: 'bg-memo-green',
+            skyblue: 'bg-memo-skyblue',
+            orange: 'bg-memo-orange',
+            pink: 'bg-memo-pink',
+            navy: 'bg-memo-navy',
+            purple: 'bg-memo-purple',
+          }[selectedColor]
+        }`}
       >
-        나가기
-      </button>
-    </section>
+        <div className="flex justify-end">
+          <WhiteBtnWithCount
+            text="임시저장"
+            count={drafts.length}
+            onClickBtn={() => savePost('temporary')}
+            onClickCount={() => openDrafts(drafts)}
+            extraStyle="mr-2"
+          />
+          <BlueBtn text="등록" onClick={() => savePost('permanent')} />
+        </div>
+        <input
+          type="text"
+          placeholder="제목을 입력해주세요."
+          name="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-2 border-gray-400"
+          autoFocus
+        />
+        {/* <h3>tag</h3> */}
+        <SelectColorBar
+          selected={selectedColor}
+          onClick={(color: MemoColor) => setSelectedColor(color)}
+        />
+        <MyEditor editor={editor} />
+        <button
+          className="absolute bottom-3 right-5 text-soma-grey-50"
+          onClick={() =>
+            open('나가시겠습니까?', () => {
+              router.push(`/memos`);
+            })
+          }
+        >
+          나가기
+        </button>
+      </div>
+      {isLoading && <FakeEditor editor={fakeEditor} />}
+    </div>
   );
 }

@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BatBtn renders correctly when isSelected is false 1`] = `
+<button
+  className="flex-1 font-semibold py-1 text-soma-grey-50 hover:text-soma-blue-50 transition"
+  onClick={[Function]}
+>
+  text
+</button>
+`;
+
+exports[`BatBtn renders correctly when isSelected is true 1`] = `
+<button
+  className="flex-1 font-semibold py-1 text-soma-blue-50 border-b-[3px] border-soma-blue-50 "
+  onClick={[Function]}
+>
+  text
+</button>
+`;

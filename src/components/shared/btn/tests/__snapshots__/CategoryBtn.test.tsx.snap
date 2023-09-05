@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryBtn renders correctly when isSelected is false 1`] = `
+<button
+  className="border-2 texsomb20 py-2 px-4 rounded-3xl transition text-sm
+          border-soma-grey-40 bg-white hover:border-soma-blue-50 hover:text-soma-blue-50 hover:bg-soma-blue-10"
+  onClick={[Function]}
+>
+  text
+</button>
+`;
+
+exports[`CategoryBtn renders correctly when isSelected is true 1`] = `
+<button
+  className="border-2 texsomb20 py-2 px-4 rounded-3xl transition text-sm
+          border-soma-blue-50 text-soma-blue-50 bg-soma-blue-10"
+  onClick={[Function]}
+>
+  text
+</button>
+`;

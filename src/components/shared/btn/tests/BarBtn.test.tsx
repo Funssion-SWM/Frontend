@@ -1,27 +1,29 @@
 import { render, screen } from '@testing-library/react';
-import IsValidBtn from '../btn/IsValidBtn';
+import BarBtn from '../BarBtn';
 import renderer from 'react-test-renderer';
 import userEvent from '@testing-library/user-event';
 
-describe('isValidBtn', () => {
-  it('renders correctly when isValid is true', () => {
+describe('BatBtn', () => {
+  it('renders correctly when isSelected is true', () => {
     const component = renderer.create(
-      <IsValidBtn text={'text'} isValid={true} onClick={() => {}} />
+      <BarBtn text="text" onClick={() => {}} isSelected={true} />
     );
+
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('renders correctly when isValid is false', () => {
+  it('renders correctly when isSelected is false', () => {
     const component = renderer.create(
-      <IsValidBtn text={'text'} isValid={false} onClick={() => {}} />
+      <BarBtn text="text" onClick={() => {}} isSelected={false} />
     );
+
     expect(component.toJSON()).toMatchSnapshot();
   });
 
   it('when button clicked', async () => {
     const mockCallBack = jest.fn();
 
-    render(<IsValidBtn text="text" isValid={true} onClick={mockCallBack} />);
+    render(<BarBtn text="text" onClick={mockCallBack} isSelected={true} />);
 
     const btn = screen.getByRole('button');
 

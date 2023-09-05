@@ -5,7 +5,7 @@ import {
   LoginData,
   SignUpData,
   SignupResponse,
-  UserInfo2,
+  UserInfo,
 } from '@/types';
 import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url';
 
@@ -170,7 +170,7 @@ export async function updateUserInfo(
     .catch(console.error);
 }
 
-export async function getUserInfo2(userId: number): Promise<UserInfo2> {
+export async function getUserInfo(userId: number): Promise<UserInfo> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${userId}`,
     { next: { revalidate: 0 } }
