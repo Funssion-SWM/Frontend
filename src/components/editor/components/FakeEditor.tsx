@@ -8,10 +8,7 @@ export default function FakeEditor({ editor }: { editor: Editor | null }) {
   const edirotRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (
-      edirotRef.current &&
-      edirotRef.current.scrollTop <= edirotRef.current.scrollHeight
-    ) {
+    if (edirotRef.current) {
       edirotRef.current.scrollTop = edirotRef.current.scrollHeight;
     }
   }, [editor?.state.selection]);
