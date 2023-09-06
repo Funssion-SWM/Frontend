@@ -5,7 +5,7 @@ import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 export async function getCommentsByPostTypeAndPostId(
   postType: PostType,
   postId: number,
-  cookie: RequestCookie | undefined
+  cookie: string | undefined
 ) {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/comments/${postType}/${postId}`,

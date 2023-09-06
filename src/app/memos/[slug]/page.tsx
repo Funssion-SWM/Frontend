@@ -26,8 +26,9 @@ export default async function MemoPage({ params: { slug } }: Props) {
   const comments = await getCommentsByPostTypeAndPostId(
     'memo',
     slug,
-    cookies().get('accessToken')
+    cookies().get('accessToken')?.value
   );
+  console.log(cookies().get('accessToken')?.value);
 
   return (
     <section>
