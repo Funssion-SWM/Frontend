@@ -142,7 +142,8 @@ export default function EditorForm({
       !title ||
       !temporaryContents ||
       !contents ||
-      temporaryContents === JSON.stringify(preContent)
+      temporaryContents === JSON.stringify(preContent) ||
+      isLoading
     )
       return;
 
