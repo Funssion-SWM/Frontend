@@ -28,7 +28,6 @@ export default async function MemoPage({ params: { slug } }: Props) {
     slug,
     cookies().get('accessToken')?.value
   );
-  console.log(cookies().get('accessToken')?.value);
 
   return (
     <section>

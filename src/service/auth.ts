@@ -135,7 +135,6 @@ export async function registerUserInfo(
     }
   )
     .then((res) => {
-      console.log(res);
       if (!res.ok) throw new Error('error!!');
       return res.json();
     })
@@ -163,7 +162,6 @@ export async function updateUserInfo(
     }
   )
     .then((res) => {
-      console.log(res);
       if (!res.ok) throw new Error('error!!');
       return res.json();
     })
