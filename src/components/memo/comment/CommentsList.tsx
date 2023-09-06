@@ -25,7 +25,7 @@ export default function CommentsList({ comments }: Props) {
       작성된 댓글이 없습니다...
     </p>
   ) : (
-    <ul className="flex flex-col h-full overflow-y-scroll">
+    <ul className="flex flex-col h-full overflow-y-auto">
       {comments.map((item) => (
         <li key={item.id}>
           <CommentItem

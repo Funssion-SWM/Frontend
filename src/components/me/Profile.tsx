@@ -22,7 +22,7 @@ export default function Profile({ userInfo }: Props) {
       </div>
       <div className="self-start mt-5 w-full">
         <h3 className="font-semibold">자기소개</h3>
-        <p className="bg-soma-blue-5 p-3 rounded-md mt-1 w-full text-sm h-[150px] overflow-scroll text-soma-grey-60">
+        <p className="bg-soma-blue-5 p-3 rounded-md mt-1 w-full text-sm h-[150px] overflow-y-auto text-soma-grey-60">
           {userInfo.introduce}
         </p>
       </div>

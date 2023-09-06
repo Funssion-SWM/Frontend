@@ -4,7 +4,7 @@ import { getMemoById } from '@/service/memos';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import MemoSideBar from '@/components/memo/MemoSideBar';
 import { getCommentsByPostTypeAndPostId } from '@/service/comments';
-import { checkUser } from '@/service/auth';
+import { cookies } from 'next/headers';
 
 type Props = {
   params: {
@@ -22,7 +22,12 @@ export default async function MemoPage({ params: { slug } }: Props) {
     authorName,
     authorProfileImagePath,
   } = await getMemoById(slug);
-  const comments = await getCommentsByPostTypeAndPostId('memo', slug);
+
+  const comments = await getCommentsByPostTypeAndPostId(
+    'memo',
+    slug,
+    cookies().get('accessToken')?.value
+  );
 
   return (
     <section>

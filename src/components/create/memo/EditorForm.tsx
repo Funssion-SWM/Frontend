@@ -19,6 +19,7 @@ import FakeEditor from '@/components/editor/components/FakeEditor';
 import { useDebounce } from '@/hooks/useDebounce';
 import { toast } from 'react-toastify';
 import { DraftsInModalContext } from '@/context/DraftsInModalProvider';
+import { TEMPORARY_SAVE_INTERVAL_TIME } from '@/utils/const';
 
 type Props = {
   preTitle?: string;
@@ -133,7 +134,7 @@ export default function EditorForm({
   const [title, setTitle] = useState(preTitle);
   const [selectedColor, setSelectedColor] = useState<MemoColor>(preColor);
 
-  const temporaryContents = useDebounce(contents, 5000);
+  const temporaryContents = useDebounce(contents, TEMPORARY_SAVE_INTERVAL_TIME);
 
   // 자동 임시 저장
   useEffect(() => {
@@ -141,7 +142,8 @@ export default function EditorForm({
       !title ||
       !temporaryContents ||
       !contents ||
-      temporaryContents === JSON.stringify(preContent)
+      temporaryContents === JSON.stringify(preContent) ||
+      isLoading
     )
       return;
 

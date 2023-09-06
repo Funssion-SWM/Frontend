@@ -32,7 +32,9 @@ export default function MemoCardHeader({
         </Link>
         <div className="ml-2">
           <h4>{authorName}</h4>
-          <p className="text-xs text-soma-grey-49">{createDate}</p>
+          <p className="text-xs text-soma-grey-49">
+            {createDate.substring(0, 10)}
+          </p>
         </div>
       </div>
       <div className="flex items-center">

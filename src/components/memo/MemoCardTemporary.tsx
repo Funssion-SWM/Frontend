@@ -30,7 +30,9 @@ export default function MemoCardTemporary({
         }[memoColor]
       } `}
     >
-      <p className="text-soma-grey-50 text-sm">{createdDate}</p>
+      <p className="text-soma-grey-50 text-sm">
+        {createdDate.substring(0, 10)}
+      </p>
       <Link href={`/create/memo/${memoId}`} prefetch={false}>
         <h2 className="text-2xl font-bold my-5 line-clamp-2 break-all">
           {memoTitle}
