@@ -12,13 +12,13 @@ export default function Modal() {
       <div className="absolute top-0">
         <Overay onClick={() => closeDrafts()} />
         <div
-          className="fixed flex flex-col items-center bg-white shadow-inner rounded-2xl py-4 px-5 sm:px-20 w-full h-1/2 overflow-scroll
+          className="fixed flex flex-col items-center bg-white shadow-inner rounded-2xl py-4 px-5 sm:px-20 w-full h-1/2
           top-1/2 left-1/2 transform -translate-x-1/2 gap-2"
         >
           <p className="sm:text-lg text-soma-grey-60 font-semibold">임시저장</p>
           <div className="w-full h-[2px] bg-black"></div>
           <ul
-            className="flex gap-4 w-full h-full overflow-x-scroll py-5"
+            className="flex gap-4 w-full h-full overflow-x-auto py-5"
             onClick={closeDrafts}
           >
             {drafts.map((draft) => (
