@@ -18,7 +18,8 @@ type Props = {
 export default async function MePage({ params: { slug } }: Props) {
   const memos = await getMemosByUserId(slug);
   const userInfo = await getUserInfo(slug);
-  const { isLogin } = await checkUser(cookies().get(ACCESS_TOKEN)?.value);
+  const { id, isLogin } = await checkUser(cookies().get(ACCESS_TOKEN)?.value);
+  const myUserInfo = id !== -1 ? await getUserInfo(id) : undefined;
   const history = await getHistory(
     slug,
     new Date().getFullYear(),
@@ -29,7 +30,7 @@ export default async function MePage({ params: { slug } }: Props) {
     <section>
       <Header
         isLogin={isLogin}
-        profileImageFilePath={userInfo.profileImageFilePath}
+        profileImageFilePath={myUserInfo?.profileImageFilePath}
       />
       <LayoutWrapper>
         <div className="flex flex-col sm:flex-row">
