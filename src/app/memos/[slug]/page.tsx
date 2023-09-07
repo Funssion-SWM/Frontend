@@ -6,7 +6,6 @@ import MemoSideBar from '@/components/memo/MemoSideBar';
 import { getCommentsByPostTypeAndPostId } from '@/service/comments';
 import { cookies } from 'next/headers';
 import { getIsLike } from '@/service/like';
-import { checkUser } from '@/service/auth';
 import { ACCESS_TOKEN } from '@/utils/const';
 
 type Props = {
@@ -24,15 +23,14 @@ export default async function MemoPage({ params: { slug } }: Props) {
     likes,
     authorName,
     authorProfileImagePath,
-  } = await getMemoById(slug);
+    isMine,
+  } = await getMemoById(slug, cookies().get(ACCESS_TOKEN)?.value);
 
   const { isLike } = await getIsLike(
     'memos',
     slug,
     cookies().get(ACCESS_TOKEN)?.value
   );
-
-  const { id } = await checkUser(cookies().get(ACCESS_TOKEN)?.value);
 
   const comments = await getCommentsByPostTypeAndPostId(
     'memo',
@@ -52,7 +50,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
             memoId={slug}
             likes={likes}
             isLike={isLike}
-            isMyMemo={authorId === id}
+            isMyMemo={isMine}
           />
           <MemoSideBar
             authorName={authorName}

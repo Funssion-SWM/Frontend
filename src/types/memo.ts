@@ -11,6 +11,7 @@ export type Memo = {
   authorProfileImagePath: string;
   likes: number;
   isTemporary: boolean;
+  isMine: boolean;
 };
 
 export type PostMemoData = {
@@ -18,7 +19,7 @@ export type PostMemoData = {
   memoDescription: string;
   memoText: string;
   memoColor: string;
-  isTemporary ?: boolean;
+  isTemporary?: boolean;
 };
 
 export type MemoColor =
