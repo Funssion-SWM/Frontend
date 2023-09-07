@@ -15,14 +15,12 @@ type Props = {
 export default async function MeDraftPage({ params: { slug } }: Props) {
   const memos = await getMemosDraftsByUserId(slug);
   const { id, isLogin } = await checkUser(cookies().get(ACCESS_TOKEN)?.value);
-  const userInfo = id !== -1 ? await getUserInfo(id) : undefined;
-
+  const { profileImageFilePath } = isLogin
+    ? await getUserInfo(id)
+    : { profileImageFilePath: undefined };
   return (
     <section>
-      <Header
-        isLogin={isLogin}
-        profileImageFilePath={userInfo?.profileImageFilePath}
-      />
+      <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
       <LayoutWrapper paddingY="sm:py-5">
         <MeDraftContainer memos={memos} />
       </LayoutWrapper>

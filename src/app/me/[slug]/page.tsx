@@ -19,7 +19,9 @@ export default async function MePage({ params: { slug } }: Props) {
   const memos = await getMemosByUserId(slug);
   const userInfo = await getUserInfo(slug);
   const { id, isLogin } = await checkUser(cookies().get(ACCESS_TOKEN)?.value);
-  const myUserInfo = id !== -1 ? await getUserInfo(id) : undefined;
+  const { profileImageFilePath } = isLogin
+    ? await getUserInfo(id)
+    : { profileImageFilePath: undefined };
   const history = await getHistory(
     slug,
     new Date().getFullYear(),
@@ -28,10 +30,7 @@ export default async function MePage({ params: { slug } }: Props) {
   );
   return (
     <section>
-      <Header
-        isLogin={isLogin}
-        profileImageFilePath={myUserInfo?.profileImageFilePath}
-      />
+      <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
       <LayoutWrapper>
         <div className="flex flex-col sm:flex-row">
           <section className="flex flex-col items-center sm:w-[300px] min-h-screen p-6 bg-soma-grey-20">
