@@ -7,6 +7,7 @@ import { getCommentsByPostTypeAndPostId } from '@/service/comments';
 import { cookies } from 'next/headers';
 import { getIsLike } from '@/service/like';
 import { ACCESS_TOKEN } from '@/utils/const';
+import { checkUser, getUserInfo } from '@/service/auth';
 
 type Props = {
   params: {
@@ -38,9 +39,12 @@ export default async function MemoPage({ params: { slug } }: Props) {
     cookies().get(ACCESS_TOKEN)?.value
   );
 
+  const { id, isLogin } = await checkUser(cookies().get(ACCESS_TOKEN)?.value);
+  const { profileImageFilePath } = await getUserInfo(id);
+
   return (
     <section>
-      <Header />
+      <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
       <LayoutWrapper paddingY="sm:py-5" bgColor="bg-soma-grey-10">
         <div className="flex w-full ">
           <MemoViewer
