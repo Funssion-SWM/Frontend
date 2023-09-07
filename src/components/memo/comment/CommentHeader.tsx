@@ -25,13 +25,13 @@ export default function CommentHeader({
   isLike,
   likeNum,
 }: Props) {
-  const [currentIsLikeNum, setCurrentIsLikeNum] = useState(likeNum);
+  const [currentLikeNum, setCurrentLikeNum] = useState(likeNum);
   const [currentIsLike, setCurrentIsLike] = useState(isLike);
 
   const handleClickLike = () => {
     unlikeComment(commentId, false)
       .then(() => {
-        setCurrentIsLikeNum((pre) => pre - 1);
+        setCurrentLikeNum((pre) => pre - 1);
         setCurrentIsLike(false);
       })
       .catch((err) => console.error(err));
@@ -40,7 +40,7 @@ export default function CommentHeader({
   const handleClickUnlike = () => {
     likeComment(commentId, false)
       .then(() => {
-        setCurrentIsLikeNum((pre) => pre + 1);
+        setCurrentLikeNum((pre) => pre + 1);
         setCurrentIsLike(true);
       })
       .catch((err) => console.error(err));
@@ -73,9 +73,7 @@ export default function CommentHeader({
             <Image src={emptyHeart} alt="empty_heart" width={15} height={15} />
           </button>
         )}
-        <span className="text-sm ml-1 text-soma-grey-49">
-          {currentIsLikeNum}
-        </span>
+        <span className="text-sm ml-1 text-soma-grey-49">{currentLikeNum}</span>
       </div>
     </div>
   );
