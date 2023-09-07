@@ -17,21 +17,27 @@ export default function Like({ likes, memoId, isLike }: Props) {
   const [currnetIsLike, setCurrentIsLike] = useState<Boolean>(isLike);
 
   function handleClickLike() {
-    unlike('memos', memoId);
-    setCurrentLikeNum((pre) => pre - 1);
-    setCurrentIsLike(false);
+    unlike('memos', memoId)
+      .then(() => {
+        setCurrentLikeNum((pre) => pre - 1);
+        setCurrentIsLike(false);
+      })
+      .catch((err) => console.error(err));
   }
 
   function handleClickUnlike() {
-    like('memos', memoId);
-    setCurrentLikeNum((pre) => pre + 1);
-    setCurrentIsLike(true);
+    like('memos', memoId)
+      .then(() => {
+        setCurrentLikeNum((pre) => pre + 1);
+        setCurrentIsLike(true);
+      })
+      .catch((err) => console.error(err));
   }
 
   return (
     <>
-      <button>
-        {currnetIsLike ? (
+      {currnetIsLike ? (
+        <button>
           <Image
             src={fillHeart}
             alt="fill_heart"
@@ -39,7 +45,9 @@ export default function Like({ likes, memoId, isLike }: Props) {
             height={20}
             onClick={() => handleClickLike()}
           />
-        ) : (
+        </button>
+      ) : (
+        <button>
           <Image
             src={emptyHeart}
             alt="empty_heart"
@@ -47,8 +55,8 @@ export default function Like({ likes, memoId, isLike }: Props) {
             height={20}
             onClick={() => handleClickUnlike()}
           />
-        )}
-      </button>
+        </button>
+      )}
       <span className="w-6 text-center text-soma-grey-49 text-sm mx-2">
         {currentLikeNum}
       </span>

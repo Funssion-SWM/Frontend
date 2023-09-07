@@ -29,15 +29,21 @@ export default function CommentHeader({
   const [currentIsLike, setCurrentIsLike] = useState(isLike);
 
   const handleClickLike = () => {
-    unlikeComment(commentId, false);
-    setCurrentIsLikeNum((pre) => pre - 1);
-    setCurrentIsLike(false);
+    unlikeComment(commentId, false)
+      .then(() => {
+        setCurrentIsLikeNum((pre) => pre - 1);
+        setCurrentIsLike(false);
+      })
+      .catch((err) => console.error(err));
   };
 
   const handleClickUnlike = () => {
-    likeComment(commentId, false);
-    setCurrentIsLikeNum((pre) => pre + 1);
-    setCurrentIsLike(true);
+    likeComment(commentId, false)
+      .then(() => {
+        setCurrentIsLikeNum((pre) => pre + 1);
+        setCurrentIsLike(true);
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -59,21 +65,13 @@ export default function CommentHeader({
       </div>
       <div className="flex items-center">
         {currentIsLike ? (
-          <Image
-            src={fillHeart}
-            alt="fill_heart"
-            width={15}
-            height={15}
-            onClick={handleClickLike}
-          />
+          <button onClick={handleClickLike}>
+            <Image src={fillHeart} alt="fill_heart" width={15} height={15} />
+          </button>
         ) : (
-          <Image
-            src={emptyHeart}
-            alt="empty_heart"
-            width={15}
-            height={15}
-            onClick={handleClickUnlike}
-          />
+          <button onClick={handleClickUnlike}>
+            <Image src={emptyHeart} alt="empty_heart" width={15} height={15} />
+          </button>
         )}
         <span className="text-sm ml-1 text-soma-grey-49">
           {currentIsLikeNum}
