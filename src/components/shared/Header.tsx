@@ -74,7 +74,10 @@ export default function Header() {
               <button
                 className="hover:bg-gray-200 p-2 rounded-t-lg"
                 onClick={() => {
-                  checkUser().then((data) => router.push(`/me/${data.id}`));
+                  checkUser().then((data) => {
+                    router.push(`/me/${data.id}`)
+                    router.refresh();
+                  });
                   setIsActive(false);
                 }}
               >
