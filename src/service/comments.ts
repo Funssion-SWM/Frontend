@@ -1,18 +1,18 @@
 import { PostType } from '@/types';
 import { Comment, PostCommentData, PostRecoomentData } from '@/types/comment';
-import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
+import { ACCESS_TOKEN } from '@/utils/const';
 
 export async function getCommentsByPostTypeAndPostId(
   postType: PostType,
   postId: number,
-  cookie: string | undefined
+  cookie?: string | undefined
 ) {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/comments/${postType}/${postId}`,
     {
       credentials: 'include',
       next: { revalidate: 0 },
-      headers: { Cookie: `accessToken=${cookie}` },
+      headers: { Cookie: `${ACCESS_TOKEN}=${cookie}` },
     }
   )
     .then((res) => {

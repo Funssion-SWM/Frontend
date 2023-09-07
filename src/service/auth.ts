@@ -7,6 +7,7 @@ import {
   SignupResponse,
   UserInfo,
 } from '@/types';
+import { ACCESS_TOKEN } from '@/utils/const';
 import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url';
 
 export async function signUp(userData: SignUpData): Promise<SignupResponse> {
@@ -49,11 +50,17 @@ export async function logout() {
     .catch(console.error);
 }
 
-export async function checkUser(): Promise<CheckUserResponse> {
+export async function checkUser(
+  cookie?: string | undefined
+): Promise<CheckUserResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/check`,
     {
       credentials: 'include',
+      next: { revalidate: 0 },
+      headers: {
+        Cookie: `${ACCESS_TOKEN}=${cookie}`,
+      },
     }
   )
     .then((res) => {

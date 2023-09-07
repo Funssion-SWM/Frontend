@@ -1,12 +1,18 @@
 import { Like } from '@/types';
+import { ACCESS_TOKEN } from '@/utils/const';
 
-export async function getIsLiked(
+export async function getIsLike(
   postType: string,
-  postId: number
+  postId: number,
+  cookie?: string | undefined
 ): Promise<Like> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/${postType}/${postId}/like`,
-    { credentials: 'include' }
+    {
+      next: { revalidate: 0 },
+      credentials: 'include',
+      headers: { Cookie: `${ACCESS_TOKEN}=${cookie}` },
+    }
   )
     .then((res) => {
       if (res.status == 404 || res.ok) {

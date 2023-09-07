@@ -1,6 +1,5 @@
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
-import { checkUser } from '@/service/auth';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useRef } from 'react';
 import Like from '../shared/Like';
 import { useRouter } from 'next/navigation';
 import { deleteMemo } from '@/service/memos';
@@ -10,24 +9,21 @@ import { ModalContext } from '@/context/ModalProvider';
 
 type Props = {
   memoId: number;
-  authorId: number;
   likes: number;
+  isLike: boolean;
+  isMyMemo: boolean;
 };
 
-export default function MemoViewerHeader({ memoId, authorId, likes }: Props) {
+export default function MemoViewerHeader({
+  memoId,
+  likes,
+  isLike,
+  isMyMemo,
+}: Props) {
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
-  const [uid, setUid] = useState<number | null>(null);
   const router = useRouter();
   const { open } = useContext(ModalContext);
-
-  async function first() {
-    await checkUser().then((data) => setUid(data.id));
-  }
-
-  useEffect(() => {
-    first();
-  }, []);
 
   const handleDelete = () =>
     deleteMemo(memoId).then(() => {
@@ -38,8 +34,8 @@ export default function MemoViewerHeader({ memoId, authorId, likes }: Props) {
   return (
     <div className="py-4 flex justify-end items-center">
       <nav className="relative flex items-center" ref={dropdownRef}>
-        <Like likes={likes} memoId={memoId} uid={uid} />
-        {authorId === uid && (
+        <Like likes={likes} memoId={memoId} isLike={isLike} />
+        {isMyMemo && (
           <div className="flex">
             <button onClick={() => setIsActive((pre) => !pre)}>
               <Image src={more} alt="more" />

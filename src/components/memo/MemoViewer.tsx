@@ -11,8 +11,9 @@ type Props = {
   content: string;
   color: string;
   memoId: number;
-  authorId: number;
   likes: number;
+  isLike: boolean;
+  isMyMemo: boolean;
 };
 
 export default function MemoViewer({
@@ -20,8 +21,9 @@ export default function MemoViewer({
   content,
   color,
   memoId,
-  authorId,
   likes,
+  isLike,
+  isMyMemo,
 }: Props) {
   return (
     <section
@@ -37,7 +39,12 @@ export default function MemoViewer({
         }[color]
       } `}
     >
-      <MemoViewerHeader memoId={memoId} authorId={authorId} likes={likes} />
+      <MemoViewerHeader
+        memoId={memoId}
+        likes={likes}
+        isLike={isLike}
+        isMyMemo={isMyMemo}
+      />
       <h1
         className={`text-2xl sm:text-4xl font-bold py-3 px-4 mb-5 break-all ${
           {
