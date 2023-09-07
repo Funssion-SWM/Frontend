@@ -40,11 +40,14 @@ export default async function MemoPage({ params: { slug } }: Props) {
   );
 
   const { id, isLogin } = await checkUser(cookies().get(ACCESS_TOKEN)?.value);
-  const { profileImageFilePath } = await getUserInfo(id);
+  const userInfo = id !== -1 ? await getUserInfo(id) : undefined;
 
   return (
     <section>
-      <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
+      <Header
+        isLogin={isLogin}
+        profileImageFilePath={userInfo?.profileImageFilePath}
+      />
       <LayoutWrapper paddingY="sm:py-5" bgColor="bg-soma-grey-10">
         <div className="flex w-full ">
           <MemoViewer

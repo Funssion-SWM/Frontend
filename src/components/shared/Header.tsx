@@ -12,7 +12,7 @@ import { ModalContext } from '@/context/ModalProvider';
 
 type Props = {
   isLogin: boolean;
-  profileImageFilePath: string;
+  profileImageFilePath: string | undefined;
 };
 
 export default function Header({ isLogin, profileImageFilePath }: Props) {

@@ -10,11 +10,14 @@ import { cookies } from 'next/headers';
 export default async function MemosPage() {
   const memos = await getMemos();
   const { id, isLogin } = await checkUser(cookies().get(ACCESS_TOKEN)?.value);
-  const { profileImageFilePath } = await getUserInfo(id);
+  const userInfo = id !== -1 ? await getUserInfo(id) : undefined;
 
   return (
     <section>
-      <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
+      <Header
+        isLogin={isLogin}
+        profileImageFilePath={userInfo?.profileImageFilePath}
+      />
       <LayoutWrapper paddingY="sm:py-5">
         <MemosContainer memos={memos} />
       </LayoutWrapper>
