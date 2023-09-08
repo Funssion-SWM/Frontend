@@ -16,6 +16,8 @@ type Props = {
 };
 
 export default async function MemoPage({ params: { slug } }: Props) {
+  const cookie = cookies().get(ACCESS_TOKEN)?.value;
+
   const {
     memoTitle,
     memoColor,
@@ -25,21 +27,13 @@ export default async function MemoPage({ params: { slug } }: Props) {
     authorName,
     authorProfileImagePath,
     isMine,
-  } = await getMemoById(slug, cookies().get(ACCESS_TOKEN)?.value);
+  } = await getMemoById(slug, cookie);
 
-  const { isLike } = await getIsLike(
-    'memos',
-    slug,
-    cookies().get(ACCESS_TOKEN)?.value
-  );
+  const { isLike } = await getIsLike('memos', slug, cookie);
 
-  const comments = await getCommentsByPostTypeAndPostId(
-    'memo',
-    slug,
-    cookies().get(ACCESS_TOKEN)?.value
-  );
+  const comments = await getCommentsByPostTypeAndPostId('memo', slug, cookie);
 
-  const { id, isLogin } = await checkUser(cookies().get(ACCESS_TOKEN)?.value);
+  const { id, isLogin } = await checkUser(cookie);
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };

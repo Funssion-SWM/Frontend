@@ -13,11 +13,14 @@ type Props = {
 };
 
 export default async function MeDraftPage({ params: { slug } }: Props) {
+  const cookie = cookies().get(ACCESS_TOKEN)?.value;
+
   const memos = await getMemosDraftsByUserId(slug);
-  const { id, isLogin } = await checkUser(cookies().get(ACCESS_TOKEN)?.value);
+  const { id, isLogin } = await checkUser(cookie);
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
+
   return (
     <section>
       <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />

@@ -16,9 +16,11 @@ type Props = {
 };
 
 export default async function MePage({ params: { slug } }: Props) {
+  const cookie = cookies().get(ACCESS_TOKEN)?.value;
+
   const memos = await getMemosByUserId(slug);
   const userInfo = await getUserInfo(slug);
-  const { id, isLogin } = await checkUser(cookies().get(ACCESS_TOKEN)?.value);
+  const { id, isLogin } = await checkUser(cookie);
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
@@ -28,6 +30,7 @@ export default async function MePage({ params: { slug } }: Props) {
     new Date().getMonth() + 1,
     true
   );
+
   return (
     <section>
       <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
