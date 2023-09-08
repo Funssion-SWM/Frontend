@@ -13,12 +13,14 @@ import { useEffect, useState } from "react";
 export default function SearchPage() {
   const searchParams = useSearchParams();
   const searchString = searchParams?.get("q");
+
   const [memos, setMemos] = useState<Memo[]>([]);
+
+  console.log(searchString);
 
   const first = () => {
     if (searchString) {
       searchMemos(searchString, "hot", true, false).then((data) => {
-        console.log(data);
         setMemos(data);
       });
     }

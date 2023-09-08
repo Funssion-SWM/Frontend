@@ -10,14 +10,12 @@ import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import { useRouter } from 'next/navigation';
 import BlueBtn from './btn/BlueBtn';
 import { ModalContext } from '@/context/ModalProvider';
-import SearchForm from '../search/searchForm';
 
 export default function Header() {
   const router = useRouter();
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const [isLogin, setIsLogin] = useState<boolean | null>(null);
-  const [isSearching, setIsSearching] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const { open } = useContext(ModalContext);
 
