@@ -26,6 +26,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
     likes,
     authorName,
     authorProfileImagePath,
+    memoTags,
     isMine,
   } = await getMemoById(slug, cookie);
 
@@ -47,6 +48,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
             title={memoTitle}
             content={JSON.parse(memoText)}
             color={memoColor}
+            memoTags={memoTags}
             memoId={slug}
             likes={likes}
             isLike={isLike}

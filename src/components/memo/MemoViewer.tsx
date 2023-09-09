@@ -5,11 +5,13 @@ import { EditorContent, useEditor } from '@tiptap/react';
 import MemoViewerHeader from './MemoViewerHeader';
 import { TiptapExtensions } from '@/components/editor/extensions';
 import { TiptapEditorProps } from '@/components/editor/props';
+import Tag from '../shared/Tag';
 
 type Props = {
   title: string;
   content: string;
   color: string;
+  memoTags: string[];
   memoId: number;
   likes: number;
   isLike: boolean;
@@ -20,6 +22,7 @@ export default function MemoViewer({
   title,
   content,
   color,
+  memoTags,
   memoId,
   likes,
   isLike,
@@ -27,7 +30,7 @@ export default function MemoViewer({
 }: Props) {
   return (
     <section
-      className={`flex flex-col sm:rounded-lg sm:shadow-lg px-4 min-h-screen sm:min-h-for-fit-screen w-full pb-8 ${
+      className={`flex flex-col sm:rounded-lg sm:shadow-lg px-4 min-h-screen sm:min-h-for-fit-screen w-full pb-4 ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
@@ -69,6 +72,11 @@ export default function MemoViewer({
             content: content,
           })}
         />
+      </div>
+      <div className="flex flex-wrap gap-1 m-4">
+        {memoTags.map((tag, idx) => (
+          <Tag key={idx} tagText={tag} onClick={() => {}} />
+        ))}
       </div>
     </section>
   );
