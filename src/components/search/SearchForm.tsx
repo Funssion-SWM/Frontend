@@ -3,8 +3,14 @@
 import Image from 'next/image';
 import searchIcon from '@/assets/icons/icon_search_32.svg';
 import React, { useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 export default function SearchForm() {
+  const searchParams = useSearchParams();
+  const searchString = searchParams?.get("q");
+
+  console.log(searchString);
+
   const formRef = useRef<HTMLFormElement | null>(null); 
   const [borderColor, setBorderColor] = useState("border-blue-400");
 
@@ -26,6 +32,7 @@ export default function SearchForm() {
           onFocus={() => setBorderColor("border-blue-400")}
           onBlur={() => setBorderColor("")}
           placeholder='검색어를 입력해주세요.'
+          value={searchString ? searchString : ""}
         />
       </form>
     )
