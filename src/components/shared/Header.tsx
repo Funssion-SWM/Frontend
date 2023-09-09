@@ -3,6 +3,7 @@
 import basicProfileImg from '../../assets/profile.svg';
 import Link from 'next/link';
 import { checkUser, logout } from '@/service/auth';
+import searchIcon from '@/assets/icons/icon_search_32.svg';
 import Image from 'next/image';
 import { useContext, useRef } from 'react';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
@@ -35,6 +36,8 @@ export default function Header({ isLogin, profileImageFilePath }: Props) {
         </h1>
         {isLogin ? (
           <nav className="flex items-center gap-3 relative" ref={dropdownRef}>
+            <Image className='cursor-pointer' src={searchIcon} alt='search_icon' onClick={() => router.push("/search/form")}/>
+
             <button onClick={() => setIsActive((pre) => !pre)}>
               <Image
                 src={profileImageFilePath ?? basicProfileImg}
@@ -53,7 +56,10 @@ export default function Header({ isLogin, profileImageFilePath }: Props) {
               <button
                 className="hover:bg-gray-200 p-2 rounded-t-lg"
                 onClick={() => {
-                  checkUser().then((data) => router.push(`/me/${data.id}`));
+                  checkUser().then((data) => {
+                    router.push(`/me/${data.id}`)
+                    router.refresh();
+                  });
                   setIsActive(false);
                 }}
               >

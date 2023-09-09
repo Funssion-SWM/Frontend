@@ -2,6 +2,25 @@ import { Orderby, Period } from '@/types';
 import { Memo, PostMemoData } from '@/types/memo';
 import { ACCESS_TOKEN } from '@/utils/const';
 
+export async function searchMemos(
+  searchString:string,
+  orderBy: Orderby,
+  isRecoded: Boolean,
+  isTag: Boolean
+): Promise<Memo[]> {
+  const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/search`);
+  const params = { searchString:searchString, orderBy:orderBy, isRecoded:isRecoded.toString(), isTag:isTag.toString() };
+  url.search = new URLSearchParams(params).toString();
+
+  return fetch(url, { next: { revalidate: 0 } })
+    .then((res) => {
+      if (!res.ok) throw new Error('error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
+}
+
+
 export async function getMemos(
   period: Period = 'month',
   orderBy: Orderby = 'new'
