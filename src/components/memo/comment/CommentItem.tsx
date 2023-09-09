@@ -1,3 +1,5 @@
+'use client';
+
 import { Comment } from '@/types/comment';
 import { deleteComeent, updateComment } from '@/service/comments';
 import { useRouter } from 'next/navigation';

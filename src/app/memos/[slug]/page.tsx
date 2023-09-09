@@ -60,6 +60,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
             authorId={authorId}
             comments={comments}
             memoId={slug}
+            userId={id}
           />
         </div>
       </LayoutWrapper>

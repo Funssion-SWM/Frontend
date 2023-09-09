@@ -9,6 +9,7 @@ type Props = {
   authorId: number;
   comments: Comment[];
   memoId: number;
+  userId: number;
 };
 
 export default function MemoSideBar({
@@ -17,6 +18,7 @@ export default function MemoSideBar({
   authorId,
   comments,
   memoId,
+  userId,
 }: Props) {
   return (
     <aside
@@ -27,7 +29,7 @@ export default function MemoSideBar({
         authorName={authorName}
         authorProfileImagePath={authorProfileImagePath}
       />
-      <CommentsList comments={comments} />
+      <CommentsList comments={comments} userId={userId} />
       <div className="sticky bottom-0 p-1 bg-white shadow-inner">
         <CommentForm postId={memoId} />
       </div>
