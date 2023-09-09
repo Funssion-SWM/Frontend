@@ -25,6 +25,7 @@ export default function CommentItem({ commentProperty, isMyComment }: Props) {
     createdDate,
     isLike,
     likes,
+    reCommentsNumber,
   } = commentProperty;
 
   const [updatedText, setUpdatedText] = useState(commentText);
@@ -58,12 +59,19 @@ export default function CommentItem({ commentProperty, isMyComment }: Props) {
         <p className="pl-3 text-sm my-2 text-soma-grey-60">{commentText}</p>
       )}
       <div className="flex justify-between items-center text-[10px] mb-3 pl-3 mr-2">
-        <button onClick={() => setIsRecommentBtnClicked((pre) => !pre)}>
-          {isRecommentBtnClicked ? '답글 닫기' : '답글 보기'}
+        <button
+          className="text-soma-blue-40 font-semibold"
+          onClick={() => setIsRecommentBtnClicked((pre) => !pre)}
+        >
+          {isRecommentBtnClicked
+            ? '답글 닫기'
+            : reCommentsNumber === 0
+            ? '답글 작성'
+            : `${reCommentsNumber}개의 답글`}
         </button>
         {isMyComment &&
           (!isEditMode ? (
-            <div className="flex gap-2 r-3">
+            <div className="flex gap-2 r-3 text-soma-grey-49">
               <button
                 onClick={() => {
                   setIsEditMode(true);

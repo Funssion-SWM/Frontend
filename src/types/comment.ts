@@ -7,7 +7,7 @@ export type Comment = {
   createdDate: string;
   updatedDate: string;
   likes: number;
-  reComments?: number;
+  reCommentsNumber?: number;
   isLike: boolean;
 };
 
