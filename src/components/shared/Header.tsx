@@ -2,36 +2,25 @@
 
 import basicProfileImg from '../../assets/profile.svg';
 import Link from 'next/link';
-import { checkUser, getUserInfo, logout } from '@/service/auth';
+import { checkUser, logout } from '@/service/auth';
 import searchIcon from '@/assets/icons/icon_search_32.svg';
 import Image from 'next/image';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useRef } from 'react';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import { useRouter } from 'next/navigation';
 import BlueBtn from './btn/BlueBtn';
 import { ModalContext } from '@/context/ModalProvider';
 
-export default function Header() {
+type Props = {
+  isLogin: boolean;
+  profileImageFilePath: string | undefined;
+};
+
+export default function Header({ isLogin, profileImageFilePath }: Props) {
   const router = useRouter();
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
-  const [isLogin, setIsLogin] = useState<boolean | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const { open } = useContext(ModalContext);
-
-  async function first() {
-    await checkUser().then((data) => {
-      setIsLogin(data.isLogin);
-      data.isLogin &&
-        getUserInfo(data.id).then((info) => {
-          setImageUrl(info.profileImageFilePath);
-        });
-    });
-  }
-
-  useEffect(() => {
-    first();
-  }, [isActive, open]);
 
   return (
     <section className="border-b-2 sticky top-0 bg-white z-10">
@@ -45,18 +34,13 @@ export default function Header() {
         >
           Inforum
         </h1>
-
-        {/* <nav className="flex gap-4">
-        <Link href="/memos">Memos</Link>
-        <Link href="/stories">Stories</Link>
-      </nav> */}
-        {isLogin === true && (
+        {isLogin ? (
           <nav className="flex items-center gap-3 relative" ref={dropdownRef}>
             <Image className='cursor-pointer' src={searchIcon} alt='search_icon' onClick={() => router.push("/search/form")}/>
 
             <button onClick={() => setIsActive((pre) => !pre)}>
               <Image
-                src={imageUrl ? imageUrl : basicProfileImg}
+                src={profileImageFilePath ?? basicProfileImg}
                 alt="profileImg"
                 width={32}
                 height={32}
@@ -115,8 +99,7 @@ export default function Header() {
               }}
             />
           </nav>
-        )}
-        {isLogin === false && (
+        ) : (
           <Link href="/login">
             <BlueBtn text="로그인" onClick={() => {}} />
           </Link>

@@ -6,8 +6,8 @@ import MemoSideBar from '@/components/memo/MemoSideBar';
 import { getCommentsByPostTypeAndPostId } from '@/service/comments';
 import { cookies } from 'next/headers';
 import { getIsLike } from '@/service/like';
-import { checkUser } from '@/service/auth';
 import { ACCESS_TOKEN } from '@/utils/const';
+import { checkUser, getUserInfo } from '@/service/auth';
 
 type Props = {
   params: {
@@ -16,6 +16,8 @@ type Props = {
 };
 
 export default async function MemoPage({ params: { slug } }: Props) {
+  const cookie = cookies().get(ACCESS_TOKEN)?.value;
+
   const {
     memoTitle,
     memoColor,
@@ -24,25 +26,21 @@ export default async function MemoPage({ params: { slug } }: Props) {
     likes,
     authorName,
     authorProfileImagePath,
-  } = await getMemoById(slug);
+    isMine,
+  } = await getMemoById(slug, cookie);
 
-  const { isLike } = await getIsLike(
-    'memos',
-    slug,
-    cookies().get(ACCESS_TOKEN)?.value
-  );
+  const { isLike } = await getIsLike('memos', slug, cookie);
 
-  const { id } = await checkUser(cookies().get(ACCESS_TOKEN)?.value);
+  const comments = await getCommentsByPostTypeAndPostId('memo', slug, cookie);
 
-  const comments = await getCommentsByPostTypeAndPostId(
-    'memo',
-    slug,
-    cookies().get(ACCESS_TOKEN)?.value
-  );
+  const { id, isLogin } = await checkUser(cookie);
+  const { profileImageFilePath } = isLogin
+    ? await getUserInfo(id)
+    : { profileImageFilePath: undefined };
 
   return (
     <section>
-      <Header />
+      <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
       <LayoutWrapper paddingY="sm:py-5" bgColor="bg-soma-grey-10">
         <div className="flex w-full ">
           <MemoViewer
@@ -52,7 +50,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
             memoId={slug}
             likes={likes}
             isLike={isLike}
-            isMyMemo={authorId === id}
+            isMyMemo={isMine}
           />
           <MemoSideBar
             authorName={authorName}

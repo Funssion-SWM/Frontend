@@ -28,22 +28,18 @@ export async function like(postType: string, postId: number): Promise<void> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/${postType}/${postId}/like`,
     { method: 'POST', credentials: 'include' }
-  )
-    .then((res) => {
-      if (!res.ok) throw new Error('error 발생!');
-    })
-    .catch(console.error);
+  ).then((res) => {
+    if (!res.ok) throw new Error('like error 발생!');
+  });
 }
 
 export async function unlike(postType: string, postId: number): Promise<void> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/${postType}/${postId}/unlike`,
     { method: 'POST', credentials: 'include' }
-  )
-    .then((res) => {
-      if (!res.ok) throw new Error('error 발생!');
-    })
-    .catch(console.error);
+  ).then((res) => {
+    if (!res.ok) throw new Error('unlike error 발생!');
+  });
 }
 
 export async function likeComment(commentId: number, isReComment: boolean) {
@@ -53,11 +49,9 @@ export async function likeComment(commentId: number, isReComment: boolean) {
       method: 'POST',
       credentials: 'include',
     }
-  )
-    .then((res) => {
-      if (!res.ok) throw new Error('error 발생!');
-    })
-    .catch(console.error);
+  ).then((res) => {
+    if (!res.ok) throw new Error('like comment error 발생!');
+  });
 }
 
 export async function unlikeComment(commentId: number, isReComment: boolean) {
@@ -67,9 +61,7 @@ export async function unlikeComment(commentId: number, isReComment: boolean) {
       method: 'DELETE',
       credentials: 'include',
     }
-  )
-    .then((res) => {
-      if (!res.ok) throw new Error('error 발생!');
-    })
-    .catch(console.error);
+  ).then((res) => {
+    if (!res.ok) throw new Error('unllike comment error 발생!');
+  });
 }

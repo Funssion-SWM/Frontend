@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default async function CreateMemoPage({ params: { slug } }: Props) {
-  const { memoTitle, memoColor, memoText } = await getMemoById(slug);
+  const { memoTitle, memoColor, memoText, memoTags } = await getMemoById(slug);
 
   return (
     <LayoutWrapper paddingY="sm:py-10" bgColor="bg-soma-grey-10">
@@ -17,6 +17,7 @@ export default async function CreateMemoPage({ params: { slug } }: Props) {
         preTitle={memoTitle}
         preContent={JSON.parse(memoText)}
         preColor={memoColor}
+        preMemoTags={memoTags}
         alreadyExists={true}
         memoId={slug}
       />

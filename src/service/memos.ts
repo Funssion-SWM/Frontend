@@ -1,5 +1,6 @@
 import { Orderby, Period } from '@/types';
 import { Memo, PostMemoData } from '@/types/memo';
+import { ACCESS_TOKEN } from '@/utils/const';
 
 export async function searchMemos(
   searchString:string,
@@ -37,13 +38,10 @@ export async function getMemos(
 }
 
 export async function getMemoDrafts(): Promise<Memo[]> {
-  return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/drafts`,
-    {
-      next: { revalidate: 0 },
-      credentials: 'include',
-    }
-  )
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/drafts`, {
+    next: { revalidate: 0 },
+    credentials: 'include',
+  })
     .then((res) => {
       if (!res.ok) throw new Error('error 발생!');
       return res.json();
@@ -51,9 +49,13 @@ export async function getMemoDrafts(): Promise<Memo[]> {
     .catch(console.error);
 }
 
-export async function getMemoById(id: number): Promise<Memo> {
+export async function getMemoById(
+  id: number,
+  cookie?: string | undefined
+): Promise<Memo> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/${id}`, {
     next: { revalidate: 0 },
+    headers: { Cookie: `${ACCESS_TOKEN}=${cookie}` },
   })
     .then((res) => {
       if (!res.ok) throw new Error('error');
