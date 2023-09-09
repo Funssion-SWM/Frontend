@@ -13,9 +13,14 @@ import CommentHeader from './CommentHeader';
 type Props = {
   commentProperty: Comment;
   isMyComment: boolean;
+  userId: number;
 };
 
-export default function CommentItem({ commentProperty, isMyComment }: Props) {
+export default function CommentItem({
+  commentProperty,
+  isMyComment,
+  userId,
+}: Props) {
   const {
     id,
     commentText,
@@ -28,9 +33,10 @@ export default function CommentItem({ commentProperty, isMyComment }: Props) {
     reCommentsNumber,
   } = commentProperty;
 
-  const [updatedText, setUpdatedText] = useState(commentText);
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [isRecommentBtnClicked, setIsRecommentBtnClicked] = useState(false);
+  const [updatedText, setUpdatedText] = useState<string>(commentText);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [isRecommentBtnClicked, setIsRecommentBtnClicked] =
+    useState<boolean>(false);
   const { open } = useContext(ModalContext);
   const router = useRouter();
 
@@ -117,7 +123,11 @@ export default function CommentItem({ commentProperty, isMyComment }: Props) {
           ))}
       </div>
       {isRecommentBtnClicked && (
-        <RecommentContainer commentId={id} authorId={authorId} />
+        <RecommentContainer
+          commentId={id}
+          authorId={authorId}
+          userId={userId}
+        />
       )}
     </div>
   );

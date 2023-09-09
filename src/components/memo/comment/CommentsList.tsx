@@ -18,6 +18,7 @@ export default function CommentsList({ comments, userId }: Props) {
           <CommentItem
             commentProperty={item}
             isMyComment={userId === item.authorId}
+            userId={userId}
           />
         </li>
       ))}
