@@ -14,6 +14,7 @@ type Props = {
   createdDate: string;
   isLike: boolean;
   likeNum: number;
+  isRecomment: boolean;
 };
 
 export default function CommentHeader({
@@ -24,12 +25,13 @@ export default function CommentHeader({
   createdDate,
   isLike,
   likeNum,
+  isRecomment,
 }: Props) {
   const [currentLikeNum, setCurrentLikeNum] = useState(likeNum);
   const [currentIsLike, setCurrentIsLike] = useState(isLike);
 
   const handleClickLike = () => {
-    unlikeComment(commentId, false)
+    unlikeComment(commentId, isRecomment)
       .then(() => {
         setCurrentLikeNum((pre) => pre - 1);
         setCurrentIsLike(false);
@@ -38,7 +40,7 @@ export default function CommentHeader({
   };
 
   const handleClickUnlike = () => {
-    likeComment(commentId, false)
+    likeComment(commentId, isRecomment)
       .then(() => {
         setCurrentLikeNum((pre) => pre + 1);
         setCurrentIsLike(true);
@@ -47,7 +49,7 @@ export default function CommentHeader({
   };
 
   return (
-    <div className="flex justify-between px-3">
+    <div className={`flex justify-between ${!isRecomment && 'px-3'}`}>
       <div className="flex items-center ">
         <Link href={`/me/${authorId}`}>
           <Image

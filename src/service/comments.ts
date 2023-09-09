@@ -84,6 +84,7 @@ export async function getRecommentsByCommentId(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/comments/recomments/${commentId}`,
     {
       next: { revalidate: 0 },
+      credentials: 'include',
     }
   )
     .then((res) => {

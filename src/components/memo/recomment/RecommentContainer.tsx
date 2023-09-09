@@ -18,13 +18,12 @@ export default function RecommentContainer({
   const [recomments, setRecomments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const first = async () => {
-    getRecommentsByCommentId(commentId)
-      .then((data) => setRecomments(data))
-      .finally(() => setLoading(false));
-  };
-
   useEffect(() => {
+    const first = async () => {
+      getRecommentsByCommentId(commentId)
+        .then((data) => setRecomments(data))
+        .finally(() => setLoading(false));
+    };
     first();
   }, []);
 

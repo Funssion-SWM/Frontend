@@ -50,6 +50,7 @@ export default function CommentItem({
         createdDate={createdDate}
         isLike={isLike}
         likeNum={likes}
+        isRecomment={false}
       />
       {isEditMode ? (
         <textarea
