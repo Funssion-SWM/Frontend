@@ -13,6 +13,7 @@ export default function MemosGrid({
   colNum,
   isTemporary = false,
 }: Props) {
+  console.log(memos);
   return (
     <ul
       className={`grid gap-4 grid-cols-1 
@@ -25,7 +26,7 @@ export default function MemosGrid({
     }
     `}
     >
-      {memos.map((memo) => (
+      {memos?.map((memo) => (
         <li key={memo.memoId}>
           {isTemporary ? (
             <MemoCardTemporary memo={memo} />
