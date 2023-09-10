@@ -50,7 +50,7 @@ export type UserInfo = {
   profileImageFilePath: string;
   nickname: string;
   introduce: string;
-  tags: string;
+  tags: string[];
 };
 
 export type HistoryItem = {

@@ -125,14 +125,14 @@ export async function registerUserInfo(
   id: number,
   image: File | null,
   introduce: string,
-  tags: string,
+  tags: string[],
   isEmptyProfileImage: string
 ) {
   const formdata = new FormData();
   formdata.append('isEmptyProfileImage', isEmptyProfileImage);
   if (image !== null) formdata.append('image', image);
-  formdata.append('introduce', introduce === '' ? '안녕하세요' : introduce);
-  formdata.append('tags', tags === '' ? 'tags' : tags);
+  formdata.append('introduce', introduce);
+  formdata.append('tags', tags.toString());
 
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${id}`,
@@ -152,14 +152,14 @@ export async function updateUserInfo(
   id: number,
   image: File | null,
   introduce: string,
-  tags: string,
+  tags: string[],
   isEmptyProfileImage: string
 ) {
   const formdata = new FormData();
   formdata.append('isEmptyProfileImage', isEmptyProfileImage);
   if (image !== null) formdata.append('image', image);
-  formdata.append('introduce', introduce === '' ? '안녕하세요' : introduce);
-  formdata.append('tags', tags === '' ? 'tags' : tags);
+  formdata.append('introduce', introduce);
+  formdata.append('tags', tags.toString());
 
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${id}`,

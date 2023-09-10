@@ -17,6 +17,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { checkUser, registerUserInfo, updateUserInfo } from '@/service/auth';
 import { UserInfo } from '@/types';
+import Tag from './shared/Tag';
 
 type Props = {
   userId: number;
@@ -28,11 +29,12 @@ export default function MyInfoForm({ userId, userInfo, isSignup }: Props) {
   const router = useRouter();
 
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState(
+  const [imageUrl, setImageUrl] = useState<string>(
     userInfo?.profileImageFilePath ?? ''
   );
-  const [intro, setIntro] = useState(userInfo?.introduce ?? '');
-  const [tags, setTags] = useState(userInfo?.tags ?? '');
+  const [intro, setIntro] = useState<string>(userInfo?.introduce ?? '');
+  const [tags, setTags] = useState<string[]>(userInfo?.tags ?? []);
+  const [inputTag, setInputTag] = useState<string>('');
 
   const fileInput = useRef() as MutableRefObject<HTMLInputElement>;
 
@@ -45,8 +47,22 @@ export default function MyInfoForm({ userId, userInfo, isSignup }: Props) {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing) return;
+    if (inputTag === '' && e.key === 'Backspace') {
+      setTags((preTags) => preTags.slice(0, -1));
+      return;
+    }
+    if ((inputTag !== '' && e.key === 'Enter') || e.key === ',') {
+      !tags.includes(inputTag) && setTags([...tags, inputTag]);
+      setInputTag('');
+      console.log(tags);
+    }
+  };
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(e);
     isSignup
       ? registerUserInfo(
           userId,
@@ -71,7 +87,11 @@ export default function MyInfoForm({ userId, userInfo, isSignup }: Props) {
   };
 
   return (
-    <form className="flex flex-col w-full" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col w-full"
+      onSubmit={handleSubmit}
+      onKeyDown={(e) => e.code === 'Enter' && e.preventDefault()}
+    >
       <div className="flex my-3">
         <input
           type="file"
@@ -125,6 +145,32 @@ export default function MyInfoForm({ userId, userInfo, isSignup }: Props) {
           placeholder="자기 소개를 입력해주세요."
         />
       </div>
+      <div className="flex flex-col my-3">
+        <label htmlFor="confirmPw" className="text-sm">
+          주요 분야
+        </label>
+        <input
+          type="text"
+          placeholder="태그를 입력해주세요."
+          name="tag"
+          value={inputTag}
+          onChange={(e) => setInputTag(e.target.value)}
+          onKeyDown={handleKeyDown}
+          className="border-2 my-2 py-2 px-4 rounded-lg outline-none p-1 text-sm sm:text-base bg-soma-grey-20 border-soma-grey-30"
+        />
+        <div className="flex flex-wrap gap-1 mb-1 h-8">
+          {tags.map((tag, idx) => (
+            <Tag
+              key={idx}
+              tagText={tag}
+              onClick={() =>
+                setTags((preTags) => preTags.filter((item) => item !== tag))
+              }
+            />
+          ))}
+        </div>
+      </div>
+
       <div className="flex flex-col gap-2 my-3">
         <BlueBtn text={isSignup ? '등록' : '수정'} onClick={() => {}} />
         {isSignup && (
