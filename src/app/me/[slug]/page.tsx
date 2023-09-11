@@ -39,7 +39,7 @@ export default async function MePage({ params: { slug } }: Props) {
           <section className="flex flex-col items-center sm:w-[300px] min-h-screen p-6 bg-soma-grey-20">
             <Profile userInfo={userInfo} />
             <History history={history} userId={slug} />
-            {id === slug && (
+            {id === Number(slug) && (
               <div className="flex flex-col mt-8">
                 <Link
                   href={`/me/setting/${id}`}
