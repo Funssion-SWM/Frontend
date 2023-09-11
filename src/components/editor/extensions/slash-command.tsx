@@ -115,7 +115,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     {
       title: 'Heading 1',
       description: 'Big section heading.',
-      searchTerms: ['title', 'big', 'large'],
+      searchTerms: ['h1', 'title', 'big', 'large'],
       icon: <Heading1 size={18} />,
       command: ({ editor, range }: CommandProps) => {
         editor
@@ -129,7 +129,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     {
       title: 'Heading 2',
       description: 'Medium section heading.',
-      searchTerms: ['subtitle', 'medium'],
+      searchTerms: ['h2', 'subtitle', 'medium'],
       icon: <Heading2 size={18} />,
       command: ({ editor, range }: CommandProps) => {
         editor
@@ -143,7 +143,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     {
       title: 'Heading 3',
       description: 'Small section heading.',
-      searchTerms: ['subtitle', 'small'],
+      searchTerms: ['h3', 'subtitle', 'small'],
       icon: <Heading3 size={18} />,
       command: ({ editor, range }: CommandProps) => {
         editor
