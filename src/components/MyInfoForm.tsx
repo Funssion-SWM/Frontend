@@ -126,7 +126,7 @@ export default function MyInfoForm({
       </button>
 
       <div className="flex flex-col my-3">
-        <label htmlFor="confirmPw" className="text-sm">
+        <label htmlFor="intro" className="text-sm">
           자기 소개
         </label>
         <textarea
@@ -139,10 +139,9 @@ export default function MyInfoForm({
         />
       </div>
       <div className="flex flex-col my-3">
-        <label htmlFor="confirmPw" className="text-sm">
+        <label className="text-sm">
           주요 분야 (최대 3가지의 keyword를 선택해주세요)
         </label>
-
         <div className="flex flex-wrap gap-1 my-2 justify-center">
           {defaultTags.map((tag, idx) => (
             <Tag
