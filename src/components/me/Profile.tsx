@@ -26,6 +26,18 @@ export default function Profile({ userInfo }: Props) {
           {userInfo.introduce}
         </p>
       </div>
+      {userInfo.userTags.length !== 0 && (
+        <div className="flex text-sm gap-1 mt-2 self-start">
+          {userInfo.userTags.map((tag, idx) => (
+            <div
+              className="bg-green-100 font-medium text-green-500 px-2 py-1 text-white rounded-3xl"
+              key={idx}
+            >
+              {tag}
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
