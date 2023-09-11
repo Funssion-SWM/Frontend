@@ -64,6 +64,12 @@ export type Like = {
   likes: number;
 };
 
+export type SearchHistory = {
+  id: number;
+  searchText: string;
+  isTag: boolean;
+}
+
 export type Period = 'day' | 'week' | 'month' | 'year';
 
 export type Orderby = 'hot' | 'new';

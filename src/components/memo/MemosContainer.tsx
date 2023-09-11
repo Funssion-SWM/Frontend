@@ -3,7 +3,7 @@
 import { Memo } from '@/types/memo';
 import { Orderby } from '@/types';
 import MemosGrid from './MemosGrid';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getMemos } from '@/service/memos';
 import CategoryBtn from '@/components/shared/btn/CategoryBtn';
 // import CategoryBtn from '../shared/btn/CategoryBtn';
