@@ -132,7 +132,7 @@ export async function registerUserInfo(
   formdata.append('isEmptyProfileImage', isEmptyProfileImage);
   if (image !== null) formdata.append('image', image);
   formdata.append('introduce', introduce);
-  formdata.append('tags', tags.toString());
+  formdata.append('tags', JSON.stringify(tags));
 
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${id}`,
@@ -159,7 +159,7 @@ export async function updateUserInfo(
   formdata.append('isEmptyProfileImage', isEmptyProfileImage);
   if (image !== null) formdata.append('image', image);
   formdata.append('introduce', introduce);
-  formdata.append('tags', tags.toString());
+  formdata.append('tags', JSON.stringify(tags));
 
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${id}`,
@@ -169,8 +169,13 @@ export async function updateUserInfo(
     }
   )
     .then((res) => {
+      console.log(res);
       if (!res.ok) throw new Error('error!!');
       return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+      return data;
     })
     .catch(console.error);
 }

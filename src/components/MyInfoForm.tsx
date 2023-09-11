@@ -23,9 +23,15 @@ type Props = {
   userId: number;
   userInfo?: UserInfo;
   isSignup: boolean;
+  defaultTags: string[];
 };
 
-export default function MyInfoForm({ userId, userInfo, isSignup }: Props) {
+export default function MyInfoForm({
+  userId,
+  userInfo,
+  isSignup,
+  defaultTags,
+}: Props) {
   const router = useRouter();
 
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -33,8 +39,9 @@ export default function MyInfoForm({ userId, userInfo, isSignup }: Props) {
     userInfo?.profileImageFilePath ?? ''
   );
   const [intro, setIntro] = useState<string>(userInfo?.introduce ?? '');
-  const [tags, setTags] = useState<string[]>(userInfo?.tags ?? []);
-  const [inputTag, setInputTag] = useState<string>('');
+  const [selectedtdTags, setSelectedTags] = useState<string[]>(
+    userInfo?.userTags ?? []
+  );
 
   const fileInput = useRef() as MutableRefObject<HTMLInputElement>;
 
@@ -47,28 +54,14 @@ export default function MyInfoForm({ userId, userInfo, isSignup }: Props) {
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.nativeEvent.isComposing) return;
-    if (inputTag === '' && e.key === 'Backspace') {
-      setTags((preTags) => preTags.slice(0, -1));
-      return;
-    }
-    if ((inputTag !== '' && e.key === 'Enter') || e.key === ',') {
-      !tags.includes(inputTag) && setTags([...tags, inputTag]);
-      setInputTag('');
-      console.log(tags);
-    }
-  };
-
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(e);
     isSignup
       ? registerUserInfo(
           userId,
           imageFile,
           intro,
-          tags,
+          selectedtdTags,
           imageUrl === '' && imageFile === null ? 'true' : 'false'
         ).then(() => {
           checkUser().then((data) => {
@@ -79,7 +72,7 @@ export default function MyInfoForm({ userId, userInfo, isSignup }: Props) {
           userId,
           imageFile,
           intro,
-          tags,
+          selectedtdTags,
           imageUrl === '' && imageFile === null ? 'true' : 'false'
         ).then(() => {
           router.push(`/me/${userId}`);
@@ -147,25 +140,26 @@ export default function MyInfoForm({ userId, userInfo, isSignup }: Props) {
       </div>
       <div className="flex flex-col my-3">
         <label htmlFor="confirmPw" className="text-sm">
-          주요 분야
+          주요 분야 (최대 3가지의 keyword를 선택해주세요)
         </label>
-        <input
-          type="text"
-          placeholder="태그를 입력해주세요."
-          name="tag"
-          value={inputTag}
-          onChange={(e) => setInputTag(e.target.value)}
-          onKeyDown={handleKeyDown}
-          className="border-2 my-2 py-2 px-4 rounded-lg outline-none p-1 text-sm sm:text-base bg-soma-grey-20 border-soma-grey-30"
-        />
-        <div className="flex flex-wrap gap-1 mb-1 h-8">
-          {tags.map((tag, idx) => (
+
+        <div className="flex flex-wrap gap-1 my-2 justify-center">
+          {defaultTags.map((tag, idx) => (
             <Tag
               key={idx}
               tagText={tag}
-              onClick={() =>
-                setTags((preTags) => preTags.filter((item) => item !== tag))
-              }
+              onClick={(selected) => {
+                if (selected)
+                  setSelectedTags((preTags) =>
+                    preTags.filter((item) => item !== tag)
+                  );
+                else {
+                  if (selectedtdTags.length === 3) return false;
+                  setSelectedTags((preTags) => [...preTags, tag]);
+                }
+                return true;
+              }}
+              isSelected={selectedtdTags.includes(tag)}
             />
           ))}
         </div>

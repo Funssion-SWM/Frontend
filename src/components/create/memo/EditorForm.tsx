@@ -148,7 +148,6 @@ export default function EditorForm({
     if ((inputTag !== '' && e.key === 'Enter') || e.key === ',') {
       !tags.includes(inputTag) && setTags([...tags, inputTag]);
       setInputTag('');
-      console.log(tags);
     }
   };
 
