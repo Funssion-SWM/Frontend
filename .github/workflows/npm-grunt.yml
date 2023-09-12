@@ -37,6 +37,7 @@ jobs:
         username: ec2-user
         key: ${{ secrets.PRIVATE_KEY }}
         script: |
-            ssh next sudo docker rm -f $(ssh next sudo docker ps -qa)
-            ssh next sudo docker pull ${{ secrets.DOCKER_REPO }}/${{ secrets.DOCKER_IMAGE }}
-            ssh next sudo docker run -dp 3000:3000 ${{ secrets.DOCKER_REPO }}/${{ secrets.DOCKER_IMAGE }}
+            sudo docker stop frontend
+            sudo docker rm frontend
+            sudo docker pull ${{ secrets.DOCKER_REPO }}/${{ secrets.DOCKER_IMAGE }}
+            sudo docker run -dp 3000:3000 --name=frontend ${{ secrets.DOCKER_REPO }}/${{ secrets.DOCKER_IMAGE }}
