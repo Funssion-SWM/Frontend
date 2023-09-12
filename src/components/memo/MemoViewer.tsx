@@ -30,7 +30,7 @@ export default function MemoViewer({
 }: Props) {
   return (
     <section
-      className={`flex flex-col sm:rounded-lg sm:shadow-lg px-4 min-h-screen sm:min-h-for-fit-screen w-full pb-4 ${
+      className={`flex flex-col sm:rounded-2xl sm:shadow-lg px-4 min-h-screen sm:min-h-for-fit-screen w-full pb-4 ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
@@ -48,21 +48,10 @@ export default function MemoViewer({
         isLike={isLike}
         isMyMemo={isMyMemo}
       />
-      <h1
-        className={`text-2xl sm:text-4xl font-bold py-3 px-4 mb-5 break-all ${
-          {
-            yellow: 'bg-yellow-50',
-            green: 'bg-green-50',
-            skyblue: 'bg-sky-50',
-            orange: 'bg-orange-50',
-            pink: 'bg-pink-50',
-            navy: 'bg-blue-50',
-            purple: 'bg-purple-50',
-          }[color]
-        }`}
-      >
+      <h1 className={`text-2xl sm:text-4xl font-bold py-2 px-4 break-all`}>
         {title}
       </h1>
+      <div className="h-[0.5px] mx-3 my-4 bg-soma-grey-49"></div>
       <div className="px-4 flex-grow break-all">
         <EditorContent
           editor={useEditor({

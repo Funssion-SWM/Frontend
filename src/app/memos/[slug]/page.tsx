@@ -42,7 +42,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
   return (
     <section>
       <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
-      <LayoutWrapper paddingY="sm:py-5" bgColor="bg-soma-grey-10">
+      <LayoutWrapper paddingY="sm:py-5" bgColor="bg-soma-grey-20">
         <div className="flex w-full ">
           <MemoViewer
             title={memoTitle}

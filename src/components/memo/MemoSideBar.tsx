@@ -22,7 +22,7 @@ export default function MemoSideBar({
 }: Props) {
   return (
     <aside
-      className={`ml-3 sticky flex flex-col top-24 rounded-lg basis-1/4 border-[1px] border-soma-grey-30 max-h-for-fit-screen min-w-[300px]`}
+      className={`ml-5 sticky bg-white flex flex-col top-24 rounded-2xl basis-1/4 shadow max-h-for-fit-screen min-w-[300px]`}
     >
       <MemoSidebarHeader
         authorId={authorId}
@@ -30,7 +30,7 @@ export default function MemoSideBar({
         authorProfileImagePath={authorProfileImagePath}
       />
       <CommentsList comments={comments} userId={userId} />
-      <div className="sticky bottom-0 p-1 bg-white shadow-inner">
+      <div className="sticky bottom-0 p-1 bg-white shadow-inner rounded-b-2xl">
         <CommentForm postId={memoId} />
       </div>
     </aside>
