@@ -46,6 +46,25 @@ exports[`Header renders correctly when isLogin is true 1`] = `
     <nav
       className="flex items-center gap-3 relative"
     >
+      <img
+        alt="search_icon"
+        className="cursor-pointer"
+        data-nimg="1"
+        decoding="async"
+        height={40}
+        loading="lazy"
+        onClick={[Function]}
+        onError={[Function]}
+        onLoad={[Function]}
+        src="/_next/image?url=%2Fimg.jpg&w=96&q=75"
+        srcSet="/_next/image?url=%2Fimg.jpg&w=48&q=75 1x, /_next/image?url=%2Fimg.jpg&w=96&q=75 2x"
+        style={
+          {
+            "color": "transparent",
+          }
+        }
+        width={40}
+      />
       <button
         onClick={[Function]}
       >

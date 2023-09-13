@@ -2,8 +2,8 @@
 
 exports[`CategoryBtn renders correctly when isSelected is false 1`] = `
 <button
-  className="border-2 texsomb20 py-2 px-4 rounded-3xl transition text-sm
-          border-soma-grey-40 bg-white hover:border-soma-blue-50 hover:text-soma-blue-50 hover:bg-soma-blue-10"
+  className="border-2 py-2 px-3.5 rounded-3xl transition text-xs sm:text-sm
+      border-soma-grey-40 bg-white hover:border-soma-blue-50 hover:text-soma-blue-50 hover:bg-soma-blue-10"
   onClick={[Function]}
 >
   text
@@ -12,8 +12,38 @@ exports[`CategoryBtn renders correctly when isSelected is false 1`] = `
 
 exports[`CategoryBtn renders correctly when isSelected is true 1`] = `
 <button
-  className="border-2 texsomb20 py-2 px-4 rounded-3xl transition text-sm
-          border-soma-blue-50 text-soma-blue-50 bg-soma-blue-10"
+  className="border-2 py-2 px-3.5 rounded-3xl transition text-xs sm:text-sm
+      border-soma-blue-50 text-soma-blue-50 bg-soma-blue-10"
+  onClick={[Function]}
+>
+  text
+</button>
+`;
+
+exports[`CategoryBtn renders correctly when size is big 1`] = `
+<button
+  className="border-2 py-2 px-3.5 rounded-3xl transition text-sm sm:text-base
+      border-soma-grey-40 bg-white hover:border-soma-blue-50 hover:text-soma-blue-50 hover:bg-soma-blue-10"
+  onClick={[Function]}
+>
+  text
+</button>
+`;
+
+exports[`CategoryBtn renders correctly when size is medium 1`] = `
+<button
+  className="border-2 py-2 px-3.5 rounded-3xl transition text-xs sm:text-sm
+      border-soma-grey-40 bg-white hover:border-soma-blue-50 hover:text-soma-blue-50 hover:bg-soma-blue-10"
+  onClick={[Function]}
+>
+  text
+</button>
+`;
+
+exports[`CategoryBtn renders correctly when size is small 1`] = `
+<button
+  className="border-2 py-2 px-3.5 rounded-3xl transition text-[10px] sm:text-xs
+      border-soma-grey-40 bg-white hover:border-soma-blue-50 hover:text-soma-blue-50 hover:bg-soma-blue-10"
   onClick={[Function]}
 >
   text
