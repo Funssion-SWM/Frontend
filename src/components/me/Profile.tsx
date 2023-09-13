@@ -17,20 +17,16 @@ export default function Profile({ userInfo }: Props) {
           height={96}
           className="rounded-full w-24 h-24 object-cover"
         />
-        <p className="font-bold mt-1">{userInfo.nickname}</p>
-        {/* <p>15301</p> */}
+        <p className="font-bold mt-2 text-lg">{userInfo.nickname}</p>
       </div>
-      <div className="self-start mt-5 w-full">
-        <h3 className="font-semibold">자기소개</h3>
-        <p className="bg-soma-blue-5 p-3 rounded-md mt-1 w-full text-sm h-[150px] overflow-y-auto text-soma-grey-60">
-          {userInfo.introduce}
-        </p>
-      </div>
+      <p className="p-3 rounded-md mt-1 w-full break-all text-sm overflow-y-auto text-soma-grey-60">
+        {userInfo.introduce}
+      </p>
       {userInfo.userTags.length !== 0 && (
-        <div className="flex text-sm gap-1 mt-2 self-start">
+        <div className="flex text-sm gap-1 mt-2 self-start overflow-x-hidden w-full">
           {userInfo.userTags.map((tag, idx) => (
             <div
-              className="bg-green-100 font-medium text-green-500 px-2 py-1 text-white rounded-3xl"
+              className="bg-white font-semibold px-2 py-1  text-green-500 rounded-3xl"
               key={idx}
             >
               {tag}
