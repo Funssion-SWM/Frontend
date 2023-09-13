@@ -269,10 +269,10 @@ export default function EditorForm({
           name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-2 border-gray-400"
+          className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-[1px] border-gray-400"
           autoFocus
         />
-        <div className="flex flex-wrap gap-1 mx-4 mb-1">
+        <div className="flex flex-wrap gap-1 mx-3 mb-1">
           {tags.map((tag, idx) => (
             <Tag
               key={idx}
