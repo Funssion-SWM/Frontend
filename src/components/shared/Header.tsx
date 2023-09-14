@@ -23,8 +23,8 @@ export default function Header({ isLogin, profileImageFilePath }: Props) {
   const { open } = useContext(ModalContext);
 
   return (
-    <section className="border-b-2 sticky top-0 bg-white z-10">
-      <header className="flex justify-between items-center py-4 px-5 max-w-screen-xl m-auto">
+    <header className="border-b-[1px] border-soma-grey-40 sticky top-0 bg-white z-10 ">
+      <div className="flex justify-between items-center py-4 px-5 max-w-screen-xl m-auto h-[70px]">
         <h1
           className="text-2xl font-bold cursor-pointer"
           onClick={() => {
@@ -36,7 +36,13 @@ export default function Header({ isLogin, profileImageFilePath }: Props) {
         </h1>
         {isLogin ? (
           <nav className="flex items-center gap-3 relative" ref={dropdownRef}>
-            <Image className='cursor-pointer' src={searchIcon} alt='search_icon' onClick={() => router.push("/search/form")}/>
+            <button onClick={() => router.push('/search/form')}>
+              <Image
+                className="cursor-pointer"
+                src={searchIcon}
+                alt="search_icon"
+              />
+            </button>
 
             <button onClick={() => setIsActive((pre) => !pre)}>
               <Image
@@ -57,7 +63,7 @@ export default function Header({ isLogin, profileImageFilePath }: Props) {
                 className="hover:bg-gray-200 p-2 rounded-t-lg"
                 onClick={() => {
                   checkUser().then((data) => {
-                    router.push(`/me/${data.id}`)
+                    router.push(`/me/${data.id}`);
                     router.refresh();
                   });
                   setIsActive(false);
@@ -104,7 +110,7 @@ export default function Header({ isLogin, profileImageFilePath }: Props) {
             <BlueBtn text="로그인" onClick={() => {}} />
           </Link>
         )}
-      </header>
-    </section>
+      </div>
+    </header>
   );
 }
