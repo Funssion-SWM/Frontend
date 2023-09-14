@@ -98,6 +98,7 @@ export function startImageUpload(
   };
 
   handleImageUpload(file, memoId).then((src) => {
+    console.log(src);
     const { schema } = view.state;
 
     let pos = findPlaceholder(view.state, id);
@@ -125,27 +126,12 @@ export const handleImageUpload = (file: File, memoId: number) => {
   return new Promise((resolve) => {
     toast.promise(
       postImage(memoId, file).then(async (res) => {
-        console.log(res);
-        // Successfully uploaded image
-        if (res.status === 200) {
-          const { url } = (await res.json()) as BlobResult;
-          // preload the image
-          let image = new Image();
-          image.src = url;
-          image.onload = () => {
-            resolve(url);
-          };
-          // No blob store configured
-        } else if (res.status === 401) {
-          resolve(file);
-
-          throw new Error(
-            '`BLOB_READ_WRITE_TOKEN` environment variable not found, reading image locally instead.'
-          );
-          // Unknown error
-        } else {
-          throw new Error(`Error uploading image. Please try again.`);
-        }
+        // preload the image
+        let image = new Image();
+        image.src = res.imagePath;
+        image.onload = () => {
+          resolve(res.imagePath);
+        };
       }),
       {
         loading: 'Uploading image...',

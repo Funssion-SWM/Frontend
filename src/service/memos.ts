@@ -1,4 +1,5 @@
 import { Orderby, Period } from '@/types';
+import { PostImageResponse } from '@/types/image';
 import { Memo, PostMemoData } from '@/types/memo';
 import { ACCESS_TOKEN } from '@/utils/const';
 
@@ -107,7 +108,10 @@ export async function deleteMemo(id: number) {
     .catch(console.error);
 }
 
-export async function postImage(memoId: number, image: File) {
+export async function postImage(
+  memoId: number,
+  image: File
+): Promise<PostImageResponse> {
   const formdata = new FormData();
   formdata.append('image', image);
   return fetch(
