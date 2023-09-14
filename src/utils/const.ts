@@ -10,7 +10,7 @@ export const COLORS: MemoColor[] = [
   'purple',
 ];
 
-export const ACCESS_TOKEN = 'access_token';
+export const ACCESS_TOKEN = 'accessToken';
 
 export const DESCRIPTION_MAX_LENGTH = 120;
 

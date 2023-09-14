@@ -1,3 +1,5 @@
+'use client';
+
 import { Comment } from '@/types/comment';
 import { deleteComeent, updateComment } from '@/service/comments';
 import { useRouter } from 'next/navigation';
@@ -11,9 +13,14 @@ import CommentHeader from './CommentHeader';
 type Props = {
   commentProperty: Comment;
   isMyComment: boolean;
+  userId: number;
 };
 
-export default function CommentItem({ commentProperty, isMyComment }: Props) {
+export default function CommentItem({
+  commentProperty,
+  isMyComment,
+  userId,
+}: Props) {
   const {
     id,
     commentText,
@@ -23,11 +30,13 @@ export default function CommentItem({ commentProperty, isMyComment }: Props) {
     createdDate,
     isLike,
     likes,
+    reCommentsNumber,
   } = commentProperty;
 
-  const [updatedText, setUpdatedText] = useState(commentText);
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [isRecommentBtnClicked, setIsRecommentBtnClicked] = useState(false);
+  const [updatedText, setUpdatedText] = useState<string>(commentText);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [isRecommentBtnClicked, setIsRecommentBtnClicked] =
+    useState<boolean>(false);
   const { open } = useContext(ModalContext);
   const router = useRouter();
 
@@ -41,6 +50,7 @@ export default function CommentItem({ commentProperty, isMyComment }: Props) {
         createdDate={createdDate}
         isLike={isLike}
         likeNum={likes}
+        isRecomment={false}
       />
       {isEditMode ? (
         <textarea
@@ -56,12 +66,19 @@ export default function CommentItem({ commentProperty, isMyComment }: Props) {
         <p className="pl-3 text-sm my-2 text-soma-grey-60">{commentText}</p>
       )}
       <div className="flex justify-between items-center text-[10px] mb-3 pl-3 mr-2">
-        <button onClick={() => setIsRecommentBtnClicked((pre) => !pre)}>
-          {isRecommentBtnClicked ? '답글 닫기' : '답글 보기'}
+        <button
+          className="text-soma-blue-40 font-semibold"
+          onClick={() => setIsRecommentBtnClicked((pre) => !pre)}
+        >
+          {isRecommentBtnClicked
+            ? '답글 닫기'
+            : reCommentsNumber === 0
+            ? '답글 작성'
+            : `${reCommentsNumber}개의 답글`}
         </button>
         {isMyComment &&
           (!isEditMode ? (
-            <div className="flex gap-2 r-3">
+            <div className="flex gap-2 r-3 text-soma-grey-49">
               <button
                 onClick={() => {
                   setIsEditMode(true);
@@ -107,7 +124,11 @@ export default function CommentItem({ commentProperty, isMyComment }: Props) {
           ))}
       </div>
       {isRecommentBtnClicked && (
-        <RecommentContainer commentId={id} authorId={authorId} />
+        <RecommentContainer
+          commentId={id}
+          authorId={authorId}
+          userId={userId}
+        />
       )}
     </div>
   );

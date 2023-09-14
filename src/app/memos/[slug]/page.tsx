@@ -5,6 +5,9 @@ import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import MemoSideBar from '@/components/memo/MemoSideBar';
 import { getCommentsByPostTypeAndPostId } from '@/service/comments';
 import { cookies } from 'next/headers';
+import { getIsLike } from '@/service/like';
+import { ACCESS_TOKEN } from '@/utils/const';
+import { checkUser, getUserInfo } from '@/service/auth';
 
 type Props = {
   params: {
@@ -13,6 +16,8 @@ type Props = {
 };
 
 export default async function MemoPage({ params: { slug } }: Props) {
+  const cookie = cookies().get(ACCESS_TOKEN)?.value;
+
   const {
     memoTitle,
     memoColor,
@@ -21,26 +26,33 @@ export default async function MemoPage({ params: { slug } }: Props) {
     likes,
     authorName,
     authorProfileImagePath,
-  } = await getMemoById(slug);
+    memoTags,
+    isMine,
+  } = await getMemoById(slug, cookie);
 
-  const comments = await getCommentsByPostTypeAndPostId(
-    'memo',
-    slug,
-    cookies().get('accessToken')?.value
-  );
+  const { isLike } = await getIsLike('memos', slug, cookie);
+
+  const comments = await getCommentsByPostTypeAndPostId('memo', slug, cookie);
+
+  const { id, isLogin } = await checkUser(cookie);
+  const { profileImageFilePath } = isLogin
+    ? await getUserInfo(id)
+    : { profileImageFilePath: undefined };
 
   return (
     <section>
-      <Header />
-      <LayoutWrapper paddingY="sm:py-5" bgColor="bg-soma-grey-10">
+      <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
+      <LayoutWrapper paddingY="sm:py-5" bgColor="bg-soma-grey-20">
         <div className="flex w-full ">
           <MemoViewer
             title={memoTitle}
             content={JSON.parse(memoText)}
             color={memoColor}
+            memoTags={memoTags}
             memoId={slug}
-            authorId={authorId}
             likes={likes}
+            isLike={isLike}
+            isMyMemo={isMine}
           />
           <MemoSideBar
             authorName={authorName}
@@ -48,6 +60,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
             authorId={authorId}
             comments={comments}
             memoId={slug}
+            userId={id}
           />
         </div>
       </LayoutWrapper>

@@ -25,7 +25,7 @@ export default function MemosGrid({
     }
     `}
     >
-      {memos.map((memo) => (
+      {memos?.map((memo) => (
         <li key={memo.memoId}>
           {isTemporary ? (
             <MemoCardTemporary memo={memo} />

@@ -12,7 +12,7 @@ import { useCompletion } from 'ai/react';
 import { getDescription } from '@/service/description';
 import { ModalContext } from '@/context/ModalProvider';
 import { TiptapExtensions } from '@/components/editor/extensions';
-import { TiptapEditorProps } from '@/components/editor/props';
+import { handleTiptapEditorProps } from '@/components/editor/props';
 import { Memo, MemoColor } from '@/types/memo';
 import WhiteBtnWithCount from '@/components/shared/btn/WhiteBtnWithCount';
 import FakeEditor from '@/components/editor/components/FakeEditor';
@@ -20,11 +20,13 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { toast } from 'react-toastify';
 import { DraftsInModalContext } from '@/context/DraftsInModalProvider';
 import { TEMPORARY_SAVE_INTERVAL_TIME } from '@/utils/const';
+import Tag from '@/components/shared/Tag';
 
 type Props = {
   preTitle?: string;
   preContent?: object;
   preColor?: MemoColor;
+  preMemoTags?: string[];
   alreadyExists: boolean;
   memoId?: number;
 };
@@ -33,6 +35,7 @@ export default function EditorForm({
   preTitle = '',
   preContent,
   preColor = 'yellow',
+  preMemoTags = [],
   alreadyExists,
   memoId,
 }: Props) {
@@ -63,7 +66,7 @@ export default function EditorForm({
   const [contents, setContents] = useState(JSON.stringify(preContent));
   const editor = useEditor({
     extensions: TiptapExtensions,
-    editorProps: TiptapEditorProps,
+    editorProps: handleTiptapEditorProps(memoId),
     content: preContent,
     onUpdate: (e) => {
       setContents(JSON.stringify(e.editor.getJSON()));
@@ -87,7 +90,7 @@ export default function EditorForm({
 
   const fakeEditor = useEditor({
     extensions: TiptapExtensions,
-    editorProps: TiptapEditorProps,
+    editorProps: handleTiptapEditorProps(memoId),
     editable: false,
   });
 
@@ -131,8 +134,22 @@ export default function EditorForm({
     };
   }, [stop, isLoading, editor, complete, completion.length]);
 
-  const [title, setTitle] = useState(preTitle);
+  const [title, setTitle] = useState<string>(preTitle);
   const [selectedColor, setSelectedColor] = useState<MemoColor>(preColor);
+  const [inputTag, setInputTag] = useState<string>('');
+  const [tags, setTags] = useState<string[]>(preMemoTags);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing) return;
+    if (inputTag === '' && e.key === 'Backspace') {
+      setTags((preTags) => preTags.slice(0, -1));
+      return;
+    }
+    if ((inputTag !== '' && e.key === 'Enter') || e.key === ',') {
+      !tags.includes(inputTag) && setTags([...tags, inputTag]);
+      setInputTag('');
+    }
+  };
 
   const temporaryContents = useDebounce(contents, TEMPORARY_SAVE_INTERVAL_TIME);
 
@@ -157,6 +174,7 @@ export default function EditorForm({
         memoDescription,
         memoText: temporaryContents,
         memoColor: selectedColor,
+        memoTags: tags,
         isTemporary: true,
       }
     ).then((data) => {
@@ -207,6 +225,7 @@ export default function EditorForm({
         memoDescription,
         memoText,
         memoColor: selectedColor,
+        memoTags: tags,
         isTemporary: saveMode === 'temporary',
       }
     ).then((data) => {
@@ -250,10 +269,29 @@ export default function EditorForm({
           name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-2 border-gray-400"
+          className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-[1px] border-gray-400"
           autoFocus
         />
-        {/* <h3>tag</h3> */}
+        <div className="flex flex-wrap gap-1 mx-3 mb-1">
+          {tags.map((tag, idx) => (
+            <Tag
+              key={idx}
+              tagText={tag}
+              onClick={() =>
+                setTags((preTags) => preTags.filter((item) => item !== tag))
+              }
+            />
+          ))}
+          <input
+            type="text"
+            placeholder="태그를 입력 후 엔터를 눌러주세요."
+            name="tag"
+            value={inputTag}
+            onChange={(e) => setInputTag(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className="grow outline-none p-1 text-sm sm:text-base bg-transparent"
+          />
+        </div>
         <SelectColorBar
           selected={selectedColor}
           onClick={(color: MemoColor) => setSelectedColor(color)}

@@ -4,28 +4,38 @@ import { EditorContent, useEditor } from '@tiptap/react';
 
 import MemoViewerHeader from './MemoViewerHeader';
 import { TiptapExtensions } from '@/components/editor/extensions';
-import { TiptapEditorProps } from '@/components/editor/props';
+import { useRouter } from 'next/navigation';
+import TagView from '../shared/TagView';
+import Tag from '../shared/Tag';
+import { handleTiptapEditorProps } from '../editor/props';
 
 type Props = {
   title: string;
   content: string;
   color: string;
+  memoTags: string[];
   memoId: number;
-  authorId: number;
   likes: number;
+  isLike: boolean;
+  isMyMemo: boolean;
 };
 
 export default function MemoViewer({
   title,
   content,
   color,
+  memoTags,
   memoId,
-  authorId,
   likes,
+  isLike,
+  isMyMemo,
 }: Props) {
+
+  const router = useRouter();
+
   return (
     <section
-      className={`flex flex-col sm:rounded-lg sm:shadow-lg px-4 min-h-screen sm:min-h-for-fit-screen w-full pb-8 ${
+      className={`flex flex-col sm:rounded-2xl sm:shadow-lg px-4 min-h-screen sm:min-h-for-fit-screen w-full pb-4 ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
@@ -37,31 +47,30 @@ export default function MemoViewer({
         }[color]
       } `}
     >
-      <MemoViewerHeader memoId={memoId} authorId={authorId} likes={likes} />
-      <h1
-        className={`text-2xl sm:text-4xl font-bold py-3 px-4 mb-5 break-all ${
-          {
-            yellow: 'bg-yellow-50',
-            green: 'bg-green-50',
-            skyblue: 'bg-sky-50',
-            orange: 'bg-orange-50',
-            pink: 'bg-pink-50',
-            navy: 'bg-blue-50',
-            purple: 'bg-purple-50',
-          }[color]
-        }`}
-      >
+      <MemoViewerHeader
+        memoId={memoId}
+        likes={likes}
+        isLike={isLike}
+        isMyMemo={isMyMemo}
+      />
+      <h1 className={`text-2xl sm:text-4xl font-bold py-2 px-4 break-all`}>
         {title}
       </h1>
+      <div className="h-[0.5px] mx-3 my-4 bg-soma-grey-49"></div>
       <div className="px-4 flex-grow break-all">
         <EditorContent
           editor={useEditor({
             extensions: TiptapExtensions,
-            editorProps: TiptapEditorProps,
+            editorProps: handleTiptapEditorProps(memoId),
             editable: false,
             content: content,
           })}
         />
+      </div>
+      <div className="flex flex-wrap gap-1 m-4">
+        {memoTags.map((tag, idx) => (
+          <TagView key={idx} tagText={tag} />
+        ))}
       </div>
     </section>
   );

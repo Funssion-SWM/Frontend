@@ -1,7 +1,4 @@
 import { Comment } from '@/types/comment';
-import basicProfileImg from '@/assets/profile.svg';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useContext, useState } from 'react';
 import WhiteBtn from '@/components/shared/btn/WhiteBtn';
 import BlueBtn from '@/components/shared/btn/BlueBtn';
@@ -11,6 +8,7 @@ import {
   getRecommentsByCommentId,
   updateRecomment,
 } from '@/service/comments';
+import CommentHeader from '../comment/CommentHeader';
 
 type Props = {
   commentProperty: Comment;
@@ -31,6 +29,8 @@ export default function RecommentItem({
     authorId,
     authorImagePath,
     authorName,
+    isLike,
+    likes,
     createdDate,
   } = commentProperty;
 
@@ -40,23 +40,16 @@ export default function RecommentItem({
 
   return (
     <div className="w-full border-t-2 border-soma-grey-30 p-3 pl-6 bg-soma-grey-20">
-      <div className="flex items-center">
-        <Link href={`/me/${authorId}`}>
-          <Image
-            src={authorImagePath ?? basicProfileImg}
-            alt="profileImg"
-            width={28}
-            height={28}
-            className="rounded-full w-7 h-7 object-cover "
-          />
-        </Link>
-        <div className="ml-2 text-xs">
-          <div className="text-soma-grey-60">{authorName}</div>
-          <p className="text-xs text-soma-grey-49">
-            {createdDate.substring(0, 10)}
-          </p>
-        </div>
-      </div>
+      <CommentHeader
+        commentId={id}
+        authorId={authorId}
+        authorImagePath={authorImagePath}
+        authorName={authorName}
+        createdDate={createdDate}
+        isLike={isLike}
+        likeNum={likes}
+        isRecomment={true}
+      />
       {isEditMode ? (
         <textarea
           className="text-sm my-2 text-soma-grey-60 outline-none w-full resize-none"

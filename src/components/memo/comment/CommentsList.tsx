@@ -1,25 +1,12 @@
-'use client';
-
 import { Comment } from '@/types/comment';
 import CommentItem from './CommentItem';
-import { checkUser } from '@/service/auth';
-import { useEffect, useState } from 'react';
 
 type Props = {
   comments: Comment[];
+  userId: number;
 };
 
-export default function CommentsList({ comments }: Props) {
-  const [uid, setUid] = useState<number | null>(null);
-
-  async function first() {
-    await checkUser().then((data) => setUid(data.id));
-  }
-
-  useEffect(() => {
-    first();
-  }, []);
-
+export default function CommentsList({ comments, userId }: Props) {
   return comments.length === 0 ? (
     <p className="flex justify-center items-center h-full text-sm text-soma-grey-49">
       작성된 댓글이 없습니다...
@@ -30,7 +17,8 @@ export default function CommentsList({ comments }: Props) {
         <li key={item.id}>
           <CommentItem
             commentProperty={item}
-            isMyComment={uid === item.authorId}
+            isMyComment={userId === item.authorId}
+            userId={userId}
           />
         </li>
       ))}

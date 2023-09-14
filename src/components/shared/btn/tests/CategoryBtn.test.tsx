@@ -20,6 +20,42 @@ describe('CategoryBtn', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
+  it('renders correctly when size is small', () => {
+    const component = renderer.create(
+      <CategoryBtn
+        text="text"
+        size="small"
+        onClick={() => {}}
+        isSelected={false}
+      />
+    );
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
+  it('renders correctly when size is medium', () => {
+    const component = renderer.create(
+      <CategoryBtn
+        text="text"
+        size="medium"
+        onClick={() => {}}
+        isSelected={false}
+      />
+    );
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
+  it('renders correctly when size is big', () => {
+    const component = renderer.create(
+      <CategoryBtn
+        text="text"
+        size="big"
+        onClick={() => {}}
+        isSelected={false}
+      />
+    );
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
   it('when button clicked', async () => {
     const mockCallback = jest.fn();
 

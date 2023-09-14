@@ -19,7 +19,7 @@ export default function MemoCardHeader({
   authorId,
 }: Props) {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between h-10 items-center">
       <div className="flex items-center">
         <Link href={`/me/${authorId}`}>
           <Image
@@ -31,7 +31,7 @@ export default function MemoCardHeader({
           />
         </Link>
         <div className="ml-2">
-          <h4>{authorName}</h4>
+          <h4 className="text-soma-grey-60 font-medium">{authorName}</h4>
           <p className="text-xs text-soma-grey-49">
             {createDate.substring(0, 10)}
           </p>

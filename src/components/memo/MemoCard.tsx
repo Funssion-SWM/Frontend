@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import MemoCardHeader from './MemoCardHeader';
 import { Memo } from '@/types/memo';
+import MemoCardFooter from './MemoCardFooter';
+import MemoCardMain from './MemoCardMain';
 
 type Props = {
   memo: Memo;
@@ -17,11 +19,12 @@ export default function MemoCard({
     authorName,
     authorProfileImagePath,
     likes,
+    memoTags,
   },
 }: Props) {
   return (
     <article
-      className={`flex flex-col relative rounded-md shadow-md aspect-square p-4 ${
+      className={`flex flex-col relative rounded-md shadow-md aspect-square p-3 hover:scale-105 transition ease-in-out duration-300 ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
@@ -40,12 +43,12 @@ export default function MemoCard({
         imagePath={authorProfileImagePath}
         authorId={authorId}
       />
-      <Link href={`/memos/${memoId}`}>
-        <h2 className="text-2xl font-bold my-5 line-clamp-2 break-all">
-          {memoTitle}
-        </h2>
-        <p className="line-clamp-3 break-all">{memoDescription}</p>
-      </Link>
+      <MemoCardMain
+        memoId={memoId}
+        memoTitle={memoTitle}
+        memoDescription={memoDescription}
+      />
+      <MemoCardFooter memoTags={memoTags} />
     </article>
   );
 }

@@ -50,7 +50,7 @@ export type UserInfo = {
   profileImageFilePath: string;
   nickname: string;
   introduce: string;
-  tags: string;
+  userTags: string[];
 };
 
 export type HistoryItem = {
@@ -62,6 +62,12 @@ export type HistoryItem = {
 export type Like = {
   isLike: boolean;
   likes: number;
+};
+
+export type SearchHistory = {
+  id: number;
+  searchText: string;
+  isTag: boolean;
 };
 
 export type Period = 'day' | 'week' | 'month' | 'year';

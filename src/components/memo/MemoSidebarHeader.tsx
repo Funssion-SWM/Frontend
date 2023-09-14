@@ -18,9 +18,9 @@ export default function MemoSidebarHeader({
   authorProfileImagePath,
 }: Props) {
   return (
-    <div className="bg-white sticky top-0 p-3 border-b-2 border-soma-grey-30">
+    <div className="bg-white rounded-t-2xl sticky top-0 p-3 border-b-2 border-soma-grey-30">
       <div className="flex justify-between items-center">
-        <div className="flex items-center text-xs">
+        <div className="flex items-center text-sm">
           <Link href={`/me/${authorId}`}>
             <Image
               src={authorProfileImagePath ?? basicProfileImg}
@@ -31,7 +31,7 @@ export default function MemoSidebarHeader({
             />
           </Link>
           <div className="ml-3">
-            <div className="text-soma-grey-60 font-medium">{authorName}</div>
+            <div className="text-soma-grey-60 font-semibold">{authorName}</div>
           </div>
         </div>
         <WhiteBtn
@@ -41,7 +41,7 @@ export default function MemoSidebarHeader({
           }}
         />
       </div>
-      <div className="flex gap-1 my-3">
+      <div className="flex gap-1 mt-3 mb-1">
         <CategoryBtn text="댓글✏️" onClick={() => {}} isSelected={true} />
         <CategoryBtn
           text="Q&A💬"
