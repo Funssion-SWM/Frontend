@@ -98,7 +98,6 @@ export function startImageUpload(
   };
 
   handleImageUpload(file, memoId).then((src) => {
-    console.log(src);
     const { schema } = view.state;
 
     let pos = findPlaceholder(view.state, id);

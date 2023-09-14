@@ -10,11 +10,14 @@ import { useDebounce } from '@/hooks/useDebounce';
 // import CategoryBtn from '../shared/btn/CategoryBtn';
 
 type Props = {
-  searchString:string;
-  isTag:boolean;
+  searchString: string;
+  isTag: boolean;
 };
 
-export default function SearchResultMemosContainer({ searchString, isTag }: Props) {
+export default function SearchResultMemosContainer({
+  searchString,
+  isTag,
+}: Props) {
   const [memoData, setMemodata] = useState<Memo[]>([]);
   const [selectedOrderType, setSelectedOrderType] = useState<Orderby>('hot');
 
@@ -28,13 +31,12 @@ export default function SearchResultMemosContainer({ searchString, isTag }: Prop
 
   const init = async () => {
     const memos = await searchMemos(tempSearchString, selectedOrderType, isTag);
-    console.log(memos);
     setMemodata(memos);
-  }
+  };
 
   useEffect(() => {
     init();
-  }, [tempSearchString])
+  }, [tempSearchString]);
 
   return (
     <div>
@@ -50,9 +52,7 @@ export default function SearchResultMemosContainer({ searchString, isTag }: Prop
           isSelected={selectedOrderType === 'new'}
         />
       </div>
-      <div className='pb-2'>
-        {memoData.length} 개의 검색 결과가 있습니다.
-      </div>
+      <div className="pb-2">{memoData.length} 개의 검색 결과가 있습니다.</div>
       <MemosGrid memos={memoData} colNum={4} />
     </div>
   );

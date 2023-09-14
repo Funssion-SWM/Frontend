@@ -59,7 +59,7 @@ export async function checkUser(
       credentials: 'include',
       next: { revalidate: 0 },
       headers: {
-        Cookie: `${ACCESS_TOKEN}=${cookie}`,
+        Cookie: `${ACCESS_TOKEN}=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IiIsImV4cCI6MTY5NDY5ODgzNX0.BX66NxD0U2ZtaMhguVN2ye_JNA4i8Ok13uBG2SwJRJaIx4rMY72mrRl0owzZ9gOmt8hsssc9d-W_q8sax-MXyQ`,
       },
     }
   )
@@ -169,13 +169,8 @@ export async function updateUserInfo(
     }
   )
     .then((res) => {
-      console.log(res);
       if (!res.ok) throw new Error('error!!');
       return res.json();
-    })
-    .then((data) => {
-      console.log(data);
-      return data;
     })
     .catch(console.error);
 }
