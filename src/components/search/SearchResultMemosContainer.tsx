@@ -11,14 +11,15 @@ import { useDebounce } from '@/hooks/useDebounce';
 
 type Props = {
   searchString:string;
+  isTag:boolean;
 };
 
-export default function SearchResultMemosContainer({ searchString }: Props) {
+export default function SearchResultMemosContainer({ searchString, isTag }: Props) {
   const [memoData, setMemodata] = useState<Memo[]>([]);
   const [selectedOrderType, setSelectedOrderType] = useState<Orderby>('hot');
 
   const handleClick = async (orderBy: Orderby) => {
-    const memos = await searchMemos(searchString, orderBy, false);
+    const memos = await searchMemos(searchString, orderBy, isTag);
     setMemodata(memos);
     setSelectedOrderType(orderBy);
   };
@@ -26,7 +27,8 @@ export default function SearchResultMemosContainer({ searchString }: Props) {
   const tempSearchString = useDebounce(searchString, 1000);
 
   const init = async () => {
-    const memos = await searchMemos(tempSearchString, selectedOrderType, false);
+    const memos = await searchMemos(tempSearchString, selectedOrderType, isTag);
+    console.log(memos);
     setMemodata(memos);
   }
 
@@ -47,6 +49,9 @@ export default function SearchResultMemosContainer({ searchString }: Props) {
           onClick={() => handleClick('new')}
           isSelected={selectedOrderType === 'new'}
         />
+      </div>
+      <div className='pb-2'>
+        {memoData.length} 개의 검색 결과가 있습니다.
       </div>
       <MemosGrid memos={memoData} colNum={4} />
     </div>
