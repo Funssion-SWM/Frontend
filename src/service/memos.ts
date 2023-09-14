@@ -111,7 +111,7 @@ export async function postImage(memoId: number, image: File) {
   const formdata = new FormData();
   formdata.append('image', image);
   return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/${memoId}/image`,
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${memoId}/image`,
     {
       method: 'POST',
       body: formdata,
