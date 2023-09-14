@@ -59,7 +59,7 @@ export async function checkUser(
       credentials: 'include',
       next: { revalidate: 0 },
       headers: {
-        Cookie: `${ACCESS_TOKEN}=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IiIsImV4cCI6MTY5NDY5ODgzNX0.BX66NxD0U2ZtaMhguVN2ye_JNA4i8Ok13uBG2SwJRJaIx4rMY72mrRl0owzZ9gOmt8hsssc9d-W_q8sax-MXyQ`,
+        Cookie: `${ACCESS_TOKEN}=${cookie}`,
       },
     }
   )
