@@ -13,7 +13,6 @@ export default function MemosGrid({
   colNum,
   isTemporary = false,
 }: Props) {
-  console.log(memos);
   return (
     <ul
       className={`grid gap-4 grid-cols-1 

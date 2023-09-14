@@ -284,7 +284,7 @@ export default function EditorForm({
           ))}
           <input
             type="text"
-            placeholder="태그를 입력해주세요."
+            placeholder="태그를 입력 후 엔터를 눌러주세요."
             name="tag"
             value={inputTag}
             onChange={(e) => setInputTag(e.target.value)}

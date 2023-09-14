@@ -12,13 +12,14 @@ type Props = {
 
 export default function SearchForm( { onChange }:Props ) {
   const searchParams = useSearchParams();
-  const [searchString, setSearchString] = useState(searchParams?.get("q"));
+  const [searchString, setSearchString] = useState(searchParams?.get("q") ?? "");
+  const isTag = (searchParams?.get("isTag") ?? "false") == "true";
 
   const formRef = useRef<HTMLFormElement | null>(null); 
   const [borderColor, setBorderColor] = useState("border-blue-400");
 
   const handleClick = () => {
-    if (formRef.current) {
+    if (formRef.current && !isTag) {
       formRef.current.requestSubmit();
     }
   }
@@ -28,7 +29,8 @@ export default function SearchForm( { onChange }:Props ) {
   }
 
   const handleSubmit = () => {
-    addSearchHistory(searchString ? searchString : "", false);
+    if (isTag) return;
+    addSearchHistory(searchString, false);
   }
 
     return (
@@ -38,12 +40,12 @@ export default function SearchForm( { onChange }:Props ) {
         action='/search'
         onSubmit={handleSubmit}
       >
-        <Image className='cursor-pointer ml-8' src={searchIcon} alt="search_icon" onClick={handleClick}/>
+        <Image className={`${isTag ? "" : "cursor-pointer"} ml-8`} src={searchIcon} alt="search_icon" onClick={handleClick}/>
 
         <input
           type='text'
           autoFocus
-          className='text-lg focus:outline-none bg-transparent mx-4 w-full'
+          className={`text-lg focus:outline-none bg-transparent mx-4 w-full ${isTag ? "text-green-500" : ""}`}
           name='q'
           onFocus={(e) => {
             e.target.selectionStart = e.target.value.length;
@@ -52,7 +54,8 @@ export default function SearchForm( { onChange }:Props ) {
           onBlur={() => setBorderColor("")}
           onChange={handleChange}
           placeholder='검색어를 입력해주세요.'
-          defaultValue={searchString ? searchString : ""}
+          defaultValue={isTag ? "# " + searchString : searchString}
+          disabled={isTag}
         />
       </form>
     )
