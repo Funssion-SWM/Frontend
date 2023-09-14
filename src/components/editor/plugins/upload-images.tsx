@@ -2,52 +2,57 @@ import { BlobResult } from '@vercel/blob';
 import { toast } from 'sonner';
 import { EditorState, Plugin, PluginKey } from '@tiptap/pm/state';
 import { Decoration, DecorationSet, EditorView } from '@tiptap/pm/view';
+import { postImage } from '@/service/memos';
 
 const uploadKey = new PluginKey('upload-image');
 
-// const UploadImagesPlugin = () =>
-//   new Plugin({
-//     key: uploadKey,
-//     state: {
-//       init() {
-//         return DecorationSet.empty;
-//       },
-//       apply(tr, set) {
-//         set = set.map(tr.mapping, tr.doc);
-//         // See if the transaction adds or removes any placeholders
-//         const action = tr.getMeta(this);
-//         if (action && action.add) {
-//           const { id, pos, src } = action.add;
+const UploadImagesPlugin = () =>
+  new Plugin({
+    key: uploadKey,
+    state: {
+      init() {
+        return DecorationSet.empty;
+      },
+      apply(tr, set) {
+        set = set.map(tr.mapping, tr.doc);
+        // See if the transaction adds or removes any placeholders
+        const action = tr.getMeta(this as any);
+        if (action && action.add) {
+          const { id, pos, src } = action.add;
 
-//           const placeholder = document.createElement('div');
-//           placeholder.setAttribute('class', 'img-placeholder');
-//           const image = document.createElement('img');
-//           image.setAttribute(
-//             'class',
-//             'opacity-40 rounded-lg border border-stone-200'
-//           );
-//           image.src = src;
-//           placeholder.appendChild(image);
-//           const deco = Decoration.widget(pos + 1, placeholder, {
-//             id,
-//           });
-//           set = set.add(tr.doc, [deco]);
-//         } else if (action && action.remove) {
-//           set = set.remove(
-//             set.find(undefined, undefined, spec => spec.id == action.remove.id)
-//           );
-//         }
-//         return set;
-//       },
-//     },
-//     props: {
-//       decorations(state) {
-//         return this.getState(state);
-//       },
-//     },
-//   });
+          const placeholder = document.createElement('div');
+          placeholder.setAttribute('class', 'img-placeholder');
+          const image = document.createElement('img');
+          image.setAttribute(
+            'class',
+            'opacity-40 rounded-lg border border-stone-200'
+          );
+          image.src = src;
+          placeholder.appendChild(image);
+          const deco = Decoration.widget(pos + 1, placeholder, {
+            id,
+          });
+          set = set.add(tr.doc, [deco]);
+        } else if (action && action.remove) {
+          set = set.remove(
+            set.find(
+              undefined,
+              undefined,
+              (spec) => spec.id == action.remove.id
+            )
+          );
+        }
+        return set;
+      },
+    },
+    props: {
+      decorations(state) {
+        return this.getState(state);
+      },
+    },
+  });
 
-// export default UploadImagesPlugin;
+export default UploadImagesPlugin;
 
 function findPlaceholder(state: EditorState, id: {}) {
   const decos = uploadKey.getState(state);
@@ -55,7 +60,12 @@ function findPlaceholder(state: EditorState, id: {}) {
   return found.length ? found[0].from : null;
 }
 
-export function startImageUpload(file: File, view: EditorView, pos: number) {
+export function startImageUpload(
+  file: File,
+  memoId: number,
+  view: EditorView,
+  pos: number
+) {
   // check if the file is an image
   if (!file.type.includes('image/')) {
     toast.error('File type not supported.');
@@ -87,7 +97,8 @@ export function startImageUpload(file: File, view: EditorView, pos: number) {
     view.dispatch(tr);
   };
 
-  handleImageUpload(file).then((src) => {
+  handleImageUpload(file, memoId).then((src) => {
+    console.log(src);
     const { schema } = view.state;
 
     let pos = findPlaceholder(view.state, id);
@@ -110,38 +121,17 @@ export function startImageUpload(file: File, view: EditorView, pos: number) {
   });
 }
 
-export const handleImageUpload = (file: File) => {
+export const handleImageUpload = (file: File, memoId: number) => {
   // upload to Vercel Blob
   return new Promise((resolve) => {
     toast.promise(
-      fetch('/api/upload', {
-        method: 'POST',
-        headers: {
-          'content-type': file?.type || 'application/octet-stream',
-          'x-vercel-filename': file?.name || 'image.png',
-        },
-        body: file,
-      }).then(async (res) => {
-        // Successfully uploaded image
-        if (res.status === 200) {
-          const { url } = (await res.json()) as BlobResult;
-          // preload the image
-          let image = new Image();
-          image.src = url;
-          image.onload = () => {
-            resolve(url);
-          };
-          // No blob store configured
-        } else if (res.status === 401) {
-          resolve(file);
-
-          throw new Error(
-            '`BLOB_READ_WRITE_TOKEN` environment variable not found, reading image locally instead.'
-          );
-          // Unknown error
-        } else {
-          throw new Error(`Error uploading image. Please try again.`);
-        }
+      postImage(memoId, file).then(async (res) => {
+        // preload the image
+        let image = new Image();
+        image.src = res.imagePath;
+        image.onload = () => {
+          resolve(res.imagePath);
+        };
       }),
       {
         loading: 'Uploading image...',

@@ -4,9 +4,10 @@ import { EditorContent, useEditor } from '@tiptap/react';
 
 import MemoViewerHeader from './MemoViewerHeader';
 import { TiptapExtensions } from '@/components/editor/extensions';
-import { TiptapEditorProps } from '@/components/editor/props';
 import { useRouter } from 'next/navigation';
 import TagView from '../shared/TagView';
+import Tag from '../shared/Tag';
+import { handleTiptapEditorProps } from '../editor/props';
 
 type Props = {
   title: string;
@@ -60,7 +61,7 @@ export default function MemoViewer({
         <EditorContent
           editor={useEditor({
             extensions: TiptapExtensions,
-            editorProps: TiptapEditorProps,
+            editorProps: handleTiptapEditorProps(memoId),
             editable: false,
             content: content,
           })}

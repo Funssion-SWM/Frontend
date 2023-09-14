@@ -1,14 +1,21 @@
 import { Orderby, Period } from '@/types';
+import { PostImageResponse } from '@/types/image';
 import { Memo, PostMemoData } from '@/types/memo';
 import { ACCESS_TOKEN } from '@/utils/const';
 
 export async function searchMemos(
-  searchString:string,
+  searchString: string,
   orderBy: Orderby,
   isTag: Boolean
 ): Promise<Memo[]> {
-  const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/search`);
-  const params = { searchString:searchString, orderBy:orderBy, isTag:isTag.toString() };
+  const url = new URL(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/search`
+  );
+  const params = {
+    searchString: searchString,
+    orderBy: orderBy,
+    isTag: isTag.toString(),
+  };
   url.search = new URLSearchParams(params).toString();
 
   return fetch(url, { next: { revalidate: 0 } })
@@ -18,7 +25,6 @@ export async function searchMemos(
     })
     .catch(console.error);
 }
-
 
 export async function getMemos(
   period: Period = 'month',
@@ -54,7 +60,9 @@ export async function getMemoById(
 ): Promise<Memo> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/${id}`, {
     next: { revalidate: 0 },
-    headers: { Cookie: `${ACCESS_TOKEN}=${cookie}` },
+    headers: {
+      Cookie: `${ACCESS_TOKEN}=${cookie}`,
+    },
   })
     .then((res) => {
       if (!res.ok) throw new Error('error');
@@ -96,6 +104,27 @@ export async function deleteMemo(id: number) {
       if (!res.ok) {
         throw new Error('error');
       }
+    })
+    .catch(console.error);
+}
+
+export async function postImage(
+  memoId: number,
+  image: File
+): Promise<PostImageResponse> {
+  const formdata = new FormData();
+  formdata.append('image', image);
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${memoId}/image`,
+    {
+      method: 'POST',
+      body: formdata,
+      credentials: 'include',
+    }
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('error!!');
+      return res.json();
     })
     .catch(console.error);
 }
