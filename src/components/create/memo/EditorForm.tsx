@@ -12,7 +12,7 @@ import { useCompletion } from 'ai/react';
 import { getDescription } from '@/service/description';
 import { ModalContext } from '@/context/ModalProvider';
 import { TiptapExtensions } from '@/components/editor/extensions';
-import { TiptapEditorProps } from '@/components/editor/props';
+import { handleTiptapEditorProps } from '@/components/editor/props';
 import { Memo, MemoColor } from '@/types/memo';
 import WhiteBtnWithCount from '@/components/shared/btn/WhiteBtnWithCount';
 import FakeEditor from '@/components/editor/components/FakeEditor';
@@ -66,7 +66,7 @@ export default function EditorForm({
   const [contents, setContents] = useState(JSON.stringify(preContent));
   const editor = useEditor({
     extensions: TiptapExtensions,
-    editorProps: TiptapEditorProps,
+    editorProps: handleTiptapEditorProps(memoId),
     content: preContent,
     onUpdate: (e) => {
       setContents(JSON.stringify(e.editor.getJSON()));
@@ -90,7 +90,7 @@ export default function EditorForm({
 
   const fakeEditor = useEditor({
     extensions: TiptapExtensions,
-    editorProps: TiptapEditorProps,
+    editorProps: handleTiptapEditorProps(memoId),
     editable: false,
   });
 

@@ -10,16 +10,9 @@ import TaskItem from '@tiptap/extension-task-item';
 import TaskList from '@tiptap/extension-task-list';
 import { Markdown } from 'tiptap-markdown';
 import Highlight from '@tiptap/extension-highlight';
-
 import SlashCommand from './slash-command';
 import { InputRule } from '@tiptap/core';
-// import UploadImagesPlugin from '../plugins/upload-images';
-
-// const CustomImage = TiptapImage.extend({
-//   addProseMirrorPlugins() {
-//     return [UploadImagesPlugin()];
-//   },
-// });
+import UploadImagesPlugin from '@/components/editor/plugins/upload-images';
 
 export const TiptapExtensions = [
   StarterKit.configure({
@@ -95,12 +88,16 @@ export const TiptapExtensions = [
         'text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer',
     },
   }),
-  // CustomImage.configure({
-  //   allowBase64: true,
-  //   HTMLAttributes: {
-  //     class: 'rounded-lg border border-stone-200',
-  //   },
-  // }),
+  TiptapImage.extend({
+    addProseMirrorPlugins() {
+      return [UploadImagesPlugin()];
+    },
+  }).configure({
+    allowBase64: true,
+    HTMLAttributes: {
+      class: 'rounded-lg border border-stone-200',
+    },
+  }),
   Placeholder.configure({
     placeholder: ({ node }) => {
       if (node.type.name === 'heading') {
