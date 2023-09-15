@@ -16,7 +16,6 @@ export default async function SignupSettingPage({ params: { slug } }: Props) {
   if (referer === null) redirect('/memos');
 
   const defaultTags = await getDefaultTags();
-  console.log(defaultTags);
 
   return (
     <section className="flex flex-col w-full items-center max-w-screen-sm mx-auto py-5 px-10 sm:px-16">
