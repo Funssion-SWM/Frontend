@@ -13,6 +13,7 @@ import Highlight from '@tiptap/extension-highlight';
 import SlashCommand from './slash-command';
 import { InputRule } from '@tiptap/core';
 import UploadImagesPlugin from '@/components/editor/plugins/upload-images';
+import UpdatedImage from './updated-image';
 
 export const TiptapExtensions = [
   StarterKit.configure({
@@ -94,6 +95,11 @@ export const TiptapExtensions = [
     },
   }).configure({
     allowBase64: true,
+    HTMLAttributes: {
+      class: 'rounded-lg border border-stone-200',
+    },
+  }),
+  UpdatedImage.configure({
     HTMLAttributes: {
       class: 'rounded-lg border border-stone-200',
     },
