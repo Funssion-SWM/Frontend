@@ -41,13 +41,13 @@ export const handleTiptapExtensions = (memoId: number | undefined) => {
       codeBlock: {
         HTMLAttributes: {
           class:
-            'rounded-lg bg-stone-100 p-5 font-mono font-medium text-stone-800 my-3',
+            'rounded-lg bg-soma-grey-70 p-5 font-mono font-medium text-white my-3',
         },
       },
       code: {
         HTMLAttributes: {
           class:
-            'rounded-md bg-stone-200 px-1.5 py-1 font-mono font-medium text-stone-900',
+            'rounded-md bg-soma-grey-30 px-1.5 py-1 font-mono font-medium text-soma-red-60',
           spellcheck: 'false',
         },
       },
