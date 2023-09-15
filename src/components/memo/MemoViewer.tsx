@@ -3,7 +3,7 @@
 import { EditorContent, useEditor } from '@tiptap/react';
 
 import MemoViewerHeader from './MemoViewerHeader';
-import { TiptapExtensions } from '@/components/editor/extensions';
+import { handleTiptapExtensions } from '@/components/editor/extensions';
 import { useRouter } from 'next/navigation';
 import TagView from '../shared/TagView';
 import Tag from '../shared/Tag';
@@ -30,7 +30,6 @@ export default function MemoViewer({
   isLike,
   isMyMemo,
 }: Props) {
-
   const router = useRouter();
 
   return (
@@ -60,7 +59,7 @@ export default function MemoViewer({
       <div className="px-4 flex-grow break-all">
         <EditorContent
           editor={useEditor({
-            extensions: TiptapExtensions,
+            extensions: handleTiptapExtensions(memoId),
             editorProps: handleTiptapEditorProps(memoId),
             editable: false,
             content: content,

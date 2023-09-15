@@ -72,7 +72,7 @@ const Command = Extension.create({
   },
 });
 
-const getSuggestionItems = ({ query }: { query: string }) => {
+const getSuggestionItems = (memoId: number | undefined) => {
   return [
     // {
     //   title: 'Continue writing',
@@ -194,39 +194,28 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       command: ({ editor, range }: CommandProps) =>
         editor.chain().focus().deleteRange(range).toggleCodeBlock().run(),
     },
-    // {
-    //   title: 'Image',
-    //   description: 'Upload an image from your computer.',
-    //   searchTerms: ['photo', 'picture', 'media'],
-    //   icon: <ImageIcon size={18} />,
-    //   command: ({ editor, range }: CommandProps) => {
-    //     editor.chain().focus().deleteRange(range).run();
-    //     // upload image
-    //     const input = document.createElement('input');
-    //     input.type = 'file';
-    //     input.accept = 'image/*';
-    //     input.onchange = async () => {
-    //       if (input.files?.length) {
-    //         const file = input.files[0];
-    //         const pos = editor.view.state.selection.from;
-    //         startImageUpload(file, editor.view, pos);
-    //       }
-    //     };
-    //     input.click();
-    //   },
-    // },
-  ].filter((item) => {
-    if (typeof query === 'string' && query.length > 0) {
-      const search = query.toLowerCase();
-      return (
-        item.title.toLowerCase().includes(search) ||
-        item.description.toLowerCase().includes(search) ||
-        (item.searchTerms &&
-          item.searchTerms.some((term: string) => term.includes(search)))
-      );
-    }
-    return true;
-  });
+    {
+      title: 'Image',
+      description: 'Upload an image from your computer.',
+      searchTerms: ['photo', 'picture', 'media'],
+      icon: <ImageIcon size={18} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor.chain().focus().deleteRange(range).run();
+        // upload image
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.onchange = async () => {
+          if (input.files?.length) {
+            const file = input.files[0];
+            const pos = editor.view.state.selection.from;
+            memoId && startImageUpload(file, memoId, editor.view, pos);
+          }
+        };
+        input.click();
+      },
+    },
+  ];
 };
 
 export const updateScrollView = (container: HTMLElement, item: HTMLElement) => {
@@ -421,11 +410,11 @@ const renderItems = () => {
   };
 };
 
-const SlashCommand = Command.configure({
-  suggestion: {
-    items: getSuggestionItems,
-    render: renderItems,
-  },
-});
-
-export default SlashCommand;
+export const handleSlashCommand = (memoId: number | undefined) => {
+  return Command.configure({
+    suggestion: {
+      items: () => getSuggestionItems(memoId),
+      render: renderItems,
+    },
+  });
+};
