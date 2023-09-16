@@ -5,15 +5,22 @@ import { useRouter } from "next/navigation";
 
 type Props = {
   tagText: string;
+  color?: string;
 };
 
-export default function TagView({ tagText }: Props) {
+export default function TagView({ tagText, color }: Props) {
 
   const router = useRouter();
 
   return (
     <div
-      className={`cursor-pointer py-1 px-3 rounded-2xl text-soma-blue-50 text-sm sm:text-base bg-white hover:bg-soma-grey-25 transition-all`}
+      className={`cursor-pointer py-1 px-3 rounded-2xl transition-all font-bold
+        ${
+          color == "green" ? 
+            "text-green-500 bg-green-50 hover:bg-green-200 text-lg":
+            "text-soma-blue-40 bg-white hover:bg-soma-grey-25 text-sm sm:text-base"
+        }
+      `}
       onClick={() => {
         router.push(`/search?q=${tagText}&isTag=true`);
         addSearchHistory(tagText, true);
