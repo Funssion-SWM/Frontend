@@ -66,7 +66,7 @@ export default function MemoViewer({
           })}
         />
       </div>
-      <div className="flex flex-wrap gap-1 mx-4 mb-1">
+      <div className="flex flex-wrap gap-1 mx-2 mt-10 mb-1">
         {memoTags.map((tag, idx) => (
           <TagView key={idx} tagText={tag} />
         ))}
