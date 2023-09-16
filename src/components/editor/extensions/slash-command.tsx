@@ -72,7 +72,10 @@ const Command = Extension.create({
   },
 });
 
-const getSuggestionItems = (memoId: number | undefined) => {
+const getSuggestionItems = (
+  { query }: { query: string },
+  memoId: number | undefined
+) => {
   return [
     // {
     //   title: 'Continue writing',
@@ -101,15 +104,6 @@ const getSuggestionItems = (memoId: number | undefined) => {
           .deleteRange(range)
           .toggleNode('paragraph', 'paragraph')
           .run();
-      },
-    },
-    {
-      title: 'To-do List',
-      description: 'Track tasks with a to-do list.',
-      searchTerms: ['todo', 'task', 'list', 'check', 'checkbox'],
-      icon: <CheckSquare size={18} />,
-      command: ({ editor, range }: CommandProps) => {
-        editor.chain().focus().deleteRange(range).toggleTaskList().run();
       },
     },
     {
@@ -152,6 +146,15 @@ const getSuggestionItems = (memoId: number | undefined) => {
           .deleteRange(range)
           .setNode('heading', { level: 3 })
           .run();
+      },
+    },
+    {
+      title: 'To-do List',
+      description: 'Track tasks with a to-do list.',
+      searchTerms: ['todo', 'task', 'list', 'check', 'checkbox'],
+      icon: <CheckSquare size={18} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor.chain().focus().deleteRange(range).toggleTaskList().run();
       },
     },
     {
@@ -215,7 +218,18 @@ const getSuggestionItems = (memoId: number | undefined) => {
         input.click();
       },
     },
-  ];
+  ].filter((item) => {
+    if (typeof query === 'string' && query.length > 0) {
+      const search = query.toLowerCase();
+      return (
+        item.title.toLowerCase().includes(search) ||
+        item.description.toLowerCase().includes(search) ||
+        (item.searchTerms &&
+          item.searchTerms.some((term: string) => term.includes(search)))
+      );
+    }
+    return true;
+  });
 };
 
 export const updateScrollView = (container: HTMLElement, item: HTMLElement) => {
@@ -413,7 +427,7 @@ const renderItems = () => {
 export const handleSlashCommand = (memoId: number | undefined) => {
   return Command.configure({
     suggestion: {
-      items: () => getSuggestionItems(memoId),
+      items: (query: { query: string }) => getSuggestionItems(query, memoId),
       render: renderItems,
     },
   });
