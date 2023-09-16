@@ -15,8 +15,13 @@ export default async function MySettingPage({ params: { slug } }: Props) {
   const referer = headersList.get('referer');
   if (referer === null) redirect('/memos');
 
-  const userInfo = await getUserInfo(slug);
-  const defaultTags = await getDefaultTags();
+  const userData = getUserInfo(slug);
+  const defaultTagsData = getDefaultTags();
+
+  const [userInfo, defaultTags] = await Promise.all([
+    userData,
+    defaultTagsData,
+  ]);
 
   return (
     <section className="flex flex-col w-full items-center max-w-screen-sm mx-auto mt-7 py-5 px-10 sm:px-32">
