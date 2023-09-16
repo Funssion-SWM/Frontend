@@ -82,14 +82,12 @@ export async function createOrUpdateMemo(
     },
     credentials: 'include',
     body: JSON.stringify(bodyData),
-  })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('error');
-      }
-      return res.json();
-    })
-    .catch(console.error);
+  }).then((res) => {
+    if (!res.ok) {
+      throw new Error('error');
+    }
+    return res.json();
+  });
 }
 
 export async function deleteMemo(id: number) {

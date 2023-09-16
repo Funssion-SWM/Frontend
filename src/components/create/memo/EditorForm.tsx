@@ -177,14 +177,22 @@ export default function EditorForm({
         memoTags: tags,
         isTemporary: true,
       }
-    ).then((data) => {
-      toast('임시 저장되었습니다.', {
-        hideProgressBar: true,
-        autoClose: 2000,
-        type: 'success',
+    )
+      .then((data) => {
+        toast('임시 저장되었습니다.', {
+          hideProgressBar: true,
+          autoClose: 2000,
+          type: 'success',
+        });
+        !alreadyExists && router.push(`/create/memo/${data.memoId}`);
+      })
+      .catch(() => {
+        toast('임시 저장에 실패했습니다.', {
+          hideProgressBar: true,
+          autoClose: 2000,
+          type: 'error',
+        });
       });
-      !alreadyExists && router.push(`/create/memo/${data.memoId}`);
-    });
   }, [temporaryContents]);
 
   const [drafts, setDrafts] = useState<Memo[]>([]);
@@ -228,14 +236,24 @@ export default function EditorForm({
         memoTags: tags,
         isTemporary: saveMode === 'temporary',
       }
-    ).then((data) => {
-      if (saveMode === 'temporary') {
-        !alreadyExists && router.push(`/create/memo/${data.memoId}`);
-      } else {
-        alreadyExists ? router.push(`/memos/${memoId}`) : router.push('/memos');
-      }
-      router.refresh();
-    });
+    )
+      .then((data) => {
+        if (saveMode === 'temporary') {
+          !alreadyExists && router.push(`/create/memo/${data.memoId}`);
+        } else {
+          alreadyExists
+            ? router.push(`/memos/${memoId}`)
+            : router.push('/memos');
+        }
+        router.refresh();
+      })
+      .catch(() => {
+        toast('등록에 실패했습니다.', {
+          hideProgressBar: true,
+          autoClose: 2000,
+          type: 'error',
+        });
+      });
   };
 
   return (
