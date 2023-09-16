@@ -8,7 +8,7 @@ export default function MemoCardFooter({ memoTags }: Props) {
       <div className="flex items-center gap-1 h-10 flex-1 overflow-x-hidden">
         {memoTags.map((item, idx) => (
           <div
-            className="font-bold bg-white text-soma-blue-40 rounded-3xl py-1 px-2 line-clamp-1"
+            className="font-semibold bg-soma-grey-10 text-soma-blue-40 rounded-3xl py-1 px-2 line-clamp-1"
             key={idx}
           >
             {item}
