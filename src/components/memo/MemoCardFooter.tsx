@@ -1,8 +1,9 @@
 type Props = {
   memoTags: string[];
+  commentCount: number;
 };
 
-export default function MemoCardFooter({ memoTags }: Props) {
+export default function MemoCardFooter({ memoTags, commentCount }: Props) {
   return (
     <div className="flex justify-between items-center text-sm">
       <div className="flex items-center gap-1 h-10 flex-1 overflow-x-hidden">
@@ -15,10 +16,10 @@ export default function MemoCardFooter({ memoTags }: Props) {
           </div>
         ))}
       </div>
-      {/* <div className="w-14 text-end">
-          <p className="text-xs text-soma-grey-60">0개의 댓글</p>
-          <p className="text-xs text-soma-grey-60">0개의 질문</p>
-        </div> */}
+      <div className="w-14 text-end">
+        <p className="text-xs text-soma-grey-50">{commentCount}개의 댓글</p>
+        {/* <p className="text-xs text-soma-grey-60">0개의 질문</p> */}
+      </div>
     </div>
   );
 }

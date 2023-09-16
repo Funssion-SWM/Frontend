@@ -20,6 +20,7 @@ export default function MemoCard({
     authorProfileImagePath,
     likes,
     memoTags,
+    repliesCount,
   },
 }: Props) {
   return (
@@ -48,7 +49,7 @@ export default function MemoCard({
         memoTitle={memoTitle}
         memoDescription={memoDescription}
       />
-      <MemoCardFooter memoTags={memoTags} />
+      <MemoCardFooter memoTags={memoTags} commentCount={repliesCount} />
     </article>
   );
 }

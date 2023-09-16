@@ -9,6 +9,7 @@ export type Memo = {
   authorId: number;
   authorName: string;
   authorProfileImagePath: string;
+  repliesCount: number;
   likes: number;
   memoTags: string[];
   isTemporary: boolean;
