@@ -6,6 +6,8 @@ import MeMainContainer from '@/components/me/MeMainContainer';
 import { cookies } from 'next/headers';
 import { ACCESS_TOKEN } from '@/utils/const';
 import MeSideBar from '@/components/me/MeSideBar';
+import { getUserTags } from '@/service/tag';
+import MeTagsContainer from '@/components/me/MeTagsContainer';
 
 type Props = {
   params: {
@@ -25,6 +27,7 @@ export default async function MePage({ params: { slug } }: Props) {
     new Date().getMonth() + 1,
     true
   );
+
   const myData = checkUser(cookie);
 
   const [memos, userInfo, history, { id, isLogin }] = await Promise.all([
@@ -33,6 +36,7 @@ export default async function MePage({ params: { slug } }: Props) {
     historyData,
     myData,
   ]);
+  const tags = await getUserTags(slug, cookie);
 
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
@@ -49,7 +53,10 @@ export default async function MePage({ params: { slug } }: Props) {
             userId={userId}
             myId={id}
           />
-          <MeMainContainer memos={memos} userId={userId} />
+          <div className='flex flex-col'>
+            <MeTagsContainer tags={tags} userInfo={userInfo} userId={Number.parseInt(slug)} />
+            <MeMainContainer memos={memos} userId={userId} />
+          </div>
         </div>
       </LayoutWrapper>
     </section>
