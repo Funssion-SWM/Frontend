@@ -16,7 +16,7 @@ export default function MeTagsContainer({
 }: Props) {
   return (
     <div className="my-10">
-      <div className="flex justify-center text-2xl font-bold">
+      <div className="flex flex-wrap justify-center items-center mx-10 sm:text-2xl font-bold">
         <span>{userInfo.nickname}님은</span>
         <TagView
           tagText={tags[0]}

@@ -12,7 +12,7 @@ type Props = {
 
 export default function MeSideBar({ userInfo, history, userId, myId }: Props) {
   return (
-    <section className="flex flex-col items-center w-full sm:w-[350px] min-h-screen p-6 bg-soma-grey-20">
+    <section className="flex flex-col items-center w-full sm:w-[350px] sm:min-h-screen p-6 bg-soma-grey-20">
       <Profile userInfo={userInfo} />
       <History history={history} userId={userId} />
       {myId === Number(userId) && (
