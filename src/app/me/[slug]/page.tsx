@@ -28,7 +28,7 @@ export default async function MePage({ params: { slug } }: Props) {
     true
   );
   const myData = checkUser(cookie);
-  const tagData = getUserTags(slug, cookie);
+  const tagData = getUserTags(slug);
 
   const [memos, userInfo, history, { id, isLogin }, tags] = await Promise.all([
     memosData,
@@ -58,7 +58,8 @@ export default async function MePage({ params: { slug } }: Props) {
               <MeTagsContainer
                 tags={tags}
                 userInfo={userInfo}
-                userId={Number.parseInt(slug)}
+                userId={userId}
+                isLogin={isLogin}
               />
             )}
             <MeMainContainer memos={memos} userId={userId} />

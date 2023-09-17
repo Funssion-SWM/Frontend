@@ -8,23 +8,34 @@ type Props = {
   color?: string;
   userId?: number;
   userName?: string;
+  isLogin?: boolean;
 };
 
-export default function TagView({ tagText, color, userId, userName }: Props) {
+export default function TagView({
+  tagText,
+  color,
+  userId,
+  userName,
+  isLogin,
+}: Props) {
   const router = useRouter();
 
   return (
     <div
       className={`cursor-pointer py-1 px-3 rounded-2xl transition-all font-bold mx-1 mb-1
         ${
-          color == "green" ? 
-            "text-green-500 bg-green-50 hover:bg-green-200 text-lg":
-            "text-soma-blue-40 bg-white hover:bg-soma-grey-25 text-sm sm:text-base"
+          color == 'green'
+            ? 'text-green-500 bg-green-50 hover:bg-green-200 text-lg'
+            : 'text-soma-blue-40 bg-white hover:bg-soma-grey-25 text-sm sm:text-base'
         }
       `}
       onClick={() => {
-        router.push(`/search?q=${tagText}&isTag=true&userId=${color === "green" ? userId : "0"}&userName=${color === 'green' ? userName : ""}`);
-        if(userId) addSearchHistory(tagText, true);
+        router.push(
+          `/search?q=${tagText}&isTag=true&userId=${
+            color === 'green' ? userId : '0'
+          }&userName=${color === 'green' ? userName : ''}`
+        );
+        isLogin && addSearchHistory(tagText, true);
       }}
     >
       {tagText}
