@@ -10,8 +10,10 @@ import { cookies } from 'next/headers';
 export default async function MemosPage() {
   const cookie = cookies().get(ACCESS_TOKEN)?.value;
 
-  const memos = await getMemos();
-  const { id, isLogin } = await checkUser(cookie);
+  const memosData = getMemos();
+  const myData = checkUser(cookie);
+  const [memos, { id, isLogin }] = await Promise.all([memosData, myData]);
+
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };

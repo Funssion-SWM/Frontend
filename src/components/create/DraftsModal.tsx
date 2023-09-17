@@ -23,7 +23,7 @@ export default function Modal() {
           >
             {drafts.map((draft) => (
               <li className="flex" key={draft.memoId}>
-                <MemoCardTemporary memo={draft} />
+                <MemoCardTemporary memo={draft} delBtnIsVisible={false} />
               </li>
             ))}
           </ul>

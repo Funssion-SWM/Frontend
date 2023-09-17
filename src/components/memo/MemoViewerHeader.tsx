@@ -32,7 +32,7 @@ export default function MemoViewerHeader({
     });
 
   return (
-    <div className="py-4 flex justify-end items-center">
+    <div className="py-4 px-2 flex justify-end items-center">
       <nav className="relative flex items-center" ref={dropdownRef}>
         <Like likes={likes} memoId={memoId} isLike={isLike} />
         {isMyMemo && (

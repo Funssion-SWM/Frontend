@@ -34,7 +34,7 @@ export default function MemoViewer({
 
   return (
     <section
-      className={`flex flex-col sm:rounded-2xl sm:shadow-lg px-4 min-h-screen sm:min-h-for-fit-screen w-full pb-4 ${
+      className={`flex flex-col sm:rounded-2xl sm:shadow-lg px-2 min-h-screen sm:min-h-for-fit-screen w-full pb-4 ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
@@ -66,7 +66,7 @@ export default function MemoViewer({
           })}
         />
       </div>
-      <div className="flex flex-wrap gap-1 m-4">
+      <div className="flex flex-wrap gap-1 mx-2 mt-10 mb-1">
         {memoTags.map((tag, idx) => (
           <TagView key={idx} tagText={tag} />
         ))}

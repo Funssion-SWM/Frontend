@@ -177,14 +177,22 @@ export default function EditorForm({
         memoTags: tags,
         isTemporary: true,
       }
-    ).then((data) => {
-      toast('임시 저장되었습니다.', {
-        hideProgressBar: true,
-        autoClose: 2000,
-        type: 'success',
+    )
+      .then((data) => {
+        toast('임시 저장되었습니다.', {
+          hideProgressBar: true,
+          autoClose: 2000,
+          type: 'success',
+        });
+        !alreadyExists && router.push(`/create/memo/${data.memoId}`);
+      })
+      .catch(() => {
+        toast('임시 저장에 실패했습니다.', {
+          hideProgressBar: true,
+          autoClose: 2000,
+          type: 'error',
+        });
       });
-      !alreadyExists && router.push(`/create/memo/${data.memoId}`);
-    });
   }, [temporaryContents]);
 
   const [drafts, setDrafts] = useState<Memo[]>([]);
@@ -228,20 +236,30 @@ export default function EditorForm({
         memoTags: tags,
         isTemporary: saveMode === 'temporary',
       }
-    ).then((data) => {
-      if (saveMode === 'temporary') {
-        !alreadyExists && router.push(`/create/memo/${data.memoId}`);
-      } else {
-        alreadyExists ? router.push(`/memos/${memoId}`) : router.push('/memos');
-      }
-      router.refresh();
-    });
+    )
+      .then((data) => {
+        if (saveMode === 'temporary') {
+          !alreadyExists && router.push(`/create/memo/${data.memoId}`);
+        } else {
+          alreadyExists
+            ? router.push(`/memos/${memoId}`)
+            : router.push('/memos');
+        }
+        router.refresh();
+      })
+      .catch(() => {
+        toast('등록에 실패했습니다.', {
+          hideProgressBar: true,
+          autoClose: 2000,
+          type: 'error',
+        });
+      });
   };
 
   return (
     <div className="flex w-full">
       <div
-        className={`relative flex flex-col rounded-lg shadow-lg px-4 py-2 min-h-screen sm:min-h-for-fit-screen w-full ${
+        className={`relative flex flex-col rounded-lg shadow-lg px-2 pt-2 pb-4 min-h-screen sm:min-h-for-fit-screen w-full ${
           {
             yellow: 'bg-memo-yellow',
             green: 'bg-memo-green',
@@ -253,13 +271,12 @@ export default function EditorForm({
           }[selectedColor]
         }`}
       >
-        <div className="flex justify-end">
+        <div className="flex justify-end gap-2 mr-1 my-1">
           <WhiteBtnWithCount
             text="임시저장"
             count={drafts.length}
             onClickBtn={() => savePost('temporary')}
             onClickCount={() => openDrafts(drafts)}
-            extraStyle="mr-2"
           />
           <BlueBtn text="등록" onClick={() => savePost('permanent')} />
         </div>
@@ -269,7 +286,7 @@ export default function EditorForm({
           name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-[1px] border-gray-400"
+          className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-[0.5px] border-soma-grey-49"
           autoFocus
         />
         <div className="flex flex-wrap gap-1 mx-3 mb-1">

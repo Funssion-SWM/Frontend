@@ -19,19 +19,28 @@ export default async function MePage({ params: { slug } }: Props) {
   const cookie = cookies().get(ACCESS_TOKEN)?.value;
   const userId = Number(slug);
 
-  const memos = await getMemosByUserId(userId);
-  const userInfo = await getUserInfo(userId);
-  const { id, isLogin } = await checkUser(cookie);
-  const { nickname, profileImageFilePath } = isLogin
-    ? await getUserInfo(id)
-    : { nickname: "", profileImageFilePath: undefined };
-  const history = await getHistory(
+  const memosData = getMemosByUserId(userId);
+  const userData = getUserInfo(userId);
+  const historyData = getHistory(
     userId,
     new Date().getFullYear(),
     new Date().getMonth() + 1,
     true
   );
+
+  const myData = checkUser(cookie);
+
+  const [memos, userInfo, history, { id, isLogin }] = await Promise.all([
+    memosData,
+    userData,
+    historyData,
+    myData,
+  ]);
   const tags = await getUserTags(slug, cookie);
+
+  const { profileImageFilePath } = isLogin
+    ? await getUserInfo(id)
+    : { profileImageFilePath: undefined };
 
   return (
     <section>

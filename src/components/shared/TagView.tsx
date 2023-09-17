@@ -1,7 +1,7 @@
-"use client"
+'use client';
 
-import { addSearchHistory } from "@/service/search";
-import { useRouter } from "next/navigation";
+import { addSearchHistory } from '@/service/search';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   tagText: string;
@@ -11,7 +11,6 @@ type Props = {
 };
 
 export default function TagView({ tagText, color, userId, userName }: Props) {
-
   const router = useRouter();
 
   return (
