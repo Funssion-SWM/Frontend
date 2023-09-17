@@ -11,20 +11,19 @@ export async function getDefaultTags(): Promise<string[]> {
     .catch(console.error);
 }
 
-export async function getUserMostUsedTagsTop2(userId: string, cookie?: string | undefined): Promise<string[] | null> {
+export async function getUserTags(userId: string, cookie?: string | undefined): Promise<string[]> {
   return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/tags/most/${userId}`,
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/tags/${userId}`,
     {
       credentials: 'include',
       next: { revalidate: 0 },
       headers: {
-        Cookie: `${ACCESS_TOKEN}=${cookie}`,
+        // Cookie: `${ACCESS_TOKEN}=${cookie}`,
+        Cookie: `${ACCESS_TOKEN}=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMSIsImF1dGgiOiIiLCJleHAiOjE2OTQ5NDAwMjR9.fG3hwOFRucC7BLE_na5Rs0tlnnpfELxQ1IjpHg-JMauzniPk1xl5S6dxXO36MqIiF4jMErOWaUiS8381h4H9tA`
       },
     }
   ).then((res) => {
-    if(res.status === 404) return null; 
-    else if (!res.ok) throw new Error('error 발생!');
-    console.log(res);
+    if (!res.ok) throw new Error('error 발생!');
     return res.json();
   }).catch(console.error);
 

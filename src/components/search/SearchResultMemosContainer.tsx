@@ -12,17 +12,19 @@ import { useDebounce } from '@/hooks/useDebounce';
 type Props = {
   searchString: string;
   isTag: boolean;
+  userId: string;
 };
 
 export default function SearchResultMemosContainer({
   searchString,
   isTag,
+  userId,
 }: Props) {
   const [memoData, setMemodata] = useState<Memo[]>([]);
   const [selectedOrderType, setSelectedOrderType] = useState<Orderby>('hot');
 
   const handleClick = async (orderBy: Orderby) => {
-    const memos = await searchMemos(searchString, orderBy, isTag);
+    const memos = await searchMemos(searchString, orderBy, isTag, userId);
     setMemodata(memos);
     setSelectedOrderType(orderBy);
   };
@@ -30,7 +32,7 @@ export default function SearchResultMemosContainer({
   const tempSearchString = useDebounce(searchString, 1000);
 
   const init = async () => {
-    const memos = await searchMemos(tempSearchString, selectedOrderType, isTag);
+    const memos = await searchMemos(tempSearchString, selectedOrderType, isTag, userId);
     setMemodata(memos);
   };
 

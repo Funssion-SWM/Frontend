@@ -9,6 +9,7 @@ import SearchResultMemosContainer from "./SearchResultMemosContainer";
 export default function SearchContainer() {
   const searchParams = useSearchParams();
   const [searchString, setSearchString] = useState(searchParams?.get('q') ?? "");
+  const userId =searchParams?.get("userId") ?? "0";
   const isTag = (searchParams?.get('isTag') ?? "false") == "true";
  
   return (
@@ -22,7 +23,7 @@ export default function SearchContainer() {
       </section>
 
       <LayoutWrapper paddingY="sm:py-5">
-        <SearchResultMemosContainer searchString={searchString} isTag={isTag} />
+        <SearchResultMemosContainer searchString={searchString} isTag={isTag} userId={userId} />
       </LayoutWrapper>
     </>
   )

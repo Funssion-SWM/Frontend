@@ -6,7 +6,8 @@ import { ACCESS_TOKEN } from '@/utils/const';
 export async function searchMemos(
   searchString: string,
   orderBy: Orderby,
-  isTag: Boolean
+  isTag: Boolean,
+  userId: string
 ): Promise<Memo[]> {
   const url = new URL(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/search`
@@ -15,6 +16,7 @@ export async function searchMemos(
     searchString: searchString,
     orderBy: orderBy,
     isTag: isTag.toString(),
+    userId: userId,
   };
   url.search = new URLSearchParams(params).toString();
 

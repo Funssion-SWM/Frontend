@@ -6,8 +6,8 @@ import MeMainContainer from '@/components/me/MeMainContainer';
 import { cookies } from 'next/headers';
 import { ACCESS_TOKEN } from '@/utils/const';
 import MeSideBar from '@/components/me/MeSideBar';
-import TagView from '@/components/shared/TagView';
-import { getUserMostUsedTagsTop2 } from '@/service/tag';
+import { getUserTags } from '@/service/tag';
+import MeTagsContainer from '@/components/me/MeTagsContainer';
 
 type Props = {
   params: {
@@ -31,7 +31,7 @@ export default async function MePage({ params: { slug } }: Props) {
     new Date().getMonth() + 1,
     true
   );
-  const tags = await getUserMostUsedTagsTop2(slug, cookie);
+  const tags = await getUserTags(slug, cookie);
 
   return (
     <section>
@@ -45,23 +45,7 @@ export default async function MePage({ params: { slug } }: Props) {
             myId={id}
           />
           <div className='flex flex-col'>
-            <div className='flex justify-center text-2xl text-bold mt-10'>
-              {
-                tags ? (
-                  <>
-                    <span>{nickname}님은</span>
-                    {
-                      tags?.map((tagText) =>  (
-                        <TagView tagText={tagText} color='green'/>
-                      ))
-                    }
-                    <span>의글을 많이 작성했어요.</span>
-                  </>
-                ) : (
-                  <span>글을 작성해주세요!</span>
-                )
-              }
-            </div>
+            <MeTagsContainer tags={tags} userInfo={userInfo} userId={Number.parseInt(slug)} />
             <MeMainContainer memos={memos} userId={userId} />
           </div>
         </div>
