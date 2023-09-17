@@ -53,12 +53,14 @@ export default async function MePage({ params: { slug } }: Props) {
             userId={userId}
             myId={id}
           />
-          <div className="flex flex-col">
-            <MeTagsContainer
-              tags={tags}
-              userInfo={userInfo}
-              userId={Number.parseInt(slug)}
-            />
+          <div className="flex flex-col w-full">
+            {tags.length >= 2 && (
+              <MeTagsContainer
+                tags={tags}
+                userInfo={userInfo}
+                userId={Number.parseInt(slug)}
+              />
+            )}
             <MeMainContainer memos={memos} userId={userId} />
           </div>
         </div>

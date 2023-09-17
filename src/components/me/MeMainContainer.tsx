@@ -24,7 +24,7 @@ export default function MeMainContainer({ memos, userId }: Props) {
   };
 
   return (
-    <div className="grow w-full sm:px-4 sm:py-2 mt-10">
+    <div className="grow w-full sm:px-4 sm:py-2">
       {/* <h3 className="font-bold text-lg sm:text-2xl mb-1 my-1 text-center sm:text-start">
         My Memos dd
       </h3> */}
