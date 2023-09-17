@@ -17,7 +17,7 @@ export default function SearchContainer() {
 
   return (
     <>
-      <section className="max-w-screen-md m-auto py-5">
+      <section className="max-w-screen-md m-auto py-5 px-3">
         <SearchForm
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             setSearchString(e.target.value);

@@ -47,7 +47,7 @@ export default function SearchResultMemosContainer({
 
   return (
     <div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 ml-1">
         <CategoryBtn
           text="Hot🔥"
           onClick={() => handleClick('hot')}
