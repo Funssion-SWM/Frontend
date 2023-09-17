@@ -24,7 +24,7 @@ export default function CategoryBtn({
       }
       ${
         isSelected
-          ? 'border-soma-blue-50 text-soma-blue-50 bg-soma-blue-10'
+          ? 'border-soma-blue-50 text-soma-blue-50 bg-soma-blue-10 font-semibold'
           : 'border-soma-grey-40 bg-white hover:border-soma-blue-50 hover:text-soma-blue-50 hover:bg-soma-blue-10'
       }`}
       onClick={() => onClick()}

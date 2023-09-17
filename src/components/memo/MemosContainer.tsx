@@ -24,7 +24,7 @@ export default function MemosContainer({ memos }: Props) {
 
   return (
     <div>
-      <div className="flex gap-2 mb-5">
+      <div className="flex gap-2 my-2 sm:mb-5">
         <CategoryBtn
           text="New✨"
           onClick={() => handleClick('new')}
