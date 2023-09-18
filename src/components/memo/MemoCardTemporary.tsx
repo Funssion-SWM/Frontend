@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import MemoCardHeader from './MemoCardHeader';
 import { Memo } from '@/types/memo';
 import { deleteMemo } from '@/service/memos';
 import { useContext } from 'react';
@@ -8,10 +7,12 @@ import { useRouter } from 'next/navigation';
 
 type Props = {
   memo: Memo;
+  delBtnIsVisible?: boolean;
 };
 
 export default function MemoCardTemporary({
   memo: { memoId, memoTitle, memoDescription, memoColor, createdDate },
+  delBtnIsVisible = true,
 }: Props) {
   const { open } = useContext(ModalContext);
   const router = useRouter();
@@ -34,21 +35,25 @@ export default function MemoCardTemporary({
         {createdDate.substring(0, 10)}
       </p>
       <Link href={`/create/memo/${memoId}`} prefetch={false}>
-        <h2 className="text-2xl font-bold my-5 line-clamp-2 break-all">
+        <h2 className="text-2xl text-soma-grey-70 font-extrabold my-3 line-clamp-2 break-all h-16">
           {memoTitle}
         </h2>
-        <p className="line-clamp-3 break-all">{memoDescription}</p>
+        <p className="line-clamp-3 break-all my-1 text-soma-grey-60">
+          {memoDescription}
+        </p>
       </Link>
-      <button
-        className="absolute right-4 bottom-4 text-sm"
-        onClick={() =>
-          open('임시 메모를 삭제하시겠습니까?', () => {
-            deleteMemo(memoId).then(() => router.refresh());
-          })
-        }
-      >
-        삭제
-      </button>
+      {delBtnIsVisible && (
+        <button
+          className="absolute right-4 bottom-4 text-sm text-soma-grey-49"
+          onClick={() =>
+            open('임시 메모를 삭제하시겠습니까?', () => {
+              deleteMemo(memoId).then(() => router.refresh());
+            })
+          }
+        >
+          삭제
+        </button>
+      )}
     </article>
   );
 }

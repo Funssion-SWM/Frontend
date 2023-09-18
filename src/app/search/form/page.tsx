@@ -11,10 +11,10 @@ export default async function SearchFormPage() {
   const searchHistories = await getRecentSearchHistoryTop10(cookie);
 
   return (
-    <section className={`flex flex-col max-w-screen-md m-auto`}>
-      <CloseIcon extraClass="my-7 self-end" size={24}/>
+    <section className={`flex flex-col max-w-screen-md m-auto px-4`}>
+      <CloseIcon extraClass="my-7 self-end" size={24} />
       <SearchForm />
-      <SearchHistoryContainer searchHistories={searchHistories}/>
+      <SearchHistoryContainer searchHistories={searchHistories} />
     </section>
   );
 }

@@ -4,8 +4,10 @@ import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
 import MeMainContainer from '@/components/me/MeMainContainer';
 import { cookies } from 'next/headers';
-import { ACCESS_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, MY_TAG_MAX_COUNT } from '@/utils/const';
 import MeSideBar from '@/components/me/MeSideBar';
+import { getUserTags } from '@/service/tag';
+import MeTagsContainer from '@/components/me/MeTagsContainer';
 
 type Props = {
   params: {
@@ -17,18 +19,28 @@ export default async function MePage({ params: { slug } }: Props) {
   const cookie = cookies().get(ACCESS_TOKEN)?.value;
   const userId = Number(slug);
 
-  const memos = await getMemosByUserId(userId);
-  const userInfo = await getUserInfo(userId);
-  const { id, isLogin } = await checkUser(cookie);
-  const { profileImageFilePath } = isLogin
-    ? await getUserInfo(id)
-    : { profileImageFilePath: undefined };
-  const history = await getHistory(
+  const memosData = getMemosByUserId(userId);
+  const userData = getUserInfo(userId);
+  const historyData = getHistory(
     userId,
     new Date().getFullYear(),
     new Date().getMonth() + 1,
     true
   );
+  const myData = checkUser(cookie);
+  const tagData = getUserTags(slug, MY_TAG_MAX_COUNT);
+
+  const [memos, userInfo, history, { id, isLogin }, tags] = await Promise.all([
+    memosData,
+    userData,
+    historyData,
+    myData,
+    tagData,
+  ]);
+
+  const { profileImageFilePath } = isLogin
+    ? await getUserInfo(id)
+    : { profileImageFilePath: undefined };
 
   return (
     <section>
@@ -41,7 +53,17 @@ export default async function MePage({ params: { slug } }: Props) {
             userId={userId}
             myId={id}
           />
-          <MeMainContainer memos={memos} userId={userId} />
+          <div className="flex flex-col w-full">
+            {tags.length >= 2 && (
+              <MeTagsContainer
+                tags={tags}
+                userInfo={userInfo}
+                userId={userId}
+                isLogin={isLogin}
+              />
+            )}
+            <MeMainContainer memos={memos} userId={userId} />
+          </div>
         </div>
       </LayoutWrapper>
     </section>
@@ -53,6 +75,7 @@ export async function generateMetadata({ params }: Props) {
   const { nickname } = await getUserInfo(userId);
 
   return {
-    title: nickname,
+    title: `${nickname} - Inforum`,
+    description: `${nickname}의 마이페이지입니다.`,
   };
 }

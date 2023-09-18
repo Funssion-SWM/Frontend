@@ -72,7 +72,10 @@ const Command = Extension.create({
   },
 });
 
-const getSuggestionItems = ({ query }: { query: string }) => {
+const getSuggestionItems = (
+  { query }: { query: string },
+  memoId: number | undefined
+) => {
   return [
     // {
     //   title: 'Continue writing',
@@ -101,15 +104,6 @@ const getSuggestionItems = ({ query }: { query: string }) => {
           .deleteRange(range)
           .toggleNode('paragraph', 'paragraph')
           .run();
-      },
-    },
-    {
-      title: 'To-do List',
-      description: 'Track tasks with a to-do list.',
-      searchTerms: ['todo', 'task', 'list', 'check', 'checkbox'],
-      icon: <CheckSquare size={18} />,
-      command: ({ editor, range }: CommandProps) => {
-        editor.chain().focus().deleteRange(range).toggleTaskList().run();
       },
     },
     {
@@ -155,6 +149,15 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       },
     },
     {
+      title: 'To-do List',
+      description: 'Track tasks with a to-do list.',
+      searchTerms: ['todo', 'task', 'list', 'check', 'checkbox'],
+      icon: <CheckSquare size={18} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor.chain().focus().deleteRange(range).toggleTaskList().run();
+      },
+    },
+    {
       title: 'Bullet List',
       description: 'Create a simple bullet list.',
       searchTerms: ['unordered', 'point'],
@@ -194,27 +197,27 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       command: ({ editor, range }: CommandProps) =>
         editor.chain().focus().deleteRange(range).toggleCodeBlock().run(),
     },
-    // {
-    //   title: 'Image',
-    //   description: 'Upload an image from your computer.',
-    //   searchTerms: ['photo', 'picture', 'media'],
-    //   icon: <ImageIcon size={18} />,
-    //   command: ({ editor, range }: CommandProps) => {
-    //     editor.chain().focus().deleteRange(range).run();
-    //     // upload image
-    //     const input = document.createElement('input');
-    //     input.type = 'file';
-    //     input.accept = 'image/*';
-    //     input.onchange = async () => {
-    //       if (input.files?.length) {
-    //         const file = input.files[0];
-    //         const pos = editor.view.state.selection.from;
-    //         startImageUpload(file, editor.view, pos);
-    //       }
-    //     };
-    //     input.click();
-    //   },
-    // },
+    {
+      title: 'Image',
+      description: 'Upload an image from your computer.',
+      searchTerms: ['photo', 'picture', 'media'],
+      icon: <ImageIcon size={18} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor.chain().focus().deleteRange(range).run();
+        // upload image
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.onchange = async () => {
+          if (input.files?.length) {
+            const file = input.files[0];
+            const pos = editor.view.state.selection.from;
+            memoId && startImageUpload(file, memoId, editor.view, pos);
+          }
+        };
+        input.click();
+      },
+    },
   ].filter((item) => {
     if (typeof query === 'string' && query.length > 0) {
       const search = query.toLowerCase();
@@ -421,11 +424,11 @@ const renderItems = () => {
   };
 };
 
-const SlashCommand = Command.configure({
-  suggestion: {
-    items: getSuggestionItems,
-    render: renderItems,
-  },
-});
-
-export default SlashCommand;
+export const handleSlashCommand = (memoId: number | undefined) => {
+  return Command.configure({
+    suggestion: {
+      items: (query: { query: string }) => getSuggestionItems(query, memoId),
+      render: renderItems,
+    },
+  });
+};

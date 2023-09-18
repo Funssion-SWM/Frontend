@@ -5,6 +5,7 @@ import MeDraftContainer from '@/components/me/MeDraftContainer';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { cookies } from 'next/headers';
 import { ACCESS_TOKEN } from '@/utils/const';
+import { Metadata } from 'next';
 
 type Props = {
   params: {
@@ -15,8 +16,11 @@ type Props = {
 export default async function MeDraftPage({ params: { slug } }: Props) {
   const cookie = cookies().get(ACCESS_TOKEN)?.value;
 
-  const memos = await getMemosDraftsByUserId(slug);
-  const { id, isLogin } = await checkUser(cookie);
+  const memosDraftData = getMemosDraftsByUserId(slug);
+  const myData = checkUser(cookie);
+
+  const [memos, { id, isLogin }] = await Promise.all([memosDraftData, myData]);
+
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
@@ -30,3 +34,8 @@ export default async function MeDraftPage({ params: { slug } }: Props) {
     </section>
   );
 }
+
+export const metadata: Metadata = {
+  title: '임시 글 목록 - Inforum',
+  description: '임시 글들이 저장되어있습니다.',
+};

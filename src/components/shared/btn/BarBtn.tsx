@@ -7,7 +7,7 @@ type Props = {
 export default function BarBtn({ text, onClick, isSelected }: Props) {
   return (
     <button
-      className={`flex-1 font-semibold py-1 ${
+      className={`flex-1 font-semibold py-1 transition-all ${
         isSelected
           ? 'text-soma-blue-50 border-b-[3px] border-soma-blue-50 '
           : 'text-soma-grey-50 hover:text-soma-blue-50 transition'

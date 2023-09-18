@@ -63,7 +63,9 @@ export default function CommentItem({
           autoFocus
         />
       ) : (
-        <p className="pl-3 text-sm my-2 text-soma-grey-60">{commentText}</p>
+        <p className="px-3 text-sm my-2 text-soma-grey-60 w-[300px] break-all">
+          {commentText}
+        </p>
       )}
       <div className="flex justify-between items-center text-[10px] mb-3 pl-3 mr-2">
         <button

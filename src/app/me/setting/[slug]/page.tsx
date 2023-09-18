@@ -1,6 +1,7 @@
 import MyInfoForm from '@/components/MyInfoForm';
 import { getUserInfo } from '@/service/auth';
 import { getDefaultTags } from '@/service/tag';
+import { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -15,12 +16,16 @@ export default async function MySettingPage({ params: { slug } }: Props) {
   const referer = headersList.get('referer');
   if (referer === null) redirect('/memos');
 
-  const userInfo = await getUserInfo(slug);
-  const defaultTags = await getDefaultTags();
+  const userData = getUserInfo(slug);
+  const defaultTagsData = getDefaultTags();
+
+  const [userInfo, defaultTags] = await Promise.all([
+    userData,
+    defaultTagsData,
+  ]);
 
   return (
-    <section className="flex flex-col w-full items-center max-w-screen-sm mx-auto mt-24 py-5 px-10 sm:px-32">
-      <h1 className="text-3xl font-bold my-5">Inforum</h1>
+    <section className="flex flex-col w-full items-center max-w-screen-sm mx-auto mt-7 py-5 px-10 sm:px-32">
       <MyInfoForm
         userId={slug}
         userInfo={userInfo}
@@ -30,3 +35,8 @@ export default async function MySettingPage({ params: { slug } }: Props) {
     </section>
   );
 }
+
+export const metadata: Metadata = {
+  title: '회원 정보 수정',
+  description: '회원 정보 수정 페이지입니다.',
+};

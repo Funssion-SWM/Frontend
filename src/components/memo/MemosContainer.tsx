@@ -3,10 +3,9 @@
 import { Memo } from '@/types/memo';
 import { Orderby } from '@/types';
 import MemosGrid from './MemosGrid';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getMemos } from '@/service/memos';
 import CategoryBtn from '@/components/shared/btn/CategoryBtn';
-// import CategoryBtn from '../shared/btn/CategoryBtn';
 
 type Props = {
   memos: Memo[];
@@ -24,7 +23,7 @@ export default function MemosContainer({ memos }: Props) {
 
   return (
     <div>
-      <div className="flex gap-2 mb-5">
+      <div className="flex gap-2 my-2 ml-1 sm:mb-5">
         <CategoryBtn
           text="New✨"
           onClick={() => handleClick('new')}

@@ -20,11 +20,12 @@ export default function MemoCard({
     authorProfileImagePath,
     likes,
     memoTags,
+    repliesCount,
   },
 }: Props) {
   return (
     <article
-      className={`flex flex-col relative rounded-md shadow-md aspect-square p-3 hover:scale-105 transition ease-in-out duration-300 ${
+      className={`flex flex-col relative rounded-md shadow-md aspect-square p-3 sm:hover:scale-105 transition ease-in-out duration-300 ${
         {
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
@@ -48,7 +49,7 @@ export default function MemoCard({
         memoTitle={memoTitle}
         memoDescription={memoDescription}
       />
-      <MemoCardFooter memoTags={memoTags} />
+      <MemoCardFooter memoTags={memoTags} commentCount={repliesCount} />
     </article>
   );
 }

@@ -2,9 +2,10 @@
 
 import Image from 'next/image';
 import searchIcon from '@/assets/icons/icon_search_32.svg';
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { addSearchHistory } from '@/service/search';
 import { useSearchParams } from "next/navigation";
+import { getUserInfo } from '@/service/auth';
 
 type Props = {
   onChange?:(e:ChangeEvent<HTMLInputElement>) => void;
@@ -14,6 +15,8 @@ export default function SearchForm( { onChange }:Props ) {
   const searchParams = useSearchParams();
   const [searchString, setSearchString] = useState(searchParams?.get("q") ?? "");
   const isTag = (searchParams?.get("isTag") ?? "false") == "true";
+  const userName = (searchParams?.get("userName") ?? undefined);
+  
 
   const formRef = useRef<HTMLFormElement | null>(null); 
   const [borderColor, setBorderColor] = useState("border-blue-400");
@@ -57,6 +60,12 @@ export default function SearchForm( { onChange }:Props ) {
           defaultValue={isTag ? "# " + searchString : searchString}
           disabled={isTag}
         />
+        {
+          userName ? (
+          <span className='text-sm whitespace-nowrap leading-[52px] mr-3 cursor-none text-gray-400'>
+            : {userName}
+          </span>) : ""
+        }
       </form>
     )
 }

@@ -12,17 +12,19 @@ import { useDebounce } from '@/hooks/useDebounce';
 type Props = {
   searchString: string;
   isTag: boolean;
+  userId: string;
 };
 
 export default function SearchResultMemosContainer({
   searchString,
   isTag,
+  userId,
 }: Props) {
   const [memoData, setMemodata] = useState<Memo[]>([]);
   const [selectedOrderType, setSelectedOrderType] = useState<Orderby>('hot');
 
   const handleClick = async (orderBy: Orderby) => {
-    const memos = await searchMemos(searchString, orderBy, isTag);
+    const memos = await searchMemos(searchString, orderBy, isTag, userId);
     setMemodata(memos);
     setSelectedOrderType(orderBy);
   };
@@ -30,7 +32,12 @@ export default function SearchResultMemosContainer({
   const tempSearchString = useDebounce(searchString, 1000);
 
   const init = async () => {
-    const memos = await searchMemos(tempSearchString, selectedOrderType, isTag);
+    const memos = await searchMemos(
+      tempSearchString,
+      selectedOrderType,
+      isTag,
+      userId
+    );
     setMemodata(memos);
   };
 
@@ -40,7 +47,7 @@ export default function SearchResultMemosContainer({
 
   return (
     <div>
-      <div className="flex gap-2 mb-5">
+      <div className="flex gap-2 ml-1">
         <CategoryBtn
           text="Hot🔥"
           onClick={() => handleClick('hot')}
@@ -52,7 +59,10 @@ export default function SearchResultMemosContainer({
           isSelected={selectedOrderType === 'new'}
         />
       </div>
-      <div className="pb-2">{memoData.length} 개의 검색 결과가 있습니다.</div>
+      <div className="my-4 font-medium ml-2">
+        <span className="text-soma-blue-40">{memoData.length}개</span>의 검색
+        결과가 있습니다.
+      </div>
       <MemosGrid memos={memoData} colNum={4} />
     </div>
   );
