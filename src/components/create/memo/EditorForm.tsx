@@ -4,7 +4,7 @@ import SelectColorBar from '@/components/create/memo/SelectColorBar';
 import MyEditor from '@/components/editor';
 import { useEditor } from '@tiptap/react';
 import { useRouter } from 'next/navigation';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import BlueBtn from '../../shared/btn/BlueBtn';
 import { createOrUpdateMemo, getMemoDrafts } from '@/service/memos';
 import { getPrevText } from '@/lib/editor';
@@ -256,8 +256,19 @@ export default function EditorForm({
       });
   };
 
+  const edirotRef = useRef<HTMLDivElement>(null);
+  const [currentScrollHeight, setCurrentScrollHeight] = useState<number>(0);
+  useEffect(() => {
+    if (edirotRef.current && document.scrollingElement) {
+      if (currentScrollHeight < edirotRef.current.scrollHeight) {
+        document.scrollingElement.scrollTop = edirotRef.current.scrollHeight;
+      }
+      setCurrentScrollHeight(edirotRef.current.scrollHeight);
+    }
+  }, [editor?.state.selection, currentScrollHeight]);
+
   return (
-    <div className="flex w-full">
+    <div className="flex w-full" ref={edirotRef}>
       <div
         className={`relative flex flex-col rounded-lg shadow-lg px-2 pt-2 pb-4 min-h-screen sm:min-h-for-fit-screen w-full ${
           {
