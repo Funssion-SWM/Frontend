@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Header renders correctly when isLogin is false 1`] = `
-<section
-  className="border-b-2 sticky top-0 bg-white z-10"
+<header
+  className="border-b-[1px] border-soma-grey-40 sticky top-0 bg-white z-10 "
 >
-  <header
-    className="flex justify-between items-center py-4 px-5 max-w-screen-xl m-auto"
+  <div
+    className="flex justify-between items-center py-4 px-5 max-w-screen-xl m-auto h-[70px]"
   >
     <h1
       className="text-2xl font-bold cursor-pointer"
@@ -26,16 +26,16 @@ exports[`Header renders correctly when isLogin is false 1`] = `
         로그인
       </button>
     </a>
-  </header>
-</section>
+  </div>
+</header>
 `;
 
 exports[`Header renders correctly when isLogin is true 1`] = `
-<section
-  className="border-b-2 sticky top-0 bg-white z-10"
+<header
+  className="border-b-[1px] border-soma-grey-40 sticky top-0 bg-white z-10 "
 >
-  <header
-    className="flex justify-between items-center py-4 px-5 max-w-screen-xl m-auto"
+  <div
+    className="flex justify-between items-center py-4 px-5 max-w-screen-xl m-auto h-[70px]"
   >
     <h1
       className="text-2xl font-bold cursor-pointer"
@@ -46,25 +46,28 @@ exports[`Header renders correctly when isLogin is true 1`] = `
     <nav
       className="flex items-center gap-3 relative"
     >
-      <img
-        alt="search_icon"
-        className="cursor-pointer"
-        data-nimg="1"
-        decoding="async"
-        height={40}
-        loading="lazy"
+      <button
         onClick={[Function]}
-        onError={[Function]}
-        onLoad={[Function]}
-        src="/_next/image?url=%2Fimg.jpg&w=96&q=75"
-        srcSet="/_next/image?url=%2Fimg.jpg&w=48&q=75 1x, /_next/image?url=%2Fimg.jpg&w=96&q=75 2x"
-        style={
-          {
-            "color": "transparent",
+      >
+        <img
+          alt="search_icon"
+          className="cursor-pointer"
+          data-nimg="1"
+          decoding="async"
+          height={40}
+          loading="lazy"
+          onError={[Function]}
+          onLoad={[Function]}
+          src="/_next/image?url=%2Fimg.jpg&w=96&q=75"
+          srcSet="/_next/image?url=%2Fimg.jpg&w=48&q=75 1x, /_next/image?url=%2Fimg.jpg&w=96&q=75 2x"
+          style={
+            {
+              "color": "transparent",
+            }
           }
-        }
-        width={40}
-      />
+          width={40}
+        />
+      </button>
       <button
         onClick={[Function]}
       >
@@ -116,6 +119,6 @@ exports[`Header renders correctly when isLogin is true 1`] = `
         글쓰기
       </button>
     </nav>
-  </header>
-</section>
+  </div>
+</header>
 `;
