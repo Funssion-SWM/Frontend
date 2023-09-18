@@ -4,7 +4,7 @@ import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
 import MeMainContainer from '@/components/me/MeMainContainer';
 import { cookies } from 'next/headers';
-import { ACCESS_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, MY_TAG_MAX_COUNT } from '@/utils/const';
 import MeSideBar from '@/components/me/MeSideBar';
 import { getUserTags } from '@/service/tag';
 import MeTagsContainer from '@/components/me/MeTagsContainer';
@@ -28,7 +28,7 @@ export default async function MePage({ params: { slug } }: Props) {
     true
   );
   const myData = checkUser(cookie);
-  const tagData = getUserTags(slug);
+  const tagData = getUserTags(slug, MY_TAG_MAX_COUNT);
 
   const [memos, userInfo, history, { id, isLogin }, tags] = await Promise.all([
     memosData,
