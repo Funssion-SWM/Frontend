@@ -29,6 +29,6 @@ export async function generateMetadata({ params }: Props) {
   const { memoTitle } = await getMemoById(params.slug);
 
   return {
-    title: `(수정중) - ${memoTitle}`,
+    title: `(작성중) - ${memoTitle}`,
   };
 }
