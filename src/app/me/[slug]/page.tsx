@@ -75,6 +75,7 @@ export async function generateMetadata({ params }: Props) {
   const { nickname } = await getUserInfo(userId);
 
   return {
-    title: nickname,
+    title: `${nickname} - Inforum`,
+    description: `${nickname}의 마이페이지입니다.`,
   };
 }

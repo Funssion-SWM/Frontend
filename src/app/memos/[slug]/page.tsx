@@ -74,9 +74,10 @@ export default async function MemoPage({ params: { slug } }: Props) {
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { memoTitle } = await getMemoById(params.slug);
+  const { memoTitle, memoDescription } = await getMemoById(params.slug);
 
   return {
     title: memoTitle,
+    description: memoDescription.slice(0, 160),
   };
 }

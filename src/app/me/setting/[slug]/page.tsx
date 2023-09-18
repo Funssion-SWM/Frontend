@@ -1,6 +1,7 @@
 import MyInfoForm from '@/components/MyInfoForm';
 import { getUserInfo } from '@/service/auth';
 import { getDefaultTags } from '@/service/tag';
+import { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -34,3 +35,8 @@ export default async function MySettingPage({ params: { slug } }: Props) {
     </section>
   );
 }
+
+export const metadata: Metadata = {
+  title: '회원 정보 수정',
+  description: '회원 정보 수정 페이지입니다.',
+};

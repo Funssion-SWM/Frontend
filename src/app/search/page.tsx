@@ -24,3 +24,14 @@ export default async function SearchPage() {
     </section>
   );
 }
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  return {
+    title: `"${searchParams['q']}" - 검색 결과`,
+    description: `"${searchParams['q']}"의 검색 결과입니다.`,
+  };
+}

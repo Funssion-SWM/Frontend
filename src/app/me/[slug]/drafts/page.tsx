@@ -5,6 +5,7 @@ import MeDraftContainer from '@/components/me/MeDraftContainer';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { cookies } from 'next/headers';
 import { ACCESS_TOKEN } from '@/utils/const';
+import { Metadata } from 'next';
 
 type Props = {
   params: {
@@ -33,3 +34,8 @@ export default async function MeDraftPage({ params: { slug } }: Props) {
     </section>
   );
 }
+
+export const metadata: Metadata = {
+  title: '임시 글 목록 - Inforum',
+  description: '임시 글들이 저장되어있습니다.',
+};

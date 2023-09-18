@@ -9,7 +9,7 @@ import ToastProvider from '@/components/ToastProvider';
 
 export const metadata = {
   title: 'Inforum',
-  description: 'You can make a post easily',
+  description: '개발 기록을 쉽고, 즐겁게',
 };
 
 export default async function RootLayout({
