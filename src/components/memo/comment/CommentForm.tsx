@@ -18,9 +18,12 @@ export default function CommentForm({ postId }: Props) {
       window.alert('댓글을 작성해주세요');
       return;
     }
-    createComment({ postTypeWithComment: 'MEMO', postId, commentText });
-    setCommentText('');
-    router.refresh();
+    createComment({ postTypeWithComment: 'MEMO', postId, commentText }).then(
+      () => {
+        setCommentText('');
+        router.refresh();
+      }
+    );
   };
 
   return (

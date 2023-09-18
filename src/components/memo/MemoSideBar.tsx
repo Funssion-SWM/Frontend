@@ -46,7 +46,13 @@ export default function MemoSideBar({
             authorName={authorName}
             authorProfileImagePath={authorProfileImagePath}
           />
-          <CommentsList comments={comments} userId={userId} />
+          {comments.length === 0 ? (
+            <p className="flex justify-center items-center h-full text-sm text-soma-grey-49">
+              작성된 댓글이 없습니다...
+            </p>
+          ) : (
+            <CommentsList comments={comments} userId={userId} />
+          )}
           <div className="sticky bottom-0 p-1 bg-white shadow-inner rounded-b-2xl">
             <CommentForm postId={memoId} />
           </div>

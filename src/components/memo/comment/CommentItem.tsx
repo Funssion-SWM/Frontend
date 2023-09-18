@@ -91,8 +91,7 @@ export default function CommentItem({
               <button
                 onClick={() => {
                   open('댓글을 삭제하시겠습니까?', () => {
-                    deleteComeent(id);
-                    router.refresh();
+                    deleteComeent(id).then(() => router.refresh());
                   });
                 }}
               >
@@ -117,9 +116,10 @@ export default function CommentItem({
                     window.alert('댓글을 작성해주세요');
                     return;
                   }
-                  updateComment(id, updatedText);
-                  setIsEditMode(false);
-                  router.refresh();
+                  updateComment(id, updatedText).then(() => {
+                    setIsEditMode(false);
+                    router.refresh();
+                  });
                 }}
               />
             </div>
