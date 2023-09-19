@@ -6,8 +6,10 @@ import PromptgMessage from '@/components/shared/PromptMessage';
 import { useMessage } from '@/hooks/useMessage';
 import { checkNickname, registerNickname } from '@/service/auth';
 import { validateNickname } from '@/service/validation';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import logo from '@/assets/inforum_logo.png';
 
 type Props = {
   params: {
@@ -48,7 +50,7 @@ export default function SignupNicknameSettingPage({ params: { slug } }: Props) {
 
   return (
     <section className="flex flex-col w-full items-center max-w-screen-sm mx-auto mt-32 py-5 px-10 sm:px-32">
-      <h1 className="text-3xl font-bold my-5">Inforum</h1>
+      <Image src={logo} alt="logo" width={200} />
       <PromptgMessage property={messageProperty} />
       <div className="flex flex-col my-1 w-full">
         <label htmlFor="nickname" className="text-xs sm:text-sm">
