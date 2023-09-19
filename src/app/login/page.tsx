@@ -2,6 +2,8 @@ import GoogleLoginBtn from '@/components/login/GoogleLoginBtn';
 import LoginForm from '@/components/login/LoginForm';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import logo from '@/assets/inforum_logo.png';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: '로그인',
@@ -17,7 +19,7 @@ export default function LoginPage() {
       >
         메인으로
       </Link>
-      <h1 className="text-3xl font-bold my-5">Inforum</h1>
+      <Image src={logo} alt="logo" width={200} />
       <LoginForm />
       <GoogleLoginBtn />
       <div className="flex items-center mt-7">

@@ -1,6 +1,8 @@
 import SignupForm from '@/components/signup/SignupForm';
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
+import logo from '@/assets/inforum_logo.png';
 
 export const metadata: Metadata = {
   title: '회원가입',
@@ -16,7 +18,7 @@ export default function SignupPage() {
       >
         메인으로
       </Link>
-      <h1 className="text-3xl font-bold my-5">Inforum</h1>
+      <Image src={logo} alt="logo" width={200} />
       <SignupForm />
       <div className="flex items-center">
         <p className="text-soma-grey-50 mr-3 text-xs sm:text-sm">
