@@ -10,6 +10,7 @@ import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import { useRouter } from 'next/navigation';
 import BlueBtn from './btn/BlueBtn';
 import { ModalContext } from '@/context/ModalProvider';
+import logo from '@/assets/inforum_logo.png';
 
 type Props = {
   isLogin: boolean;
@@ -25,15 +26,16 @@ export default function Header({ isLogin, profileImageFilePath }: Props) {
   return (
     <header className="border-b-[1px] border-soma-grey-40 sticky top-0 bg-white z-10 ">
       <div className="flex justify-between items-center py-4 px-5 max-w-screen-xl m-auto h-[70px]">
-        <h1
-          className="text-2xl font-bold cursor-pointer"
+        <Image
+          src={logo}
+          alt="logo"
+          width={120}
           onClick={() => {
             router.push('/memos');
             router.refresh();
           }}
-        >
-          Inforum
-        </h1>
+          className="cursor-pointer"
+        />
         {isLogin ? (
           <nav className="flex items-center gap-3 relative" ref={dropdownRef}>
             <button onClick={() => router.push('/search/form')}>
