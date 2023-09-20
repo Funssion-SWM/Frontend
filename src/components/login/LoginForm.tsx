@@ -26,15 +26,16 @@ export default function LoginForm() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login({ user_email: loginData.email, user_pw: loginData.pw }).then(
-      (data) => {
-        showMessage(data.message, data.isSuccess ? 'success' : 'fail');
-        if (data.isSuccess) {
-          router.push('/memos');
-          router.refresh();
-        }
+    const formdata = new FormData();
+    formdata.append('username', loginData.email);
+    formdata.append('password', loginData.pw);
+    login(formdata).then((data) => {
+      showMessage(data.message, data.isSuccess ? 'success' : 'fail');
+      if (data.isSuccess) {
+        router.push('/memos');
+        router.refresh();
       }
-    );
+    });
   };
 
   return (

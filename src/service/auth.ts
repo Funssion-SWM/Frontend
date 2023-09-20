@@ -24,14 +24,14 @@ export async function signUp(userData: SignUpData): Promise<SignupResponse> {
     .catch(console.error);
 }
 
-export async function login(userData: LoginData): Promise<IsSuccessResponse> {
+export async function login(userData: FormData): Promise<IsSuccessResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/login`,
     {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { Accept: 'application/json' },
       credentials: 'include',
-      body: JSON.stringify(userData),
+      body: userData,
     }
   ).then((res) => res.json());
 }
