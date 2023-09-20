@@ -4,7 +4,7 @@ import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
 import MeMainContainer from '@/components/me/MeMainContainer';
 import { cookies } from 'next/headers';
-import { ACCESS_TOKEN, MY_TAG_MAX_COUNT } from '@/utils/const';
+import { ACCESS_TOKEN, MY_TAG_MAX_COUNT, REFRESH_TOKEN } from '@/utils/const';
 import MeSideBar from '@/components/me/MeSideBar';
 import { getUserTags } from '@/service/tag';
 import MeTagsContainer from '@/components/me/MeTagsContainer';
@@ -16,7 +16,9 @@ type Props = {
 };
 
 export default async function MePage({ params: { slug } }: Props) {
-  const cookie = cookies().get(ACCESS_TOKEN)?.value;
+  const accessToken = cookies().get(ACCESS_TOKEN)?.value;
+  const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
+  const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
   const userId = Number(slug);
 
   const memosData = getMemosByUserId(userId);

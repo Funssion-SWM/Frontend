@@ -6,7 +6,7 @@ import MemoSideBar from '@/components/memo/MemoSideBar';
 import { getCommentsByPostTypeAndPostId } from '@/service/comments';
 import { cookies } from 'next/headers';
 import { getIsLike } from '@/service/like';
-import { ACCESS_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { checkUser, getUserInfo } from '@/service/auth';
 
 type Props = {
@@ -16,7 +16,9 @@ type Props = {
 };
 
 export default async function MemoPage({ params: { slug } }: Props) {
-  const cookie = cookies().get(ACCESS_TOKEN)?.value;
+  const accessToken = cookies().get(ACCESS_TOKEN)?.value;
+  const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
+  const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
 
   const memoData = getMemoById(slug, cookie);
   const likeData = getIsLike('memos', slug, cookie);

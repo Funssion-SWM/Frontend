@@ -3,11 +3,13 @@ import Footer from '@/components/shared/Footer';
 import Header from '@/components/shared/Header';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
-import { ACCESS_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { cookies } from 'next/headers';
 
 export default async function SearchPage() {
-  const cookie = cookies().get(ACCESS_TOKEN)?.value;
+  const accessToken = cookies().get(ACCESS_TOKEN)?.value;
+  const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
+  const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
 
   const { id, isLogin } = await checkUser(cookie);
   const { profileImageFilePath } = isLogin

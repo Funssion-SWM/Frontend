@@ -7,7 +7,6 @@ import {
   SignupResponse,
   UserInfo,
 } from '@/types';
-import { ACCESS_TOKEN } from '@/utils/const';
 import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url';
 
 export async function signUp(userData: SignUpData): Promise<SignupResponse> {
@@ -59,7 +58,7 @@ export async function checkUser(
       credentials: 'include',
       next: { revalidate: 0 },
       headers: {
-        Cookie: `${ACCESS_TOKEN}=${cookie}`,
+        Cookie: `${cookie}`,
       },
     }
   )

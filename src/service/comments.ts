@@ -12,7 +12,7 @@ export async function getCommentsByPostTypeAndPostId(
     {
       credentials: 'include',
       next: { revalidate: 0 },
-      headers: { Cookie: `${ACCESS_TOKEN}=${cookie}` },
+      headers: { Cookie: `${cookie}` },
     }
   )
     .then((res) => {

@@ -1,5 +1,4 @@
 import { Like } from '@/types';
-import { ACCESS_TOKEN } from '@/utils/const';
 
 export async function getIsLike(
   postType: string,
@@ -11,7 +10,7 @@ export async function getIsLike(
     {
       next: { revalidate: 0 },
       credentials: 'include',
-      headers: { Cookie: `${ACCESS_TOKEN}=${cookie}` },
+      headers: { Cookie: `${cookie}` },
     }
   )
     .then((res) => {

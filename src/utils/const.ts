@@ -11,6 +11,7 @@ export const COLORS: MemoColor[] = [
 ];
 
 export const ACCESS_TOKEN = 'accessToken';
+export const REFRESH_TOKEN = 'refreshToken';
 
 export const DESCRIPTION_MAX_LENGTH = 120;
 

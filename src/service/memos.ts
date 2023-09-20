@@ -1,7 +1,6 @@
 import { Orderby, Period } from '@/types';
 import { PostImageResponse } from '@/types/image';
 import { Memo, PostMemoData } from '@/types/memo';
-import { ACCESS_TOKEN } from '@/utils/const';
 
 export async function searchMemos(
   searchString: string,
@@ -63,7 +62,7 @@ export async function getMemoById(
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/${id}`, {
     next: { revalidate: 0 },
     headers: {
-      Cookie: `${ACCESS_TOKEN}=${cookie}`,
+      Cookie: `${cookie}`,
     },
   })
     .then((res) => {
