@@ -5,6 +5,8 @@ import { like, unlike } from '@/service/like';
 import Image from 'next/image';
 import fillHeart from '@/assets/icons/heart_fill.svg';
 import emptyHeart from '@/assets/icons/heart_empty.svg';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 type Props = {
   likes: number;
@@ -15,6 +17,7 @@ type Props = {
 export default function Like({ likes, memoId, isLike }: Props) {
   const [currentLikeNum, setCurrentLikeNum] = useState<number>(likes);
   const [currnetIsLike, setCurrentIsLike] = useState<Boolean>(isLike);
+  const router = useRouter();
 
   function handleClickLike() {
     unlike('memos', memoId)
@@ -22,7 +25,14 @@ export default function Like({ likes, memoId, isLike }: Props) {
         setCurrentLikeNum((pre) => pre - 1);
         setCurrentIsLike(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        toast(`${err}`, {
+          hideProgressBar: true,
+          autoClose: 2000,
+          type: 'error',
+        });
+        router.push('/login');
+      });
   }
 
   function handleClickUnlike() {
@@ -31,7 +41,14 @@ export default function Like({ likes, memoId, isLike }: Props) {
         setCurrentLikeNum((pre) => pre + 1);
         setCurrentIsLike(true);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        toast(`${err}`, {
+          hideProgressBar: true,
+          autoClose: 2000,
+          type: 'error',
+        });
+        router.push('/login');
+      });
   }
 
   return (

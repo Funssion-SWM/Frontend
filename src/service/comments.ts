@@ -35,14 +35,11 @@ export async function createComment(bodyData: PostCommentData) {
     },
     credentials: 'include',
     body: JSON.stringify(bodyData),
-  })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('error');
-      }
-      return res.json();
-    })
-    .catch(console.error);
+  }).then((res) => {
+    if (res.status === 401) throw new Error('로그인을 해주세요');
+    if (!res.ok) throw new Error('error');
+    return res.json();
+  });
 }
 
 export async function updateComment(id: number, commentText: string) {
@@ -110,14 +107,11 @@ export async function createRecomment(bodyData: PostRecoomentData) {
       credentials: 'include',
       body: JSON.stringify(bodyData),
     }
-  )
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('error');
-      }
-      return res.json();
-    })
-    .catch(console.error);
+  ).then((res) => {
+    if (res.status === 401) throw new Error('로그인을 해주세요');
+    if (!res.ok) throw new Error('error');
+    return res.json();
+  });
 }
 
 export async function updateRecomment(id: number, commentText: string) {

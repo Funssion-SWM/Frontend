@@ -3,6 +3,7 @@
 import { createComment } from '@/service/comments';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
+import { toast } from 'react-toastify';
 
 type Props = {
   postId: number;
@@ -18,12 +19,19 @@ export default function CommentForm({ postId }: Props) {
       window.alert('댓글을 작성해주세요');
       return;
     }
-    createComment({ postTypeWithComment: 'MEMO', postId, commentText }).then(
-      () => {
+    createComment({ postTypeWithComment: 'MEMO', postId, commentText })
+      .then(() => {
         setCommentText('');
         router.refresh();
-      }
-    );
+      })
+      .catch((err) => {
+        toast(`${err}`, {
+          hideProgressBar: true,
+          autoClose: 2000,
+          type: 'error',
+        });
+        router.push('/login');
+      });
   };
 
   return (

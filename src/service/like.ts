@@ -34,6 +34,7 @@ export async function like(postType: string, postId: number): Promise<void> {
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/${postType}/${postId}/like`,
     { method: 'POST', credentials: 'include' }
   ).then((res) => {
+    if (res.status === 401) throw new Error('로그인을 해주세요');
     if (!res.ok) throw new Error('like error 발생!');
   });
 }
@@ -43,6 +44,7 @@ export async function unlike(postType: string, postId: number): Promise<void> {
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/${postType}/${postId}/unlike`,
     { method: 'POST', credentials: 'include' }
   ).then((res) => {
+    if (res.status === 401) throw new Error('로그인을 해주세요');
     if (!res.ok) throw new Error('unlike error 발생!');
   });
 }
@@ -55,6 +57,7 @@ export async function likeComment(commentId: number, isReComment: boolean) {
       credentials: 'include',
     }
   ).then((res) => {
+    if (res.status === 401) throw new Error('로그인을 해주세요');
     if (!res.ok) throw new Error('like comment error 발생!');
   });
 }
@@ -67,6 +70,7 @@ export async function unlikeComment(commentId: number, isReComment: boolean) {
       credentials: 'include',
     }
   ).then((res) => {
+    if (res.status === 401) throw new Error('로그인을 해주세요');
     if (!res.ok) throw new Error('unllike comment error 발생!');
   });
 }

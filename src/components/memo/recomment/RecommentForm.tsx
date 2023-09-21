@@ -1,6 +1,8 @@
 import { createRecomment, getRecommentsByCommentId } from '@/service/comments';
 import { Comment } from '@/types/comment';
+import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
+import { toast } from 'react-toastify';
 
 type Props = {
   authorId: number;
@@ -14,6 +16,7 @@ export default function RecommentForm({
   onSubmit,
 }: Props) {
   const [recommentText, setRecommentText] = useState('');
+  const router = useRouter();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,11 +28,20 @@ export default function RecommentForm({
       parentCommentId,
       authorId,
       commentText: recommentText,
-    }).then(async () => {
-      const recomments = await getRecommentsByCommentId(parentCommentId);
-      onSubmit(recomments);
-    });
-    setRecommentText('');
+    })
+      .then(async () => {
+        const recomments = await getRecommentsByCommentId(parentCommentId);
+        onSubmit(recomments);
+        setRecommentText('');
+      })
+      .catch((err) => {
+        toast(`${err}`, {
+          hideProgressBar: true,
+          autoClose: 2000,
+          type: 'error',
+        });
+        router.push('/login');
+      });
   };
 
   return (
