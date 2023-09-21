@@ -5,11 +5,11 @@ type Props = {
 
 export default function MemoCardFooter({ memoTags, commentCount }: Props) {
   return (
-    <div className="flex justify-between items-center text-sm">
-      <div className="flex items-center gap-1 h-10 flex-1 overflow-x-hidden">
+    <div className="flex justify-between items-center text-sm h-10 ">
+      <div className="flex items-center gap-1 flex-1 w-full overflow-x-hidden">
         {memoTags.map((item, idx) => (
           <div
-            className="font-semibold bg-soma-grey-10 text-soma-blue-40 rounded-3xl py-1 px-2 line-clamp-1"
+            className="font-semibold bg-soma-grey-10 text-soma-blue-40 rounded-3xl py-1 px-2 whitespace-nowrap"
             key={idx}
           >
             {item}
