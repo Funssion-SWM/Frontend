@@ -7,11 +7,17 @@ export async function getIsLike(
 ): Promise<Like> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/${postType}/${postId}/like`,
-    {
-      next: { revalidate: 0 },
-      credentials: 'include',
-      headers: { Cookie: `${cookie}` },
-    }
+    cookie
+      ? {
+          next: { revalidate: 0 },
+          headers: {
+            Cookie: `${cookie}`,
+          },
+        }
+      : {
+          next: { revalidate: 0 },
+          credentials: 'include',
+        }
   )
     .then((res) => {
       if (res.status == 404 || res.ok) {

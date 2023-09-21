@@ -59,12 +59,20 @@ export async function getMemoById(
   id: number,
   cookie?: string | undefined
 ): Promise<Memo> {
-  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/${id}`, {
-    next: { revalidate: 0 },
-    headers: {
-      Cookie: `${cookie}`,
-    },
-  })
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/${id}`,
+    cookie
+      ? {
+          next: { revalidate: 0 },
+          headers: {
+            Cookie: `${cookie}`,
+          },
+        }
+      : {
+          next: { revalidate: 0 },
+          credentials: 'include',
+        }
+  )
     .then((res) => {
       if (!res.ok) throw new Error('error');
       return res.json();

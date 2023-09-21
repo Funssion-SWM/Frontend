@@ -1,6 +1,5 @@
 import { PostType } from '@/types';
 import { Comment, PostCommentData, PostRecoomentData } from '@/types/comment';
-import { ACCESS_TOKEN } from '@/utils/const';
 
 export async function getCommentsByPostTypeAndPostId(
   postType: PostType,
@@ -9,11 +8,17 @@ export async function getCommentsByPostTypeAndPostId(
 ) {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/comments/${postType}/${postId}`,
-    {
-      credentials: 'include',
-      next: { revalidate: 0 },
-      headers: { Cookie: `${cookie}` },
-    }
+    cookie
+      ? {
+          next: { revalidate: 0 },
+          headers: {
+            Cookie: `${cookie}`,
+          },
+        }
+      : {
+          next: { revalidate: 0 },
+          credentials: 'include',
+        }
   )
     .then((res) => {
       if (!res.ok) throw new Error('error 발생!');

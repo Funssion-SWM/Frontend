@@ -2,7 +2,6 @@ import {
   CheckUserResponse,
   IsSuccessResponse,
   IsValidResponse,
-  LoginData,
   SignUpData,
   SignupResponse,
   UserInfo,
@@ -54,13 +53,17 @@ export async function checkUser(
 ): Promise<CheckUserResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/check`,
-    {
-      credentials: 'include',
-      next: { revalidate: 0 },
-      headers: {
-        Cookie: `${cookie}`,
-      },
-    }
+    cookie
+      ? {
+          next: { revalidate: 0 },
+          headers: {
+            Cookie: `${cookie}`,
+          },
+        }
+      : {
+          next: { revalidate: 0 },
+          credentials: 'include',
+        }
   )
     .then((res) => {
       if (!res.ok) throw new Error('error!!');
