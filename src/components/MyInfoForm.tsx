@@ -130,7 +130,7 @@ export default function MyInfoForm({
           자기 소개
         </label>
         <textarea
-          className="border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow resize-none h-32"
+          className="border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow resize-none h-24 text-sm"
           id="intro"
           name="intro"
           value={intro}

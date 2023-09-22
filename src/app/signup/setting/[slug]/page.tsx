@@ -12,16 +12,16 @@ type Props = {
 };
 
 export default async function SignupSettingPage({ params: { slug } }: Props) {
-  const headersList = headers();
-  const referer = headersList.get('referer');
+  // const headersList = headers();
+  // const referer = headersList.get('referer');
 
-  if (referer === null) redirect('/memos');
+  // if (referer === null) redirect('/memos');
 
   const defaultTags = await getDefaultTags();
 
   return (
     <section className="flex flex-col w-full items-center max-w-screen-sm mx-auto py-5 px-10 sm:px-16">
-      <Image src={logo} alt="logo" width={200} />
+      <Image src={logo} alt="logo" width={160} className="my-2" />
       <MyInfoForm userId={slug} isSignup={true} defaultTags={defaultTags} />
     </section>
   );
