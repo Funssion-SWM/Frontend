@@ -1,5 +1,6 @@
 import {
   CheckUserResponse,
+  FindEmailResponse,
   IsSuccessResponse,
   IsValidResponse,
   SignUpData,
@@ -200,4 +201,15 @@ export async function registerNickname(nickname: string, userId: number) {
   )
     .then((res) => res.json())
     .catch(console.error);
+}
+
+export async function findEmail(nickname: string): Promise<FindEmailResponse> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/find-email-by?nickname=${nickname}`
+  )
+    .then((res) => {
+      // if (!res.ok) throw new Error('error 발생!');
+      return res.json();
+    })
+    .catch((err) => err);
 }

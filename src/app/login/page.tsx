@@ -22,16 +22,22 @@ export default function LoginPage() {
       <Image src={logo} alt="logo" width={200} />
       <LoginForm />
       <GoogleLoginBtn />
-      <div className="flex items-center mt-7">
-        <p className="text-soma-grey-50 mr-3 text-xs sm:text-sm">
-          계정이 없으신가요?
-        </p>
-        <Link
-          href="/signup"
-          className="self-end my-2 font-semibold text-soma-blue-50 text-sm sm:text-base"
-        >
-          회원가입하기
-        </Link>
+      <div className="flex flex-col items-center mt-7">
+        <div className="flex items-center ">
+          <p className="text-soma-grey-50 mr-3 text-xs sm:text-sm">
+            계정이 없으신가요?
+          </p>
+          <Link
+            href="/signup"
+            className="self-end my-2 font-semibold text-soma-blue-50 text-sm sm:text-base"
+          >
+            회원가입하기
+          </Link>
+        </div>
+        <div className="flex text-soma-grey-50 text-sm gap-2">
+          <Link href="/find/email">이메일 찾기</Link>
+          <Link href="/login">비밀번호 찾기</Link>
+        </div>
       </div>
     </section>
   );

@@ -77,3 +77,8 @@ export type Orderby = 'hot' | 'new';
 export type PostType = 'memo' | 'question';
 
 export type ButtonSize = 'small' | 'medium' | 'big';
+
+export type FindEmailResponse = {
+  email: string;
+  message: string;
+};
