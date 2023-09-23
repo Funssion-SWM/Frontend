@@ -15,6 +15,6 @@ export const REFRESH_TOKEN = 'refreshToken';
 
 export const DESCRIPTION_MAX_LENGTH = 120;
 
-export const TEMPORARY_SAVE_INTERVAL_TIME = 9000;
+export const TEMPORARY_SAVE_INTERVAL_TIME = 10000;
 
 export const MY_TAG_MAX_COUNT = 15;
