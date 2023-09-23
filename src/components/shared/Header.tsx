@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import BlueBtn from './btn/BlueBtn';
 import { ModalContext } from '@/context/ModalProvider';
 import logo from '@/assets/inforum_logo.png';
+import { useScrollDirection } from '@/hooks/useScrollDirection';
 
 type Props = {
   isLogin: boolean;
@@ -22,9 +23,14 @@ export default function Header({ isLogin, profileImageFilePath }: Props) {
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const { open } = useContext(ModalContext);
+  const scrollDirection = useScrollDirection();
 
   return (
-    <header className="border-b-[1px] border-soma-grey-40 sticky top-0 bg-white z-10 ">
+    <header
+      className={`border-b-[1px] border-soma-grey-40 sticky top-0 bg-white z-10 transition-all ease-in-out duration-300 ${
+        scrollDirection === 'down' && 'opacity-0 invisible'
+      }`}
+    >
       <div className="flex justify-between items-center py-4 px-5 max-w-screen-xl m-auto h-[70px]">
         <Image
           src={logo}
