@@ -83,7 +83,7 @@ export default function EditorForm() {
   const editor = useEditor({
     extensions: handleTiptapExtensions(memoId),
     editorProps: handleTiptapEditorProps(memoId, () =>
-      temporarySaveCallbackForSavingImage(title, contents, selectedColor, tags)
+      temporarySaveCallbackForSavingImage('test', 'test', selectedColor, tags)
     ),
     autofocus: memoId ? 'end' : false,
     onCreate: async (e) => {
