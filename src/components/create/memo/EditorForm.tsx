@@ -78,24 +78,6 @@ export default function EditorForm() {
     });
   };
 
-  // memoId가 변경되거나 memoId로 처음 접근하면 실행 for 이미지 임시저장
-  useEffect(() => {
-    if (memoId) {
-      const memoDescription = getDescription(contents);
-      createOrUpdateMemo(
-        `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${memoId}`,
-        {
-          memoTitle: title,
-          memoDescription,
-          memoText: contents,
-          memoColor: selectedColor,
-          memoTags: tags,
-          isTemporary: true,
-        }
-      );
-    }
-  }, [memoId]);
-
   const editor = useEditor({
     extensions: handleTiptapExtensions(memoId),
     editorProps: handleTiptapEditorProps(
