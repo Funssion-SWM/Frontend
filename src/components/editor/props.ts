@@ -58,7 +58,13 @@ export function handleTiptapEditorProps(
           ? startImageUpload(file, memoId, view, coordinates!.pos - 1)
           : callback &&
             callback().then((memoId) =>
-              startImageUpload(file, memoId, view, coordinates!.pos - 1)
+              startImageUpload(
+                file,
+                memoId,
+                view,
+                coordinates!.pos - 1,
+                routingCallback
+              )
             );
         return true;
       }

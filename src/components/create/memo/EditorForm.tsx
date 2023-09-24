@@ -104,7 +104,11 @@ export default function EditorForm() {
   }, [memoId]);
 
   const editor = useEditor({
-    extensions: handleTiptapExtensions(memoId),
+    extensions: handleTiptapExtensions(
+      memoId,
+      temporarySaveCallbackForSavingImage,
+      (memoId: number) => routingAfterUploadImage(memoId)
+    ),
     editorProps: handleTiptapEditorProps(
       memoId,
       temporarySaveCallbackForSavingImage,

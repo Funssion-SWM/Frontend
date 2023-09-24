@@ -74,7 +74,9 @@ const Command = Extension.create({
 
 const getSuggestionItems = (
   { query }: { query: string },
-  memoId: number | undefined
+  memoId: number | undefined,
+  callback?: () => Promise<number>,
+  routingCallback?: (id: number) => void
 ) => {
   return [
     // {
@@ -212,7 +214,18 @@ const getSuggestionItems = (
           if (input.files?.length) {
             const file = input.files[0];
             const pos = editor.view.state.selection.from;
-            memoId && startImageUpload(file, memoId, editor.view, pos);
+            memoId
+              ? startImageUpload(file, memoId, editor.view, pos)
+              : callback &&
+                callback().then((memoId) =>
+                  startImageUpload(
+                    file,
+                    memoId,
+                    editor.view,
+                    pos,
+                    routingCallback
+                  )
+                );
           }
         };
         input.click();
@@ -424,10 +437,15 @@ const renderItems = () => {
   };
 };
 
-export const handleSlashCommand = (memoId: number | undefined) => {
+export const handleSlashCommand = (
+  memoId: number | undefined,
+  callback?: () => Promise<number>,
+  routingCallback?: (id: number) => void
+) => {
   return Command.configure({
     suggestion: {
-      items: (query: { query: string }) => getSuggestionItems(query, memoId),
+      items: (query: { query: string }) =>
+        getSuggestionItems(query, memoId, callback, routingCallback),
       render: renderItems,
     },
   });

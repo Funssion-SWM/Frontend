@@ -15,7 +15,11 @@ import { InputRule } from '@tiptap/core';
 import UploadImagesPlugin from '@/components/editor/plugins/upload-images';
 import UpdatedImage from './updated-image';
 
-export const handleTiptapExtensions = (memoId: number | undefined) => {
+export const handleTiptapExtensions = (
+  memoId: number | undefined,
+  callback?: () => Promise<number>,
+  routingCallback?: (id: number) => void
+) => {
   return [
     StarterKit.configure({
       bulletList: {
