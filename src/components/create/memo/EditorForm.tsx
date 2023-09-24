@@ -62,11 +62,12 @@ export default function EditorForm({
       console.log(err);
     },
   });
-
+  // export declare type FocusPosition = 'start' | 'end' | 'all' | number | boolean | null;
   const [contents, setContents] = useState(JSON.stringify(preContent));
   const editor = useEditor({
     extensions: handleTiptapExtensions(memoId),
     editorProps: handleTiptapEditorProps(memoId),
+    autofocus: alreadyExists ? 'end' : false,
     content: preContent,
     onUpdate: (e) => {
       setContents(JSON.stringify(e.editor.getJSON()));
@@ -298,7 +299,7 @@ export default function EditorForm({
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-[0.5px] border-soma-grey-49"
-          autoFocus
+          autoFocus={alreadyExists ? false : true}
         />
         <div className="flex flex-wrap gap-1 mx-3 mb-1">
           {tags.map((tag, idx) => (
