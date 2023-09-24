@@ -72,17 +72,43 @@ export default function EditorForm() {
         memoTags: tags,
         isTemporary: true,
       }
-    ).then((data) => {
-      router.push(`/create/memo?id=${data.memoId}`);
-      return data.memoId;
-    });
+    ).then((data) => data.memoId);
   };
+
+  const routingAfterUploadImage = (memoId: number) => {
+    router.push(`/create/memo?id=${memoId}`);
+  };
+
+  const isInitialMount = useRef(true);
+  // memoId가 변경되면 실행 for 이미지 임시저장
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      console.log('hello');
+      if (memoId) {
+        const memoDescription = getDescription(contents);
+        createOrUpdateMemo(
+          `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${memoId}`,
+          {
+            memoTitle: title,
+            memoDescription,
+            memoText: contents,
+            memoColor: selectedColor,
+            memoTags: tags,
+            isTemporary: true,
+          }
+        );
+      }
+    }
+  }, [memoId]);
 
   const editor = useEditor({
     extensions: handleTiptapExtensions(memoId),
     editorProps: handleTiptapEditorProps(
       memoId,
-      temporarySaveCallbackForSavingImage
+      temporarySaveCallbackForSavingImage,
+      (memoId: number) => routingAfterUploadImage(memoId)
     ),
     autofocus: memoId ? 'end' : false,
     onCreate: async (e) => {

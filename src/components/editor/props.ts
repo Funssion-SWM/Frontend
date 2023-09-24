@@ -3,7 +3,8 @@ import { startImageUpload } from './plugins/upload-images';
 
 export function handleTiptapEditorProps(
   memoId: number | undefined,
-  callback?: () => Promise<number>
+  callback?: () => Promise<number>,
+  routingCallback?: (id: number) => void
 ): EditorProps {
   return {
     attributes: {
@@ -33,7 +34,7 @@ export function handleTiptapEditorProps(
           ? startImageUpload(file, memoId, view, pos)
           : callback &&
             callback().then((memoId) =>
-              startImageUpload(file, memoId, view, pos)
+              startImageUpload(file, memoId, view, pos, routingCallback)
             );
         return true;
       }

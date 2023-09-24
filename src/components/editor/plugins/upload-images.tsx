@@ -64,7 +64,8 @@ export function startImageUpload(
   file: File,
   memoId: number,
   view: EditorView,
-  pos: number
+  pos: number,
+  routingCallback?: (memoId: number) => void
 ) {
   // check if the file is an image
   if (!file.type.includes('image/')) {
@@ -117,6 +118,7 @@ export function startImageUpload(
       .replaceWith(pos, pos, node)
       .setMeta(uploadKey, { remove: { id } });
     view.dispatch(transaction);
+    routingCallback && routingCallback(memoId);
   });
 }
 
