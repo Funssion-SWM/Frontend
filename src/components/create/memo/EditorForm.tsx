@@ -60,35 +60,47 @@ export default function EditorForm() {
   const [contents, setContents] = useState('');
   const [isMemoLoading, setIsMemoLoading] = useState(false);
 
-  const temporarySaveCallbackForSavingImage = async (
-    title: string,
-    contents: string,
-    selectedColor: MemoColor,
-    tags: string[]
-  ) => {
-    const memoDescription = 'test';
+  const temporarySaveCallbackForSavingImage = async () => {
     return createOrUpdateMemo(
       `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos`,
       {
-        memoTitle: title,
-        memoDescription,
-        memoText: contents,
+        memoTitle: 'temp',
+        memoDescription: 'temp',
+        memoText:
+          '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"temp"}]}]}',
         memoColor: selectedColor,
         memoTags: tags,
         isTemporary: true,
       }
-    ).then((data) => data.memoId);
+    ).then((data) => {
+      router.push(`/create/memo?id=${data.memoId}`);
+      return data.memoId;
+    });
   };
+
+  // memoId가 변경되거나 memoId로 처음 접근하면 실행 for 이미지 임시저장
+  useEffect(() => {
+    if (memoId) {
+      const memoDescription = getDescription(contents);
+      createOrUpdateMemo(
+        `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${memoId}`,
+        {
+          memoTitle: title,
+          memoDescription,
+          memoText: contents,
+          memoColor: selectedColor,
+          memoTags: tags,
+          isTemporary: true,
+        }
+      );
+    }
+  }, [memoId]);
 
   const editor = useEditor({
     extensions: handleTiptapExtensions(memoId),
-    editorProps: handleTiptapEditorProps(memoId, () =>
-      temporarySaveCallbackForSavingImage(
-        'test',
-        '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"test"}]}]}',
-        selectedColor,
-        tags
-      )
+    editorProps: handleTiptapEditorProps(
+      memoId,
+      temporarySaveCallbackForSavingImage
     ),
     autofocus: memoId ? 'end' : false,
     onCreate: async (e) => {
