@@ -53,25 +53,38 @@ export default function EditorForm() {
     },
   });
 
+  const [title, setTitle] = useState<string>('');
+  const [selectedColor, setSelectedColor] = useState<MemoColor>('yellow');
+  const [inputTag, setInputTag] = useState<string>('');
+  const [tags, setTags] = useState<string[]>([]);
   const [contents, setContents] = useState('');
   const [isMemoLoading, setIsMemoLoading] = useState(false);
 
+  const temporarySaveCallbackForSavingImage = async (
+    title: string,
+    contents: string,
+    selectedColor: MemoColor,
+    tags: string[]
+  ) => {
+    const memoDescription = getDescription(contents);
+    return createOrUpdateMemo(
+      `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos`,
+      {
+        memoTitle: title,
+        memoDescription,
+        memoText: contents,
+        memoColor: selectedColor,
+        memoTags: tags,
+        isTemporary: true,
+      }
+    ).then((data) => data.memoId);
+  };
+
   const editor = useEditor({
     extensions: handleTiptapExtensions(memoId),
-    editorProps: handleTiptapEditorProps(memoId, async () => {
-      const memoDescription = getDescription(contents);
-      return createOrUpdateMemo(
-        `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos`,
-        {
-          memoTitle: title,
-          memoDescription,
-          memoText: temporaryContents,
-          memoColor: selectedColor,
-          memoTags: tags,
-          isTemporary: true,
-        }
-      ).then((data) => data.memoId);
-    }),
+    editorProps: handleTiptapEditorProps(memoId, () =>
+      temporarySaveCallbackForSavingImage(title, contents, selectedColor, tags)
+    ),
     autofocus: memoId ? 'end' : false,
     onCreate: async (e) => {
       if (memoId)
@@ -150,11 +163,6 @@ export default function EditorForm() {
       window.removeEventListener('mousedown', mousedownHandler);
     };
   }, [stop, isLoading, editor, complete, completion.length]);
-
-  const [title, setTitle] = useState<string>('');
-  const [selectedColor, setSelectedColor] = useState<MemoColor>('yellow');
-  const [inputTag, setInputTag] = useState<string>('');
-  const [tags, setTags] = useState<string[]>([]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.nativeEvent.isComposing) return;
