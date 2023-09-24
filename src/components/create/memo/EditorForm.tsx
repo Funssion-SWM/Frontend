@@ -66,7 +66,7 @@ export default function EditorForm() {
     selectedColor: MemoColor,
     tags: string[]
   ) => {
-    const memoDescription = getDescription(contents);
+    const memoDescription = 'test';
     return createOrUpdateMemo(
       `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos`,
       {
