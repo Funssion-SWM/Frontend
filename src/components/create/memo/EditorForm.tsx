@@ -3,10 +3,14 @@
 import SelectColorBar from '@/components/create/memo/SelectColorBar';
 import MyEditor from '@/components/editor';
 import { useEditor } from '@tiptap/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useRef, useState } from 'react';
 import BlueBtn from '../../shared/btn/BlueBtn';
-import { createOrUpdateMemo, getMemoDrafts } from '@/service/memos';
+import {
+  createOrUpdateMemo,
+  getMemoById,
+  getMemoDrafts,
+} from '@/service/memos';
 import { getPrevText } from '@/lib/editor';
 import { useCompletion } from 'ai/react';
 import { getDescription } from '@/service/description';
@@ -22,26 +26,12 @@ import { DraftsInModalContext } from '@/context/DraftsInModalProvider';
 import { TEMPORARY_SAVE_INTERVAL_TIME } from '@/utils/const';
 import Tag from '@/components/shared/Tag';
 
-type Props = {
-  preTitle?: string;
-  preContent?: object;
-  preColor?: MemoColor;
-  preMemoTags?: string[];
-  alreadyExists: boolean;
-  memoId?: number;
-};
-
-export default function EditorForm({
-  preTitle = '',
-  preContent,
-  preColor = 'yellow',
-  preMemoTags = [],
-  alreadyExists,
-  memoId,
-}: Props) {
+export default function EditorForm() {
   const router = useRouter();
   const { open } = useContext(ModalContext);
   const { openDrafts } = useContext(DraftsInModalContext);
+
+  const memoId = Number(useSearchParams()?.get('id'));
 
   const { complete, completion, isLoading, stop } = useCompletion({
     id: 'inforum',
@@ -62,13 +52,39 @@ export default function EditorForm({
       console.log(err);
     },
   });
-  // export declare type FocusPosition = 'start' | 'end' | 'all' | number | boolean | null;
-  const [contents, setContents] = useState(JSON.stringify(preContent));
+
+  const [contents, setContents] = useState('');
+  const [isMemoLoading, setIsMemoLoading] = useState(false);
+
   const editor = useEditor({
     extensions: handleTiptapExtensions(memoId),
-    editorProps: handleTiptapEditorProps(memoId),
-    autofocus: alreadyExists ? 'end' : false,
-    content: preContent,
+    editorProps: handleTiptapEditorProps(memoId, async () => {
+      const memoDescription = getDescription(contents);
+      return createOrUpdateMemo(
+        `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos`,
+        {
+          memoTitle: title,
+          memoDescription,
+          memoText: temporaryContents,
+          memoColor: selectedColor,
+          memoTags: tags,
+          isTemporary: true,
+        }
+      ).then((data) => data.memoId);
+    }),
+    autofocus: memoId ? 'end' : false,
+    onCreate: async (e) => {
+      if (memoId)
+        await getMemoById(memoId).then(
+          ({ memoTitle, memoColor, memoTags, memoText }) => {
+            setTitle(memoTitle);
+            setSelectedColor(memoColor);
+            setTags(memoTags);
+            e.editor.commands.setContent(JSON.parse(memoText));
+          }
+        );
+      setIsMemoLoading(true);
+    },
     onUpdate: (e) => {
       setContents(JSON.stringify(e.editor.getJSON()));
       const selection = e.editor.state.selection;
@@ -135,10 +151,10 @@ export default function EditorForm({
     };
   }, [stop, isLoading, editor, complete, completion.length]);
 
-  const [title, setTitle] = useState<string>(preTitle);
-  const [selectedColor, setSelectedColor] = useState<MemoColor>(preColor);
+  const [title, setTitle] = useState<string>('');
+  const [selectedColor, setSelectedColor] = useState<MemoColor>('yellow');
   const [inputTag, setInputTag] = useState<string>('');
-  const [tags, setTags] = useState<string[]>(preMemoTags);
+  const [tags, setTags] = useState<string[]>([]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.nativeEvent.isComposing) return;
@@ -156,19 +172,12 @@ export default function EditorForm({
 
   // 자동 임시 저장
   useEffect(() => {
-    if (
-      !title ||
-      !temporaryContents ||
-      !contents ||
-      temporaryContents === JSON.stringify(preContent) ||
-      isLoading
-    )
-      return;
+    if (!title || !temporaryContents || !contents || isLoading) return;
 
     const memoDescription = getDescription(contents);
     createOrUpdateMemo(
       `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos${
-        alreadyExists ? `/${memoId}` : ''
+        memoId ? `/${memoId}` : ''
       }`,
       {
         memoTitle: title,
@@ -185,7 +194,7 @@ export default function EditorForm({
           autoClose: 2000,
           type: 'success',
         });
-        !alreadyExists && router.push(`/create/memo/${data.memoId}`);
+        !memoId && router.push(`/create/memo?id=${data.memoId}`);
       })
       .catch(() => {
         toast('임시 저장에 실패했습니다.', {
@@ -227,7 +236,7 @@ export default function EditorForm({
     const memoDescription = getDescription(memoText);
     createOrUpdateMemo(
       `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos${
-        alreadyExists ? `/${memoId}` : ''
+        memoId ? `/${memoId}` : ''
       }`,
       {
         memoTitle: title,
@@ -240,11 +249,9 @@ export default function EditorForm({
     )
       .then((data) => {
         if (saveMode === 'temporary') {
-          !alreadyExists && router.push(`/create/memo/${data.memoId}`);
+          !memoId && router.push(`/create/memo?id=${data.memoId}`);
         } else {
-          alreadyExists
-            ? router.push(`/memos/${memoId}`)
-            : router.push('/memos');
+          memoId ? router.push(`/memos/${memoId}`) : router.push('/memos');
         }
         router.refresh();
       })
@@ -269,75 +276,77 @@ export default function EditorForm({
   }, [editor?.state.selection, currentScrollHeight]);
 
   return (
-    <div className="flex w-full" ref={edirotRef}>
-      <div
-        className={`relative flex flex-col rounded-lg shadow-lg px-2 pt-2 pb-4 min-h-screen sm:min-h-for-fit-screen w-full ${
-          {
-            yellow: 'bg-memo-yellow',
-            green: 'bg-memo-green',
-            skyblue: 'bg-memo-skyblue',
-            orange: 'bg-memo-orange',
-            pink: 'bg-memo-pink',
-            navy: 'bg-memo-navy',
-            purple: 'bg-memo-purple',
-          }[selectedColor]
-        }`}
-      >
-        <div className="flex justify-end gap-2 mr-1 my-1">
-          <WhiteBtnWithCount
-            text="임시저장"
-            count={drafts.length}
-            onClickBtn={() => savePost('temporary')}
-            onClickCount={() => openDrafts(drafts)}
-          />
-          <BlueBtn text="등록" onClick={() => savePost('permanent')} />
-        </div>
-        <input
-          type="text"
-          placeholder="제목을 입력해주세요."
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-[0.5px] border-soma-grey-49"
-          autoFocus={alreadyExists ? false : true}
-        />
-        <div className="flex flex-wrap gap-1 mx-3 mb-1">
-          {tags.map((tag, idx) => (
-            <Tag
-              key={idx}
-              tagText={tag}
-              onClick={() =>
-                setTags((preTags) => preTags.filter((item) => item !== tag))
-              }
+    isMemoLoading && (
+      <div className="flex w-full" ref={edirotRef}>
+        <div
+          className={`relative flex flex-col rounded-lg shadow-lg px-2 pt-2 pb-4 min-h-screen sm:min-h-for-fit-screen w-full ${
+            {
+              yellow: 'bg-memo-yellow',
+              green: 'bg-memo-green',
+              skyblue: 'bg-memo-skyblue',
+              orange: 'bg-memo-orange',
+              pink: 'bg-memo-pink',
+              navy: 'bg-memo-navy',
+              purple: 'bg-memo-purple',
+            }[selectedColor]
+          }`}
+        >
+          <div className="flex justify-end gap-2 mr-1 my-1">
+            <WhiteBtnWithCount
+              text="임시저장"
+              count={drafts.length}
+              onClickBtn={() => savePost('temporary')}
+              onClickCount={() => openDrafts(drafts)}
             />
-          ))}
+            <BlueBtn text="등록" onClick={() => savePost('permanent')} />
+          </div>
           <input
             type="text"
-            placeholder="태그를 입력 후 엔터를 눌러주세요."
-            name="tag"
-            value={inputTag}
-            onChange={(e) => setInputTag(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="grow outline-none p-1 text-sm sm:text-base bg-transparent"
+            placeholder="제목을 입력해주세요."
+            name="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-[0.5px] border-soma-grey-49"
+            autoFocus={memoId ? false : true}
           />
+          <div className="flex flex-wrap gap-1 mx-3 mb-1">
+            {tags.map((tag, idx) => (
+              <Tag
+                key={idx}
+                tagText={tag}
+                onClick={() =>
+                  setTags((preTags) => preTags.filter((item) => item !== tag))
+                }
+              />
+            ))}
+            <input
+              type="text"
+              placeholder="태그를 입력 후 엔터를 눌러주세요."
+              name="tag"
+              value={inputTag}
+              onChange={(e) => setInputTag(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="grow outline-none p-1 text-sm sm:text-base bg-transparent"
+            />
+          </div>
+          <SelectColorBar
+            selected={selectedColor}
+            onClick={(color: MemoColor) => setSelectedColor(color)}
+          />
+          <MyEditor editor={editor} />
+          <button
+            className="absolute bottom-3 right-5 text-soma-grey-50"
+            onClick={() =>
+              open('나가시겠습니까?', () => {
+                router.push(`/memos`);
+              })
+            }
+          >
+            나가기
+          </button>
         </div>
-        <SelectColorBar
-          selected={selectedColor}
-          onClick={(color: MemoColor) => setSelectedColor(color)}
-        />
-        <MyEditor editor={editor} />
-        <button
-          className="absolute bottom-3 right-5 text-soma-grey-50"
-          onClick={() =>
-            open('나가시겠습니까?', () => {
-              router.push(`/memos`);
-            })
-          }
-        >
-          나가기
-        </button>
+        {isLoading && <FakeEditor editor={fakeEditor} />}
       </div>
-      {isLoading && <FakeEditor editor={fakeEditor} />}
-    </div>
+    )
   );
 }

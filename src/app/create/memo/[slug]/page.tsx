@@ -13,14 +13,14 @@ export default async function CreateMemoPage({ params: { slug } }: Props) {
 
   return (
     <LayoutWrapper paddingY="sm:py-10" bgColor="bg-soma-grey-10">
-      <EditorForm
+      {/* <EditorForm
         preTitle={memoTitle}
         preContent={JSON.parse(memoText)}
         preColor={memoColor}
         preMemoTags={memoTags}
         alreadyExists={true}
         memoId={slug}
-      />
+      /> */}
     </LayoutWrapper>
   );
 }

@@ -2,7 +2,8 @@ import { EditorProps } from '@tiptap/pm/view';
 import { startImageUpload } from './plugins/upload-images';
 
 export function handleTiptapEditorProps(
-  memoId: number | undefined
+  memoId: number | undefined,
+  callback?: () => Promise<number>
 ): EditorProps {
   return {
     attributes: {
@@ -28,7 +29,12 @@ export function handleTiptapEditorProps(
         event.preventDefault();
         const file = event.clipboardData.files[0];
         const pos = view.state.selection.from;
-        memoId && startImageUpload(file, memoId, view, pos);
+        memoId
+          ? startImageUpload(file, memoId, view, pos)
+          : callback &&
+            callback().then((memoId) =>
+              startImageUpload(file, memoId, view, pos)
+            );
         return true;
       }
       return false;
@@ -47,7 +53,12 @@ export function handleTiptapEditorProps(
           top: event.clientY,
         });
         // here we deduct 1 from the pos or else the image will create an extra node
-        memoId && startImageUpload(file, memoId, view, coordinates!.pos - 1);
+        memoId
+          ? startImageUpload(file, memoId, view, coordinates!.pos - 1)
+          : callback &&
+            callback().then((memoId) =>
+              startImageUpload(file, memoId, view, coordinates!.pos - 1)
+            );
         return true;
       }
       return false;

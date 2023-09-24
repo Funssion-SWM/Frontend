@@ -49,7 +49,7 @@ export default function MemoViewerHeader({
                 className="hover:bg-gray-200 p-2 rounded-t-lg"
                 onClick={() => {
                   setIsActive(false);
-                  router.push(`/create/memo/${memoId}`);
+                  router.push(`/create/memo/?id=${memoId}`);
                   router.refresh();
                 }}
               >
