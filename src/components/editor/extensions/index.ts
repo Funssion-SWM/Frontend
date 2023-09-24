@@ -119,7 +119,7 @@ export const handleTiptapExtensions = (
       },
       includeChildren: true,
     }),
-    handleSlashCommand(memoId),
+    handleSlashCommand(memoId, callback, routingCallback),
     TiptapUnderline,
     TextStyle,
     Color,
