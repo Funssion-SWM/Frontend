@@ -114,7 +114,11 @@ export default function FindPasswordForm() {
           />
         </div>
       </div>
-      <div className="flex flex-col my-1">
+      <div
+        className={`flex flex-col my-1 transition-all ease-in-out duration-300 ${
+          isValidEmail ? 'visible' : 'opacity-0 invisible'
+        }`}
+      >
         <label htmlFor="authCode" className="text-xs sm:text-sm">
           인증번호
         </label>
@@ -138,43 +142,48 @@ export default function FindPasswordForm() {
           />
         </div>
       </div>
-      <div className="flex flex-col  my-1">
-        <label htmlFor="pw" className="text-xs sm:text-sm">
-          비밀번호
-        </label>
-        <input
-          className={BASIC_INPUT_STYLE}
-          type="password"
-          id="pw"
-          name="pw"
-          value={findPasswordData.pw}
-          onChange={handleChange}
-          required
-          placeholder="8~15자리 (영어, 숫자, 특수문자(@$!%*#?&)) 포함)"
+      <div
+        className={`flex flex-col ease-in-out duration-300 ${
+          isValidCode ? 'visible' : 'opacity-0 invisible'
+        }`}
+      >
+        <div className="flex flex-col  my-1">
+          <label htmlFor="pw" className="text-xs sm:text-sm">
+            비밀번호
+          </label>
+          <input
+            className={BASIC_INPUT_STYLE}
+            type="password"
+            id="pw"
+            name="pw"
+            value={findPasswordData.pw}
+            onChange={handleChange}
+            required
+            placeholder="8~15자리 (영어, 숫자, 특수문자(@$!%*#?&)) 포함)"
+          />
+        </div>
+        <div className="flex flex-col  my-1">
+          <label htmlFor="confirmPw" className="text-xs sm:text-sm">
+            비밀번호 확인
+          </label>
+          <input
+            className={BASIC_INPUT_STYLE}
+            type="password"
+            id="confirmPw"
+            name="confirmPw"
+            value={findPasswordData.confirmPw}
+            onChange={handleChange}
+            required
+            placeholder="입력한 비밀번호를 다시 입력해주세요."
+          />
+        </div>
+        <BlueBtn
+          text="비밀번호 변경"
+          onClick={() => {}}
+          size="big"
+          extraStyle="my-2"
         />
       </div>
-      <div className="flex flex-col  my-1">
-        <label htmlFor="confirmPw" className="text-xs sm:text-sm">
-          비밀번호 확인
-        </label>
-        <input
-          className={BASIC_INPUT_STYLE}
-          type="password"
-          id="confirmPw"
-          name="confirmPw"
-          value={findPasswordData.confirmPw}
-          onChange={handleChange}
-          required
-          placeholder="입력한 비밀번호를 다시 입력해주세요."
-        />
-      </div>
-
-      <BlueBtn
-        text="비밀번호 변경"
-        onClick={() => {}}
-        size="big"
-        extraStyle="my-2"
-      />
     </form>
   );
 }
