@@ -23,6 +23,13 @@ export type LoginFormData = {
   pw: string;
 };
 
+export type FindPasswrdFormData = {
+  email: string;
+  authCode: string;
+  pw: string;
+  confirmPw: string;
+};
+
 export type CheckUserResponse = {
   id: number;
   isLogin: boolean;

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <section className="relative flex flex-col w-full items-center max-w-screen-sm mx-auto mt-40 py-5 px-10 sm:px-32">
+    <section className="relative flex flex-col w-full items-center max-w-screen-sm mx-auto mt-32 py-5 px-10 sm:px-32">
       <Link
         href="/memos"
         className="absolute top-2 right-4 text-soma-grey-50 text-sm sm:text-base"
@@ -34,9 +34,10 @@ export default function LoginPage() {
             회원가입하기
           </Link>
         </div>
-        <div className="flex text-soma-grey-50 text-sm gap-2">
+        <div className="flex text-soma-grey-50 text-xs sm:text-sm gap-2">
           <Link href="/find/email">이메일 찾기</Link>
-          <Link href="/login">비밀번호 찾기</Link>
+          <p>|</p>
+          <Link href="/find/password">비밀번호 변경</Link>
         </div>
       </div>
     </section>

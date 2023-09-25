@@ -7,9 +7,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import BlueBtn from '../shared/btn/BlueBtn';
 import PromptgMessage from '../shared/PromptMessage';
 import { useMessage } from '@/hooks/useMessage';
-
-const INPUT_STYLE =
-  'text-lg border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 text-sm sm:text-base';
+import { BASIC_INPUT_STYLE } from '@/utils/tailwindcss';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -42,7 +40,7 @@ export default function LoginForm() {
     <form className="flex flex-col w-full" role="form" onSubmit={handleSubmit}>
       <PromptgMessage property={messageProperty} />
       <input
-        className={INPUT_STYLE}
+        className={BASIC_INPUT_STYLE}
         type="email"
         id="email"
         name="email"
@@ -52,7 +50,7 @@ export default function LoginForm() {
         placeholder="이메일"
       />
       <input
-        className={INPUT_STYLE}
+        className={BASIC_INPUT_STYLE}
         type="password"
         id="pw"
         name="pw"

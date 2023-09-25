@@ -18,9 +18,7 @@ import {
   validatePassword,
 } from '@/service/validation';
 import { useMessage } from '@/hooks/useMessage';
-
-const INPUT_STYLE =
-  'border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow text-sm sm:text-base';
+import { BASIC_INPUT_STYLE } from '@/utils/tailwindcss';
 
 export default function SignupForm() {
   const router = useRouter();
@@ -81,7 +79,7 @@ export default function SignupForm() {
       return;
     }
 
-    checkEmailAndSendCode(signupData.email).then((data) => {
+    checkEmailAndSendCode(signupData.email, 'signup').then((data) => {
       setIsValidCode(false);
       showMessage(data.message, data.isSuccess ? 'success' : 'fail');
       setIsValidEmail(data.isSuccess ? true : false);
@@ -117,7 +115,7 @@ export default function SignupForm() {
         </label>
         <div className="flex items-center">
           <input
-            className={INPUT_STYLE}
+            className={BASIC_INPUT_STYLE}
             type="email"
             id="email"
             name="email"
@@ -142,7 +140,7 @@ export default function SignupForm() {
           </label>
           <div className="flex items-center">
             <input
-              className={INPUT_STYLE}
+              className={BASIC_INPUT_STYLE}
               type="text"
               id="authCode"
               name="authCode"
@@ -167,7 +165,7 @@ export default function SignupForm() {
         </label>
         <div className="flex items-center">
           <input
-            className={INPUT_STYLE}
+            className={BASIC_INPUT_STYLE}
             type="text"
             id="nickname"
             name="nickname"
@@ -188,7 +186,7 @@ export default function SignupForm() {
           비밀번호
         </label>
         <input
-          className={INPUT_STYLE}
+          className={BASIC_INPUT_STYLE}
           type="password"
           id="pw"
           name="pw"
@@ -203,7 +201,7 @@ export default function SignupForm() {
           비밀번호 확인
         </label>
         <input
-          className={INPUT_STYLE}
+          className={BASIC_INPUT_STYLE}
           type="password"
           id="confirmPw"
           name="confirmPw"

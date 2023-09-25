@@ -3,6 +3,7 @@
 import { FormEvent, useState } from 'react';
 import BlueBtn from '../shared/btn/BlueBtn';
 import { useRouter } from 'next/navigation';
+import { BASIC_INPUT_STYLE } from '@/utils/tailwindcss';
 
 export default function FindEmailForm() {
   const [nickname, setNickname] = useState<string>('');
@@ -16,7 +17,7 @@ export default function FindEmailForm() {
   return (
     <form className="flex flex-col w-full" onSubmit={handleSubmit}>
       <input
-        className="border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 text-sm sm:text-base outline-none"
+        className={BASIC_INPUT_STYLE}
         type="nickname"
         id="nickname"
         name="nickname"
