@@ -5,8 +5,8 @@ import fillHeart from '@/assets/icons/heart_fill.svg';
 import emptyHeart from '@/assets/icons/heart_empty.svg';
 import { useState } from 'react';
 import { likeComment, unlikeComment } from '@/service/like';
-import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { notifyToast } from '@/service/notification';
 
 type Props = {
   commentId: number;
@@ -40,11 +40,7 @@ export default function CommentHeader({
         setCurrentIsLike(false);
       })
       .catch((err) => {
-        toast(`${err}`, {
-          hideProgressBar: true,
-          autoClose: 2000,
-          type: 'error',
-        });
+        notifyToast(`${err}`, 'error');
         router.push('/login');
       });
   };
@@ -56,11 +52,7 @@ export default function CommentHeader({
         setCurrentIsLike(true);
       })
       .catch((err) => {
-        toast(`${err}`, {
-          hideProgressBar: true,
-          autoClose: 2000,
-          type: 'error',
-        });
+        notifyToast(`${err}`, 'error');
         router.push('/login');
       });
   };

@@ -6,7 +6,7 @@ import Image from 'next/image';
 import fillHeart from '@/assets/icons/heart_fill.svg';
 import emptyHeart from '@/assets/icons/heart_empty.svg';
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
+import { notifyToast } from '@/service/notification';
 
 type Props = {
   likes: number;
@@ -26,11 +26,7 @@ export default function Like({ likes, memoId, isLike }: Props) {
         setCurrentIsLike(false);
       })
       .catch((err) => {
-        toast(`${err}`, {
-          hideProgressBar: true,
-          autoClose: 2000,
-          type: 'error',
-        });
+        notifyToast(`${err}`, 'error');
         router.push('/login');
       });
   }
@@ -42,11 +38,7 @@ export default function Like({ likes, memoId, isLike }: Props) {
         setCurrentIsLike(true);
       })
       .catch((err) => {
-        toast(`${err}`, {
-          hideProgressBar: true,
-          autoClose: 2000,
-          type: 'error',
-        });
+        notifyToast(`${err}`, 'error');
         router.push('/login');
       });
   }

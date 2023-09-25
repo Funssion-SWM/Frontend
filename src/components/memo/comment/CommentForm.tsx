@@ -1,9 +1,9 @@
 'use client';
 
 import { createComment } from '@/service/comments';
+import { notifyToast } from '@/service/notification';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
-import { toast } from 'react-toastify';
 
 type Props = {
   postId: number;
@@ -25,11 +25,7 @@ export default function CommentForm({ postId }: Props) {
         router.refresh();
       })
       .catch((err) => {
-        toast(`${err}`, {
-          hideProgressBar: true,
-          autoClose: 2000,
-          type: 'error',
-        });
+        notifyToast(`${err}`, 'error');
         router.push('/login');
       });
   };

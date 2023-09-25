@@ -6,13 +6,13 @@ import IsValidBtn from '../shared/btn/IsValidBtn';
 import { BASIC_INPUT_STYLE } from '@/utils/tailwindcss';
 import { FindPasswrdFormData } from '@/types';
 import { validateEmail, validatePassword } from '@/service/validation';
-import { toast } from 'react-toastify';
 import {
   changePassword,
   checkEmailAndSendCode,
   confirmCode,
 } from '@/service/auth';
 import { useRouter } from 'next/navigation';
+import { notifyToast } from '@/service/notification';
 
 export default function FindPasswordForm() {
   const router = useRouter();
@@ -35,29 +35,17 @@ export default function FindPasswordForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!(isValidEmail && isValidCode)) {
-      toast('이메일 인증을 해주세요.', {
-        hideProgressBar: true,
-        autoClose: 2000,
-        type: 'error',
-      });
+      notifyToast('이메일 인증을 해주세요.', 'error');
       return;
     }
 
     if (!validatePassword(findPasswordData.pw)) {
-      toast('비밀번호 형식에 맞지 않습니다.', {
-        hideProgressBar: true,
-        autoClose: 2000,
-        type: 'error',
-      });
+      notifyToast('비밀번호 형식에 맞지 않습니다.', 'error');
       return;
     }
 
     if (findPasswordData.pw !== findPasswordData.confirmPw) {
-      toast('비밀번호가 같지 않습니다.', {
-        hideProgressBar: true,
-        autoClose: 2000,
-        type: 'error',
-      });
+      notifyToast('비밀번호가 같지 않습니다.', 'error');
       return;
     }
 
@@ -66,42 +54,27 @@ export default function FindPasswordForm() {
       findPasswordData.authCode,
       findPasswordData.pw
     ).then((data) => {
-      toast(data.message, {
-        hideProgressBar: true,
-        autoClose: 2000,
-        type: data.isSuccess ? 'success' : 'error',
-      });
+      notifyToast(data.message, data.isSuccess ? 'success' : 'error');
       data.isSuccess && router.push('/login');
     });
   };
 
   const handleIsValidEmail = () => {
     if (findPasswordData.email.length === 0) {
-      toast('이메일을 입력해주세요.', {
-        hideProgressBar: true,
-        autoClose: 2000,
-        type: 'error',
-      });
+      notifyToast('이메일을 입력해주세요.', 'error');
+      setIsValidEmail(false);
       return;
     }
 
     if (!validateEmail(findPasswordData.email)) {
-      toast('이메일 형식에 맞지 않습니다', {
-        hideProgressBar: true,
-        autoClose: 2000,
-        type: 'error',
-      });
+      notifyToast('이메일 형식에 맞지 않습니다', 'error');
       setIsValidEmail(false);
       return;
     }
 
     checkEmailAndSendCode(findPasswordData.email, 'find').then((data) => {
+      notifyToast(data.message, data.isSuccess ? 'success' : 'error');
       setIsValidCode(false);
-      toast(data.message, {
-        hideProgressBar: true,
-        autoClose: 2000,
-        type: data.isSuccess ? 'success' : 'error',
-      });
       setIsValidEmail(data.isSuccess ? true : false);
     });
   };
@@ -109,11 +82,7 @@ export default function FindPasswordForm() {
   const handleConfirmCode = () => {
     confirmCode(findPasswordData.email, findPasswordData.authCode).then(
       (data) => {
-        toast(data.message, {
-          hideProgressBar: true,
-          autoClose: 2000,
-          type: data.valid ? 'success' : 'error',
-        });
+        notifyToast(data.message, data.valid ? 'success' : 'error');
         setIsValidCode(data.valid ? true : false);
       }
     );

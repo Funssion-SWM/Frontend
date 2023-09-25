@@ -1,8 +1,8 @@
 import { createRecomment, getRecommentsByCommentId } from '@/service/comments';
+import { notifyToast } from '@/service/notification';
 import { Comment } from '@/types/comment';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
-import { toast } from 'react-toastify';
 
 type Props = {
   authorId: number;
@@ -35,11 +35,7 @@ export default function RecommentForm({
         setRecommentText('');
       })
       .catch((err) => {
-        toast(`${err}`, {
-          hideProgressBar: true,
-          autoClose: 2000,
-          type: 'error',
-        });
+        notifyToast(`${err}`, 'error');
         router.push('/login');
       });
   };

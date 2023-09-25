@@ -5,9 +5,8 @@ import { LoginFormData } from '@/types';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import BlueBtn from '../shared/btn/BlueBtn';
-import PromptgMessage from '../shared/PromptMessage';
-import { useMessage } from '@/hooks/useMessage';
 import { BASIC_INPUT_STYLE } from '@/utils/tailwindcss';
+import { notifyToast } from '@/service/notification';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -15,7 +14,6 @@ export default function LoginForm() {
     email: '',
     pw: '',
   });
-  const [messageProperty, showMessage] = useMessage();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
@@ -28,7 +26,7 @@ export default function LoginForm() {
     formdata.append('username', loginData.email);
     formdata.append('password', loginData.pw);
     login(formdata).then((data) => {
-      showMessage(data.message, data.isSuccess ? 'success' : 'fail');
+      notifyToast(data.message, data.isSuccess ? 'success' : 'error');
       if (data.isSuccess) {
         router.push('/memos');
         router.refresh();
@@ -38,7 +36,6 @@ export default function LoginForm() {
 
   return (
     <form className="flex flex-col w-full" role="form" onSubmit={handleSubmit}>
-      <PromptgMessage property={messageProperty} />
       <input
         className={BASIC_INPUT_STYLE}
         type="email"

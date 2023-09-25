@@ -21,10 +21,10 @@ import { Memo, MemoColor } from '@/types/memo';
 import WhiteBtnWithCount from '@/components/shared/btn/WhiteBtnWithCount';
 import FakeEditor from '@/components/editor/components/FakeEditor';
 import { useDebounce } from '@/hooks/useDebounce';
-import { toast } from 'react-toastify';
 import { DraftsInModalContext } from '@/context/DraftsInModalProvider';
 import { TEMPORARY_SAVE_INTERVAL_TIME } from '@/utils/const';
 import Tag from '@/components/shared/Tag';
+import { notifyToast } from '@/service/notification';
 
 export default function EditorForm() {
   const router = useRouter();
@@ -226,19 +226,11 @@ export default function EditorForm() {
       }
     )
       .then((data) => {
-        toast('임시 저장되었습니다.', {
-          hideProgressBar: true,
-          autoClose: 2000,
-          type: 'success',
-        });
+        notifyToast('임시 저장되었습니다.', 'success');
         !memoId && router.push(`/create/memo?id=${data.memoId}`);
       })
       .catch(() => {
-        toast('임시 저장에 실패했습니다.', {
-          hideProgressBar: true,
-          autoClose: 2000,
-          type: 'error',
-        });
+        notifyToast('임시 저장에 실패했습니다.', 'error');
       });
   }, [temporaryContents]);
 
@@ -293,11 +285,7 @@ export default function EditorForm() {
         router.refresh();
       })
       .catch(() => {
-        toast('등록에 실패했습니다.', {
-          hideProgressBar: true,
-          autoClose: 2000,
-          type: 'error',
-        });
+        notifyToast('등록에 실패했습니다.', 'error');
       });
   };
 

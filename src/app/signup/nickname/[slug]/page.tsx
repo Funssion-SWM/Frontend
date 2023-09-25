@@ -2,14 +2,13 @@
 
 import BlueBtn from '@/components/shared/btn/BlueBtn';
 import IsValidBtn from '@/components/shared/btn/IsValidBtn';
-import PromptgMessage from '@/components/shared/PromptMessage';
-import { useMessage } from '@/hooks/useMessage';
 import { checkNickname, registerNickname } from '@/service/auth';
 import { validateNickname } from '@/service/validation';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import logo from '@/assets/inforum_logo.png';
+import { notifyToast } from '@/service/notification';
 
 type Props = {
   params: {
@@ -22,24 +21,22 @@ export default function SignupNicknameSettingPage({ params: { slug } }: Props) {
   const [nickname, setNickname] = useState('');
   const [isValidNickname, setIsValidNickname] = useState(false);
 
-  const [messageProperty, showMessage] = useMessage();
-
   const handleIsValidNickname = () => {
     if (!validateNickname(nickname)) {
-      showMessage('닉네임 형식에 맞지 않습니다.', 'fail');
+      notifyToast('닉네임 형식에 맞지 않습니다.', 'error');
       setIsValidNickname(false);
       return;
     }
 
     checkNickname(nickname).then((data) => {
-      showMessage(data.message, data.valid ? 'success' : 'fail');
+      notifyToast(data.message, data.valid ? 'success' : 'error');
       setIsValidNickname(data.valid ? true : false);
     });
   };
 
   const handleClick = () => {
     if (!isValidNickname) {
-      showMessage('닉네임 설정에 문제가 있습니다.', 'fail');
+      notifyToast('닉네임 설정에 문제가 있습니다.', 'error');
       return;
     }
 
@@ -50,8 +47,7 @@ export default function SignupNicknameSettingPage({ params: { slug } }: Props) {
 
   return (
     <section className="flex flex-col w-full items-center max-w-screen-sm mx-auto mt-32 py-5 px-10 sm:px-32">
-      <Image src={logo} alt="logo" width={200} />
-      <PromptgMessage property={messageProperty} />
+      <Image src={logo} alt="logo" width={200} className="mb-10" />
       <div className="flex flex-col my-1 w-full">
         <label htmlFor="nickname" className="text-xs sm:text-sm">
           닉네임

@@ -19,7 +19,7 @@ export default function LoginPage() {
       >
         메인으로
       </Link>
-      <Image src={logo} alt="logo" width={200} />
+      <Image src={logo} alt="logo" width={200} className="my-5" />
       <LoginForm />
       <GoogleLoginBtn />
       <div className="flex flex-col items-center mt-7">
