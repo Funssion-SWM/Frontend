@@ -1,12 +1,15 @@
 'use client';
 
 import { ChangeEvent, useEffect, useState } from 'react';
-import LayoutWrapper from '../shared/LayoutWrapper';
 import SearchForm from './SearchForm';
 import { useSearchParams } from 'next/navigation';
 import SearchResultMemosContainer from './SearchResultMemosContainer';
 
-export default function SearchContainer() {
+type Props = {
+  isLogin: boolean;
+};
+
+export default function SearchContainer({ isLogin }: Props) {
   const searchParams = useSearchParams();
 
   const [searchString, setSearchString] = useState(
@@ -22,6 +25,7 @@ export default function SearchContainer() {
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             setSearchString(e.target.value);
           }}
+          isLogin={isLogin}
         />
       </section>
       <SearchResultMemosContainer

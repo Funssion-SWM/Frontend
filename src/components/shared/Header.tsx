@@ -114,9 +114,18 @@ export default function Header({ isLogin, profileImageFilePath }: Props) {
             />
           </nav>
         ) : (
-          <Link href="/login">
-            <BlueBtn text="로그인" onClick={() => {}} />
-          </Link>
+          <nav className="flex items-center gap-3">
+            <button onClick={() => router.push('/search/form')}>
+              <Image
+                className="cursor-pointer"
+                src={searchIcon}
+                alt="search_icon"
+              />
+            </button>
+            <Link href="/login">
+              <BlueBtn text="로그인" onClick={() => {}} />
+            </Link>
+          </nav>
         )}
       </div>
     </header>

@@ -20,7 +20,7 @@ export default async function SearchPage() {
     <section>
       <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
       <LayoutWrapper paddingY="sm:py-5">
-        <SearchContainer />
+        <SearchContainer isLogin={isLogin} />
       </LayoutWrapper>
       <Footer />
     </section>
