@@ -19,7 +19,7 @@ export default function QuestionCard({
   },
 }: Props) {
   return (
-    <article className="flex flex-col p-4 border-t-[1px] border-soma-grey-49 ">
+    <article className="flex flex-col p-4 border-t-[0.5px] border-soma-grey-49 ">
       <div className="flex justify-between">
         <div className="flex items-center">
           <Link href={`/me/1`}>
