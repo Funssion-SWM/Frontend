@@ -45,7 +45,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
-
+  console.log(memoText);
   return (
     <section>
       <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
