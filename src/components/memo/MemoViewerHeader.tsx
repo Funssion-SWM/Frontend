@@ -42,7 +42,7 @@ export default function MemoViewerHeader({
           iconSize={20}
         />
         {isMyMemo && (
-          <div className="flex">
+          <div className="flex ml-2">
             <button onClick={() => setIsActive((pre) => !pre)}>
               <Image src={more} alt="more" />
             </button>

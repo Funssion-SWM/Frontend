@@ -1,4 +1,6 @@
+import Image from 'next/image';
 import LikeBox from '../shared/LikeBox';
+import more from '@/assets/icons/more.svg';
 
 export default function QuestionHeader() {
   return (
@@ -10,8 +12,9 @@ export default function QuestionHeader() {
         postType="question"
         iconSize={20}
       />
-
-      <p>...</p>
+      <button onClick={() => {}} className="ml-2">
+        <Image src={more} alt="more" />
+      </button>
     </div>
   );
 }
