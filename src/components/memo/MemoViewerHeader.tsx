@@ -1,11 +1,11 @@
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import { useContext, useRef } from 'react';
-import Like from '../shared/Like';
 import { useRouter } from 'next/navigation';
 import { deleteMemo } from '@/service/memos';
 import more from '../../assets/icons/more.svg';
 import Image from 'next/image';
 import { ModalContext } from '@/context/ModalProvider';
+import LikeBox from '../shared/LikeBox';
 
 type Props = {
   memoId: number;
@@ -34,7 +34,13 @@ export default function MemoViewerHeader({
   return (
     <div className="py-4 px-2 flex justify-end items-center">
       <nav className="relative flex items-center" ref={dropdownRef}>
-        <Like likes={likes} memoId={memoId} isLike={isLike} />
+        <LikeBox
+          likeNum={likes}
+          postId={memoId}
+          isLike={isLike}
+          postType="memo"
+          iconSize={20}
+        />
         {isMyMemo && (
           <div className="flex">
             <button onClick={() => setIsActive((pre) => !pre)}>

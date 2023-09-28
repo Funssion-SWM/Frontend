@@ -1,7 +1,16 @@
+import LikeBox from '../shared/LikeBox';
+
 export default function QuestionHeader() {
   return (
     <div className="flex justify-end">
-      <p> 좋아요 1000</p>
+      <LikeBox
+        likeNum={10}
+        postId={-1}
+        isLike={true}
+        postType="question"
+        iconSize={20}
+      />
+
       <p>...</p>
     </div>
   );
