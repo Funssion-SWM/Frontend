@@ -50,7 +50,11 @@ export default async function QuestionsPage() {
 
   return (
     <section>
-      <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
+      <Header
+        isLogin={isLogin}
+        profileImageFilePath={profileImageFilePath}
+        currentPage="questions"
+      />
       <LayoutWrapper paddingY="sm:py-5">
         <QuestionsContainer questions={questions} />
       </LayoutWrapper>

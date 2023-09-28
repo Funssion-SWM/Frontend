@@ -48,7 +48,11 @@ export default async function MemoPage({ params: { slug } }: Props) {
   console.log(memoText);
   return (
     <section>
-      <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
+      <Header
+        isLogin={isLogin}
+        profileImageFilePath={profileImageFilePath}
+        currentPage="memos"
+      />
       <LayoutWrapper paddingY="sm:py-5" bgColor="bg-soma-grey-20">
         <div className="flex w-full ">
           <MemoViewer

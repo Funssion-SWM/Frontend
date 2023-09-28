@@ -37,7 +37,11 @@ export default async function QuestionPage({ params: slug }: Props) {
 
   return (
     <section>
-      <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
+      <Header
+        isLogin={isLogin}
+        profileImageFilePath={profileImageFilePath}
+        currentPage="questions"
+      />
       <LayoutWrapper>
         <QuestionDetail questionData={questionData} />
       </LayoutWrapper>

@@ -22,7 +22,11 @@ export default async function MemosPage() {
 
   return (
     <section>
-      <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
+      <Header
+        isLogin={isLogin}
+        profileImageFilePath={profileImageFilePath}
+        currentPage="memos"
+      />
       <LayoutWrapper paddingY="sm:py-5">
         <MemosContainer memos={memos} />
       </LayoutWrapper>

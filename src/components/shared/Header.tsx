@@ -16,9 +16,14 @@ import { useScrollDirection } from '@/hooks/useScrollDirection';
 type Props = {
   isLogin: boolean;
   profileImageFilePath: string | undefined;
+  currentPage?: 'memos' | 'questions';
 };
 
-export default function Header({ isLogin, profileImageFilePath }: Props) {
+export default function Header({
+  isLogin,
+  profileImageFilePath,
+  currentPage,
+}: Props) {
   const router = useRouter();
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -42,6 +47,20 @@ export default function Header({ isLogin, profileImageFilePath }: Props) {
           }}
           className="cursor-pointer"
         />
+        <div className="flex gap-4 font-semibold text-soma-grey-50 sm:text-lg">
+          <Link
+            href="/memos"
+            className={`${currentPage === 'memos' && 'text-soma-blue-40'}`}
+          >
+            Memos
+          </Link>
+          <Link
+            href="/questions"
+            className={`${currentPage === 'questions' && 'text-soma-blue-40'}`}
+          >
+            Questions
+          </Link>
+        </div>
         {isLogin ? (
           <nav className="flex items-center gap-3 relative" ref={dropdownRef}>
             <button onClick={() => router.push('/search/form')}>
