@@ -37,7 +37,6 @@ export default async function QuestionPage({ params: slug }: Props) {
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem!',
     tags: ['test', 'test2'],
-    likesCount: 0,
     answerCount: 0,
     solved: false,
   };

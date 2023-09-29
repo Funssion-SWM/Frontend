@@ -125,9 +125,9 @@ export default function QaEditorForm() {
       return;
     }
 
-    const questionDescription = getDescription(contents);
+    const description = getDescription(contents);
     questionId
-      ? updateQuestion({ title, text: contents, tags }, questionId)
+      ? updateQuestion({ title, text: contents, description, tags }, questionId)
           .then(() => {
             router.push(`/questions/${questionId}`);
             router.refresh();
@@ -135,7 +135,7 @@ export default function QaEditorForm() {
           .catch(() => {
             notifyToast('등록에 실패했습니다.', 'error');
           })
-      : createQuestion({ title, text: contents, tags })
+      : createQuestion({ title, text: contents, description, tags })
           .then(() => {
             router.push(`/questions`);
             router.refresh();

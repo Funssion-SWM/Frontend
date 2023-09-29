@@ -10,7 +10,7 @@ export type Question = {
   text: string;
   description: string;
   tags: string[];
-  likesCount: number;
+  memoId?: number;
   answerCount: number;
   solved: false;
 };
@@ -20,5 +20,6 @@ export type QuestionOrderBy = 'HOT' | 'NEW' | 'ANSWERS' | 'SOLVED';
 export type PostQuestionData = {
   title: string;
   text: string;
+  description: string;
   tags: string[];
 };
