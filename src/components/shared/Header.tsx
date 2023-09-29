@@ -63,7 +63,7 @@ export default function Header({
             Questions
           </Link>
         </div>
-        {true ? (
+        {isLogin ? (
           <nav className="flex items-center gap-3 relative" ref={dropdownRef}>
             <button onClick={() => router.push('/search/form')}>
               <Image
