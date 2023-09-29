@@ -12,6 +12,7 @@ import BlueBtn from './btn/BlueBtn';
 import { ModalContext } from '@/context/ModalProvider';
 import logo from '@/assets/inforum_logo.png';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
+import { CreationModalContext } from '@/context/CreationModalProvider';
 
 type Props = {
   isLogin: boolean;
@@ -28,6 +29,7 @@ export default function Header({
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const { open } = useContext(ModalContext);
+  const { openCreationModal } = useContext(CreationModalContext);
   const scrollDirection = useScrollDirection();
 
   return (
@@ -61,7 +63,7 @@ export default function Header({
             Questions
           </Link>
         </div>
-        {isLogin ? (
+        {true ? (
           <nav className="flex items-center gap-3 relative" ref={dropdownRef}>
             <button onClick={() => router.push('/search/form')}>
               <Image
@@ -70,7 +72,6 @@ export default function Header({
                 alt="search_icon"
               />
             </button>
-
             <button onClick={() => setIsActive((pre) => !pre)}>
               <Image
                 src={profileImageFilePath ?? basicProfileImg}
@@ -127,7 +128,7 @@ export default function Header({
             <BlueBtn
               text={'글쓰기'}
               onClick={() => {
-                router.push('/create/memo');
+                openCreationModal();
                 setIsActive(false);
               }}
             />

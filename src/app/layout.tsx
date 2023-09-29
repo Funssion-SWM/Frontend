@@ -6,6 +6,8 @@ import ModalProvider from '@/context/ModalProvider';
 import Modal from '@/components/shared/Modal';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import ToastProvider from '@/components/ToastProvider';
+import CreationModalProvider from '@/context/CreationModalProvider';
+import CreationModal from '@/components/shared/CreationModal';
 
 export const metadata = {
   title: 'Inforum',
@@ -22,10 +24,13 @@ export default async function RootLayout({
       <GoogleAnalytics />
       <body className="flex flex-col">
         <ToastProvider>
-          <ModalProvider>
-            <Providers>{children}</Providers>
-            <Modal />
-          </ModalProvider>
+          <CreationModalProvider>
+            <ModalProvider>
+              <Providers>{children}</Providers>
+              <Modal />
+            </ModalProvider>
+            <CreationModal />
+          </CreationModalProvider>
         </ToastProvider>
       </body>
     </html>
