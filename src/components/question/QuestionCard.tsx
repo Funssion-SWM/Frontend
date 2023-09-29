@@ -18,7 +18,7 @@ export default function QuestionCard({
     authorName,
     authorId,
     authorImagePath,
-    answerCount,
+    answersCount,
   },
 }: Props) {
   return (
@@ -35,7 +35,7 @@ export default function QuestionCard({
         questionTitle={title}
         questionDescription={description}
       />
-      <QuestionCardFooter questionTags={tags} answerCount={answerCount} />
+      <QuestionCardFooter questionTags={tags} answersCount={answersCount} />
     </article>
   );
 }

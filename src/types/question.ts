@@ -11,7 +11,7 @@ export type Question = {
   description: string;
   tags: string[];
   memoId?: number;
-  answerCount: number;
+  answersCount: number;
   solved: false;
 };
 
