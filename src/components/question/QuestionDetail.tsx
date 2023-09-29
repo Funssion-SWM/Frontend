@@ -14,13 +14,7 @@ type Props = {
 };
 
 export default function QuestionDetail({
-  questionData: {
-    questionTitle,
-    questionText,
-    questionId,
-    questionTags,
-    createdDate,
-  },
+  questionData: { title, text, id, tags, createdDate },
 }: Props) {
   return (
     <div className="flex flex-col">
@@ -28,28 +22,28 @@ export default function QuestionDetail({
         <QuestionHeader />
         <div className="my-5">
           <h2 className="text-2xl xm:text-4xl text-soma-grey-70 font-bold break-all">
-            {questionTitle}
+            {title}
           </h2>
           <div className="break-all ">
             <EditorContent
               editor={useEditor({
-                extensions: handleTiptapExtensions(questionId),
-                editorProps: handleTiptapEditorProps(questionId),
+                extensions: handleTiptapExtensions(id),
+                editorProps: handleTiptapEditorProps(id),
                 editable: false,
-                content: JSON.parse(questionText),
+                content: JSON.parse(text),
               })}
             />
           </div>
         </div>
-        <QuestionFooter questionTags={questionTags} createdDate={createdDate} />
+        <QuestionFooter tags={tags} createdDate={createdDate} />
       </div>
       <div>
         <p>답변을 작성해보세요</p>
         <div className="h-40 overflow-y-scroll border-2 rounded-md">
           <EditorContent
             editor={useEditor({
-              extensions: handleTiptapExtensions(questionId),
-              editorProps: handleTiptapEditorProps(questionId),
+              extensions: handleTiptapExtensions(id),
+              editorProps: handleTiptapEditorProps(id),
             })}
           />
         </div>

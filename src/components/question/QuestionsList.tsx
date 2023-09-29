@@ -9,7 +9,7 @@ export default function QuestionsList({ questions }: Props) {
   return (
     <ul className="flex flex-col gap-2">
       {questions.map((question) => (
-        <li key={question.questionId}>
+        <li key={question.id}>
           <QuestionCard question={question} />
         </li>
       ))}

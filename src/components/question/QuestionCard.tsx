@@ -10,13 +10,7 @@ type Props = {
 };
 
 export default function QuestionCard({
-  question: {
-    questionTitle,
-    questionDescription,
-    createdDate,
-    questionTags,
-    questionId,
-  },
+  question: { title, description, createdDate, tags, id },
 }: Props) {
   return (
     <article className="flex flex-col p-4 border-t-[0.5px] border-soma-grey-49 ">
@@ -41,16 +35,16 @@ export default function QuestionCard({
           <p className="text-soma-grey-49 text-xs w-5 text-center ml-0.5">12</p>
         </div>
       </div>
-      <Link href={`/questions/${questionId}`} className="my-2">
+      <Link href={`/questions/${id}`} className="my-2">
         <h2 className="text-2xl text-soma-grey-70 font-extrabold line-clamp-1">
-          {questionTitle}
+          {title}
         </h2>
         <p className="text-soma-grey-60 line-clamp-2 mt-1 break-all">
-          {questionDescription}
+          {description}
         </p>
       </Link>
       <div className="flex justify-between">
-        <TagsList tags={questionTags} />
+        <TagsList tags={tags} />
         <div className="text-sm">답글 개수 7개</div>
       </div>
     </article>

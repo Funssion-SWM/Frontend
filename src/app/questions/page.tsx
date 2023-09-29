@@ -14,31 +14,55 @@ export default async function QuestionsPage() {
 
   const questions: Question[] = [
     {
-      questionId: 1,
-      questionTitle: 'testTitle',
-      questionText: 'test',
-      questionDescription:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem!',
+      id: 1,
+      authorId: 1,
+      authorName: 'dongree',
+      authorImagePath: '',
       createdDate: '2023-09-26',
-      questionTags: ['test', 'test2'],
+      updatedDate: '2023-09-26',
+      likes: 0,
+      title: 'testTitle',
+      text: '{"type": "doc", "content": [{"type": "paragraph", "content": [{"text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem!", "type": "text"}]}]}',
+      description:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem!',
+      tags: ['test', 'test2'],
+      likesCount: 0,
+      answerCount: 0,
+      solved: false,
     },
     {
-      questionId: 2,
-      questionTitle: 'test2Title',
-      questionText: 'test2',
-      questionDescription:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem!',
+      id: 2,
+      authorId: 1,
+      authorName: 'dongree',
+      authorImagePath: '',
       createdDate: '2023-09-26',
-      questionTags: ['test', 'test2'],
+      updatedDate: '2023-09-26',
+      likes: 0,
+      title: 'testTitle2',
+      text: '{"type": "doc", "content": [{"type": "paragraph", "content": [{"text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem!", "type": "text"}]}]}',
+      description:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem!',
+      tags: ['test', 'test2'],
+      likesCount: 0,
+      answerCount: 0,
+      solved: false,
     },
     {
-      questionId: 3,
-      questionTitle: 'test3Title',
-      questionText: 'test3',
-      questionDescription:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem!',
+      id: 3,
+      authorId: 1,
+      authorName: 'dongree',
+      authorImagePath: '',
       createdDate: '2023-09-26',
-      questionTags: ['test', 'test2'],
+      updatedDate: '2023-09-26',
+      likes: 0,
+      title: 'testTitle3',
+      text: '{"type": "doc", "content": [{"type": "paragraph", "content": [{"text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem!", "type": "text"}]}]}',
+      description:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem!',
+      tags: ['test', 'test2'],
+      likesCount: 0,
+      answerCount: 0,
+      solved: false,
     },
   ];
   const myData = checkUser(cookie);

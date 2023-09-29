@@ -1,14 +1,14 @@
 import TagsList from '../shared/TagsList';
 
 type Props = {
-  questionTags: string[];
+  tags: string[];
   createdDate: string;
 };
 
-export default function QuestionFooter({ questionTags, createdDate }: Props) {
+export default function QuestionFooter({ tags, createdDate }: Props) {
   return (
     <div className="flex justify-between">
-      <TagsList tags={questionTags} />
+      <TagsList tags={tags} />
       <p>{createdDate}</p>
     </div>
   );
