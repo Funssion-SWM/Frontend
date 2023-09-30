@@ -35,7 +35,7 @@ export default function QuestionsContainer({ questions }: Props) {
           isSelected={selectedOrderType === 'HOT'}
         />
       </div>
-      <QuestionsList questions={questionData} />
+      <QuestionsList questions={questionData} size="big" />
     </div>
   );
 }

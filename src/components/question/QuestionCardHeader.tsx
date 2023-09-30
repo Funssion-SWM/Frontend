@@ -3,6 +3,7 @@ import Link from 'next/link';
 import basicProfileImg from '@/assets/profile.svg';
 import fillHeart from '@/assets/icons/heart_fill.svg';
 import { formatDate } from '@/service/time';
+import { QuestionCardSize } from '@/types/question';
 
 type Props = {
   createdDate: string;
@@ -10,6 +11,7 @@ type Props = {
   likeNum: number;
   imagePath: string;
   authorId: number;
+  size: QuestionCardSize;
 };
 
 export default function QuestionCardHeader({
@@ -18,6 +20,7 @@ export default function QuestionCardHeader({
   likeNum,
   imagePath,
   authorId,
+  size,
 }: Props) {
   return (
     <div className="flex justify-between items-center">
@@ -26,12 +29,14 @@ export default function QuestionCardHeader({
           <Image
             src={imagePath ?? basicProfileImg}
             alt="profileImg"
-            width={36}
-            height={36}
-            className="rounded-full w-9 h-9 object-cover"
+            width={size === 'big' ? 36 : 28}
+            height={size === 'big' ? 36 : 28}
+            className={`rounded-full object-cover ${
+              size === 'big' ? 'w-9 h-9' : 'w-7 h-7'
+            }`}
           />
         </Link>
-        <div className="ml-2">
+        <div className={`ml-2 ${size === 'small' && 'text-xs'}`}>
           <h4 className="text-soma-grey-60 font-medium">{authorName}</h4>
           <p className="text-xs text-soma-grey-49">
             {formatDate(createdDate, 'YMD')}
@@ -39,10 +44,10 @@ export default function QuestionCardHeader({
         </div>
       </div>
       <div className="flex items-center">
-        <Image src={fillHeart} alt="fill_heart" width={16} height={16} />
-        <p className="text-soma-grey-49 text-xs w-5 text-center ml-0.5">
+        <Image src={fillHeart} alt="fill_heart" width={15} height={15} />
+        <span className="text-soma-grey-49 text-sm text-center ml-1">
           {likeNum}
-        </p>
+        </span>
       </div>
     </div>
   );

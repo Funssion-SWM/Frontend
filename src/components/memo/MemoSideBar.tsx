@@ -7,12 +7,16 @@ import CommentForm from '@/components/memo/comment/CommentForm';
 import arrowRight from '@/assets/icons/arrow_right.svg';
 import Image from 'next/image';
 import { useState } from 'react';
+import { Question } from '@/types/question';
+import QuestionsList from '../question/QuestionsList';
+import Link from 'next/link';
 
 type Props = {
   authorName: string;
   authorProfileImagePath: string;
   authorId: number;
   comments: Comment[];
+  questions: Question[];
   memoId: number;
   userId: number;
 };
@@ -22,10 +26,14 @@ export default function MemoSideBar({
   authorProfileImagePath,
   authorId,
   comments,
+  questions,
   memoId,
   userId,
 }: Props) {
   const [isVisible, setIsVisible] = useState(true);
+  const [currnetCategory, setCurrnetCategory] = useState<
+    'comment' | 'question' | 'recommendation'
+  >('comment');
 
   return (
     <div className="sticky top-24 flex max-h-for-fit-screen  ">
@@ -45,17 +53,42 @@ export default function MemoSideBar({
             authorId={authorId}
             authorName={authorName}
             authorProfileImagePath={authorProfileImagePath}
+            currentCategory={currnetCategory}
+            onCategoryBtnClick={(category) => setCurrnetCategory(category)}
           />
-          {comments.length === 0 ? (
-            <p className="flex justify-center items-center h-full text-sm text-soma-grey-49">
-              작성된 댓글이 없습니다...
-            </p>
-          ) : (
-            <CommentsList comments={comments} userId={userId} />
+          {currnetCategory === 'comment' && (
+            <div className="h-full">
+              {comments.length === 0 ? (
+                <p className="flex justify-center items-center h-full text-sm text-soma-grey-49">
+                  작성된 댓글이 없습니다...
+                </p>
+              ) : (
+                <CommentsList comments={comments} userId={userId} />
+              )}
+            </div>
           )}
-          <div className="sticky bottom-0 p-1 bg-white shadow-inner rounded-b-2xl">
-            <CommentForm postId={memoId} />
-          </div>
+          {currnetCategory === 'comment' && (
+            <div className="sticky bottom-0 p-1 bg-white shadow-inner rounded-b-2xl">
+              <CommentForm postId={memoId} />
+            </div>
+          )}
+          {currnetCategory === 'question' && (
+            <div className="h-full">
+              {questions.length === 0 ? (
+                <p className="flex justify-center items-center h-full text-sm text-soma-grey-49">
+                  해당 메모와 관련된 질문이 없습니다...
+                </p>
+              ) : (
+                <QuestionsList questions={questions} size="small" />
+              )}
+              <Link
+                href={`/create/question`}
+                className="absolute bottom-3 right-3 text-sm rounded-2xl text-soma-grey-60 border-[0.5px] border-soma-grey-49 px-2 py-1"
+              >
+                질문하기
+              </Link>
+            </div>
+          )}
         </aside>
       )}
     </div>

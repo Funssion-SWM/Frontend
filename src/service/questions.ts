@@ -22,6 +22,19 @@ export async function getQuestionById(id: number): Promise<Question> {
     .catch(console.error);
 }
 
+export async function getQuestionsByMemoId(
+  memoId: number
+): Promise<Question[]> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions/memo?memoId=${memoId}`,
+    {
+      next: { revalidate: 0 },
+    }
+  )
+    .then((res) => res.json())
+    .catch(console.error);
+}
+
 export async function createQuestion(
   bodyData: PostQuestionData
 ): Promise<Question> {

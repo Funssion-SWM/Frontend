@@ -23,3 +23,5 @@ export type PostQuestionData = {
   description: string;
   tags: string[];
 };
+
+export type QuestionCardSize = 'big' | 'small';
