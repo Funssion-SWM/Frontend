@@ -61,7 +61,7 @@ export default function QuestionHeader({
                   setIsActive(false);
                   router.push(
                     `/create/question/?id=${questionId}${
-                      memoId && `&memoId=${memoId}`
+                      memoId ? `&memoId=${memoId}` : ''
                     }`
                   );
                   router.refresh();

@@ -36,9 +36,16 @@ export async function getQuestionsByMemoId(
 }
 
 export async function createQuestion(
-  bodyData: PostQuestionData
+  bodyData: PostQuestionData,
+  memoId: number
 ): Promise<Question> {
-  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions`, {
+  const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions`);
+  if (memoId) {
+    const params = { memoId: memoId.toString() };
+    url.search = new URLSearchParams(params).toString();
+  }
+
+  return fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -145,7 +145,7 @@ export default function QaEditorForm() {
           .catch(() => {
             notifyToast('등록에 실패했습니다.', 'error');
           })
-      : createQuestion({ title, text: contents, description, tags })
+      : createQuestion({ title, text: contents, description, tags }, memoId)
           .then(() => {
             router.push(`/questions`);
             router.refresh();
