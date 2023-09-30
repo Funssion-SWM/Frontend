@@ -9,7 +9,7 @@ export default function QuestionFooter({ tags, createdDate }: Props) {
   return (
     <div className="flex justify-between">
       <TagsList tags={tags} />
-      <p>{createdDate}</p>
+      <p className="text-sm text-soma-grey-60">{createdDate}</p>
     </div>
   );
 }
