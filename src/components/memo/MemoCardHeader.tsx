@@ -2,6 +2,7 @@ import Image from 'next/image';
 import basicProfileImg from '@/assets/profile.svg';
 import fillHeart from '../../assets/icons/heart_fill.svg';
 import Link from 'next/link';
+import { formatDate } from '@/service/time';
 
 type Props = {
   createDate: string;
@@ -33,7 +34,7 @@ export default function MemoCardHeader({
         <div className="ml-2">
           <h4 className="text-soma-grey-60 font-medium">{authorName}</h4>
           <p className="text-xs text-soma-grey-49">
-            {createDate.substring(0, 10)}
+            {formatDate(createDate, 'YMD')}
           </p>
         </div>
       </div>
