@@ -6,12 +6,14 @@ import more from '../../assets/icons/more.svg';
 import Image from 'next/image';
 import { ModalContext } from '@/context/ModalProvider';
 import LikeBox from '../shared/LikeBox';
+import { extractYMDHM } from '@/service/time';
 
 type Props = {
   memoId: number;
   likes: number;
   isLike: boolean;
   isMyMemo: boolean;
+  createdDate: string;
 };
 
 export default function MemoViewerHeader({
@@ -19,6 +21,7 @@ export default function MemoViewerHeader({
   likes,
   isLike,
   isMyMemo,
+  createdDate,
 }: Props) {
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -32,7 +35,10 @@ export default function MemoViewerHeader({
     });
 
   return (
-    <div className="py-4 px-2 flex justify-end items-center">
+    <div className="p-4 flex justify-between items-center">
+      <div className="text-sm text-soma-grey-49">
+        {extractYMDHM(createdDate)}
+      </div>
       <nav className="relative flex items-center pl-5" ref={dropdownRef}>
         <LikeBox
           likeNum={likes}

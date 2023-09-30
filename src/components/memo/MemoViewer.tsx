@@ -1,12 +1,9 @@
 'use client';
 
 import { EditorContent, useEditor } from '@tiptap/react';
-
 import MemoViewerHeader from './MemoViewerHeader';
 import { handleTiptapExtensions } from '@/components/editor/extensions';
-import { useRouter } from 'next/navigation';
 import TagView from '../shared/TagView';
-import Tag from '../shared/Tag';
 import { handleTiptapEditorProps } from '../editor/props';
 
 type Props = {
@@ -18,6 +15,7 @@ type Props = {
   likes: number;
   isLike: boolean;
   isMyMemo: boolean;
+  createdDate: string;
 };
 
 export default function MemoViewer({
@@ -29,9 +27,8 @@ export default function MemoViewer({
   likes,
   isLike,
   isMyMemo,
+  createdDate,
 }: Props) {
-  const router = useRouter();
-
   return (
     <section
       className={`flex flex-col sm:rounded-2xl sm:shadow-lg px-2 min-h-screen sm:min-h-for-fit-screen w-full pb-4 ${
@@ -51,6 +48,7 @@ export default function MemoViewer({
         likes={likes}
         isLike={isLike}
         isMyMemo={isMyMemo}
+        createdDate={createdDate}
       />
       <h1 className={`text-2xl sm:text-4xl font-bold py-2 px-4 break-all`}>
         {title}

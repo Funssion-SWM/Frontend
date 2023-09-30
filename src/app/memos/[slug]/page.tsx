@@ -36,6 +36,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
       authorProfileImagePath,
       memoTags,
       isMine,
+      createdDate,
     },
     { isLike },
     comments,
@@ -45,7 +46,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
-  console.log(memoText);
+
   return (
     <section>
       <Header
@@ -64,6 +65,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
             likes={likes}
             isLike={isLike}
             isMyMemo={isMine}
+            createdDate={createdDate}
           />
           <MemoSideBar
             authorName={authorName}
