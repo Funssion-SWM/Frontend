@@ -10,9 +10,9 @@ export default function QuestionCardFooter({
   answersCount,
 }: Props) {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between items-center">
       <TagsList tags={questionTags} />
-      <div className="text-sm to-soma-grey-50">{answersCount}개의 답변</div>
+      <div className="text-xs text-soma-grey-50">{answersCount}개의 답변</div>
     </div>
   );
 }

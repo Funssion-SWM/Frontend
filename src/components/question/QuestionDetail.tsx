@@ -19,7 +19,11 @@ export default function QuestionDetail({
   return (
     <div className="flex flex-col">
       <div className="bg-soma-grey-20 rounded-2xl p-3">
-        <QuestionHeader questionId={id} likeNum={likes} />
+        <QuestionHeader
+          questionId={id}
+          likeNum={likes}
+          createdDate={createdDate}
+        />
         <div className="my-5">
           <h2 className="text-2xl sm:text-4xl text-soma-grey-70 font-bold break-all">
             {title}
@@ -36,7 +40,7 @@ export default function QuestionDetail({
             />
           </div>
         </div>
-        <QuestionFooter tags={tags} createdDate={createdDate} />
+        <QuestionFooter tags={tags} />
       </div>
       <div>
         <div className="flex gap-2 my-2 ml-1 sm:mb-5">

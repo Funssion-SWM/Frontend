@@ -20,7 +20,7 @@ export default function QuestionCardHeader({
   authorId,
 }: Props) {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between items-center">
       <div className="flex items-center">
         <Link href={`/me/${authorId}`}>
           <Image

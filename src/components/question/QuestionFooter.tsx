@@ -1,16 +1,13 @@
-import { extractYMDHM } from '@/service/time';
 import TagsList from '../shared/TagsList';
 
 type Props = {
   tags: string[];
-  createdDate: string;
 };
 
-export default function QuestionFooter({ tags, createdDate }: Props) {
+export default function QuestionFooter({ tags }: Props) {
   return (
-    <div className="flex justify-between">
+    <div className="flex ">
       <TagsList tags={tags} />
-      <p className="text-sm text-soma-grey-60">{extractYMDHM(createdDate)}</p>
     </div>
   );
 }

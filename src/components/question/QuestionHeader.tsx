@@ -6,12 +6,18 @@ import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import { useRouter } from 'next/navigation';
 import { ModalContext } from '@/context/ModalProvider';
 import { deleteQuestion } from '@/service/questions';
+import { extractYMDHM } from '@/service/time';
 type Props = {
   questionId: number;
   likeNum: number;
+  createdDate: string;
 };
 
-export default function QuestionHeader({ questionId, likeNum }: Props) {
+export default function QuestionHeader({
+  questionId,
+  likeNum,
+  createdDate,
+}: Props) {
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const router = useRouter();
@@ -24,7 +30,11 @@ export default function QuestionHeader({ questionId, likeNum }: Props) {
     });
 
   return (
-    <div className="flex justify-end">
+    <div className="flex justify-between items-center">
+      <div className="text-sm text-soma-grey-49">
+        {extractYMDHM(createdDate)}
+      </div>
+
       <nav className="relative flex items-center pl-5" ref={dropdownRef}>
         <LikeBox
           likeNum={likeNum}
