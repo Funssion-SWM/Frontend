@@ -130,7 +130,8 @@ export default function QaEditorForm() {
       return;
     }
 
-    if (contents === '') {
+    const questionText = editor?.getText();
+    if (questionText === '') {
       alert('내용을 작성해주세요!');
       return;
     }
