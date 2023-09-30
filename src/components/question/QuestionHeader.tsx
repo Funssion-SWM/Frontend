@@ -25,7 +25,7 @@ export default function QuestionHeader({ questionId, likeNum }: Props) {
 
   return (
     <div className="flex justify-end">
-      <nav className="relative flex items-center" ref={dropdownRef}>
+      <nav className="relative flex items-center pl-5" ref={dropdownRef}>
         <LikeBox
           likeNum={likeNum}
           postId={questionId}

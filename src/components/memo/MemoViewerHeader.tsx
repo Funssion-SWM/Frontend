@@ -33,7 +33,7 @@ export default function MemoViewerHeader({
 
   return (
     <div className="py-4 px-2 flex justify-end items-center">
-      <nav className="relative flex items-center" ref={dropdownRef}>
+      <nav className="relative flex items-center pl-5" ref={dropdownRef}>
         <LikeBox
           likeNum={likes}
           postId={memoId}
