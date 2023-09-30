@@ -17,18 +17,21 @@ import {
   getQuestionById,
   updateQuestion,
 } from '@/service/questions';
+import { getMemoById } from '@/service/memos';
 
 export default function QaEditorForm() {
   const router = useRouter();
   const { open } = useContext(ModalContext);
 
   const questionId = Number(useSearchParams()?.get('id'));
+  const memoId = Number(useSearchParams()?.get('memoId'));
+  const [memoTitle, setMemoTitle] = useState('');
 
   const [title, setTitle] = useState<string>('');
   const [inputTag, setInputTag] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
   const [contents, setContents] = useState('');
-  const [isQuestionLoading, setIsQuestiomLoading] = useState(false);
+  const [isQuestionLoading, setIsQuestionLoading] = useState(false);
 
   // const temporarySaveCallbackForSavingImage = async () => {
   //   return createOrUpdateMemo(
@@ -92,7 +95,12 @@ export default function QaEditorForm() {
           setTags(tags);
           e.editor.commands.setContent(JSON.parse(text));
         });
-      setIsQuestiomLoading(true);
+      if (memoId) {
+        await getMemoById(memoId).then(({ memoTitle }) => {
+          setMemoTitle(memoTitle);
+        });
+      }
+      setIsQuestionLoading(true);
     },
     onUpdate: (e) => {
       setContents(JSON.stringify(e.editor.getJSON()));
@@ -164,7 +172,16 @@ export default function QaEditorForm() {
         <div
           className={`relative flex flex-col rounded-lg  px-2 pt-2 pb-4 min-h-screen sm:min-h-for-fit-screen w-full bg-white`}
         >
-          <div className="flex justify-end gap-2 mr-1 my-1">
+          <div
+            className={`flex ${
+              memoId ? 'justify-between' : 'justify-end'
+            } items-center mr-1 my-1`}
+          >
+            {memoId ? (
+              <div className="text-soma-grey-60 text-sm">🔗 {memoTitle}</div>
+            ) : (
+              ''
+            )}
             <BlueBtn text="등록" onClick={savePost} />
           </div>
           <input

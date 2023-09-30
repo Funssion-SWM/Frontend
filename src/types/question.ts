@@ -10,7 +10,7 @@ export type Question = {
   text: string;
   description: string;
   tags: string[];
-  memoId?: number;
+  memoId: number;
   answersCount: number;
   solved: boolean;
 };

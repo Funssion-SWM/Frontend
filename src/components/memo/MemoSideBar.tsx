@@ -82,7 +82,7 @@ export default function MemoSideBar({
                 <QuestionsList questions={questions} size="small" />
               )}
               <Link
-                href={`/create/question`}
+                href={`/create/question?memoId=${memoId}`}
                 className="absolute bottom-3 right-3 text-sm rounded-2xl text-soma-grey-60 border-[0.5px] border-soma-grey-49 px-2 py-1"
               >
                 질문하기

@@ -11,12 +11,14 @@ type Props = {
   questionId: number;
   likeNum: number;
   createdDate: string;
+  memoId: number;
 };
 
 export default function QuestionHeader({
   questionId,
   likeNum,
   createdDate,
+  memoId,
 }: Props) {
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -57,7 +59,11 @@ export default function QuestionHeader({
                 className="hover:bg-gray-200 p-2 rounded-t-lg"
                 onClick={() => {
                   setIsActive(false);
-                  router.push(`/create/question/?id=${questionId}`);
+                  router.push(
+                    `/create/question/?id=${questionId}${
+                      memoId && `&memoId=${memoId}`
+                    }`
+                  );
                   router.refresh();
                 }}
               >
