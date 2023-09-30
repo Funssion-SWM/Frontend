@@ -2,44 +2,29 @@ import QuestionDetail from '@/components/question/QuestionDetail';
 import Header from '@/components/shared/Header';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
-import { Question } from '@/types/question';
+import { getQuestionById } from '@/service/questions';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { cookies } from 'next/headers';
 
 type Props = {
   params: {
-    slug: number;
+    slug: string;
   };
 };
 
-export default async function QuestionPage({ params: slug }: Props) {
+export default async function QuestionPage({ params: { slug } }: Props) {
   const accessToken = cookies().get(ACCESS_TOKEN)?.value;
   const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
   const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
+  const questionId = Number(slug);
 
   const myData = checkUser(cookie);
-  const [{ id, isLogin }] = await Promise.all([myData]);
+  const questionData = getQuestionById(questionId);
+  const [question, { id, isLogin }] = await Promise.all([questionData, myData]);
 
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
-
-  const questionData: Question = {
-    id: 1,
-    authorId: 1,
-    authorName: 'dongree',
-    authorImagePath: '',
-    createdDate: '2023-09-26',
-    updatedDate: '2023-09-26',
-    likes: 0,
-    title: 'testTitle',
-    text: '{"type": "doc", "content": [{"type": "paragraph", "content": [{"text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem!", "type": "text"}]}]}',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptates expedita odit dolores, aspernatur laudantium eaque maxime nesciunt velit quasi officia. Enim libero alias rerum, tenetur quos minima error rem!',
-    tags: ['test', 'test2'],
-    answersCount: 0,
-    solved: false,
-  };
 
   return (
     <section>
@@ -49,7 +34,7 @@ export default async function QuestionPage({ params: slug }: Props) {
         currentPage="questions"
       />
       <LayoutWrapper>
-        <QuestionDetail questionData={questionData} />
+        <QuestionDetail questionData={question} />
       </LayoutWrapper>
     </section>
   );

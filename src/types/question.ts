@@ -12,7 +12,7 @@ export type Question = {
   tags: string[];
   memoId?: number;
   answersCount: number;
-  solved: false;
+  solved: boolean;
 };
 
 export type QuestionOrderBy = 'HOT' | 'NEW' | 'ANSWERS' | 'SOLVED';

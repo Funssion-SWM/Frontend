@@ -12,7 +12,11 @@ import { DraftsInModalContext } from '@/context/DraftsInModalProvider';
 import Tag from '@/components/shared/Tag';
 import { notifyToast } from '@/service/notification';
 import BlueBtn from '../shared/btn/BlueBtn';
-import { createQuestion, updateQuestion } from '@/service/questions';
+import {
+  createQuestion,
+  getQuestionById,
+  updateQuestion,
+} from '@/service/questions';
 
 export default function QaEditorForm() {
   const router = useRouter();
@@ -82,14 +86,12 @@ export default function QaEditorForm() {
     ),
     autofocus: questionId ? 'end' : false,
     onCreate: async (e) => {
-      // if (questionId)
-      //   await getMemoById(questionId).then(
-      //     ({ memoTitle, memoColor, memoTags, memoText }) => {
-      //       setTitle(memoTitle);
-      //       setTags(memoTags);
-      //       e.editor.commands.setContent(JSON.parse(memoText));
-      //     }
-      //   );
+      if (questionId)
+        await getQuestionById(questionId).then(({ title, tags, text }) => {
+          setTitle(title);
+          setTags(tags);
+          e.editor.commands.setContent(JSON.parse(text));
+        });
       setIsQuestiomLoading(true);
     },
     onUpdate: (e) => {

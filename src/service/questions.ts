@@ -14,6 +14,14 @@ export async function getQuestions(
     .catch(console.error);
 }
 
+export async function getQuestionById(id: number): Promise<Question> {
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions/${id}`, {
+    next: { revalidate: 0 },
+  })
+    .then((res) => res.json())
+    .catch(console.error);
+}
+
 export async function createQuestion(
   bodyData: PostQuestionData
 ): Promise<Question> {

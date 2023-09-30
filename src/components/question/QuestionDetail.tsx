@@ -8,18 +8,19 @@ import QuestionHeader from './QuestionHeader';
 import QuestionFooter from './QuestionFooter';
 import CategoryBtn from '../shared/btn/CategoryBtn';
 import AnswersList from './AnswersList';
+import { useEffect } from 'react';
 
 type Props = {
   questionData: Question;
 };
 
 export default function QuestionDetail({
-  questionData: { title, text, id, tags, createdDate },
+  questionData: { title, text, id, tags, createdDate, likes },
 }: Props) {
   return (
     <div className="flex flex-col">
       <div className="bg-sky-50">
-        <QuestionHeader />
+        <QuestionHeader questionId={id} likeNum={likes} />
         <div className="my-5">
           <h2 className="text-2xl xm:text-4xl text-soma-grey-70 font-bold break-all">
             {title}
