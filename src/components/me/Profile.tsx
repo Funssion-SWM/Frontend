@@ -64,7 +64,7 @@ export default function Profile({
           ))}
         </div>
       )}
-      {isMine && (
+      {!isMine && (
         <FollowBtn
           isFollowed={userInfo.isFollowed}
           userId={userId}
