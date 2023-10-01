@@ -19,7 +19,7 @@ export default async function QuestionPage({ params: { slug } }: Props) {
   const questionId = Number(slug);
 
   const myData = checkUser(cookie);
-  const questionData = getQuestionById(questionId);
+  const questionData = getQuestionById(questionId, cookie);
   const [question, { id, isLogin }] = await Promise.all([questionData, myData]);
 
   const { profileImageFilePath } = isLogin

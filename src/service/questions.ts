@@ -14,10 +14,24 @@ export async function getQuestions(
     .catch(console.error);
 }
 
-export async function getQuestionById(id: number): Promise<Question> {
-  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions/${id}`, {
-    next: { revalidate: 0 },
-  })
+export async function getQuestionById(
+  id: number,
+  cookie?: string | undefined
+): Promise<Question> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions/${id}`,
+    cookie
+      ? {
+          next: { revalidate: 0 },
+          headers: {
+            Cookie: `${cookie}`,
+          },
+        }
+      : {
+          next: { revalidate: 0 },
+          credentials: 'include',
+        }
+  )
     .then((res) => res.json())
     .catch(console.error);
 }
