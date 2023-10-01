@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import LikeBox from '../shared/LikeBox';
 import more from '@/assets/icons/more.svg';
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import { useRouter } from 'next/navigation';
 import { ModalContext } from '@/context/ModalProvider';
@@ -12,6 +12,7 @@ type Props = {
   likeNum: number;
   createdDate: string;
   memoId: number;
+  isMyQuestion: boolean;
 };
 
 export default function QuestionHeader({
@@ -19,6 +20,7 @@ export default function QuestionHeader({
   likeNum,
   createdDate,
   memoId,
+  isMyQuestion,
 }: Props) {
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -45,7 +47,7 @@ export default function QuestionHeader({
           postType="question"
           iconSize={20}
         />
-        {true && (
+        {isMyQuestion && (
           <div className="flex ml-2">
             <button onClick={() => setIsActive((pre) => !pre)}>
               <Image src={more} alt="more" />

@@ -13,6 +13,7 @@ export type Question = {
   memoId: number;
   answersCount: number;
   solved: boolean;
+  mine: boolean;
 };
 
 export type QuestionOrderBy = 'HOT' | 'NEW' | 'ANSWERS' | 'SOLVED';

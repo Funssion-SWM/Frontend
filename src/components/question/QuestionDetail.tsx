@@ -14,7 +14,7 @@ type Props = {
 };
 
 export default function QuestionDetail({
-  questionData: { title, text, id, tags, createdDate, likes, memoId },
+  questionData: { title, text, id, tags, createdDate, likes, memoId, mine },
 }: Props) {
   return (
     <div className="flex flex-col">
@@ -24,6 +24,7 @@ export default function QuestionDetail({
           likeNum={likes}
           createdDate={createdDate}
           memoId={memoId}
+          isMyQuestion={mine}
         />
         <div className="my-5">
           <h2 className="text-2xl sm:text-4xl text-soma-grey-70 font-bold break-all">
