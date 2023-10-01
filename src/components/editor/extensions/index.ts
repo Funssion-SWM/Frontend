@@ -14,6 +14,18 @@ import { handleSlashCommand } from './slash-command';
 import { InputRule } from '@tiptap/core';
 import UploadImagesPlugin from '@/components/editor/plugins/upload-images';
 import UpdatedImage from './updated-image';
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import css from 'highlight.js/lib/languages/css';
+import js from 'highlight.js/lib/languages/javascript';
+import ts from 'highlight.js/lib/languages/typescript';
+import html from 'highlight.js/lib/languages/xml';
+import { lowlight } from 'lowlight/lib/common.js';
+import '@/styles/codeblocklowlight.css';
+
+lowlight.registerLanguage('html', html);
+lowlight.registerLanguage('css', css);
+lowlight.registerLanguage('js', js);
+lowlight.registerLanguage('ts', ts);
 
 export const handleTiptapExtensions = (
   memoId: number | undefined,
@@ -40,12 +52,6 @@ export const handleTiptapExtensions = (
       blockquote: {
         HTMLAttributes: {
           class: 'border-l-4 border-stone-700',
-        },
-      },
-      codeBlock: {
-        HTMLAttributes: {
-          class:
-            'rounded-lg bg-soma-grey-70 p-5 font-mono font-medium text-white my-3',
         },
       },
       code: {
@@ -87,6 +93,13 @@ export const handleTiptapExtensions = (
       HTMLAttributes: {
         class: 'mt-4 mb-6 border-t border-stone-300',
       },
+    }),
+    CodeBlockLowlight.configure({
+      HTMLAttributes: {
+        class:
+          'rounded-lg bg-soma-grey-70 p-5 font-mono font-medium text-white my-3',
+      },
+      lowlight,
     }),
     TiptapLink.configure({
       HTMLAttributes: {
