@@ -1,15 +1,32 @@
+'use client';
+
 import Image from 'next/image';
 import basicProfileImg from '../../assets/profile.svg';
 import { UserInfo } from '@/types';
 import FollowBtn from './FollowBtn';
 import CountInfo from './CountInfo';
+import { useState } from 'react';
 
 type Props = {
   userInfo: UserInfo;
   userId: number;
+  followings: UserInfo[];
+  followers: UserInfo[];
+  isMine: boolean;
 };
 
-export default function Profile({ userInfo, userId }: Props) {
+export default function Profile({
+  userInfo,
+  userId,
+  followings,
+  followers,
+  isMine,
+}: Props) {
+  const [currentFollowings, setCurrentFollowings] =
+    useState<UserInfo[]>(followings);
+  const [currentFollowers, setCurrentFollowwers] =
+    useState<UserInfo[]>(followers);
+
   return (
     <section className="flex flex-col items-center w-full">
       <div className="text-center">
@@ -25,7 +42,16 @@ export default function Profile({ userInfo, userId }: Props) {
       <p className="p-3 rounded-md mt-1 w-full break-all text-sm overflow-y-auto text-soma-grey-60">
         {userInfo.introduce}
       </p>
-      <CountInfo userId={userId} />
+      <CountInfo
+        followings={currentFollowings}
+        followers={currentFollowers}
+        isMine={isMine}
+        handleFollowing={() =>
+          setCurrentFollowings(
+            currentFollowings.filter((following) => following.userId !== userId)
+          )
+        }
+      />
       {userInfo.userTags.length !== 0 && (
         <div className="flex text-sm gap-1 mt-2 self-start overflow-x-hidden w-full">
           {userInfo.userTags.map((tag, idx) => (
@@ -38,8 +64,18 @@ export default function Profile({ userInfo, userId }: Props) {
           ))}
         </div>
       )}
-
-      <FollowBtn isFollowed={userInfo.isFollowed} userId={userId} />
+      {isMine && (
+        <FollowBtn
+          isFollowed={userInfo.isFollowed}
+          userId={userId}
+          handleClickFollow={(item) =>
+            setCurrentFollowwers((pre) => [...pre, item])
+          }
+          handleClickUnfollow={(item) =>
+            setCurrentFollowwers((pre) => pre.slice(0, -1))
+          }
+        />
+      )}
     </section>
   );
 }

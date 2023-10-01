@@ -8,6 +8,7 @@ import { ACCESS_TOKEN, MY_TAG_MAX_COUNT, REFRESH_TOKEN } from '@/utils/const';
 import MeSideBar from '@/components/me/MeSideBar';
 import { getUserTags } from '@/service/tag';
 import MeTagsContainer from '@/components/me/MeTagsContainer';
+import { getFollowers, getFollowings } from '@/service/follow';
 
 type Props = {
   params: {
@@ -31,13 +32,25 @@ export default async function MePage({ params: { slug } }: Props) {
   );
   const myData = checkUser(cookie);
   const tagData = getUserTags(slug, MY_TAG_MAX_COUNT);
+  const followingData = getFollowings(slug);
+  const followerData = getFollowers(slug);
 
-  const [memos, userInfo, history, { id, isLogin }, tags] = await Promise.all([
+  const [
+    memos,
+    userInfo,
+    history,
+    { id, isLogin },
+    tags,
+    followings,
+    followers,
+  ] = await Promise.all([
     memosData,
     userData,
     historyData,
     myData,
     tagData,
+    followingData,
+    followerData,
   ]);
 
   const { profileImageFilePath } = isLogin
@@ -54,6 +67,8 @@ export default async function MePage({ params: { slug } }: Props) {
             history={history}
             userId={userId}
             myId={id}
+            followings={followings}
+            followers={followers}
           />
           <div className="flex flex-col w-full">
             {tags.length >= 2 && (

@@ -8,12 +8,27 @@ type Props = {
   history: HistoryItem[];
   userId: number;
   myId: number;
+  followings: UserInfo[];
+  followers: UserInfo[];
 };
 
-export default function MeSideBar({ userInfo, history, userId, myId }: Props) {
+export default function MeSideBar({
+  userInfo,
+  history,
+  userId,
+  myId,
+  followings,
+  followers,
+}: Props) {
   return (
     <section className="flex flex-col items-center w-full sm:w-[350px] sm:min-h-screen p-6 bg-soma-grey-20">
-      <Profile userInfo={userInfo} userId={userId} />
+      <Profile
+        userInfo={userInfo}
+        userId={userId}
+        followings={followings}
+        followers={followers}
+        isMine={myId === Number(userId)}
+      />
       <History history={history} userId={userId} />
       {myId === Number(userId) && (
         <div className="flex flex-col mt-8">
