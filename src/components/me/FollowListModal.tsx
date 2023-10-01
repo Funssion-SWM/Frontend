@@ -14,7 +14,6 @@ export default function FollowListModal() {
   const { isOpen, close, type, listData, onCancel, isMine } = useContext(
     FollowListModalContext
   );
-  const router = useRouter();
 
   return (
     isOpen && (
@@ -53,12 +52,11 @@ export default function FollowListModal() {
                       onClick={() => {
                         unfollow(item.userId.toString()).then(() => {
                           onCancel();
-                          router.refresh();
                           // onClickUnfollow(item.userId.toString());
-                          // let element = document.getElementById(
-                          //   item.userId.toString()
-                          // );
-                          // if (element) element.hidden = true;
+                          let element = document.getElementById(
+                            item.userId.toString()
+                          );
+                          if (element) element.hidden = true;
                         });
                       }}
                       extraStyle={`ml-auto`}

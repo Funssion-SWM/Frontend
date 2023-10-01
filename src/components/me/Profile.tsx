@@ -5,7 +5,7 @@ import basicProfileImg from '../../assets/profile.svg';
 import { UserInfo } from '@/types';
 import FollowBtn from './FollowBtn';
 import CountInfo from './CountInfo';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type Props = {
   userInfo: UserInfo;
@@ -26,6 +26,10 @@ export default function Profile({
     useState<UserInfo[]>(followings);
   const [currentFollowers, setCurrentFollowwers] =
     useState<UserInfo[]>(followers);
+
+  useEffect(() => {
+    console.log(userInfo);
+  }, []);
 
   return (
     <section className="flex flex-col items-center w-full">
@@ -73,7 +77,7 @@ export default function Profile({
           }
           handleClickUnfollow={() =>
             setCurrentFollowwers((pre) =>
-              pre.filter((follower) => follower.userId === userId)
+              pre.filter((follower) => follower.userId !== userId)
             )
           }
         />

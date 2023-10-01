@@ -56,7 +56,7 @@ export default async function MePage({ params: { slug } }: Props) {
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
-
+  console.log(userInfo);
   return (
     <section>
       <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
