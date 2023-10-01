@@ -25,9 +25,7 @@ export default function Profile({ userInfo, userId }: Props) {
       <p className="p-3 rounded-md mt-1 w-full break-all text-sm overflow-y-auto text-soma-grey-60">
         {userInfo.introduce}
       </p>
-
-     <CountInfo userId={userId}/>
-
+      <CountInfo userId={userId} />
       {userInfo.userTags.length !== 0 && (
         <div className="flex text-sm gap-1 mt-2 self-start overflow-x-hidden w-full">
           {userInfo.userTags.map((tag, idx) => (
