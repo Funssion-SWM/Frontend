@@ -1,12 +1,11 @@
 import { follow, unfollow } from '@/service/follow';
-import { UserInfo } from '@/types';
 import { useState } from 'react';
 
 type Props = {
   isFollowed: boolean;
   userId: number;
-  handleClickFollow: (obj: UserInfo) => void;
-  handleClickUnfollow: (obj: UserInfo) => void;
+  handleClickFollow: () => void;
+  handleClickUnfollow: () => void;
 };
 
 export default function FollowBtn({
@@ -20,32 +19,14 @@ export default function FollowBtn({
   const clickFollow = () => {
     follow(userId.toString()).then(() => {
       setFollowed(true);
-      handleClickFollow({
-        userId: 0,
-        profileImageFilePath: 'example',
-        nickname: 'example',
-        introduce: 'example',
-        userTags: [],
-        followCnt: 0,
-        followerCnt: 0,
-        isFollowed: true,
-      });
+      handleClickFollow();
     });
   };
 
   const clickUnfollow = () => {
     unfollow(userId.toString()).then(() => {
       setFollowed(false);
-      handleClickUnfollow({
-        userId: 0,
-        profileImageFilePath: 'example',
-        nickname: 'example',
-        introduce: 'example',
-        userTags: [],
-        followCnt: 0,
-        followerCnt: 0,
-        isFollowed: false,
-      });
+      handleClickUnfollow();
     });
   };
 

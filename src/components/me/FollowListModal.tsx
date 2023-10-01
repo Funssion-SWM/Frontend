@@ -8,11 +8,13 @@ import Image from 'next/image';
 import WhiteBtn from '../shared/btn/WhiteBtn';
 import basicProfileImg from '@/assets/profile.svg';
 import { unfollow } from '@/service/follow';
+import { useRouter } from 'next/navigation';
 
 export default function FollowListModal() {
   const { isOpen, close, type, listData, onCancel, isMine } = useContext(
     FollowListModalContext
   );
+  const router = useRouter();
 
   return (
     isOpen && (
@@ -51,6 +53,7 @@ export default function FollowListModal() {
                       onClick={() => {
                         unfollow(item.userId.toString()).then(() => {
                           onCancel();
+                          router.refresh();
                           // onClickUnfollow(item.userId.toString());
                           // let element = document.getElementById(
                           //   item.userId.toString()

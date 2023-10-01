@@ -68,11 +68,13 @@ export default function Profile({
         <FollowBtn
           isFollowed={userInfo.isFollowed}
           userId={userId}
-          handleClickFollow={(item) =>
-            setCurrentFollowwers((pre) => [...pre, item])
+          handleClickFollow={() =>
+            setCurrentFollowwers((pre) => [...pre, userInfo])
           }
-          handleClickUnfollow={(item) =>
-            setCurrentFollowwers((pre) => pre.slice(0, -1))
+          handleClickUnfollow={() =>
+            setCurrentFollowwers((pre) =>
+              pre.filter((follower) => follower.userId === userId)
+            )
           }
         />
       )}
