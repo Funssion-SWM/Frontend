@@ -1,12 +1,15 @@
 import Image from 'next/image';
 import basicProfileImg from '../../assets/profile.svg';
 import { UserInfo } from '@/types';
+import FollowBtn from './FollowBtn';
+import CountInfo from './CountInfo';
 
 type Props = {
   userInfo: UserInfo;
+  userId: number;
 };
 
-export default function Profile({ userInfo }: Props) {
+export default function Profile({ userInfo, userId }: Props) {
   return (
     <section className="flex flex-col items-center w-full">
       <div className="text-center">
@@ -22,6 +25,9 @@ export default function Profile({ userInfo }: Props) {
       <p className="p-3 rounded-md mt-1 w-full break-all text-sm overflow-y-auto text-soma-grey-60">
         {userInfo.introduce}
       </p>
+
+     <CountInfo userId={userId}/>
+
       {userInfo.userTags.length !== 0 && (
         <div className="flex text-sm gap-1 mt-2 self-start overflow-x-hidden w-full">
           {userInfo.userTags.map((tag, idx) => (
@@ -34,6 +40,8 @@ export default function Profile({ userInfo }: Props) {
           ))}
         </div>
       )}
+
+      <FollowBtn isFollowed={userInfo.isFollowed} userId={userId} />
     </section>
   );
 }

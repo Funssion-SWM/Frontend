@@ -22,7 +22,7 @@ export default async function MePage({ params: { slug } }: Props) {
   const userId = Number(slug);
 
   const memosData = getMemosByUserId(userId);
-  const userData = getUserInfo(userId);
+  const userData = getUserInfo(userId, cookie);
   const historyData = getHistory(
     userId,
     new Date().getFullYear(),
@@ -31,6 +31,7 @@ export default async function MePage({ params: { slug } }: Props) {
   );
   const myData = checkUser(cookie);
   const tagData = getUserTags(slug, MY_TAG_MAX_COUNT);
+  
 
   const [memos, userInfo, history, { id, isLogin }, tags] = await Promise.all([
     memosData,

@@ -54,10 +54,14 @@ export type SignupResponse = {
 };
 
 export type UserInfo = {
+  userId: number;
   profileImageFilePath: string;
   nickname: string;
   introduce: string;
   userTags: string[];
+  followCnt: number;
+  followerCnt: number;
+  isFollowed: boolean;
 };
 
 export type HistoryItem = {
@@ -85,7 +89,14 @@ export type PostType = 'memo' | 'question';
 
 export type ButtonSize = 'small' | 'medium' | 'big';
 
+export type ModalType = 'alert' | 'info';
+
 export type FindEmailResponse = {
   email: string;
   message: string;
 };
+
+export type ErrorResponse = {
+  code: number;
+  message: string;
+}
