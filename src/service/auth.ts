@@ -181,10 +181,14 @@ export async function updateUserInfo(
     .catch(console.error);
 }
 
-export async function getUserInfo(userId: number): Promise<UserInfo> {
+export async function getUserInfo(userId: number, cookie?: string): Promise<UserInfo> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${userId}`,
-    { next: { revalidate: 0 } }
+    { next: { revalidate: 0 },
+      headers: {
+        Cookie: `${cookie}`,
+      },
+  }
   )
     .then((res) => {
       if (!res.ok) throw new Error('error 발생!');
