@@ -94,7 +94,25 @@ export const handleTiptapExtensions = (
         class: 'mt-4 mb-6 border-t border-stone-300',
       },
     }),
-    CodeBlockLowlight.configure({
+    CodeBlockLowlight.extend({
+      priority: 50,
+      addKeyboardShortcuts() {
+        return {
+          Tab: () => {
+            if (this.editor.isActive('codeBlock')) {
+              this.editor
+                .chain()
+                .command(({ tr }) => {
+                  tr.insertText('\t');
+                  return true;
+                })
+                .run();
+            }
+            return true;
+          },
+        };
+      },
+    }).configure({
       HTMLAttributes: {
         class:
           'rounded-lg bg-soma-grey-70 p-5 font-mono font-medium text-white my-3',
