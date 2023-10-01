@@ -31,7 +31,6 @@ export default async function MePage({ params: { slug } }: Props) {
   );
   const myData = checkUser(cookie);
   const tagData = getUserTags(slug, MY_TAG_MAX_COUNT);
-  
 
   const [memos, userInfo, history, { id, isLogin }, tags] = await Promise.all([
     memosData,
@@ -48,7 +47,7 @@ export default async function MePage({ params: { slug } }: Props) {
   return (
     <section>
       <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
-      <LayoutWrapper>
+      <LayoutWrapper paddingY="py-0">
         <div className="flex flex-col sm:flex-row">
           <MeSideBar
             userInfo={userInfo}
