@@ -77,7 +77,7 @@ export default function Profile({
           }
           handleClickUnfollow={() =>
             setCurrentFollowwers((pre) =>
-              pre.filter((follower) => follower.userId !== userId)
+              pre.filter((follower) => follower.userId !== userInfo.userId)
             )
           }
         />
