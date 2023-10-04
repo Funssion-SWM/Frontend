@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateAnswer } from '@/service/answers';
 import { notifyToast } from '@/service/notification';
+import { EditorBubbleMenu } from '../editor/components';
 
 type Props = {
   answer: Answer;
@@ -68,6 +69,7 @@ export default function AnswerCard({
       />
       <div className="my-2">
         <div className="break-all ">
+          {editor && <EditorBubbleMenu editor={editor} />}
           <EditorContent editor={editor} />
         </div>
       </div>

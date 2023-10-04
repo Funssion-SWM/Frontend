@@ -5,6 +5,7 @@ import BlueBtn from '../shared/btn/BlueBtn';
 import { createAnswer } from '@/service/answers';
 import { useRouter } from 'next/navigation';
 import { notifyToast } from '@/service/notification';
+import { EditorBubbleMenu } from '../editor/components';
 
 type Props = {
   questionId: number;
@@ -38,6 +39,7 @@ export default function AnswerForm({ questionId }: Props) {
         />
       </div>
       <div className="h-72 overflow-y-scroll border-[0.5px] border-soma-grey-49 rounded-2xl p-3">
+        {editor && <EditorBubbleMenu editor={editor} />}
         <EditorContent editor={editor} />
       </div>
     </div>
