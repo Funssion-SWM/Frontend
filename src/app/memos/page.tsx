@@ -12,7 +12,7 @@ export default async function MemosPage() {
   const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
   const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
 
-  const memosData = getMemos();
+  const memosData = getMemos('month', 'new', 0, 12);
   const myData = checkUser(cookie);
   const [memos, { id, isLogin }] = await Promise.all([memosData, myData]);
 
