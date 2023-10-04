@@ -29,10 +29,12 @@ export async function searchMemos(
 
 export async function getMemos(
   period: Period = 'month',
-  orderBy: Orderby = 'new'
+  orderBy: Orderby = 'new',
+  pageNum: number = 0,
+  memoCnt: number = 20
 ): Promise<Memo[]> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`);
-  const params = { period: period, orderBy: orderBy };
+  const params = { period: period, orderBy: orderBy, pageNum: pageNum.toString(), memoCnt: memoCnt.toString() };
   url.search = new URLSearchParams(params).toString();
 
   return fetch(url, { next: { revalidate: 0 } })
