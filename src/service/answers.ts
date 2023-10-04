@@ -1,3 +1,4 @@
+import { ErrorResponse, IsSuccessResponse } from '@/types';
 import { Answer } from '@/types/answer';
 
 export async function getAnswersByQuestionId(
@@ -22,7 +23,10 @@ export async function getAnswersByQuestionId(
     .catch(console.error);
 }
 
-export async function createAnswer(questionId: number, text: string) {
+export async function createAnswer(
+  questionId: number,
+  text: string
+): Promise<IsSuccessResponse & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/answers?questionId=${questionId}`,
     {
@@ -33,12 +37,15 @@ export async function createAnswer(questionId: number, text: string) {
       credentials: 'include',
       body: JSON.stringify({ text }),
     }
-  ).then((res) => {
-    res.json();
-  });
+  )
+    .then((res) => res.json())
+    .catch(console.error);
 }
 
-export async function updateAnswer(answerId: number, text: string) {
+export async function updateAnswer(
+  answerId: number,
+  text: string
+): Promise<IsSuccessResponse & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/answers/${answerId}`,
     {
@@ -54,7 +61,9 @@ export async function updateAnswer(answerId: number, text: string) {
     .catch(console.error);
 }
 
-export async function deleteAnswer(answerId: number) {
+export async function deleteAnswer(
+  answerId: number
+): Promise<IsSuccessResponse & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/answers/${answerId}`,
     {

@@ -6,6 +6,7 @@ import AnswerCardHeader from './AnswerCardHeader';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateAnswer } from '@/service/answers';
+import { notifyToast } from '@/service/notification';
 
 type Props = {
   answer: Answer;
@@ -39,7 +40,12 @@ export default function AnswerCard({
   };
 
   const handleUpdate = () => {
-    updateAnswer(id, JSON.stringify(editor?.getJSON())).then(() => {
+    updateAnswer(id, JSON.stringify(editor?.getJSON())).then((res) => {
+      if (res.code) {
+        notifyToast(res.message, 'error');
+        return;
+      }
+      notifyToast(res.message, 'success');
       setIsEditMode(false);
       editor?.setOptions({ editable: false });
       router.refresh();

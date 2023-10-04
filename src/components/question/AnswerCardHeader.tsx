@@ -6,9 +6,10 @@ import { useContext, useRef } from 'react';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import more from '@/assets/icons/more.svg';
 import { useRouter } from 'next/navigation';
-import { deleteAnswer, updateAnswer } from '@/service/answers';
+import { deleteAnswer } from '@/service/answers';
 import { ModalContext } from '@/context/ModalProvider';
 import BlueBtn from '../shared/btn/BlueBtn';
+import { notifyToast } from '@/service/notification';
 
 type Props = {
   answerId: number;
@@ -37,7 +38,12 @@ export default function AnswerCardHeader({
   const { open } = useContext(ModalContext);
 
   const handleDelete = () =>
-    deleteAnswer(answerId).then(() => {
+    deleteAnswer(answerId).then((res) => {
+      if (res.code) {
+        notifyToast(res.message, 'error');
+        return;
+      }
+      notifyToast(res.message, 'success');
       router.refresh();
     });
 

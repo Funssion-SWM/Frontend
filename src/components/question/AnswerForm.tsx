@@ -4,6 +4,7 @@ import { handleTiptapEditorProps } from '../editor/props';
 import BlueBtn from '../shared/btn/BlueBtn';
 import { createAnswer } from '@/service/answers';
 import { useRouter } from 'next/navigation';
+import { notifyToast } from '@/service/notification';
 
 type Props = {
   questionId: number;
@@ -25,14 +26,17 @@ export default function AnswerForm({ questionId }: Props) {
           onClick={() => {
             const questionText = JSON.stringify(editor?.getJSON());
             createAnswer(questionId, questionText).then((res) => {
+              if (res.code) {
+                notifyToast(res.message, 'error');
+                return;
+              }
               editor?.commands.setContent('');
+              notifyToast(res.message, 'success');
               router.refresh();
-              console.log(res);
             });
           }}
         />
       </div>
-
       <div className="h-72 overflow-y-scroll border-[0.5px] border-soma-grey-49 rounded-2xl p-3">
         <EditorContent editor={editor} />
       </div>
