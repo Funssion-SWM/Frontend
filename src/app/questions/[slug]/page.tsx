@@ -1,6 +1,7 @@
 import QuestionDetail from '@/components/question/QuestionDetail';
 import Header from '@/components/shared/Header';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
+import { getAnswersByQuestionId } from '@/service/answers';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { getQuestionById } from '@/service/questions';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
@@ -20,7 +21,12 @@ export default async function QuestionPage({ params: { slug } }: Props) {
 
   const myData = checkUser(cookie);
   const questionData = getQuestionById(questionId, cookie);
-  const [question, { id, isLogin }] = await Promise.all([questionData, myData]);
+  const answersData = getAnswersByQuestionId(questionId, cookie);
+  const [question, answers, { id, isLogin }] = await Promise.all([
+    questionData,
+    answersData,
+    myData,
+  ]);
 
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
@@ -34,7 +40,7 @@ export default async function QuestionPage({ params: { slug } }: Props) {
         currentPage="questions"
       />
       <LayoutWrapper>
-        <QuestionDetail questionData={question} />
+        <QuestionDetail questionData={question} answers={answers} />
       </LayoutWrapper>
     </section>
   );

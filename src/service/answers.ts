@@ -1,13 +1,22 @@
 import { Answer } from '@/types/answer';
 
 export async function getAnswersByQuestionId(
-  questionId: number
+  questionId: number,
+  cookie?: string | undefined
 ): Promise<Answer[]> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/answers?questionId=${questionId}`,
-    {
-      next: { revalidate: 0 },
-    }
+    cookie
+      ? {
+          next: { revalidate: 0 },
+          headers: {
+            Cookie: `${cookie}`,
+          },
+        }
+      : {
+          next: { revalidate: 0 },
+          credentials: 'include',
+        }
   )
     .then((res) => res.json())
     .catch(console.error);
@@ -28,9 +37,9 @@ export async function createAnswer(
       credentials: 'include',
       body: JSON.stringify({ text, description }),
     }
-  )
-    .then((res) => res.json())
-    .catch(console.error);
+  ).then((res) => {
+    res.json();
+  });
 }
 
 export async function updateAnswer(
@@ -53,7 +62,7 @@ export async function updateAnswer(
     .catch(console.error);
 }
 
-export async function deleteQuestion(answerId: number) {
+export async function deleteAnswer(answerId: number) {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/answers/${answerId}`,
     {

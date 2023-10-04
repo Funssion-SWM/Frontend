@@ -8,13 +8,17 @@ import QuestionHeader from './QuestionHeader';
 import QuestionFooter from './QuestionFooter';
 import CategoryBtn from '../shared/btn/CategoryBtn';
 import AnswersList from './AnswersList';
+import { Answer } from '@/types/answer';
+import AnswerForm from './AnswerForm';
 
 type Props = {
   questionData: Question;
+  answers: Answer[];
 };
 
 export default function QuestionDetail({
   questionData: { title, text, id, tags, createdDate, likes, memoId, mine },
+  answers,
 }: Props) {
   return (
     <div className="flex flex-col">
@@ -44,26 +48,8 @@ export default function QuestionDetail({
         </div>
         <QuestionFooter tags={tags} />
       </div>
-      <div>
-        <div className="flex gap-2 my-2 ml-1 sm:mb-5">
-          <CategoryBtn text="답변" onClick={() => {}} isSelected={true} />
-          <CategoryBtn text="추천" onClick={() => {}} isSelected={false} />
-        </div>
-        <AnswersList />
-      </div>
-      <div className="mx-2">
-        <p className="sm:text-xl font-medium my-2 py-3 border-t-[0.5px] border-soma-grey-49">
-          답변을 작성해보세요
-        </p>
-        <div className="h-72 overflow-y-scroll border-[0.5px] border-soma-grey-49 rounded-2xl p-3">
-          <EditorContent
-            editor={useEditor({
-              extensions: handleTiptapExtensions(id),
-              editorProps: handleTiptapEditorProps(id),
-            })}
-          />
-        </div>
-      </div>
+      <AnswersList answers={answers} />
+      <AnswerForm questionId={id} />
     </div>
   );
 }
