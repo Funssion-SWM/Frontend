@@ -20,6 +20,7 @@ type Props = {
   onUpdateBtnClick: () => void;
   onUpdate: () => void;
   isEditMode: boolean;
+  isMyAnswer: boolean;
 };
 
 export default function AnswerCardHeader({
@@ -31,6 +32,7 @@ export default function AnswerCardHeader({
   onUpdate,
   onUpdateBtnClick,
   isEditMode,
+  isMyAnswer,
 }: Props) {
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -70,7 +72,7 @@ export default function AnswerCardHeader({
         <BlueBtn text="수정" onClick={() => onUpdate()} size="small" />
       ) : (
         <nav className="relative flex items-center pl-10" ref={dropdownRef}>
-          {isActive && (
+          {isMyAnswer && (
             <div className="flex ml-2">
               <button onClick={() => setIsActive((pre) => !pre)}>
                 <Image src={more} alt="more" />

@@ -21,6 +21,7 @@ export default function AnswerCard({
     authorImagePath,
     authorName,
     repliesCount,
+    mine,
   },
 }: Props) {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -63,6 +64,7 @@ export default function AnswerCard({
         onUpdateBtnClick={handleUpdateBtnClick}
         onUpdate={handleUpdate}
         isEditMode={isEditMode}
+        isMyAnswer={mine}
       />
       <div className="my-2">
         <div className="break-all ">
