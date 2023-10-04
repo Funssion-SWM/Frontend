@@ -6,8 +6,9 @@ import { useContext, useRef } from 'react';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import more from '@/assets/icons/more.svg';
 import { useRouter } from 'next/navigation';
-import { deleteAnswer } from '@/service/answers';
+import { deleteAnswer, updateAnswer } from '@/service/answers';
 import { ModalContext } from '@/context/ModalProvider';
+import BlueBtn from '../shared/btn/BlueBtn';
 
 type Props = {
   answerId: number;
@@ -15,6 +16,9 @@ type Props = {
   authorName: string;
   authorImagePath: string;
   createdDate: string;
+  onUpdateBtnClick: () => void;
+  onUpdate: () => void;
+  isEditMode: boolean;
 };
 
 export default function AnswerCardHeader({
@@ -23,6 +27,9 @@ export default function AnswerCardHeader({
   authorName,
   authorImagePath,
   createdDate,
+  onUpdate,
+  onUpdateBtnClick,
+  isEditMode,
 }: Props) {
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -53,40 +60,45 @@ export default function AnswerCardHeader({
           </p>
         </div>
       </div>
-      <nav className="relative flex items-center pl-10" ref={dropdownRef}>
-        {true && (
-          <div className="flex ml-2">
-            <button onClick={() => setIsActive((pre) => !pre)}>
-              <Image src={more} alt="more" />
-            </button>
-            <nav
-              className={`absolute top-6 right-0 bg-white flex flex-col gap-1 rounded-lg shadow-inner ${
-                isActive ? 'visible' : 'invisible'
-              }`}
-            >
-              <button
-                className="hover:bg-gray-200 p-2 rounded-t-lg"
-                onClick={() => {
-                  setIsActive(false);
-                }}
-              >
-                수정하기
+      {isEditMode ? (
+        <BlueBtn text="수정" onClick={() => onUpdate()} size="small" />
+      ) : (
+        <nav className="relative flex items-center pl-10" ref={dropdownRef}>
+          {isActive && (
+            <div className="flex ml-2">
+              <button onClick={() => setIsActive((pre) => !pre)}>
+                <Image src={more} alt="more" />
               </button>
-              <button
-                className="hover:bg-gray-200 p-2 rounded-b-lg"
-                onClick={() => {
-                  setIsActive(false);
-                  open('답변을 삭제하시겠습니까?', () => {
-                    handleDelete();
-                  });
-                }}
+              <nav
+                className={`absolute top-6 right-0 bg-white flex flex-col gap-1 rounded-lg shadow-inner ${
+                  isActive ? 'visible' : 'invisible'
+                }`}
               >
-                삭제하기
-              </button>
-            </nav>
-          </div>
-        )}
-      </nav>
+                <button
+                  className="hover:bg-gray-200 p-2 rounded-t-lg"
+                  onClick={() => {
+                    onUpdateBtnClick();
+                    setIsActive(false);
+                  }}
+                >
+                  수정하기
+                </button>
+                <button
+                  className="hover:bg-gray-200 p-2 rounded-b-lg"
+                  onClick={() => {
+                    setIsActive(false);
+                    open('답변을 삭제하시겠습니까?', () => {
+                      handleDelete();
+                    });
+                  }}
+                >
+                  삭제하기
+                </button>
+              </nav>
+            </div>
+          )}
+        </nav>
+      )}
     </div>
   );
 }
