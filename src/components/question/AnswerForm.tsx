@@ -24,7 +24,7 @@ export default function AnswerForm({ questionId }: Props) {
           text="등록"
           onClick={() => {
             const questionText = JSON.stringify(editor?.getJSON());
-            createAnswer(questionId, questionText, '').then((res) => {
+            createAnswer(questionId, questionText).then((res) => {
               editor?.commands.setContent('');
               router.refresh();
               console.log(res);
