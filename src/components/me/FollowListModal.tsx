@@ -53,6 +53,7 @@ export default function FollowListModal({ isMine }: Props) {
                   <Link
                     onClick={() => close()}
                     href={`/me/${item.userId}`}
+                    prefetch={false}
                     className="flex transition-all hover:bg-soma-grey-25 rounded-3xl"
                   >
                     <Image

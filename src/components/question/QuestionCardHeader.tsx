@@ -25,7 +25,7 @@ export default function QuestionCardHeader({
   return (
     <div className="flex justify-between items-center">
       <div className="flex items-center">
-        <Link href={`/me/${authorId}`}>
+        <Link href={`/me/${authorId}`} prefetch={false}>
           <Image
             src={imagePath ?? basicProfileImg}
             alt="profileImg"

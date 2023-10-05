@@ -28,7 +28,7 @@ export default function CommentHeader({
   return (
     <div className={`flex justify-between ${!isRecomment && 'px-3'}`}>
       <div className="flex items-center ">
-        <Link href={`/me/${authorId}`}>
+        <Link href={`/me/${authorId}`} prefetch={false}>
           <Image
             src={authorImagePath ?? basicProfileImg}
             alt="profileImg"

@@ -25,7 +25,7 @@ export default function MemoSidebarHeader({
     <div className="bg-white rounded-t-2xl sticky top-0 p-3 border-b-2 border-soma-grey-30">
       <div className="flex justify-between items-center">
         <div className="flex items-center text-sm">
-          <Link href={`/me/${authorId}`}>
+          <Link href={`/me/${authorId}`} prefetch={false}>
             <Image
               src={authorProfileImagePath ?? basicProfileImg}
               alt="profileImg"

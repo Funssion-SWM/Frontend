@@ -52,7 +52,7 @@ export default function AnswerCardHeader({
   return (
     <div className="flex justify-between">
       <div className="flex items-center">
-        <Link href={`/me/${authorId}`}>
+        <Link href={`/me/${authorId}`} prefetch={false}>
           <Image
             src={authorImagePath ?? basicProfileImg}
             alt="profileImg"
