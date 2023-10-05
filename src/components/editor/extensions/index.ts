@@ -37,17 +37,19 @@ export const handleTiptapExtensions = (
     StarterKit.configure({
       bulletList: {
         HTMLAttributes: {
-          class: 'list-disc list-outside leading-3 -mt-2',
+          class: 'list-disc list-outside -mt-2',
+          style: "margin:0 !important"
         },
       },
       orderedList: {
         HTMLAttributes: {
-          class: 'list-decimal list-outside leading-3 -mt-2',
+          class: 'list-decimal list-outside -mt-2',
+          style: "margin:0 !important"
         },
       },
       listItem: {
         HTMLAttributes: {
-          class: 'leading-normal -mb-2',
+          style: "margin:0 !important"
         },
       },
       blockquote: {
@@ -92,7 +94,8 @@ export const handleTiptapExtensions = (
       },
     }).configure({
       HTMLAttributes: {
-        class: 'mt-4 mb-6 border-t border-stone-300',
+        class: 'border-t border-stone-300',
+        style: 'margin-top: 15.5px !important; margin-bottom: 15.5px !important;'
       },
     }),
     CodeBlockLowlight.extend({
