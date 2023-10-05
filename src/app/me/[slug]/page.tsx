@@ -9,6 +9,8 @@ import MeSideBar from '@/components/me/MeSideBar';
 import { getUserTags } from '@/service/tag';
 import MeTagsContainer from '@/components/me/MeTagsContainer';
 import { getFollowers, getFollowings } from '@/service/follow';
+import FollowListModalProvider from '@/context/FollowListModalProvider';
+import FollowListModal from '@/components/me/FollowListModal';
 
 type Props = {
   params: {
@@ -56,20 +58,24 @@ export default async function MePage({ params: { slug } }: Props) {
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
-  console.log(userInfo);
+
   return (
     <section>
       <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
       <LayoutWrapper paddingY="py-0">
         <div className="flex flex-col sm:flex-row">
-          <MeSideBar
-            userInfo={userInfo}
-            history={history}
-            userId={userId}
-            myId={id}
+          <FollowListModalProvider
             followings={followings}
             followers={followers}
-          />
+          >
+            <MeSideBar
+              userInfo={userInfo}
+              history={history}
+              userId={userId}
+              myId={id}
+            />
+            <FollowListModal isMine={id === userId} />
+          </FollowListModalProvider>
           <div className="flex flex-col w-full">
             {tags.length >= 2 && (
               <MeTagsContainer

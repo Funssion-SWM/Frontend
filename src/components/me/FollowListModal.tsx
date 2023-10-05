@@ -9,14 +9,23 @@ import WhiteBtn from '../shared/btn/WhiteBtn';
 import basicProfileImg from '@/assets/profile.svg';
 import { unfollow } from '@/service/follow';
 
-export default function FollowListModal() {
-  const { isOpen, close, type, listData, onCancel, isMine } = useContext(
-    FollowListModalContext
-  );
+type Props = {
+  isMine: boolean;
+};
+
+export default function FollowListModal({ isMine }: Props) {
+  const {
+    isOpen,
+    close,
+    type,
+    currentFollowings,
+    currentFollowers,
+    handleCancelFollowing,
+  } = useContext(FollowListModalContext);
 
   return (
     isOpen && (
-      <div className="absolute top-0">
+      <div className="absolute top-0 z-10">
         <Overay onClick={() => close()} />
         <div
           className="fixed flex flex-col shadow-lg items-center bg-white rounded-2xl p-5 sm:p-8 
@@ -25,13 +34,17 @@ export default function FollowListModal() {
           <p className="sm:text-lg font-medium mb-2">
             {type === 'following' ? '팔로잉 목록' : '팔로워 목록'}
           </p>
-          {listData.length === 0 ? (
+          {(type === 'following' ? currentFollowings : currentFollowers)
+            .length === 0 ? (
             <div className="m-auto text-soma-grey-50">
               해당 데이터가 없습니다...
             </div>
           ) : (
             <ul className="flex flex-col overflow-y-auto w-full gap-2">
-              {listData.map((item) => (
+              {(type === 'following'
+                ? currentFollowings
+                : currentFollowers
+              ).map((item) => (
                 <li
                   key={item.userId}
                   id={item.userId.toString()}
@@ -53,17 +66,12 @@ export default function FollowListModal() {
                       {item.nickname}
                     </h4>
                   </Link>
-                  {type === 'following' && isMine && (
+                  {isMine && (
                     <WhiteBtn
                       text="취소"
                       onClick={() => {
                         unfollow(item.userId.toString()).then(() => {
-                          onCancel();
-                          // onClickUnfollow(item.userId.toString());
-                          let element = document.getElementById(
-                            item.userId.toString()
-                          );
-                          if (element) element.hidden = true;
+                          handleCancelFollowing(item.userId);
                         });
                       }}
                       extraStyle={`ml-auto`}

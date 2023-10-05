@@ -1,32 +1,31 @@
+import { FollowListModalContext } from '@/context/FollowListModalProvider';
 import { follow, unfollow } from '@/service/follow';
-import { useState } from 'react';
+import { UserInfo } from '@/types';
+import { useContext, useState } from 'react';
 
 type Props = {
   isFollowed: boolean;
   userId: number;
-  handleClickFollow: () => void;
-  handleClickUnfollow: () => void;
+  userInfo: UserInfo;
 };
 
-export default function FollowBtn({
-  isFollowed,
-  userId,
-  handleClickFollow,
-  handleClickUnfollow,
-}: Props) {
+export default function FollowBtn({ isFollowed, userId, userInfo }: Props) {
   const [followed, setFollowed] = useState(isFollowed);
+  const { handleClickFollow, handleClickUnfollow } = useContext(
+    FollowListModalContext
+  );
 
   const clickFollow = () => {
     follow(userId.toString()).then(() => {
       setFollowed(true);
-      handleClickFollow();
+      handleClickFollow(userInfo);
     });
   };
 
   const clickUnfollow = () => {
     unfollow(userId.toString()).then(() => {
       setFollowed(false);
-      handleClickUnfollow();
+      handleClickUnfollow(userInfo);
     });
   };
 
