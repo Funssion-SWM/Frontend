@@ -13,8 +13,8 @@ type Props = {
 
 export default function AnswerForm({ questionId }: Props) {
   const editor = useEditor({
-    extensions: handleTiptapExtensions(questionId),
-    editorProps: handleTiptapEditorProps(questionId),
+    extensions: handleTiptapExtensions('answer', 0),
+    editorProps: handleTiptapEditorProps('answer', 0),
   });
   const router = useRouter();
 

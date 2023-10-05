@@ -38,8 +38,8 @@ export default function QuestionDetail({
           <div className="break-all ">
             <EditorContent
               editor={useEditor({
-                extensions: handleTiptapExtensions(id),
-                editorProps: handleTiptapEditorProps(id),
+                extensions: handleTiptapExtensions('question', id),
+                editorProps: handleTiptapEditorProps('question', id),
                 editable: false,
                 content: JSON.parse(text),
               })}

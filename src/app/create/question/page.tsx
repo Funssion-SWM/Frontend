@@ -1,4 +1,4 @@
-import QaEditorForm from '@/components/create/QaEditorForm';
+import QuestionEditorForm from '@/components/create/QuestionEditorForm';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { Metadata } from 'next';
 
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function CreateMemoPage() {
   return (
     <LayoutWrapper paddingY="sm:py-10" bgColor="bg-soma-grey-10">
-      <QaEditorForm />
+      <QuestionEditorForm />
     </LayoutWrapper>
   );
 }

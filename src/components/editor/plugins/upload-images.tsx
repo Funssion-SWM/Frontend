@@ -1,8 +1,9 @@
-import { BlobResult } from '@vercel/blob';
 import { toast } from 'sonner';
 import { EditorState, Plugin, PluginKey } from '@tiptap/pm/state';
 import { Decoration, DecorationSet, EditorView } from '@tiptap/pm/view';
-import { postImage } from '@/service/memos';
+import { postImageInMemo } from '@/service/memos';
+import { postImageInQuestion } from '@/service/questions';
+import { postImageInAnswer } from '@/service/answers';
 
 const uploadKey = new PluginKey('upload-image');
 
@@ -62,10 +63,11 @@ function findPlaceholder(state: EditorState, id: {}) {
 
 export function startImageUpload(
   file: File,
-  memoId: number,
+  postId: number,
+  type: 'memo' | 'question' | 'answer',
   view: EditorView,
   pos: number,
-  routingCallback?: (memoId: number) => void
+  routingCallback?: (postId: number) => void
 ) {
   // check if the file is an image
   if (!file.type.includes('image/')) {
@@ -98,7 +100,7 @@ export function startImageUpload(
     view.dispatch(tr);
   };
 
-  handleImageUpload(file, memoId).then((src) => {
+  handleImageUpload(file, type, postId).then((src) => {
     const { schema } = view.state;
 
     let pos = findPlaceholder(view.state, id);
@@ -118,27 +120,47 @@ export function startImageUpload(
       .replaceWith(pos, pos, node)
       .setMeta(uploadKey, { remove: { id } });
     view.dispatch(transaction);
-    routingCallback && routingCallback(memoId);
+    type === 'memo' && routingCallback && routingCallback(postId);
   });
 }
 
-export const handleImageUpload = (file: File, memoId: number) => {
+export const handleImageUpload = (
+  file: File,
+  type: 'memo' | 'question' | 'answer',
+  postId: number
+) => {
   // upload to Vercel Blob
   return new Promise((resolve) => {
-    toast.promise(
-      postImage(memoId, file).then(async (res) => {
-        // preload the image
-        let image = new Image();
-        image.src = res.imagePath;
-        image.onload = () => {
-          resolve(res.imagePath);
-        };
-      }),
-      {
-        loading: 'Uploading image...',
-        success: 'Image uploaded successfully.',
-        error: (e) => e.message,
-      }
-    );
+    switch (type) {
+      case 'memo':
+        postImageInMemo(postId, file).then(async (res) => {
+          let image = new Image();
+          image.src = res.imagePath;
+          image.onload = () => {
+            resolve(res.imagePath);
+          };
+        });
+        break;
+      case 'question':
+        postImageInQuestion(file).then(async (res) => {
+          let image = new Image();
+          image.src = res.imagePath;
+          image.onload = () => {
+            resolve(res.imagePath);
+          };
+        });
+        break;
+      case 'answer':
+        postImageInAnswer(file).then(async (res) => {
+          let image = new Image();
+          image.src = res.imagePath;
+          image.onload = () => {
+            resolve(res.imagePath);
+          };
+        });
+        break;
+      default:
+        throw new Error('알맞은 postType이 아님');
+    }
   });
 };

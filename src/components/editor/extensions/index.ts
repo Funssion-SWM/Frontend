@@ -28,7 +28,8 @@ lowlight.registerLanguage('js', js);
 lowlight.registerLanguage('ts', ts);
 
 export const handleTiptapExtensions = (
-  memoId: number | undefined,
+  type: 'memo' | 'question' | 'answer',
+  postId: number | undefined,
   callback?: () => Promise<number>,
   routingCallback?: (id: number) => void
 ) => {
@@ -150,7 +151,7 @@ export const handleTiptapExtensions = (
       },
       includeChildren: true,
     }),
-    handleSlashCommand(memoId, callback, routingCallback),
+    handleSlashCommand(type, postId, callback, routingCallback),
     TiptapUnderline,
     TextStyle,
     Color,

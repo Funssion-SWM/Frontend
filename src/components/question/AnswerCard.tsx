@@ -29,8 +29,8 @@ export default function AnswerCard({
   const router = useRouter();
 
   const editor = useEditor({
-    extensions: handleTiptapExtensions(id),
-    editorProps: handleTiptapEditorProps(id),
+    extensions: handleTiptapExtensions('answer', 0),
+    editorProps: handleTiptapEditorProps('answer', 0),
     editable: isEditMode,
     content: JSON.parse(text),
   });

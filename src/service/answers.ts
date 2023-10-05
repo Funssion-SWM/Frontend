@@ -1,5 +1,6 @@
 import { ErrorResponse, IsSuccessResponse } from '@/types';
 import { Answer } from '@/types/answer';
+import { PostImageResponse } from '@/types/image';
 
 export async function getAnswersByQuestionId(
   questionId: number,
@@ -68,6 +69,23 @@ export async function deleteAnswer(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/answers/${answerId}`,
     {
       method: 'DELETE',
+      credentials: 'include',
+    }
+  )
+    .then((res) => res.json())
+    .catch(console.error);
+}
+
+export async function postImageInAnswer(
+  image: File
+): Promise<PostImageResponse> {
+  const formdata = new FormData();
+  formdata.append('image', image);
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/answers/image`,
+    {
+      method: 'POST',
+      body: formdata,
       credentials: 'include',
     }
   )

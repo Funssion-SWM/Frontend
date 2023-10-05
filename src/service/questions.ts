@@ -1,3 +1,4 @@
+import { PostImageResponse } from '@/types/image';
 import { PostQuestionData, Question, QuestionOrderBy } from '@/types/question';
 
 export async function getQuestions(
@@ -103,5 +104,22 @@ export async function deleteQuestion(id: number) {
         throw new Error('error');
       }
     })
+    .catch(console.error);
+}
+
+export async function postImageInQuestion(
+  image: File
+): Promise<PostImageResponse> {
+  const formdata = new FormData();
+  formdata.append('image', image);
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/questions/image`,
+    {
+      method: 'POST',
+      body: formdata,
+      credentials: 'include',
+    }
+  )
+    .then((res) => res.json())
     .catch(console.error);
 }

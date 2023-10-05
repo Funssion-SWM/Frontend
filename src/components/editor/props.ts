@@ -2,7 +2,8 @@ import { EditorProps } from '@tiptap/pm/view';
 import { startImageUpload } from './plugins/upload-images';
 
 export function handleTiptapEditorProps(
-  memoId: number | undefined,
+  type: 'memo' | 'question' | 'answer',
+  postId: number | undefined,
   callback?: () => Promise<number>,
   routingCallback?: (id: number) => void
 ): EditorProps {
@@ -30,12 +31,16 @@ export function handleTiptapEditorProps(
         event.preventDefault();
         const file = event.clipboardData.files[0];
         const pos = view.state.selection.from;
-        memoId
-          ? startImageUpload(file, memoId, view, pos)
-          : callback &&
-            callback().then((memoId) =>
-              startImageUpload(file, memoId, view, pos, routingCallback)
-            );
+        if (type === 'memo') {
+          postId
+            ? startImageUpload(file, postId, type, view, pos)
+            : callback &&
+              callback().then((postId) =>
+                startImageUpload(file, postId, type, view, pos, routingCallback)
+              );
+        } else {
+          startImageUpload(file, 0, type, view, pos);
+        }
         return true;
       }
       return false;
@@ -54,18 +59,23 @@ export function handleTiptapEditorProps(
           top: event.clientY,
         });
         // here we deduct 1 from the pos or else the image will create an extra node
-        memoId
-          ? startImageUpload(file, memoId, view, coordinates!.pos - 1)
-          : callback &&
-            callback().then((memoId) =>
-              startImageUpload(
-                file,
-                memoId,
-                view,
-                coordinates!.pos - 1,
-                routingCallback
-              )
-            );
+        if (type === 'memo') {
+          postId
+            ? startImageUpload(file, postId, type, view, coordinates!.pos - 1)
+            : callback &&
+              callback().then((postId) =>
+                startImageUpload(
+                  file,
+                  postId,
+                  type,
+                  view,
+                  coordinates!.pos - 1,
+                  routingCallback
+                )
+              );
+        } else {
+          startImageUpload(file, 0, type, view, coordinates!.pos - 1);
+        }
         return true;
       }
       return false;

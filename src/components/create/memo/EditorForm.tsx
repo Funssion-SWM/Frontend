@@ -85,14 +85,13 @@ export default function EditorForm() {
     if (isInitialMount.current) {
       isInitialMount.current = false;
     } else {
-      console.log('hello');
       if (memoId) {
         const memoDescription = getDescription(contents);
         createOrUpdateMemo(
           `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${memoId}`,
           {
-            memoTitle: title,
-            memoDescription,
+            memoTitle: title || 'temp',
+            memoDescription: memoDescription || 'temp',
             memoText: contents,
             memoColor: selectedColor,
             memoTags: tags,
@@ -105,11 +104,13 @@ export default function EditorForm() {
 
   const editor = useEditor({
     extensions: handleTiptapExtensions(
+      'memo',
       memoId,
       temporarySaveCallbackForSavingImage,
       (memoId: number) => routingAfterUploadImage(memoId)
     ),
     editorProps: handleTiptapEditorProps(
+      'memo',
       memoId,
       temporarySaveCallbackForSavingImage,
       (memoId: number) => routingAfterUploadImage(memoId)
@@ -148,8 +149,8 @@ export default function EditorForm() {
   });
 
   const fakeEditor = useEditor({
-    extensions: handleTiptapExtensions(memoId),
-    editorProps: handleTiptapEditorProps(memoId),
+    extensions: handleTiptapExtensions('memo', memoId),
+    editorProps: handleTiptapEditorProps('memo', memoId),
     editable: false,
   });
 

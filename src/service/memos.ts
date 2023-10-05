@@ -34,7 +34,12 @@ export async function getMemos(
   memoCnt: number = 20
 ): Promise<Memo[]> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`);
-  const params = { period: period, orderBy: orderBy, pageNum: pageNum.toString(), memoCnt: memoCnt.toString() };
+  const params = {
+    period: period,
+    orderBy: orderBy,
+    pageNum: pageNum.toString(),
+    memoCnt: memoCnt.toString(),
+  };
   url.search = new URLSearchParams(params).toString();
 
   return fetch(url, { next: { revalidate: 0 } })
@@ -117,7 +122,7 @@ export async function deleteMemo(id: number) {
     .catch(console.error);
 }
 
-export async function postImage(
+export async function postImageInMemo(
   memoId: number,
   image: File
 ): Promise<PostImageResponse> {
@@ -132,8 +137,11 @@ export async function postImage(
     }
   )
     .then((res) => {
-      if (!res.ok) throw new Error('error!!');
       return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+      return data;
     })
     .catch(console.error);
 }

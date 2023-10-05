@@ -57,8 +57,8 @@ export default function MemoViewer({
       <div className="px-4 flex-grow break-all">
         <EditorContent
           editor={useEditor({
-            extensions: handleTiptapExtensions(memoId),
-            editorProps: handleTiptapEditorProps(memoId),
+            extensions: handleTiptapExtensions('memo', memoId),
+            editorProps: handleTiptapEditorProps('memo', memoId),
             editable: false,
             content: content,
           })}

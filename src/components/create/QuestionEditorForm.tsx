@@ -8,7 +8,6 @@ import { getDescription } from '@/service/description';
 import { ModalContext } from '@/context/ModalProvider';
 import { handleTiptapExtensions } from '@/components/editor/extensions';
 import { handleTiptapEditorProps } from '@/components/editor/props';
-import { DraftsInModalContext } from '@/context/DraftsInModalProvider';
 import Tag from '@/components/shared/Tag';
 import { notifyToast } from '@/service/notification';
 import BlueBtn from '../shared/btn/BlueBtn';
@@ -19,7 +18,7 @@ import {
 } from '@/service/questions';
 import { getMemoById } from '@/service/memos';
 
-export default function QaEditorForm() {
+export default function QuestionEditorForm() {
   const router = useRouter();
   const { open } = useContext(ModalContext);
 
@@ -78,11 +77,13 @@ export default function QaEditorForm() {
 
   const editor = useEditor({
     extensions: handleTiptapExtensions(
+      'question',
       questionId
       // temporarySaveCallbackForSavingImage,
       // (questionId: number) => routingAfterUploadImage(questionId)
     ),
     editorProps: handleTiptapEditorProps(
+      'question',
       questionId
       // temporarySaveCallbackForSavingImage,
       // (questionId: number) => routingAfterUploadImage(questionId)
