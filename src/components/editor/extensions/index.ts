@@ -36,17 +36,19 @@ export const handleTiptapExtensions = (
     StarterKit.configure({
       bulletList: {
         HTMLAttributes: {
-          class: 'list-disc list-outside leading-3 -mt-2',
+          class: 'list-disc list-outside -mt-2',
+          style: "margin:0 !important"
         },
       },
       orderedList: {
         HTMLAttributes: {
-          class: 'list-decimal list-outside leading-3 -mt-2',
+          class: 'list-decimal list-outside -mt-2',
+          style: "margin:0 !important"
         },
       },
       listItem: {
         HTMLAttributes: {
-          class: 'leading-normal -mb-2',
+          style: "margin:0 !important"
         },
       },
       blockquote: {
