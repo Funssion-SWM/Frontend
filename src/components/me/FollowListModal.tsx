@@ -66,7 +66,7 @@ export default function FollowListModal({ isMine }: Props) {
                       {item.nickname}
                     </h4>
                   </Link>
-                  {isMine && (
+                  {type === 'following' && isMine && (
                     <WhiteBtn
                       text="취소"
                       onClick={() => {
