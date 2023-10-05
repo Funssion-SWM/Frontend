@@ -8,7 +8,6 @@ import Image from 'next/image';
 import WhiteBtn from '../shared/btn/WhiteBtn';
 import basicProfileImg from '@/assets/profile.svg';
 import { unfollow } from '@/service/follow';
-import { useRouter } from 'next/navigation';
 
 export default function FollowListModal() {
   const { isOpen, close, type, listData, onCancel, isMine } = useContext(
@@ -20,20 +19,28 @@ export default function FollowListModal() {
       <div className="absolute top-0">
         <Overay onClick={() => close()} />
         <div
-          className="fixed flex flex-col shadow-lg items-center bg-white rounded-2xl p-5 sm:p-10 
-      top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 gap-2 "
+          className="fixed flex flex-col shadow-lg items-center bg-white rounded-2xl p-5 sm:p-8 
+      top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 gap-2 w-[300px] h-[300px]"
         >
-          <p className="sm:text-lg">
+          <p className="sm:text-lg font-medium mb-2">
             {type === 'following' ? '팔로잉 목록' : '팔로워 목록'}
           </p>
-          <ul>
-            {listData.map((item) => (
-              <li key={item.userId} id={item.userId.toString()}>
-                <div className="flex my-2">
+          {listData.length === 0 ? (
+            <div className="m-auto text-soma-grey-50">
+              해당 데이터가 없습니다...
+            </div>
+          ) : (
+            <ul className="flex flex-col overflow-y-auto w-full gap-2">
+              {listData.map((item) => (
+                <li
+                  key={item.userId}
+                  id={item.userId.toString()}
+                  className="flex w-full  items-center"
+                >
                   <Link
                     onClick={() => close()}
                     href={`/me/${item.userId}`}
-                    className="flex w-[300px] transition-all hover:bg-soma-grey-25 rounded-3xl"
+                    className="flex transition-all hover:bg-soma-grey-25 rounded-3xl"
                   >
                     <Image
                       src={item.profileImageFilePath ?? basicProfileImg}
@@ -62,14 +69,14 @@ export default function FollowListModal() {
                       extraStyle={`ml-auto`}
                     />
                   )}
-                </div>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+          )}
           <CloseIcon
             size={24}
             onClick={() => close()}
-            extraClass={`absolute top-5 right-5`}
+            extraClass={`absolute top-3 right-3`}
           />
         </div>
       </div>
