@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import WhiteBtn from '../shared/btn/WhiteBtn';
-import CategoryBtn from '../shared/btn/CategoryBtn';
 import basicProfileImg from '@/assets/profile.svg';
+import BarBtn from '../shared/btn/BarBtn';
 
 type Props = {
   authorId: number;
@@ -46,23 +46,23 @@ export default function MemoSidebarHeader({
         />
       </div>
       <div className="flex gap-1 mt-3 mb-1">
-        <CategoryBtn
-          text="댓글✏️"
+        <BarBtn
+          text="댓글"
           onClick={() => onCategoryBtnClick('comment')}
           isSelected={currentCategory === 'comment'}
         />
-        <CategoryBtn
-          text="Q&A💬"
+        <BarBtn
+          text="Q&A"
           onClick={() => onCategoryBtnClick('question')}
           isSelected={currentCategory === 'question'}
         />
-        <CategoryBtn
-          text="추천👍"
+        {/* <BarBtn
+          text="추천"
           onClick={() => {
             alert('지원 예정입니다! 개발자들이 열심히 개발하고 있어요 :)');
           }}
           isSelected={currentCategory === 'recommendation'}
-        />
+        /> */}
       </div>
     </div>
   );
