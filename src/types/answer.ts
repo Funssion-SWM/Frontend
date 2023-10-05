@@ -3,7 +3,6 @@ export type Answer = {
   authorId: number;
   authorName: string;
   authorImagePath: string;
-  description: string;
   createdDate: string;
   updatedDate: string;
   likes: number;
