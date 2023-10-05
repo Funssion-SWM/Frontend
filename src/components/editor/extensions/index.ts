@@ -93,7 +93,8 @@ export const handleTiptapExtensions = (
       },
     }).configure({
       HTMLAttributes: {
-        class: 'mt-4 mb-6 border-t border-stone-300',
+        class: 'border-t border-stone-300',
+        style: 'margin-top: 15.5px !important; margin-bottom: 15.5px !important;'
       },
     }),
     CodeBlockLowlight.extend({
