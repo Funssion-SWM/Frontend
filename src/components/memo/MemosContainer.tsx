@@ -29,7 +29,7 @@ export default function MemosContainer({ memos }: Props) {
 
   const fetchMemos = () => {
     if (isLoading || isEnd) return;
-    setIsLoading(true); 
+    setIsLoading(true);
     getMemos('month', selectedOrderType, pageNum, 12)
       .then((data) => {
         setIsLoading(false);
@@ -41,11 +41,11 @@ export default function MemosContainer({ memos }: Props) {
       .catch(() => {
         setIsLoading(false);
       });
-  }
+  };
 
   useEffect(() => {
     fetchMemos();
-  }, [pageNum])
+  }, [pageNum]);
 
   const onIntersect: IntersectionObserverCallback = ([entry]) => {
     if (isEnd || isLoading) return;
@@ -56,14 +56,16 @@ export default function MemosContainer({ memos }: Props) {
 
   return (
     <div>
-      <div className="flex gap-2 my-2 ml-1 sm:mb-5">
+      <div className="flex gap-2 sm:mb-3">
         <CategoryBtn
-          text="New✨"
+          text="New"
+          size="big"
           onClick={() => handleClick('new')}
           isSelected={selectedOrderType === 'new'}
         />
         <CategoryBtn
-          text="Hot🔥"
+          text="Hot"
+          size="big"
           onClick={() => handleClick('hot')}
           isSelected={selectedOrderType === 'hot'}
         />
