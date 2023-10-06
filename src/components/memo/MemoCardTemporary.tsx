@@ -4,6 +4,7 @@ import { deleteMemo } from '@/service/memos';
 import { useContext } from 'react';
 import { ModalContext } from '@/context/ModalProvider';
 import { useRouter } from 'next/navigation';
+import { notifyToast } from '@/service/notification';
 
 type Props = {
   memo: Memo;
@@ -47,7 +48,13 @@ export default function MemoCardTemporary({
           className="absolute right-4 bottom-4 text-sm text-soma-grey-49"
           onClick={() =>
             open('임시 메모를 삭제하시겠습니까?', () => {
-              deleteMemo(memoId).then(() => router.refresh());
+              deleteMemo(memoId).then((res) => {
+                if (res.code) {
+                  notifyToast('삭제에 실패했습니다.', 'error');
+                  return;
+                }
+                router.refresh();
+              });
             })
           }
         >

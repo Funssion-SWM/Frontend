@@ -1,3 +1,4 @@
+import { ErrorResponse } from '@/types';
 import { PostImageResponse } from '@/types/image';
 import { PostQuestionData, Question, QuestionOrderBy } from '@/types/question';
 
@@ -53,7 +54,7 @@ export async function getQuestionsByMemoId(
 export async function createQuestion(
   bodyData: PostQuestionData,
   memoId: number
-): Promise<Question> {
+): Promise<Question & ErrorResponse> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions`);
   if (memoId) {
     const params = { memoId: memoId.toString() };
@@ -67,18 +68,15 @@ export async function createQuestion(
     },
     credentials: 'include',
     body: JSON.stringify(bodyData),
-  }).then((res) => {
-    if (!res.ok) {
-      throw new Error('error');
-    }
-    return res.json();
-  });
+  })
+    .then((res) => res.json())
+    .catch(console.error);
 }
 
 export async function updateQuestion(
   bodyData: PostQuestionData,
   id: number
-): Promise<Question> {
+): Promise<Question & ErrorResponse> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions/${id}`, {
     method: 'PUT',
     headers: {
@@ -86,24 +84,19 @@ export async function updateQuestion(
     },
     credentials: 'include',
     body: JSON.stringify(bodyData),
-  }).then((res) => {
-    if (!res.ok) {
-      throw new Error('error');
-    }
-    return res.json();
-  });
+  })
+    .then((res) => res.json())
+    .catch(console.error);
 }
 
-export async function deleteQuestion(id: number) {
+export async function deleteQuestion(
+  id: number
+): Promise<void & ErrorResponse> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions/${id}`, {
     method: 'DELETE',
     credentials: 'include',
   })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('error');
-      }
-    })
+    .then((res) => res.json())
     .catch(console.error);
 }
 

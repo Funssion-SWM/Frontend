@@ -44,12 +44,14 @@ export default function LikeBox({
       default:
         throw new Error('해당하는 like item type이 없음');
     }
-    fn?.then(() => {
+    fn?.then((res) => {
+      if (res.code) {
+        if (res.code === 401) router.push('/login');
+        notifyToast(res.message, 'error');
+        return;
+      }
       setCurrentLikeNum((pre) => pre - 1);
       setCurrentIsLike(false);
-    }).catch((err) => {
-      notifyToast(`${err}`, 'error');
-      router.push('/login');
     });
   }
 
@@ -71,12 +73,14 @@ export default function LikeBox({
       default:
         throw new Error('해당하는 like item type이 없음');
     }
-    fn?.then(() => {
+    fn?.then((res) => {
+      if (res.code) {
+        if (res.code === 401) router.push('/login');
+        notifyToast(res.message, 'error');
+        return;
+      }
       setCurrentLikeNum((pre) => pre + 1);
       setCurrentIsLike(true);
-    }).catch((err) => {
-      notifyToast(`${err}`, 'error');
-      router.push('/login');
     });
   }
 

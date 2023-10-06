@@ -1,29 +1,27 @@
-import { UserInfo } from '@/types';
+import { ErrorResponse, UserInfo } from '@/types';
 
-export async function follow(userId: string): Promise<void> {
+export async function follow(userId: string): Promise<void & ErrorResponse> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/follow`);
   const params = {
     userId: userId,
   };
   url.search = new URLSearchParams(params).toString();
 
-  return fetch(url, { method: 'POST', credentials: 'include' }).then((res) => {
-    if (res.status === 401) throw new Error('로그인을 해주세요');
-    if (!res.ok) throw new Error('follow error 발생!');
-  });
+  return fetch(url, { method: 'POST', credentials: 'include' })
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 }
 
-export async function unfollow(userId: string): Promise<void> {
+export async function unfollow(userId: string): Promise<void & ErrorResponse> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/unfollow`);
   const params = {
     userId: userId,
   };
   url.search = new URLSearchParams(params).toString();
 
-  return fetch(url, { method: 'POST', credentials: 'include' }).then((res) => {
-    if (res.status === 401) throw new Error('로그인을 해주세요');
-    if (!res.ok) throw new Error('follow error 발생!');
-  });
+  return fetch(url, { method: 'POST', credentials: 'include' })
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 }
 
 export async function getFollowings(userId: string): Promise<UserInfo[]> {

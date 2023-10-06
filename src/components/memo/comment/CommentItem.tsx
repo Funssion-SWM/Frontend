@@ -7,6 +7,7 @@ import WhiteBtn from '@/components/shared/btn/WhiteBtn';
 import { ModalContext } from '@/context/ModalProvider';
 import RecommentContainer from '@/components/memo/recomment/RecommentContainer';
 import CommentHeader from './CommentHeader';
+import { notifyToast } from '@/service/notification';
 
 type Props = {
   commentProperty: Comment;
@@ -91,7 +92,11 @@ export default function CommentItem({
               <button
                 onClick={() => {
                   open('댓글을 삭제하시겠습니까?', () => {
-                    deleteComeent(id).then(() => {
+                    deleteComeent(id).then((res) => {
+                      if (res.code) {
+                        notifyToast('삭제에 실패했습니다.', 'error');
+                        return;
+                      }
                       onClick();
                       router.refresh();
                     });
@@ -119,7 +124,11 @@ export default function CommentItem({
                     window.alert('댓글을 작성해주세요');
                     return;
                   }
-                  updateComment(id, updatedText).then(() => {
+                  updateComment(id, updatedText).then((res) => {
+                    if (res.code) {
+                      notifyToast('등록에 실패했습니다.', 'error');
+                      return;
+                    }
                     setIsEditMode(false);
                     onClick();
                     router.refresh();

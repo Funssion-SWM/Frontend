@@ -1,4 +1,4 @@
-import { Like } from '@/types';
+import { ErrorResponse, Like } from '@/types';
 
 export async function getIsLike(
   postType: 'memos' | 'blogs' | 'questions' | 'answers',
@@ -32,51 +32,53 @@ export async function getIsLike(
 export async function like(
   postType: 'memos' | 'blogs' | 'questions' | 'answers',
   postId: number
-): Promise<void> {
+): Promise<void & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/${postType}/${postId}/like`,
     { method: 'POST', credentials: 'include' }
-  ).then((res) => {
-    if (res.status === 401) throw new Error('로그인을 해주세요');
-    if (!res.ok) throw new Error('like error 발생!');
-  });
+  )
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 }
 
 export async function unlike(
   postType: 'memos' | 'blogs' | 'questions' | 'answers',
   postId: number
-): Promise<void> {
+): Promise<void & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/${postType}/${postId}/unlike`,
     { method: 'POST', credentials: 'include' }
-  ).then((res) => {
-    if (res.status === 401) throw new Error('로그인을 해주세요');
-    if (!res.ok) throw new Error('unlike error 발생!');
-  });
+  )
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 }
 
-export async function likeComment(commentId: number, isReComment: boolean) {
+export async function likeComment(
+  commentId: number,
+  isReComment: boolean
+): Promise<void & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/like/${commentId}?isReComment=${isReComment}`,
     {
       method: 'POST',
       credentials: 'include',
     }
-  ).then((res) => {
-    if (res.status === 401) throw new Error('로그인을 해주세요');
-    if (!res.ok) throw new Error('like comment error 발생!');
-  });
+  )
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 }
 
-export async function unlikeComment(commentId: number, isReComment: boolean) {
+export async function unlikeComment(
+  commentId: number,
+  isReComment: boolean
+): Promise<void & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/like/${commentId}?isReComment=${isReComment}`,
     {
       method: 'DELETE',
       credentials: 'include',
     }
-  ).then((res) => {
-    if (res.status === 401) throw new Error('로그인을 해주세요');
-    if (!res.ok) throw new Error('unllike comment error 발생!');
-  });
+  )
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 }

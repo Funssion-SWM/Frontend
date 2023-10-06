@@ -225,14 +225,14 @@ export default function EditorForm() {
         memoTags: tags,
         isTemporary: true,
       }
-    )
-      .then((data) => {
-        notifyToast('임시 저장되었습니다.', 'success');
-        !memoId && router.push(`/create/memo?id=${data.memoId}`);
-      })
-      .catch(() => {
+    ).then((data) => {
+      if (data.code) {
         notifyToast('임시 저장에 실패했습니다.', 'error');
-      });
+        return;
+      }
+      notifyToast('임시 저장되었습니다.', 'success');
+      !memoId && router.push(`/create/memo?id=${data.memoId}`);
+    });
   }, [temporaryContents]);
 
   const [drafts, setDrafts] = useState<Memo[]>([]);
@@ -276,18 +276,19 @@ export default function EditorForm() {
         memoTags: tags,
         isTemporary: saveMode === 'temporary',
       }
-    )
-      .then((data) => {
-        if (saveMode === 'temporary') {
-          !memoId && router.push(`/create/memo?id=${data.memoId}`);
-        } else {
-          memoId ? router.push(`/memos/${memoId}`) : router.push('/memos');
-        }
-        router.refresh();
-      })
-      .catch(() => {
-        notifyToast('등록에 실패했습니다.', 'error');
-      });
+    ).then((data) => {
+      if (data.code) {
+        notifyToast('등록에 실패했습니다', 'error');
+        return;
+      }
+
+      if (saveMode === 'temporary') {
+        !memoId && router.push(`/create/memo?id=${data.memoId}`);
+      } else {
+        memoId ? router.push(`/memos/${memoId}`) : router.push('/memos');
+      }
+      router.refresh();
+    });
   };
 
   const edirotRef = useRef<HTMLDivElement>(null);

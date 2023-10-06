@@ -1,4 +1,4 @@
-import { Orderby, Period } from '@/types';
+import { ErrorResponse, Orderby, Period } from '@/types';
 import { PostImageResponse } from '@/types/image';
 import { Memo, PostMemoData } from '@/types/memo';
 
@@ -90,7 +90,7 @@ export async function getMemoById(
 export async function createOrUpdateMemo(
   url: string,
   bodyData: PostMemoData
-): Promise<Memo> {
+): Promise<Memo & ErrorResponse> {
   return fetch(url, {
     method: 'POST',
     headers: {
@@ -98,15 +98,12 @@ export async function createOrUpdateMemo(
     },
     credentials: 'include',
     body: JSON.stringify(bodyData),
-  }).then((res) => {
-    if (!res.ok) {
-      throw new Error('error');
-    }
-    return res.json();
-  });
+  })
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 }
 
-export async function deleteMemo(id: number) {
+export async function deleteMemo(id: number): Promise<void & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${id}`,
     {
@@ -114,11 +111,7 @@ export async function deleteMemo(id: number) {
       credentials: 'include',
     }
   )
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('error');
-      }
-    })
+    .then((res) => res.json())
     .catch(console.error);
 }
 

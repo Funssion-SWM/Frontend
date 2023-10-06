@@ -5,6 +5,8 @@ import basicProfileImg from '@/assets/profile.svg';
 import BarBtn from '../shared/btn/BarBtn';
 import { useState } from 'react';
 import { follow, unfollow } from '@/service/follow';
+import { notifyToast } from '@/service/notification';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   authorId: number;
@@ -30,6 +32,7 @@ export default function MemoSidebarHeader({
   isLogin,
 }: Props) {
   const [isCurrentFollowed, setIsCurrentFollowed] = useState(isFollowed);
+  const router = useRouter();
 
   return (
     <div className="bg-white rounded-t-2xl sticky top-0 p-3 border-b-2 border-soma-grey-30">
@@ -54,7 +57,12 @@ export default function MemoSidebarHeader({
             <WhiteBtn
               text="팔로우 취소"
               onClick={() => {
-                unfollow(authorId.toString()).then(() => {
+                unfollow(authorId.toString()).then((res) => {
+                  if (res.code) {
+                    if (res.code === 401) router.push('/login');
+                    notifyToast(res.message, 'error');
+                    return;
+                  }
                   setIsCurrentFollowed(false);
                 });
               }}
@@ -63,7 +71,12 @@ export default function MemoSidebarHeader({
             <WhiteBtn
               text="팔로우"
               onClick={() => {
-                follow(authorId.toString()).then(() => {
+                follow(authorId.toString()).then((res) => {
+                  if (res.code) {
+                    if (res.code === 401) router.push('/login');
+                    notifyToast(res.message, 'error');
+                    return;
+                  }
                   setIsCurrentFollowed(true);
                 });
               }}

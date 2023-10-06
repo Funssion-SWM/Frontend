@@ -20,16 +20,18 @@ export default function CommentForm({ postId, postType, onClick }: Props) {
       window.alert('댓글을 작성해주세요');
       return;
     }
-    createComment({ postTypeWithComment: postType, postId, commentText })
-      .then(() => {
+    createComment({ postTypeWithComment: postType, postId, commentText }).then(
+      (res) => {
+        if (res.code) {
+          if (res.code === 401) router.push('/login');
+          notifyToast(res.message, 'error');
+          return;
+        }
         setCommentText('');
         onClick();
         router.refresh();
-      })
-      .catch((err) => {
-        notifyToast(`${err}`, 'error');
-        router.push('/login');
-      });
+      }
+    );
   };
 
   return (

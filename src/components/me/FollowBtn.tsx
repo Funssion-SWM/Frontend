@@ -1,6 +1,8 @@
 import { FollowListModalContext } from '@/context/FollowListModalProvider';
 import { follow, unfollow } from '@/service/follow';
+import { notifyToast } from '@/service/notification';
 import { UserInfo } from '@/types';
+import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';
 
 type Props = {
@@ -14,16 +16,27 @@ export default function FollowBtn({ isFollowed, userId, myUserInfo }: Props) {
   const { handleClickFollow, handleClickUnfollow } = useContext(
     FollowListModalContext
   );
+  const router = useRouter();
 
   const clickFollow = () => {
-    follow(userId.toString()).then(() => {
+    follow(userId.toString()).then((res) => {
+      if (res.code) {
+        if (res.code === 401) router.push('/login');
+        notifyToast(res.message, 'error');
+        return;
+      }
       setFollowed(true);
       handleClickFollow(myUserInfo);
     });
   };
 
   const clickUnfollow = () => {
-    unfollow(userId.toString()).then(() => {
+    unfollow(userId.toString()).then((res) => {
+      if (res.code) {
+        if (res.code === 401) router.push('/login');
+        notifyToast(res.message, 'error');
+        return;
+      }
       setFollowed(false);
       handleClickUnfollow(myUserInfo);
     });

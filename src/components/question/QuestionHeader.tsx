@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { ModalContext } from '@/context/ModalProvider';
 import { deleteQuestion } from '@/service/questions';
 import { extractYMDHM } from '@/service/time';
+import { notifyToast } from '@/service/notification';
 type Props = {
   questionId: number;
   likeNum: number;
@@ -30,7 +31,11 @@ export default function QuestionHeader({
   const { open } = useContext(ModalContext);
 
   const handleDelete = () =>
-    deleteQuestion(questionId).then(() => {
+    deleteQuestion(questionId).then((res) => {
+      if (res.code) {
+        notifyToast('삭제에 실패했습니다.', 'error');
+        return;
+      }
       router.push('/questions');
       router.refresh();
     });

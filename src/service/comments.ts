@@ -1,4 +1,4 @@
-import { PostType } from '@/types';
+import { ErrorResponse, PostType } from '@/types';
 import { Comment, PostCommentData, PostRecoomentData } from '@/types/comment';
 
 export async function getCommentsByPostTypeAndPostId(
@@ -27,7 +27,9 @@ export async function getCommentsByPostTypeAndPostId(
     .catch(console.error);
 }
 
-export async function createComment(bodyData: PostCommentData) {
+export async function createComment(
+  bodyData: PostCommentData
+): Promise<void & ErrorResponse> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/comments`, {
     method: 'POST',
     headers: {
@@ -35,14 +37,15 @@ export async function createComment(bodyData: PostCommentData) {
     },
     credentials: 'include',
     body: JSON.stringify(bodyData),
-  }).then((res) => {
-    if (res.status === 401) throw new Error('로그인을 해주세요');
-    if (!res.ok) throw new Error('error');
-    return res.json();
-  });
+  })
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 }
 
-export async function updateComment(id: number, commentText: string) {
+export async function updateComment(
+  id: number,
+  commentText: string
+): Promise<void & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/${id}`,
     {
@@ -54,16 +57,11 @@ export async function updateComment(id: number, commentText: string) {
       body: JSON.stringify({ commentText }),
     }
   )
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('error');
-      }
-      return res.json();
-    })
-    .catch(console.error);
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 }
 
-export async function deleteComeent(id: number) {
+export async function deleteComeent(id: number): Promise<void & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/${id}`,
     {
@@ -71,12 +69,8 @@ export async function deleteComeent(id: number) {
       credentials: 'include',
     }
   )
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('error');
-      }
-    })
-    .catch(console.error);
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 }
 
 export async function getRecommentsByCommentId(
@@ -96,7 +90,9 @@ export async function getRecommentsByCommentId(
     .catch(console.error);
 }
 
-export async function createRecomment(bodyData: PostRecoomentData) {
+export async function createRecomment(
+  bodyData: PostRecoomentData
+): Promise<void & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/comments/recomments`,
     {
@@ -107,14 +103,15 @@ export async function createRecomment(bodyData: PostRecoomentData) {
       credentials: 'include',
       body: JSON.stringify(bodyData),
     }
-  ).then((res) => {
-    if (res.status === 401) throw new Error('로그인을 해주세요');
-    if (!res.ok) throw new Error('error');
-    return res.json();
-  });
+  )
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 }
 
-export async function updateRecomment(id: number, commentText: string) {
+export async function updateRecomment(
+  id: number,
+  commentText: string
+): Promise<void & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/recomments/${id}`,
     {
@@ -126,16 +123,13 @@ export async function updateRecomment(id: number, commentText: string) {
       body: JSON.stringify({ commentText }),
     }
   )
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('error');
-      }
-      return res.json();
-    })
+    .then((res) => res.json())
     .catch(console.error);
 }
 
-export async function deleteRecomeent(id: number) {
+export async function deleteRecomeent(
+  id: number
+): Promise<void & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/recomments/${id}`,
     {
@@ -143,10 +137,6 @@ export async function deleteRecomeent(id: number) {
       credentials: 'include',
     }
   )
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('error');
-      }
-    })
+    .then((res) => res.json())
     .catch(console.error);
 }

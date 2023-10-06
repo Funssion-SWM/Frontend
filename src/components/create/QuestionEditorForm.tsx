@@ -139,22 +139,28 @@ export default function QuestionEditorForm() {
 
     const description = getDescription(contents);
     questionId
-      ? updateQuestion({ title, text: contents, description, tags }, questionId)
-          .then(() => {
-            router.push(`/questions/${questionId}`);
-            router.refresh();
-          })
-          .catch(() => {
+      ? updateQuestion(
+          { title, text: contents, description, tags },
+          questionId
+        ).then((res) => {
+          if (res.code) {
             notifyToast('등록에 실패했습니다.', 'error');
-          })
-      : createQuestion({ title, text: contents, description, tags }, memoId)
-          .then(() => {
-            router.push(`/questions`);
-            router.refresh();
-          })
-          .catch(() => {
+            return;
+          }
+          router.push(`/questions/${questionId}`);
+          router.refresh();
+        })
+      : createQuestion(
+          { title, text: contents, description, tags },
+          memoId
+        ).then((res) => {
+          if (res.code) {
             notifyToast('등록에 실패했습니다.', 'error');
-          });
+            return;
+          }
+          router.push(`/questions`);
+          router.refresh();
+        });
   };
 
   const edirotRef = useRef<HTMLDivElement>(null);

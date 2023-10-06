@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { ModalContext } from '@/context/ModalProvider';
 import LikeBox from '../shared/LikeBox';
 import { extractYMDHM } from '@/service/time';
+import { notifyToast } from '@/service/notification';
 
 type Props = {
   memoId: number;
@@ -29,7 +30,11 @@ export default function MemoViewerHeader({
   const { open } = useContext(ModalContext);
 
   const handleDelete = () =>
-    deleteMemo(memoId).then(() => {
+    deleteMemo(memoId).then((res) => {
+      if (res.code) {
+        notifyToast('삭제에 실패했습니다.', 'error');
+        return;
+      }
       router.push('/memos');
       router.refresh();
     });

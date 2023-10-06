@@ -28,16 +28,16 @@ export default function RecommentForm({
       parentCommentId,
       authorId,
       commentText: recommentText,
-    })
-      .then(async () => {
-        const recomments = await getRecommentsByCommentId(parentCommentId);
-        onSubmit(recomments);
-        setRecommentText('');
-      })
-      .catch((err) => {
-        notifyToast(`${err}`, 'error');
-        router.push('/login');
-      });
+    }).then(async (res) => {
+      if (res.code) {
+        if (res.code === 401) router.push('/login');
+        notifyToast(res.message, 'error');
+        return;
+      }
+      const recomments = await getRecommentsByCommentId(parentCommentId);
+      onSubmit(recomments);
+      setRecommentText('');
+    });
   };
 
   return (
