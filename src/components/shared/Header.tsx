@@ -53,12 +53,14 @@ export default function Header({
           <Link
             href="/memos"
             className={`${currentPage === 'memos' && 'text-soma-blue-40'}`}
+            prefetch={false}
           >
             Memos
           </Link>
           <Link
             href="/questions"
             className={`${currentPage === 'questions' && 'text-soma-blue-40'}`}
+            prefetch={false}
           >
             Questions
           </Link>
