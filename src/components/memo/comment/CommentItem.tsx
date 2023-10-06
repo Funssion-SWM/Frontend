@@ -1,5 +1,3 @@
-'use client';
-
 import { Comment } from '@/types/comment';
 import { deleteComeent, updateComment } from '@/service/comments';
 import { useRouter } from 'next/navigation';
@@ -14,12 +12,14 @@ type Props = {
   commentProperty: Comment;
   isMyComment: boolean;
   userId: number;
+  onClick: () => void;
 };
 
 export default function CommentItem({
   commentProperty,
   isMyComment,
   userId,
+  onClick,
 }: Props) {
   const {
     id,
@@ -91,7 +91,10 @@ export default function CommentItem({
               <button
                 onClick={() => {
                   open('댓글을 삭제하시겠습니까?', () => {
-                    deleteComeent(id).then(() => router.refresh());
+                    deleteComeent(id).then(() => {
+                      onClick();
+                      router.refresh();
+                    });
                   });
                 }}
               >
@@ -118,6 +121,7 @@ export default function CommentItem({
                   }
                   updateComment(id, updatedText).then(() => {
                     setIsEditMode(false);
+                    onClick();
                     router.refresh();
                   });
                 }}

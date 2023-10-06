@@ -1,5 +1,3 @@
-'use client';
-
 import { createComment } from '@/service/comments';
 import { notifyToast } from '@/service/notification';
 import { useRouter } from 'next/navigation';
@@ -7,9 +5,12 @@ import { FormEvent, useState } from 'react';
 
 type Props = {
   postId: number;
+  postType: 'MEMO' | 'QUESTION' | 'ANSWER';
+  onClick: () => void;
 };
 
-export default function CommentForm({ postId }: Props) {
+// onClick : client side에서 상태 업데이트하는 용도
+export default function CommentForm({ postId, postType, onClick }: Props) {
   const [commentText, setCommentText] = useState('');
   const router = useRouter();
 
@@ -19,9 +20,10 @@ export default function CommentForm({ postId }: Props) {
       window.alert('댓글을 작성해주세요');
       return;
     }
-    createComment({ postTypeWithComment: 'MEMO', postId, commentText })
+    createComment({ postTypeWithComment: postType, postId, commentText })
       .then(() => {
         setCommentText('');
+        onClick();
         router.refresh();
       })
       .catch((err) => {

@@ -72,13 +72,21 @@ export default function MemoSideBar({
                   작성된 댓글이 없습니다...
                 </p>
               ) : (
-                <CommentsList comments={comments} userId={userId} />
+                <CommentsList
+                  comments={comments}
+                  userId={userId}
+                  onClick={() => {}}
+                />
               )}
             </div>
           )}
           {currnetCategory === 'comment' && (
             <div className="sticky bottom-0 p-1 bg-white shadow-inner rounded-b-2xl">
-              <CommentForm postId={memoId} />
+              <CommentForm
+                postId={memoId}
+                postType={'MEMO'}
+                onClick={() => {}}
+              />
             </div>
           )}
           {currnetCategory === 'question' && (

@@ -14,12 +14,14 @@ type Props = {
   questionData: Question;
   answers: Answer[];
   isLike: boolean;
+  userId: number;
 };
 
 export default function QuestionDetail({
   questionData: { title, text, id, tags, createdDate, likes, memoId, mine },
   answers,
   isLike,
+  userId
 }: Props) {
   return (
     <div className="flex flex-col">
@@ -50,7 +52,7 @@ export default function QuestionDetail({
         </div>
         <QuestionFooter tags={tags} />
       </div>
-      <AnswersList answers={answers} />
+      <AnswersList answers={answers} userId={userId}/>
       <AnswerForm questionId={id} />
     </div>
   );

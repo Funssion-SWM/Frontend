@@ -4,9 +4,10 @@ import CommentItem from './CommentItem';
 type Props = {
   comments: Comment[];
   userId: number;
+  onClick: () => void;
 };
 
-export default function CommentsList({ comments, userId }: Props) {
+export default function CommentsList({ comments, userId, onClick }: Props) {
   return (
     <ul className="flex flex-col h-full overflow-y-auto">
       {comments.map((item) => (
@@ -15,6 +16,7 @@ export default function CommentsList({ comments, userId }: Props) {
             commentProperty={item}
             isMyComment={userId === item.authorId}
             userId={userId}
+            onClick={onClick}
           />
         </li>
       ))}

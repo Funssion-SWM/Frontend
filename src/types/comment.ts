@@ -12,7 +12,7 @@ export type Comment = {
 };
 
 export type PostCommentData = {
-  postTypeWithComment: 'MEMO' | 'QUESTION';
+  postTypeWithComment: 'MEMO' | 'QUESTION' | 'ANSWER';
   postId: number;
   commentText: string;
 };

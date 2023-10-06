@@ -48,6 +48,7 @@ export default async function QuestionPage({ params: { slug } }: Props) {
           questionData={question}
           answers={answers}
           isLike={isLike}
+          userId={id}
         />
       </LayoutWrapper>
     </section>

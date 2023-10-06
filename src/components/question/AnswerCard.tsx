@@ -8,9 +8,11 @@ import { useRouter } from 'next/navigation';
 import { updateAnswer } from '@/service/answers';
 import { notifyToast } from '@/service/notification';
 import { EditorBubbleMenu } from '../editor/components';
+import AnswerCardFooter from './AnswerCardFooter';
 
 type Props = {
   answer: Answer;
+  userId: number;
 };
 
 export default function AnswerCard({
@@ -24,6 +26,7 @@ export default function AnswerCard({
     repliesCount,
     mine,
   },
+  userId,
 }: Props) {
   const [isEditMode, setIsEditMode] = useState(false);
   const router = useRouter();
@@ -73,9 +76,12 @@ export default function AnswerCard({
           <EditorContent editor={editor} />
         </div>
       </div>
-      <div className="flex justify-between">
-        <div className="text-sm">댓글 개수 {repliesCount}개</div>
-      </div>
+      <AnswerCardFooter
+        repliesCount={repliesCount}
+        answerId={id}
+        authorId={authorId}
+        userId={userId}
+      />
     </article>
   );
 }

@@ -85,7 +85,7 @@ export type Period = 'day' | 'week' | 'month' | 'year';
 
 export type Orderby = 'hot' | 'new';
 
-export type PostType = 'memo' | 'question';
+export type PostType = 'memo' | 'question' | 'answer';
 
 export type ButtonSize = 'small' | 'medium' | 'big';
 
@@ -99,4 +99,4 @@ export type FindEmailResponse = {
 export type ErrorResponse = {
   code: number;
   message: string;
-}
+};
