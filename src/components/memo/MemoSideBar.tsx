@@ -65,21 +65,18 @@ export default function MemoSideBar({
             isMyMemo={isMyMemo}
             isLogin={isLogin}
           />
-          {currnetCategory === 'comment' && (
-            <div className="h-full">
-              {comments.length === 0 ? (
-                <p className="flex justify-center items-center h-full text-sm text-soma-grey-49">
-                  작성된 댓글이 없습니다...
-                </p>
-              ) : (
-                <CommentsList
-                  comments={comments}
-                  userId={userId}
-                  onClick={() => {}}
-                />
-              )}
-            </div>
-          )}
+          {currnetCategory === 'comment' &&
+            (comments.length === 0 ? (
+              <p className="flex justify-center items-center h-full text-sm text-soma-grey-49">
+                작성된 댓글이 없습니다...
+              </p>
+            ) : (
+              <CommentsList
+                comments={comments}
+                userId={userId}
+                onClick={() => {}}
+              />
+            ))}
           {currnetCategory === 'comment' && (
             <div className="sticky bottom-0 p-1 bg-white shadow-inner rounded-b-2xl">
               <CommentForm
