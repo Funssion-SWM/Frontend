@@ -87,7 +87,7 @@ export default function MemoSideBar({
             </div>
           )}
           {currnetCategory === 'question' && (
-            <div className="h-full">
+            <>
               {questions.length === 0 ? (
                 <p className="flex justify-center items-center h-full text-sm text-soma-grey-49">
                   해당 메모와 관련된 질문이 없습니다...
@@ -97,11 +97,11 @@ export default function MemoSideBar({
               )}
               <Link
                 href={`/create/question?memoId=${memoId}`}
-                className="absolute bottom-3 right-3 text-sm rounded-2xl text-soma-grey-60 border-[0.5px] border-soma-grey-49 px-2 py-1"
+                className="absolute bg-white bottom-3 right-3 text-sm rounded-2xl text-soma-grey-60 border-[0.5px] border-soma-grey-49 px-2 py-1"
               >
                 질문하기
               </Link>
-            </div>
+            </>
           )}
         </aside>
       )}

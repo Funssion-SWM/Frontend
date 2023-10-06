@@ -64,7 +64,7 @@ export default function CommentItem({
           autoFocus
         />
       ) : (
-        <p className="px-3 text-sm my-2 text-soma-grey-60 w-[300px] break-all">
+        <p className="px-3 text-sm my-2 text-soma-grey-60 w-full break-all">
           {commentText}
         </p>
       )}
