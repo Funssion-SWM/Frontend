@@ -10,9 +10,15 @@ type Props = {
   userInfo: UserInfo;
   userId: number;
   isMine: boolean;
+  myUserInfo: UserInfo;
 };
 
-export default function Profile({ userInfo, userId, isMine }: Props) {
+export default function Profile({
+  userInfo,
+  userId,
+  isMine,
+  myUserInfo,
+}: Props) {
   return (
     <section className="flex flex-col items-center w-full">
       <div className="text-center">
@@ -45,7 +51,7 @@ export default function Profile({ userInfo, userId, isMine }: Props) {
         <FollowBtn
           isFollowed={userInfo.isFollowed}
           userId={userId}
-          userInfo={userInfo}
+          myUserInfo={myUserInfo}
         />
       )}
     </section>

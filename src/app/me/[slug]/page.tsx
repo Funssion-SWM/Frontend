@@ -55,13 +55,14 @@ export default async function MePage({ params: { slug } }: Props) {
     followerData,
   ]);
 
-  const { profileImageFilePath } = isLogin
-    ? await getUserInfo(id)
-    : { profileImageFilePath: undefined };
+  const myUserInfo = await getUserInfo(id);
 
   return (
     <section>
-      <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
+      <Header
+        isLogin={isLogin}
+        profileImageFilePath={myUserInfo?.profileImageFilePath}
+      />
       <LayoutWrapper paddingY="py-0">
         <div className="flex flex-col sm:flex-row">
           <FollowListModalProvider
@@ -73,6 +74,7 @@ export default async function MePage({ params: { slug } }: Props) {
               history={history}
               userId={userId}
               myId={id}
+              myUserInfo={myUserInfo}
             />
             <FollowListModal isMine={id === userId} />
           </FollowListModalProvider>

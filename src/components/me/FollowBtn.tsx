@@ -6,10 +6,10 @@ import { useContext, useState } from 'react';
 type Props = {
   isFollowed: boolean;
   userId: number;
-  userInfo: UserInfo;
+  myUserInfo: UserInfo;
 };
 
-export default function FollowBtn({ isFollowed, userId, userInfo }: Props) {
+export default function FollowBtn({ isFollowed, userId, myUserInfo }: Props) {
   const [followed, setFollowed] = useState(isFollowed);
   const { handleClickFollow, handleClickUnfollow } = useContext(
     FollowListModalContext
@@ -18,14 +18,14 @@ export default function FollowBtn({ isFollowed, userId, userInfo }: Props) {
   const clickFollow = () => {
     follow(userId.toString()).then(() => {
       setFollowed(true);
-      handleClickFollow(userInfo);
+      handleClickFollow(myUserInfo);
     });
   };
 
   const clickUnfollow = () => {
     unfollow(userId.toString()).then(() => {
       setFollowed(false);
-      handleClickUnfollow(userInfo);
+      handleClickUnfollow(myUserInfo);
     });
   };
 
