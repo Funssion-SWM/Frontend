@@ -23,15 +23,17 @@ export default function QuestionsContainer({ questions }: Props) {
 
   return (
     <div>
-      <div className="flex gap-2 my-2 ml-1 sm:mb-5">
+      <div className="flex gap-2 sm:mb-3">
         <CategoryBtn
-          text="New✨"
+          text="New"
           onClick={() => handleClick('NEW')}
+          size="big"
           isSelected={selectedOrderType === 'NEW'}
         />
         <CategoryBtn
-          text="Hot🔥"
+          text="Hot"
           onClick={() => handleClick('HOT')}
+          size="big"
           isSelected={selectedOrderType === 'HOT'}
         />
       </div>
