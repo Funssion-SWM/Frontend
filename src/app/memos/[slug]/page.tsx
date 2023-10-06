@@ -52,6 +52,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
     myData,
     questionsData,
   ]);
+  const { isFollowed } = await getUserInfo(authorId);
 
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
@@ -85,6 +86,9 @@ export default async function MemoPage({ params: { slug } }: Props) {
             questions={questions}
             memoId={memoId}
             userId={id}
+            isFollowed={isFollowed}
+            isMyMemo={isMine}
+            isLogin={isLogin}
           />
         </div>
       </LayoutWrapper>

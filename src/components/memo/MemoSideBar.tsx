@@ -19,6 +19,9 @@ type Props = {
   questions: Question[];
   memoId: number;
   userId: number;
+  isFollowed: boolean;
+  isMyMemo: boolean;
+  isLogin: boolean;
 };
 
 export default function MemoSideBar({
@@ -29,6 +32,9 @@ export default function MemoSideBar({
   questions,
   memoId,
   userId,
+  isFollowed,
+  isMyMemo,
+  isLogin,
 }: Props) {
   const [isVisible, setIsVisible] = useState(true);
   const [currnetCategory, setCurrnetCategory] = useState<
@@ -55,6 +61,9 @@ export default function MemoSideBar({
             authorProfileImagePath={authorProfileImagePath}
             currentCategory={currnetCategory}
             onCategoryBtnClick={(category) => setCurrnetCategory(category)}
+            isFollowed={isFollowed}
+            isMyMemo={isMyMemo}
+            isLogin={isLogin}
           />
           {currnetCategory === 'comment' && (
             <div className="h-full">
