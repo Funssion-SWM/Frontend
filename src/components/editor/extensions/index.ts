@@ -55,6 +55,7 @@ export const handleTiptapExtensions = (
       blockquote: {
         HTMLAttributes: {
           class: 'border-l-4 border-stone-700',
+          style: "margin:0 !important"
         },
       },
       code: {
@@ -164,6 +165,7 @@ export const handleTiptapExtensions = (
     TaskList.configure({
       HTMLAttributes: {
         class: 'not-prose pl-2',
+        style: 'margin: 0 !important'
       },
     }),
     TaskItem.configure({
