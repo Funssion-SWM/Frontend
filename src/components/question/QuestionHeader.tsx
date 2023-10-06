@@ -13,6 +13,7 @@ type Props = {
   createdDate: string;
   memoId: number;
   isMyQuestion: boolean;
+  isLike: boolean;
 };
 
 export default function QuestionHeader({
@@ -21,6 +22,7 @@ export default function QuestionHeader({
   createdDate,
   memoId,
   isMyQuestion,
+  isLike,
 }: Props) {
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -43,7 +45,7 @@ export default function QuestionHeader({
         <LikeBox
           likeNum={likeNum}
           postId={questionId}
-          isLike={false}
+          isLike={isLike}
           postType="question"
           iconSize={20}
         />

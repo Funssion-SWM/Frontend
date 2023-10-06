@@ -6,7 +6,6 @@ import { handleTiptapExtensions } from '../editor/extensions';
 import { handleTiptapEditorProps } from '../editor/props';
 import QuestionHeader from './QuestionHeader';
 import QuestionFooter from './QuestionFooter';
-import CategoryBtn from '../shared/btn/CategoryBtn';
 import AnswersList from './AnswersList';
 import { Answer } from '@/types/answer';
 import AnswerForm from './AnswerForm';
@@ -14,11 +13,13 @@ import AnswerForm from './AnswerForm';
 type Props = {
   questionData: Question;
   answers: Answer[];
+  isLike: boolean;
 };
 
 export default function QuestionDetail({
   questionData: { title, text, id, tags, createdDate, likes, memoId, mine },
   answers,
+  isLike,
 }: Props) {
   return (
     <div className="flex flex-col">
@@ -29,6 +30,7 @@ export default function QuestionDetail({
           createdDate={createdDate}
           memoId={memoId}
           isMyQuestion={mine}
+          isLike={isLike}
         />
         <div className="my-5">
           <h2 className="text-2xl sm:text-4xl text-soma-grey-70 font-bold break-all">

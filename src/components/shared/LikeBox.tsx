@@ -39,6 +39,7 @@ export default function LikeBox({
         fn = unlikeComment(postId, true);
         break;
       case 'question':
+        fn = unlike('questions', postId);
         break;
       default:
         throw new Error('해당하는 like item type이 없음');
@@ -65,6 +66,7 @@ export default function LikeBox({
         fn = likeComment(postId, true);
         break;
       case 'question':
+        fn = like('questions', postId);
         break;
       default:
         throw new Error('해당하는 like item type이 없음');

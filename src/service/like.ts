@@ -1,7 +1,7 @@
 import { Like } from '@/types';
 
 export async function getIsLike(
-  postType: string,
+  postType: 'memos' | 'blogs' | 'questions' | 'answers',
   postId: number,
   cookie?: string | undefined
 ): Promise<Like> {
@@ -29,7 +29,10 @@ export async function getIsLike(
     .catch(console.error);
 }
 
-export async function like(postType: string, postId: number): Promise<void> {
+export async function like(
+  postType: 'memos' | 'blogs' | 'questions' | 'answers',
+  postId: number
+): Promise<void> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/${postType}/${postId}/like`,
     { method: 'POST', credentials: 'include' }
@@ -39,7 +42,10 @@ export async function like(postType: string, postId: number): Promise<void> {
   });
 }
 
-export async function unlike(postType: string, postId: number): Promise<void> {
+export async function unlike(
+  postType: 'memos' | 'blogs' | 'questions' | 'answers',
+  postId: number
+): Promise<void> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/${postType}/${postId}/unlike`,
     { method: 'POST', credentials: 'include' }
