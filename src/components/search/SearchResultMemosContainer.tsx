@@ -49,13 +49,15 @@ export default function SearchResultMemosContainer({
     <div>
       <div className="flex gap-2 ml-1">
         <CategoryBtn
-          text="Hot🔥"
+          text="Hot"
           onClick={() => handleClick('hot')}
+          size="big"
           isSelected={selectedOrderType === 'hot'}
         />
         <CategoryBtn
-          text="New✨"
+          text="New"
           onClick={() => handleClick('new')}
+          size="big"
           isSelected={selectedOrderType === 'new'}
         />
       </div>
