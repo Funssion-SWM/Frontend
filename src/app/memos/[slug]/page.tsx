@@ -52,7 +52,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
     myData,
     questionsData,
   ]);
-  const { isFollowed } = await getUserInfo(authorId);
+  const { isFollowed } = await getUserInfo(authorId, cookie);
 
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
