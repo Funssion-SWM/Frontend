@@ -19,15 +19,16 @@ export default function AnswerForm({ questionId }: Props) {
   const router = useRouter();
 
   return (
-    <div>
-      <div className="flex justify-between items-center border-t-[0.5px] border-soma-grey-49 py-2">
-        <p className="sm:text-xl font-medium ">답변 작성</p>
+    <div className="m-3 sm:m-0 border-t-[0.5px] border-soma-grey-49">
+      <div className="flex justify-between items-center py-2">
+        <p className="sm:text-xl font-medium text-soma-grey-60">답변 작성</p>
         <BlueBtn
           text="등록"
           onClick={() => {
             const questionText = JSON.stringify(editor?.getJSON());
             createAnswer(questionId, questionText).then((res) => {
               if (res.code) {
+                if (res.code === 401) router.push('/login');
                 notifyToast(res.message, 'error');
                 return;
               }
@@ -38,7 +39,7 @@ export default function AnswerForm({ questionId }: Props) {
           }}
         />
       </div>
-      <div className="h-72 overflow-y-scroll border-[0.5px] border-soma-grey-49 rounded-2xl p-3">
+      <div className="h-72 overflow-y-auto border-[0.5px] border-soma-grey-49 rounded-2xl p-3">
         {editor && <EditorBubbleMenu editor={editor} />}
         <EditorContent editor={editor} />
       </div>

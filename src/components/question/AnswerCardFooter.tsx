@@ -27,7 +27,7 @@ export default function AnswerCardFooter({
     <div>
       <div className="flex justify-between items-center">
         <button
-          className="text-soma-blue-40 font-semibold"
+          className="text-soma-blue-40 text-sm font-semibold"
           onClick={() => setIsCommentBtnClicked((pre) => !pre)}
         >
           {isCommentBtnClicked
@@ -51,11 +51,7 @@ export default function AnswerCardFooter({
         </div>
       </div>
       {isCommentBtnClicked && (
-        <AnswerCommentContainer
-          answerId={answerId}
-          authorId={authorId}
-          userId={userId}
-        />
+        <AnswerCommentContainer answerId={answerId} userId={userId} />
       )}
     </div>
   );

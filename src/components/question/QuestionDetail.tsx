@@ -18,14 +18,24 @@ type Props = {
 };
 
 export default function QuestionDetail({
-  questionData: { title, text, id, tags, createdDate, likes, memoId, mine },
+  questionData: {
+    title,
+    text,
+    id,
+    tags,
+    createdDate,
+    likes,
+    memoId,
+    mine,
+    answersCount,
+  },
   answers,
   isLike,
-  userId
+  userId,
 }: Props) {
   return (
     <div className="flex flex-col">
-      <div className="bg-soma-grey-20 rounded-2xl p-3">
+      <div className="bg-soma-grey-20 rounded-2xl p-5">
         <QuestionHeader
           questionId={id}
           likeNum={likes}
@@ -52,7 +62,10 @@ export default function QuestionDetail({
         </div>
         <QuestionFooter tags={tags} />
       </div>
-      <AnswersList answers={answers} userId={userId}/>
+      <p className="sm:text-xl m-3 sm:my-3 sm:mx-0">
+        <span className="text-soma-blue-40">{answersCount}개</span>의 답변
+      </p>
+      <AnswersList answers={answers} userId={userId} />
       <AnswerForm questionId={id} />
     </div>
   );

@@ -6,15 +6,10 @@ import CommentForm from '../memo/comment/CommentForm';
 
 type Props = {
   answerId: number;
-  authorId: number;
   userId: number;
 };
 
-export default function AnswerCommentContainer({
-  answerId,
-  authorId,
-  userId,
-}: Props) {
+export default function AnswerCommentContainer({ answerId, userId }: Props) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
   const [useEffectUpdate, setUseEffectUpdate] = useState(true);
