@@ -15,7 +15,7 @@ export default function AnswersList({
   isSolved,
 }: Props) {
   return (
-    <ul className="flex flex-col gap-2">
+    <ul className="flex flex-col">
       {answers.map((answer) => (
         <li key={answer.id}>
           <AnswerCard

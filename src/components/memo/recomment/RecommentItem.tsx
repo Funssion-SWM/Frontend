@@ -40,7 +40,7 @@ export default function RecommentItem({
   const { open } = useContext(ModalContext);
 
   return (
-    <div className="w-full border-t-2 border-soma-grey-30 p-3 pl-6 bg-soma-grey-20">
+    <div className="w-full border-b-[0.5px] border-soma-grey-49 p-3 pl-7 ">
       <CommentHeader
         commentId={id}
         authorId={authorId}

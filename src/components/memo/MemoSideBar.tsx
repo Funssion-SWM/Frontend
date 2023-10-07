@@ -78,7 +78,7 @@ export default function MemoSideBar({
               />
             ))}
           {currnetCategory === 'comment' && (
-            <div className="sticky bottom-0 p-1 bg-white shadow-inner shadow-soma-blue-10 rounded-b-2xl">
+            <div className="sticky bottom-0 px-2 py-3 bg-white rounded-b-2xl">
               <CommentForm
                 postId={memoId}
                 postType={'MEMO'}

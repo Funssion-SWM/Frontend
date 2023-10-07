@@ -19,7 +19,7 @@ export default function AnswerForm({ questionId }: Props) {
   const router = useRouter();
 
   return (
-    <div className="m-2 border-t-[1px] border-soma-grey-49">
+    <div className="mx-2 border-t-[1px] border-soma-grey-49">
       <div className="flex justify-between items-center py-2 mt-10">
         <p className="sm:text-xl text-soma-grey-60 font-semibold">답변 작성</p>
         <BlueBtn
