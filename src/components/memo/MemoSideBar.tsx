@@ -53,7 +53,7 @@ export default function MemoSideBar({
       </button>
       {isVisible && (
         <aside
-          className={`ml-4 absolute right-0 top-0 sm:static h-full bg-white flex flex-col rounded-2xl shadow shadow-soma-blue-10 min-w-[300px]`}
+          className={`ml-4 absolute right-0 top-0 sm:static h-full bg-white flex flex-col rounded-2xl shadow-md min-w-[300px]`}
         >
           <MemoSidebarHeader
             authorId={authorId}
