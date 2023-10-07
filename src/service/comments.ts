@@ -1,4 +1,4 @@
-import { ErrorResponse, PostType } from '@/types';
+import { ErrorResponse, IsSuccessResponse, PostType } from '@/types';
 import { Comment, PostCommentData, PostRecoomentData } from '@/types/comment';
 
 export async function getCommentsByPostTypeAndPostId(
@@ -29,7 +29,7 @@ export async function getCommentsByPostTypeAndPostId(
 
 export async function createComment(
   bodyData: PostCommentData
-): Promise<void & ErrorResponse> {
+): Promise<IsSuccessResponse & ErrorResponse> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/comments`, {
     method: 'POST',
     headers: {
@@ -45,7 +45,7 @@ export async function createComment(
 export async function updateComment(
   id: number,
   commentText: string
-): Promise<void & ErrorResponse> {
+): Promise<IsSuccessResponse & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/${id}`,
     {
@@ -61,7 +61,9 @@ export async function updateComment(
     .catch((err) => console.log(err));
 }
 
-export async function deleteComeent(id: number): Promise<void & ErrorResponse> {
+export async function deleteComeent(
+  id: number
+): Promise<IsSuccessResponse & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/${id}`,
     {
@@ -92,7 +94,7 @@ export async function getRecommentsByCommentId(
 
 export async function createRecomment(
   bodyData: PostRecoomentData
-): Promise<void & ErrorResponse> {
+): Promise<IsSuccessResponse & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/comments/recomments`,
     {
@@ -111,7 +113,7 @@ export async function createRecomment(
 export async function updateRecomment(
   id: number,
   commentText: string
-): Promise<void & ErrorResponse> {
+): Promise<IsSuccessResponse & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/recomments/${id}`,
     {
@@ -129,7 +131,7 @@ export async function updateRecomment(
 
 export async function deleteRecomeent(
   id: number
-): Promise<void & ErrorResponse> {
+): Promise<IsSuccessResponse & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/recomments/${id}`,
     {
