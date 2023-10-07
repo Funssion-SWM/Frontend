@@ -13,6 +13,7 @@ import {
   BsFillArrowDownCircleFill,
   BsFillArrowUpCircleFill,
 } from 'react-icons/bs';
+import Footer from '@/components/shared/Footer';
 export default function LandingPage() {
   const [readyState, setReadyState] = useState(false);
   const firstScreenRef = useRef<null | HTMLDivElement>(null);
@@ -98,13 +99,11 @@ export default function LandingPage() {
         <div className='mr-14'>
           <Image src={editUnderline} width={36} alt='speech-bubble' />
           <p className='text-4xl font-bold leading-tight mb-5'>
-            Notion Like Editor를 활용한
-            <br />
+            Notion Like Editor를 활용한<br />
             간편한 에디팅 기능
           </p>
           <p className='text-xl font-normal'>
-            바로바로 반영되는 마크다운을 사용해보세요!
-            <br />
+            바로바로 반영되는 마크다운을 사용해보세요!<br />
             Slash 키와 Drag 를 이용하여 다양한 편집 기능을 사용해보세요!
           </p>
         </div>
@@ -129,10 +128,10 @@ export default function LandingPage() {
           </Link>
       </div>
 
-      <div className="h-full relative flex flex-col items-center justify-center snap-always snap-center">
+      <div className="h-full relative flex flex-col items-center justify-center snap-always snap-center bg-[#F6F8FC]">
         <p className="text-lg sm:text-2xl font-semibold">지원 예정</p>
         <br />
-        <ul className="grid grid-cols-2  gap-20 items-center sm:text-lg">
+        <ul className="grid grid-cols-4  gap-20 items-center sm:text-lg mb-28">
           <li className="flex justify-center items-center w-32 h-32 sm:w-48 sm:h-48 bg-red-100 rounded-full font-semibold">
             series 기능
           </li>
@@ -149,9 +148,10 @@ export default function LandingPage() {
         </ul>
         <button onClick={scrolltoTop}>
           <BsFillArrowUpCircleFill
-            className={`absolute bottom-10 right-10 text-soma-blue-40 w-10 h-10`}
+            className={`absolute bottom-10 right-10 text-soma-blue-40 w-10 h-10` }
           />
         </button>
+        <Footer extraClass='w-full absolute bottom-0'/>
       </div>
     </div>
   );
