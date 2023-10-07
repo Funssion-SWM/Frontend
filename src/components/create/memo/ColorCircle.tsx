@@ -12,6 +12,7 @@ export default function ColorCricle({ color, selected, onClick }: Props) {
       onClick={() => onClick(color)}
       className={`w-6 h-6 rounded-full cursor-pointer border-[1px] border-black ${
         {
+          white: 'bg-soma-white',
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
           skyblue: 'bg-memo-skyblue',

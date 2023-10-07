@@ -54,7 +54,7 @@ export default function EditorForm() {
   });
 
   const [title, setTitle] = useState<string>('');
-  const [selectedColor, setSelectedColor] = useState<MemoColor>('yellow');
+  const [selectedColor, setSelectedColor] = useState<MemoColor>('white');
   const [inputTag, setInputTag] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
   const [contents, setContents] = useState('');
@@ -306,8 +306,11 @@ export default function EditorForm() {
     isMemoLoading && (
       <div className="flex w-full" ref={edirotRef}>
         <div
-          className={`relative flex flex-col rounded-lg shadow-lg px-2 pt-2 pb-4 min-h-screen sm:min-h-for-fit-screen w-full ${
+          className={`relative flex flex-col rounded-lg ${
+            selectedColor !== 'white' && 'shadow-lg'
+          } px-2 pt-2 pb-4 min-h-screen sm:min-h-for-fit-screen w-full ${
             {
+              white: 'bg-soma-white',
               yellow: 'bg-memo-yellow',
               green: 'bg-memo-green',
               skyblue: 'bg-memo-skyblue',

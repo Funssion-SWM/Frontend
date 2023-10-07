@@ -22,6 +22,7 @@ export default function MemoCardTemporary({
     <article
       className={`flex flex-col relative rounded-md shadow-md aspect-square p-4 ${
         {
+          white: 'bg-soma-white',
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
           skyblue: 'bg-memo-skyblue',

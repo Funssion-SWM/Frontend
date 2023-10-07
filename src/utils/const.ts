@@ -1,6 +1,7 @@
 import { MemoColor } from '@/types/memo';
 
 export const COLORS: MemoColor[] = [
+  'white',
   'yellow',
   'green',
   'skyblue',

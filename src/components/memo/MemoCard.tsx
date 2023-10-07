@@ -27,6 +27,7 @@ export default function MemoCard({
     <article
       className={`flex flex-col relative rounded-md shadow-md aspect-square p-3 sm:hover:scale-105 transition ease-in-out duration-300 ${
         {
+          white: 'bg-soma-white',
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
           skyblue: 'bg-memo-skyblue',
