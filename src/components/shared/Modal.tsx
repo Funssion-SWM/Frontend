@@ -10,13 +10,16 @@ export default function Modal() {
 
   return (
     isOpen && (
-      <div className="absolute top-0">
-        <Overay onClick={() => close()} onKeyDown={(e)=> {
-            if (e.key == 'Enter') {
-              close();
-              onSuccess();
-            }
-        }} />
+      <div
+        className="fixed top-0"
+        onKeyDown={(e) => {
+          if (e.key == 'Enter') {
+            close();
+            onSuccess();
+          }
+        }}
+      >
+        <Overay onClick={() => close()} />
         <div
           className="fixed flex flex-col shadow-lg items-center bg-white rounded-2xl p-5 sm:p-10 
       top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 gap-2 "
@@ -32,24 +35,28 @@ export default function Modal() {
             />
             <WhiteBtn text="취소" onClick={() => close()} />
           </div>
+          <input
+            type="text"
+            onKeyDown={(e) => {
+              if (e.key == 'Enter') {
+                close();
+                onSuccess();
+              }
+            }}
+            className="opacity-0 w-0 h-0"
+            autoFocus
+          />
         </div>
       </div>
     )
   );
 }
 
-function Overay({ onClick, onKeyDown }: { onClick: () => void, onKeyDown: (e: React.KeyboardEvent) => void }) {
+function Overay({ onClick }: { onClick: () => void }) {
   return (
     <div
       className="w-screen h-screen bg-white opacity-50"
       onClick={onClick}
-    >
-      <input 
-        type='text'
-        onKeyDown={onKeyDown}
-        className='opacity-0'
-        autoFocus
-      />  
-    </div>
+    ></div>
   );
 }

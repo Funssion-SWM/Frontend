@@ -79,8 +79,8 @@ export default function CommentItem({
             ? '답글 작성'
             : `${reCommentsNumber}개의 답글`}
         </button>
-        {isMyComment &&
-          (!isEditMode ? (
+        {true &&
+          (!false ? (
             <div className="flex gap-2 r-3 text-soma-grey-49">
               <button
                 onClick={() => {

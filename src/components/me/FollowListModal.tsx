@@ -25,7 +25,7 @@ export default function FollowListModal({ isMine }: Props) {
 
   return (
     isOpen && (
-      <div className="absolute top-0 z-10">
+      <div className="fixed top-0 z-10">
         <Overay onClick={() => close()} />
         <div
           className="fixed flex flex-col shadow-lg items-center bg-white rounded-2xl p-5 sm:p-8 

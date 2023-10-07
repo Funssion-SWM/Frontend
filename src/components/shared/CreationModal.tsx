@@ -12,7 +12,7 @@ export default function CreationModal() {
 
   return (
     isOpen && (
-      <div className="absolute top-0">
+      <div className="fixed top-0">
         <Overay onClick={() => closeCreationModal()} />
         <div
           className="fixed flex flex-col shadow-lg items-center bg-white rounded-2xl p-2 sm:p-3 
