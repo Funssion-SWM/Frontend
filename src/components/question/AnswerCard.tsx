@@ -74,11 +74,8 @@ export default function AnswerCard({
         isEditMode={isEditMode}
         isMyAnswer={mine}
       />
-      <div className="my-2">
-        <div className="break-all ">
-          {editor && <EditorBubbleMenu editor={editor} />}
-          <EditorContent editor={editor} />
-        </div>
+      <div className="break-all my-2">
+        <EditorContent editor={editor} />
       </div>
       <AnswerCardFooter
         repliesCount={repliesCount}
