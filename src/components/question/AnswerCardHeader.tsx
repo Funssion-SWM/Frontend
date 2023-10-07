@@ -6,7 +6,7 @@ import { useContext, useRef } from 'react';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import more from '@/assets/icons/more.svg';
 import { useRouter } from 'next/navigation';
-import { deleteAnswer } from '@/service/answers';
+import { deleteAnswer, selectAnswer } from '@/service/answers';
 import { ModalContext } from '@/context/ModalProvider';
 import BlueBtn from '../shared/btn/BlueBtn';
 import { notifyToast } from '@/service/notification';
@@ -21,6 +21,9 @@ type Props = {
   onUpdate: () => void;
   isEditMode: boolean;
   isMyAnswer: boolean;
+  isMyQuestion: boolean;
+  isSolved: boolean;
+  questionId: number;
 };
 
 export default function AnswerCardHeader({
@@ -33,6 +36,9 @@ export default function AnswerCardHeader({
   onUpdateBtnClick,
   isEditMode,
   isMyAnswer,
+  isMyQuestion,
+  isSolved,
+  questionId,
 }: Props) {
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -72,6 +78,21 @@ export default function AnswerCardHeader({
         <BlueBtn text="수정" onClick={() => onUpdate()} size="small" />
       ) : (
         <nav className="relative flex items-center pl-10" ref={dropdownRef}>
+          {isMyQuestion && !isSolved && (
+            <BlueBtn
+              text="채택하기"
+              onClick={() => {
+                selectAnswer(questionId, answerId).then((res) => {
+                  if (res.code) {
+                    notifyToast(res.message, 'error');
+                    return;
+                  }
+                  notifyToast(res.message, 'success');
+                  router.refresh();
+                });
+              }}
+            />
+          )}
           {isMyAnswer && (
             <div className="flex ml-2">
               <button onClick={() => setIsActive((pre) => !pre)}>

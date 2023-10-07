@@ -28,6 +28,7 @@ export default function QuestionDetail({
     memoId,
     mine,
     answersCount,
+    solved,
   },
   answers,
   isLike,
@@ -65,7 +66,12 @@ export default function QuestionDetail({
       <p className="sm:text-xl m-2 mt-10 font-semibold">
         <span className="text-soma-blue-40">{answersCount}개</span>의 답변
       </p>
-      <AnswersList answers={answers} userId={userId} />
+      <AnswersList
+        answers={answers}
+        userId={userId}
+        isMyQuestion={mine}
+        isSolved={solved}
+      />
       <AnswerForm questionId={id} />
     </div>
   );

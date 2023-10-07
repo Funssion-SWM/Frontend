@@ -92,3 +92,18 @@ export async function postImageInAnswer(
     .then((res) => res.json())
     .catch(console.error);
 }
+
+export async function selectAnswer(
+  questionId: number,
+  answerId: number
+): Promise<IsSuccessResponse & ErrorResponse> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/answers/select/${questionId}?answerId=${answerId}`,
+    {
+      method: 'PATCH',
+      credentials: 'include',
+    }
+  )
+    .then((res) => res.json())
+    .catch(console.error);
+}

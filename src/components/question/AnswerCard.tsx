@@ -7,12 +7,13 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateAnswer } from '@/service/answers';
 import { notifyToast } from '@/service/notification';
-import { EditorBubbleMenu } from '../editor/components';
 import AnswerCardFooter from './AnswerCardFooter';
 
 type Props = {
   answer: Answer;
   userId: number;
+  isMyQuestion: boolean;
+  isSolved: boolean;
 };
 
 export default function AnswerCard({
@@ -29,8 +30,12 @@ export default function AnswerCard({
     dislikes,
     like,
     disLike,
+    questionId,
+    selected,
   },
   userId,
+  isMyQuestion,
+  isSolved,
 }: Props) {
   const [isEditMode, setIsEditMode] = useState(false);
   const router = useRouter();
@@ -62,7 +67,11 @@ export default function AnswerCard({
   };
 
   return (
-    <article className="flex flex-col p-4 border-t-[1px] border-soma-grey-49 ">
+    <article
+      className={`flex flex-col p-4 border-t-[1px] border-soma-grey-49 ${
+        selected && 'bg-soma-blue-10'
+      }`}
+    >
       <AnswerCardHeader
         answerId={id}
         authorId={authorId}
@@ -73,6 +82,9 @@ export default function AnswerCard({
         onUpdate={handleUpdate}
         isEditMode={isEditMode}
         isMyAnswer={mine}
+        isMyQuestion={isMyQuestion}
+        isSolved={isSolved}
+        questionId={questionId}
       />
       <div className="break-all my-2">
         <EditorContent editor={editor} />
