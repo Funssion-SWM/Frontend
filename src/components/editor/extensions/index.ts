@@ -38,24 +38,24 @@ export const handleTiptapExtensions = (
       bulletList: {
         HTMLAttributes: {
           class: 'list-disc list-outside -mt-2',
-          style: "margin:0 !important"
+          style: 'margin:0 !important',
         },
       },
       orderedList: {
         HTMLAttributes: {
           class: 'list-decimal list-outside -mt-2',
-          style: "margin:0 !important"
+          style: 'margin:0 !important',
         },
       },
       listItem: {
         HTMLAttributes: {
-          style: "margin:0 !important"
+          style: 'margin:0 !important',
         },
       },
       blockquote: {
         HTMLAttributes: {
           class: 'border-l-4 border-stone-700',
-          style: "margin:0 !important"
+          style: 'margin:0 !important',
         },
       },
       code: {
@@ -96,7 +96,8 @@ export const handleTiptapExtensions = (
     }).configure({
       HTMLAttributes: {
         class: 'border-t border-stone-300',
-        style: 'margin-top: 15.5px !important; margin-bottom: 15.5px !important;'
+        style:
+          'margin-top: 15.5px !important; margin-bottom: 15.5px !important;',
       },
     }),
     CodeBlockLowlight.extend({
@@ -150,8 +151,9 @@ export const handleTiptapExtensions = (
         if (node.type.name === 'heading') {
           return `Heading ${node.attrs.level}`;
         }
-        // return "Press '/' for commands, or '++' for AI autocomplete";
-        return "명령어는 '/' , 텍스트 자동 생성은 질문 작성 후 '++' 입력";
+        if (type === 'memo')
+          return "명령어는 '/' , 텍스트 자동 생성은 질문 작성 후 '++' 입력";
+        else return "명령어는 '/'";
       },
       includeChildren: true,
     }),
@@ -165,7 +167,7 @@ export const handleTiptapExtensions = (
     TaskList.configure({
       HTMLAttributes: {
         class: 'not-prose pl-2',
-        style: 'margin: 0 !important'
+        style: 'margin: 0 !important',
       },
     }),
     TaskItem.configure({
