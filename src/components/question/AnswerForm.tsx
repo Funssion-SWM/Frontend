@@ -25,6 +25,11 @@ export default function AnswerForm({ questionId }: Props) {
         <BlueBtn
           text="등록"
           onClick={() => {
+            if (editor?.getText().length === 0) {
+              alert('내용을 작성해주세요!');
+              return;
+            }
+
             const questionText = JSON.stringify(editor?.getJSON());
             createAnswer(questionId, questionText).then((res) => {
               if (res.code) {
