@@ -34,7 +34,7 @@ export default function Header({
 
   return (
     <header
-      className={`border-b-[1px] border-soma-grey-40 sticky top-0 bg-white z-10 transition-all ease-in-out duration-300 ${
+      className={`sticky top-0 bg-white z-10 transition-all ease-in-out duration-300 ${
         scrollDirection === 'down' && 'opacity-0 invisible'
       }`}
     >

@@ -20,7 +20,7 @@ export default function CommentForm({ postId, postType, onClick }: Props) {
       e.preventDefault();
       formRef.current?.requestSubmit();
     }
-  }
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,7 +43,11 @@ export default function CommentForm({ postId, postType, onClick }: Props) {
   };
 
   return (
-    <form className="flex w-full my-2 text-[13px]" onSubmit={handleSubmit} ref={formRef}>
+    <form
+      className="flex w-full my-2 text-[13px]"
+      onSubmit={handleSubmit}
+      ref={formRef}
+    >
       <textarea
         id="comment"
         name="comment"
@@ -53,7 +57,7 @@ export default function CommentForm({ postId, postType, onClick }: Props) {
         placeholder="댓글을 작성하세요.."
         className="grow pl-2 outline-none resize-none align-middle inline-block"
       />
-      <button className="w-fit px-2 text-soma-grey-45">작성</button>
+      <button className="w-fit px-2 text-soma-blue-40 font-medium">작성</button>
     </form>
   );
 }

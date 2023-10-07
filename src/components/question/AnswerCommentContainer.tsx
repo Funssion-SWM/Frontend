@@ -26,7 +26,7 @@ export default function AnswerCommentContainer({ answerId, userId }: Props) {
   return (
     !loading && (
       <div className="flex flex-col">
-        <div className="shadow-inner bg-soma-grey-20 p-1">
+        <div className="border-[0.5px] border-soma-grey-49 rounded-lg my-2">
           <CommentForm
             postId={answerId}
             postType={'ANSWER'}

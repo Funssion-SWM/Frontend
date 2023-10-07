@@ -62,7 +62,7 @@ export default function QuestionDetail({
         </div>
         <QuestionFooter tags={tags} />
       </div>
-      <p className="sm:text-xl m-3 sm:my-3 sm:mx-0">
+      <p className="sm:text-xl m-2 mt-10 font-semibold">
         <span className="text-soma-blue-40">{answersCount}개</span>의 답변
       </p>
       <AnswersList answers={answers} userId={userId} />

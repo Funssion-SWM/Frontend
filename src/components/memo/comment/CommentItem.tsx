@@ -42,7 +42,7 @@ export default function CommentItem({
   const router = useRouter();
 
   return (
-    <div className="w-full border-b-2 border-soma-grey-30 pt-3">
+    <div className="w-full border-b-[0.5px] border-soma-grey-49 pt-3">
       <CommentHeader
         commentId={id}
         authorId={authorId}

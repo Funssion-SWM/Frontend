@@ -62,7 +62,7 @@ export default function AnswerCard({
   };
 
   return (
-    <article className="flex flex-col p-4 border-t-[0.5px] border-soma-grey-49 ">
+    <article className="flex flex-col p-4 border-t-[1px] border-soma-grey-49 ">
       <AnswerCardHeader
         answerId={id}
         authorId={authorId}

@@ -53,7 +53,7 @@ export default function MemoSideBar({
       </button>
       {isVisible && (
         <aside
-          className={`ml-4 absolute right-0 top-0 sm:static h-full bg-white flex flex-col rounded-2xl shadow min-w-[300px]`}
+          className={`ml-4 absolute right-0 top-0 sm:static h-full bg-white flex flex-col rounded-2xl shadow shadow-soma-blue-10 min-w-[300px]`}
         >
           <MemoSidebarHeader
             authorId={authorId}
@@ -78,7 +78,7 @@ export default function MemoSideBar({
               />
             ))}
           {currnetCategory === 'comment' && (
-            <div className="sticky bottom-0 p-1 bg-white shadow-inner rounded-b-2xl">
+            <div className="sticky bottom-0 p-1 bg-white shadow-inner shadow-soma-blue-10 rounded-b-2xl">
               <CommentForm
                 postId={memoId}
                 postType={'MEMO'}

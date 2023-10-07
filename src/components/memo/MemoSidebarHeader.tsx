@@ -35,7 +35,7 @@ export default function MemoSidebarHeader({
   const router = useRouter();
 
   return (
-    <div className="bg-white rounded-t-2xl sticky top-0 p-3 border-b-2 border-soma-grey-30">
+    <div className="bg-white rounded-t-2xl sticky top-0 p-3 pb-0 ">
       <div className="flex justify-between items-center">
         <div className="flex items-center text-sm">
           <Link href={`/me/${authorId}`} prefetch={false}>
