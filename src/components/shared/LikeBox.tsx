@@ -45,7 +45,7 @@ export default function LikeBox({
         throw new Error('해당하는 like item type이 없음');
     }
     fn?.then((res) => {
-      if (res.code) {
+      if (res?.code) {
         if (res.code === 401) router.push('/login');
         notifyToast(res.message, 'error');
         return;
@@ -74,7 +74,7 @@ export default function LikeBox({
         throw new Error('해당하는 like item type이 없음');
     }
     fn?.then((res) => {
-      if (res.code) {
+      if (res?.code) {
         if (res.code === 401) router.push('/login');
         notifyToast(res.message, 'error');
         return;
