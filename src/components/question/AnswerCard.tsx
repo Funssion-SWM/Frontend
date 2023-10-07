@@ -25,6 +25,10 @@ export default function AnswerCard({
     authorName,
     repliesCount,
     mine,
+    likes,
+    dislikes,
+    like,
+    disLike,
   },
   userId,
 }: Props) {
@@ -81,6 +85,10 @@ export default function AnswerCard({
         answerId={id}
         authorId={authorId}
         userId={userId}
+        likeNum={likes}
+        dislikeNum={dislikes}
+        isLike={like}
+        isDislike={disLike}
       />
     </article>
   );

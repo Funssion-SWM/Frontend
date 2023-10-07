@@ -6,9 +6,12 @@ export type Answer = {
   createdDate: string;
   updatedDate: string;
   likes: number;
+  dislikes: number;
   text: string;
   questionId: number;
   repliesCount: number;
   mine: boolean;
   selected: boolean;
+  like: boolean;
+  disLike: boolean;
 };
