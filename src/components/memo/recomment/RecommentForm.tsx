@@ -2,7 +2,7 @@ import { createRecomment, getRecommentsByCommentId } from '@/service/comments';
 import { notifyToast } from '@/service/notification';
 import { Comment } from '@/types/comment';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 
 type Props = {
   authorId: number;
@@ -17,6 +17,14 @@ export default function RecommentForm({
 }: Props) {
   const [recommentText, setRecommentText] = useState('');
   const router = useRouter();
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key == 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      formRef.current?.requestSubmit();
+    }
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,12 +49,17 @@ export default function RecommentForm({
   };
 
   return (
-    <form className="flex w-full text-[13px]" onSubmit={handleSubmit}>
+    <form
+      className="flex w-full text-[13px]"
+      onSubmit={handleSubmit}
+      ref={formRef}
+    >
       <textarea
         id="recomment"
         name="recomment"
         value={recommentText}
         onChange={(e) => setRecommentText(e.target.value)}
+        onKeyDown={handleKeyDown}
         placeholder="답글을 작성하세요.."
         className="grow pl-2 outline-none resize-none align-middle inline-block rounded-lg"
       />
