@@ -1,6 +1,7 @@
 'use client';
 
 import { formatDate } from '@/service/time';
+import { useEffect, useState } from 'react';
 
 type Props = {
   date: string;
@@ -8,5 +9,15 @@ type Props = {
 };
 
 export default function RelativeDate({ date, type }: Props) {
-  return <p className="text-xs text-soma-grey-49">{formatDate(date, type)}</p>;
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  return (
+    isClient && (
+      <p className="text-xs text-soma-grey-49">{formatDate(date, type)}</p>
+    )
+  );
 }
