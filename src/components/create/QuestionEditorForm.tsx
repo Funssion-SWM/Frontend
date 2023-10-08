@@ -69,18 +69,18 @@ export default function QuestionEditorForm() {
 
   const savePost = () => {
     if (title === '') {
-      alert('제목을 작성해주세요!');
+      notifyToast('제목을 작성해주세요!', 'warning');
       return;
     }
 
     if (title.length > 75) {
-      alert('제목 수 제한 75자를 초과하였습니다!');
+      notifyToast('제목 수 제한 75자를 초과하였습니다!', 'warning');
       return;
     }
 
     const questionText = editor?.getText();
     if (questionText === '') {
-      alert('내용을 작성해주세요!');
+      notifyToast('내용을 작성해주세요!', 'warning');
       return;
     }
 

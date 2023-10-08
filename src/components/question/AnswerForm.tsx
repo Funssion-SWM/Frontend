@@ -26,7 +26,7 @@ export default function AnswerForm({ questionId }: Props) {
           text="등록"
           onClick={() => {
             if (editor?.getText().length === 0) {
-              alert('내용을 작성해주세요!');
+              notifyToast('내용을 작성해주세요', 'warning');
               return;
             }
 

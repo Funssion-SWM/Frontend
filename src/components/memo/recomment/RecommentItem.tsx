@@ -109,7 +109,7 @@ export default function RecommentItem({
                 size="small"
                 onClick={() => {
                   if (updatedText === '') {
-                    window.alert('댓글을 작성해주세요');
+                    notifyToast('내용을 작성해주세요', 'warning');
                     return;
                   }
                   updateRecomment(id, updatedText).then(async (res) => {

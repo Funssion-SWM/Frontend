@@ -21,7 +21,7 @@ export default function RecommentForm({
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (recommentText === '') {
-      window.alert('댓글을 작성해주세요');
+      notifyToast('내용을 작성해주세요', 'warning');
       return;
     }
     createRecomment({

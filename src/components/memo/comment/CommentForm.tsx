@@ -25,7 +25,7 @@ export default function CommentForm({ postId, postType, onClick }: Props) {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (commentText === '') {
-      window.alert('댓글을 작성해주세요');
+      notifyToast('내용을 작성해주세요', 'warning');
       return;
     }
     createComment({ postTypeWithComment: postType, postId, commentText }).then(
