@@ -82,13 +82,15 @@ export default function AnswerCardHeader({
             <BlueBtn
               text="채택하기"
               onClick={() => {
-                selectAnswer(questionId, answerId).then((res) => {
-                  if (res.code) {
-                    notifyToast(res.message, 'error');
-                    return;
-                  }
-                  notifyToast(res.message, 'success');
-                  router.refresh();
+                open('이 답변을 채택하시겠습니까?', () => {
+                  selectAnswer(questionId, answerId).then((res) => {
+                    if (res.code) {
+                      notifyToast(res.message, 'error');
+                      return;
+                    }
+                    notifyToast(res.message, 'success');
+                    router.refresh();
+                  });
                 });
               }}
             />
