@@ -4,6 +4,7 @@ import { Decoration, DecorationSet, EditorView } from '@tiptap/pm/view';
 import { postImageInMemo } from '@/service/memos';
 import { postImageInQuestion } from '@/service/questions';
 import { postImageInAnswer } from '@/service/answers';
+import { notifyToast } from '@/service/notification';
 
 const uploadKey = new PluginKey('upload-image');
 
@@ -71,12 +72,12 @@ export function startImageUpload(
 ) {
   // check if the file is an image
   if (!file.type.includes('image/')) {
-    toast.error('File type not supported.');
+    notifyToast('해당 파일 형식은 제공되지 않습니다.', 'error');
     return;
 
     // check if the file size is less than 20MB
-  } else if (file.size / 1024 / 1024 > 20) {
-    toast.error('File size too big (max 20MB).');
+  } else if (file.size / 1024 / 1024 > 10) {
+    notifyToast('파일 사이즈가 너무 큽니다. (max 20MB)', 'error');
     return;
   }
 
@@ -134,6 +135,10 @@ export const handleImageUpload = (
     switch (type) {
       case 'memo':
         postImageInMemo(postId, file).then(async (res) => {
+          if (res.code) {
+            notifyToast(res.message, 'error');
+            return;
+          }
           let image = new Image();
           image.src = res.imagePath;
           image.onload = () => {
@@ -143,6 +148,10 @@ export const handleImageUpload = (
         break;
       case 'question':
         postImageInQuestion(file).then(async (res) => {
+          if (res.code) {
+            notifyToast(res.message, 'error');
+            return;
+          }
           let image = new Image();
           image.src = res.imagePath;
           image.onload = () => {
@@ -152,6 +161,10 @@ export const handleImageUpload = (
         break;
       case 'answer':
         postImageInAnswer(file).then(async (res) => {
+          if (res.code) {
+            notifyToast(res.message, 'error');
+            return;
+          }
           let image = new Image();
           image.src = res.imagePath;
           image.onload = () => {

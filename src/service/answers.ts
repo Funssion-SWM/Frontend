@@ -78,7 +78,7 @@ export async function deleteAnswer(
 
 export async function postImageInAnswer(
   image: File
-): Promise<PostImageResponse> {
+): Promise<PostImageResponse & ErrorResponse> {
   const formdata = new FormData();
   formdata.append('image', image);
   return fetch(
