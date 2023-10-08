@@ -144,7 +144,7 @@ export default function QuestionEditorForm() {
           questionId
         ).then((res) => {
           if (res.code) {
-            notifyToast('등록에 실패했습니다.', 'error');
+            notifyToast(res.message, 'error');
             return;
           }
           router.push(`/questions/${questionId}`);
@@ -155,7 +155,7 @@ export default function QuestionEditorForm() {
           memoId
         ).then((res) => {
           if (res.code) {
-            notifyToast('등록에 실패했습니다.', 'error');
+            notifyToast(res.message, 'error');
             return;
           }
           router.push(`/questions`);

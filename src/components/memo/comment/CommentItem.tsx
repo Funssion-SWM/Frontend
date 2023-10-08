@@ -94,7 +94,7 @@ export default function CommentItem({
                   open('댓글을 삭제하시겠습니까?', () => {
                     deleteComeent(id).then((res) => {
                       if (res.code) {
-                        notifyToast('삭제에 실패했습니다.', 'error');
+                        notifyToast(res.message, 'error');
                         return;
                       }
                       onClick();
@@ -126,7 +126,7 @@ export default function CommentItem({
                   }
                   updateComment(id, updatedText).then((res) => {
                     if (res.code) {
-                      notifyToast('등록에 실패했습니다.', 'error');
+                      notifyToast(res.message, 'error');
                       return;
                     }
                     setIsEditMode(false);

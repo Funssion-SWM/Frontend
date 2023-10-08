@@ -51,7 +51,7 @@ export default function MemoCardTemporary({
             open('임시 메모를 삭제하시겠습니까?', () => {
               deleteMemo(memoId).then((res) => {
                 if (res.code) {
-                  notifyToast('삭제에 실패했습니다.', 'error');
+                  notifyToast(res.message, 'error');
                   return;
                 }
                 router.refresh();

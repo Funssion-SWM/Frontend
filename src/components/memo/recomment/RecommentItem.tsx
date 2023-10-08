@@ -80,7 +80,7 @@ export default function RecommentItem({
                   open('답글을 삭제하시겠습니까?', () => {
                     deleteRecomeent(id).then(async (res) => {
                       if (res.code) {
-                        notifyToast('삭제에 실패했습니다.', 'error');
+                        notifyToast(res.message, 'error');
                         return;
                       }
                       const recomments = await getRecommentsByCommentId(
@@ -114,7 +114,7 @@ export default function RecommentItem({
                   }
                   updateRecomment(id, updatedText).then(async (res) => {
                     if (res.code) {
-                      notifyToast('등록에 실패했습니다.', 'error');
+                      notifyToast(res.message, 'error');
                       return;
                     }
                     const recomments = await getRecommentsByCommentId(

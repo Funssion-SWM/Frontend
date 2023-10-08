@@ -278,7 +278,7 @@ export default function EditorForm() {
       }
     ).then((data) => {
       if (data.code) {
-        notifyToast('등록에 실패했습니다', 'error');
+        notifyToast(data.message, 'error');
         return;
       }
 
