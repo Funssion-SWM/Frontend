@@ -44,7 +44,7 @@ export default function MemoSideBar({
   return (
     <div className="sticky top-24 flex max-h-for-fit-screen  ">
       <button
-        className={`flex z-10 absolute -left-10 sm:-left-3 justify-center items-center opacity-50 w-10 h-10 shadow-inner bg-white rounded-full self-center ${
+        className={`flex z-10 absolute -left-10 sm:-left-3 justify-center items-center border-[1px] border-soma-grey-30 w-10 h-10 shadow-inner bg-white rounded-full self-center ${
           !isVisible && '-scale-x-100'
         }`}
         onClick={() => setIsVisible((pre) => !pre)}
