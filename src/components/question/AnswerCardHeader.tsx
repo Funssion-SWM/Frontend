@@ -93,7 +93,7 @@ export default function AnswerCardHeader({
               }}
             />
           )}
-          {isMyAnswer && (
+          {isMyAnswer && !isSolved && (
             <div className="flex ml-2">
               <button onClick={() => setIsActive((pre) => !pre)}>
                 <Image src={more} alt="more" />

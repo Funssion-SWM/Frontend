@@ -63,7 +63,7 @@ export default function QuestionDetail({
         </div>
         <QuestionFooter tags={tags} />
       </div>
-      <p className="sm:text-xl m-2 mt-10 font-semibold">
+      <p className="sm:text-xl p-2 mt-10 font-semibold border-b-[1px] border-soma-grey-49 ">
         <span className="text-soma-blue-40">{answersCount}개</span>의 답변
       </p>
       <AnswersList
@@ -72,7 +72,7 @@ export default function QuestionDetail({
         isMyQuestion={mine}
         isSolved={solved}
       />
-      <AnswerForm questionId={id} />
+      {!mine && <AnswerForm questionId={id} />}
     </div>
   );
 }

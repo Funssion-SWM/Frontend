@@ -68,8 +68,8 @@ export default function AnswerCard({
 
   return (
     <article
-      className={`flex flex-col p-4 border-t-[1px] border-soma-grey-49 ${
-        selected && 'bg-soma-blue-10'
+      className={`flex flex-col relative p-4 border-b-[1px] border-soma-grey-49 ${
+        selected && 'bg-soma-blue-20'
       }`}
     >
       <AnswerCardHeader
@@ -99,6 +99,11 @@ export default function AnswerCard({
         isLike={like}
         isDislike={disLike}
       />
+      {selected && (
+        <div className="absolute top-0 right-0 font-medium bg-soma-blue-40 text-soma-green py-2 px-4 rounded-xl rounded-e-none rounded-t-none">
+          selected
+        </div>
+      )}
     </article>
   );
 }
