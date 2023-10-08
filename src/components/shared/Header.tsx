@@ -49,7 +49,7 @@ export default function Header({
           }}
           className="cursor-pointer"
         />
-        <div className="flex gap-4 font-semibold text-soma-grey-50 sm:text-lg">
+        <div className="sm:flex gap-4 font-semibold text-soma-grey-50 sm:text-lg hidden">
           <Link
             href="/memos"
             className={`${
@@ -69,7 +69,7 @@ export default function Header({
             Questions
           </Link>
         </div>
-        {isLogin ? (
+        {true ? (
           <nav className="flex items-center gap-3 relative" ref={dropdownRef}>
             <button onClick={() => router.push('/search/form')}>
               <Image
@@ -153,6 +153,26 @@ export default function Header({
             </Link>
           </nav>
         )}
+      </div>
+      <div className="sm:hidden gap-4 font-semibold text-soma-grey-50 sm:text-lg flex justify-center">
+        <Link
+          href="/memos"
+          className={`${
+            currentPage === 'memos' && 'text-soma-blue-40'
+          } hover:text-soma-blue-40 transition-all`}
+          prefetch={false}
+        >
+          Memos
+        </Link>
+        <Link
+          href="/questions"
+          className={`${
+            currentPage === 'questions' && 'text-soma-blue-40'
+          } hover:text-soma-blue-40 transition-all`}
+          prefetch={false}
+        >
+          Questions
+        </Link>
       </div>
     </header>
   );
