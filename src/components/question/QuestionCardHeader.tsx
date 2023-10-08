@@ -2,8 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import basicProfileImg from '@/assets/profile.svg';
 import fillHeart from '@/assets/icons/heart_fill.svg';
-import { formatDate } from '@/service/time';
 import { QuestionCardSize } from '@/types/question';
+import RelativeDate from '../shared/RelativeDate';
 
 type Props = {
   createdDate: string;
@@ -38,9 +38,7 @@ export default function QuestionCardHeader({
         </Link>
         <div className={`ml-2 ${size === 'small' && 'text-xs'}`}>
           <h4 className="text-soma-grey-60 font-medium">{authorName}</h4>
-          <p className="text-xs text-soma-grey-49">
-            {formatDate(createdDate, 'YMD')}
-          </p>
+          <RelativeDate date={createdDate} type="YMD" />
         </div>
       </div>
       <div className="flex items-center">

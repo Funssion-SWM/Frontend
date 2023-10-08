@@ -2,7 +2,7 @@ import Image from 'next/image';
 import basicProfileImg from '@/assets/profile.svg';
 import Link from 'next/link';
 import LikeBox from '@/components/shared/LikeBox';
-import { formatDate } from '@/service/time';
+import RelativeDate from '@/components/shared/RelativeDate';
 
 type Props = {
   commentId: number;
@@ -39,9 +39,7 @@ export default function CommentHeader({
         </Link>
         <div className="ml-2 text-xs">
           <div className="text-soma-grey-60">{authorName}</div>
-          <p className="text-xs text-soma-grey-49">
-            {formatDate(createdDate, 'YMDHM')}
-          </p>
+          <RelativeDate date={createdDate} type="YMDHM" />
         </div>
       </div>
       <LikeBox

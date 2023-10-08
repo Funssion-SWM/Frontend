@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import basicProfileImg from '@/assets/profile.svg';
-import { formatDate } from '@/service/time';
 import { useContext, useRef } from 'react';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import more from '@/assets/icons/more.svg';
@@ -10,6 +9,7 @@ import { deleteAnswer, selectAnswer } from '@/service/answers';
 import { ModalContext } from '@/context/ModalProvider';
 import BlueBtn from '../shared/btn/BlueBtn';
 import { notifyToast } from '@/service/notification';
+import RelativeDate from '../shared/RelativeDate';
 
 type Props = {
   answerId: number;
@@ -69,9 +69,7 @@ export default function AnswerCardHeader({
         </Link>
         <div className="ml-2">
           <h4 className="text-soma-grey-60 font-medium">{authorName}</h4>
-          <p className="text-xs text-soma-grey-49">
-            {formatDate(createdDate, 'YMDHM')}
-          </p>
+          <RelativeDate date={createdDate} type="YMDHM" />
         </div>
       </div>
       {isEditMode ? (
