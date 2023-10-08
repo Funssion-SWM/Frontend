@@ -11,7 +11,7 @@ export default async function LandingPage() {
 
   const { isLogin } = await checkUser(cookie);
 
-  isLogin && redirect('/memo');
+  isLogin && redirect('/memos');
 
   return <LandingContainer />;
 }
