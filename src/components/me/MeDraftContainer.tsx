@@ -10,7 +10,9 @@ type Props = {
 export default function MeDraftContainer({ memos }: Props) {
   return (
     <div>
-      <p className="sm:text-lg text-soma-grey-60 font-semibold">임시저장</p>
+      <p className="sm:text-lg text-soma-grey-60 font-semibold mb-3 ml-2">
+        임시저장
+      </p>
       <MemosGrid memos={memos} colNum={4} isTemporary={true} />
     </div>
   );
