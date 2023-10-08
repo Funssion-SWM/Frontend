@@ -77,7 +77,7 @@ export function startImageUpload(
 
     // check if the file size is less than 20MB
   } else if (file.size / 1024 / 1024 > 10) {
-    notifyToast('파일 사이즈가 너무 큽니다. (max 20MB)', 'error');
+    notifyToast('파일 사이즈가 너무 큽니다. (max 10MB)', 'error');
     return;
   }
 
@@ -101,28 +101,34 @@ export function startImageUpload(
     view.dispatch(tr);
   };
 
-  handleImageUpload(file, type, postId).then((src) => {
-    const { schema } = view.state;
+  handleImageUpload(file, type, postId)
+    .then((src) => {
+      const { schema } = view.state;
 
-    let pos = findPlaceholder(view.state, id);
-    // If the content around the placeholder has been deleted, drop
-    // the image
-    if (pos == null) return;
+      let pos = findPlaceholder(view.state, id);
+      // If the content around the placeholder has been deleted, drop
+      // the image
+      if (pos == null) return;
 
-    // Otherwise, insert it at the placeholder's position, and remove
-    // the placeholder
+      // Otherwise, insert it at the placeholder's position, and remove
+      // the placeholder
 
-    // When BLOB_READ_WRITE_TOKEN is not valid or unavailable, read
-    // the image locally
-    const imageSrc = typeof src === 'object' ? reader.result : src;
+      // When BLOB_READ_WRITE_TOKEN is not valid or unavailable, read
+      // the image locally
+      const imageSrc = typeof src === 'object' ? reader.result : src;
 
-    const node = schema.nodes.image.create({ src: imageSrc });
-    const transaction = view.state.tr
-      .replaceWith(pos, pos, node)
-      .setMeta(uploadKey, { remove: { id } });
-    view.dispatch(transaction);
-    type === 'memo' && routingCallback && routingCallback(postId);
-  });
+      const node = schema.nodes.image.create({ src: imageSrc });
+      const transaction = view.state.tr
+        .replaceWith(pos, pos, node)
+        .setMeta(uploadKey, { remove: { id } });
+      view.dispatch(transaction);
+      type === 'memo' && routingCallback && routingCallback(postId);
+    })
+    .catch((err) => {
+      const transaction = view.state.tr.setMeta(uploadKey, { remove: { id } });
+      view.dispatch(transaction);
+      notifyToast(err, 'error');
+    });
 }
 
 export const handleImageUpload = (
@@ -131,13 +137,12 @@ export const handleImageUpload = (
   postId: number
 ) => {
   // upload to Vercel Blob
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     switch (type) {
       case 'memo':
         postImageInMemo(postId, file).then((res) => {
           if (res?.code) {
-            notifyToast(res.message, 'error');
-            return;
+            reject(res.message);
           }
           let image = new Image();
           image.src = res.imagePath;
@@ -149,8 +154,7 @@ export const handleImageUpload = (
       case 'question':
         postImageInQuestion(file).then((res) => {
           if (res?.code) {
-            notifyToast(res.message, 'error');
-            return;
+            reject(res.message);
           }
           let image = new Image();
           image.src = res.imagePath;
@@ -162,8 +166,7 @@ export const handleImageUpload = (
       case 'answer':
         postImageInAnswer(file).then((res) => {
           if (res?.code) {
-            notifyToast(res.message, 'error');
-            return;
+            reject(res.message);
           }
           let image = new Image();
           image.src = res.imagePath;
