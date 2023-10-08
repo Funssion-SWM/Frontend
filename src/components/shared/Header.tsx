@@ -114,7 +114,7 @@ export default function Header({
                   setIsActive(false);
                 }}
               >
-                임시 글
+                임시저장
               </button>
               <button
                 className="hover:bg-gray-200 p-2 rounded-b-lg"

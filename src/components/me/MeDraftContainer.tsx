@@ -2,8 +2,6 @@
 
 import { Memo } from '@/types/memo';
 import MemosGrid from '@/components/memo/MemosGrid';
-import CategoryBtn from '@/components/shared/btn/CategoryBtn';
-// import CategoryBtn from '../shared/btn/CategoryBtn';
 
 type Props = {
   memos: Memo[];
@@ -12,9 +10,7 @@ type Props = {
 export default function MeDraftContainer({ memos }: Props) {
   return (
     <div>
-      <div className="flex gap-2 mb-5">
-        <CategoryBtn text="Memo" onClick={() => {}} isSelected={true} />
-      </div>
+      <p className="sm:text-lg text-soma-grey-60 font-semibold">임시저장</p>
       <MemosGrid memos={memos} colNum={4} isTemporary={true} />
     </div>
   );
