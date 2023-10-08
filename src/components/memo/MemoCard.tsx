@@ -21,6 +21,7 @@ export default function MemoCard({
     likes,
     memoTags,
     repliesCount,
+    questionCount,
   },
 }: Props) {
   return (
@@ -50,7 +51,11 @@ export default function MemoCard({
         memoTitle={memoTitle}
         memoDescription={memoDescription}
       />
-      <MemoCardFooter memoTags={memoTags} commentCount={repliesCount} />
+      <MemoCardFooter
+        memoTags={memoTags}
+        commentCount={repliesCount}
+        questionCount={questionCount}
+      />
     </article>
   );
 }
