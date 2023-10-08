@@ -9,7 +9,8 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { Question } from '@/types/question';
 import QuestionsList from '../question/QuestionsList';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { notifyToast } from '@/service/notification';
 
 type Props = {
   authorName: string;
@@ -44,6 +45,7 @@ export default function MemoSideBar({
   const [currnetCategory, setCurrnetCategory] = useState<
     'comment' | 'question' | 'recommendation'
   >('comment');
+  const router = useRouter();
 
   return (
     <div className="sticky top-24 flex max-h-for-fit-screen  ">
@@ -101,12 +103,19 @@ export default function MemoSideBar({
               ) : (
                 <QuestionsList questions={questions} size="small" />
               )}
-              <Link
-                href={`/create/question?memoId=${memoId}`}
+              <button
                 className="absolute bg-white bottom-3 right-3 text-sm rounded-2xl text-soma-grey-60 border-[0.5px] border-soma-grey-49 px-2 py-1 hover:bg-soma-grey-25 transition-all"
+                onClick={() => {
+                  if (isLogin) {
+                    router.push(`/create/question?memoId=${memoId}`);
+                    return;
+                  }
+                  router.push('/login');
+                  notifyToast('로그인을 해주세요.', 'error');
+                }}
               >
                 질문하기
-              </Link>
+              </button>
             </>
           )}
         </aside>
