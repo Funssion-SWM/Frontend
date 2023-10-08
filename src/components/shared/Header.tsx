@@ -52,14 +52,18 @@ export default function Header({
         <div className="flex gap-4 font-semibold text-soma-grey-50 sm:text-lg">
           <Link
             href="/memos"
-            className={`${currentPage === 'memos' && 'text-soma-blue-40'}`}
+            className={`${
+              currentPage === 'memos' && 'text-soma-blue-40'
+            } hover:text-soma-blue-40 transition-all`}
             prefetch={false}
           >
             Memos
           </Link>
           <Link
             href="/questions"
-            className={`${currentPage === 'questions' && 'text-soma-blue-40'}`}
+            className={`${
+              currentPage === 'questions' && 'text-soma-blue-40'
+            } hover:text-soma-blue-40 transition-all`}
             prefetch={false}
           >
             Questions
