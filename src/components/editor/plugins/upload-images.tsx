@@ -134,8 +134,8 @@ export const handleImageUpload = (
   return new Promise((resolve) => {
     switch (type) {
       case 'memo':
-        postImageInMemo(postId, file).then(async (res) => {
-          if (res.code) {
+        postImageInMemo(postId, file).then((res) => {
+          if (res?.code) {
             notifyToast(res.message, 'error');
             return;
           }
@@ -147,8 +147,8 @@ export const handleImageUpload = (
         });
         break;
       case 'question':
-        postImageInQuestion(file).then(async (res) => {
-          if (res.code) {
+        postImageInQuestion(file).then((res) => {
+          if (res?.code) {
             notifyToast(res.message, 'error');
             return;
           }
@@ -160,8 +160,8 @@ export const handleImageUpload = (
         });
         break;
       case 'answer':
-        postImageInAnswer(file).then(async (res) => {
-          if (res.code) {
+        postImageInAnswer(file).then((res) => {
+          if (res?.code) {
             notifyToast(res.message, 'error');
             return;
           }
