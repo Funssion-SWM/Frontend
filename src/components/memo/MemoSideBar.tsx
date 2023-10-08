@@ -22,6 +22,8 @@ type Props = {
   isFollowed: boolean;
   isMyMemo: boolean;
   isLogin: boolean;
+  authorFollowingNum: number;
+  authorFollowerNum: number;
 };
 
 export default function MemoSideBar({
@@ -35,6 +37,8 @@ export default function MemoSideBar({
   isFollowed,
   isMyMemo,
   isLogin,
+  authorFollowingNum,
+  authorFollowerNum,
 }: Props) {
   const [isVisible, setIsVisible] = useState(true);
   const [currnetCategory, setCurrnetCategory] = useState<
@@ -64,6 +68,8 @@ export default function MemoSideBar({
             isFollowed={isFollowed}
             isMyMemo={isMyMemo}
             isLogin={isLogin}
+            authorFollowingNum={authorFollowingNum}
+            authorFollowerNum={authorFollowerNum}
           />
           {currnetCategory === 'comment' &&
             (comments.length === 0 ? (
