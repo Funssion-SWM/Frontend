@@ -1,6 +1,6 @@
 import { ErrorResponse, UserInfo } from '@/types';
 
-export async function follow(userId: string): Promise<void & ErrorResponse> {
+export async function follow(userId: string): Promise<ErrorResponse> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/follow`);
   const params = {
     userId: userId,
@@ -12,7 +12,7 @@ export async function follow(userId: string): Promise<void & ErrorResponse> {
     .catch((err) => console.log(err));
 }
 
-export async function unfollow(userId: string): Promise<void & ErrorResponse> {
+export async function unfollow(userId: string): Promise<ErrorResponse> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/unfollow`);
   const params = {
     userId: userId,

@@ -31,7 +31,7 @@ export default function MemoViewerHeader({
 
   const handleDelete = () =>
     deleteMemo(memoId).then((res) => {
-      if (res.code) {
+      if (res?.code) {
         notifyToast(res.message, 'error');
         return;
       }

@@ -68,7 +68,7 @@ export default function MemoSidebarHeader({
               text="팔로우 취소"
               onClick={() => {
                 unfollow(authorId.toString()).then((res) => {
-                  if (res.code) {
+                  if (res?.code) {
                     if (res.code === 401) router.push('/login');
                     notifyToast(res.message, 'error');
                     return;
@@ -83,7 +83,7 @@ export default function MemoSidebarHeader({
               text="팔로우"
               onClick={() => {
                 follow(authorId.toString()).then((res) => {
-                  if (res.code) {
+                  if (res?.code) {
                     if (res.code === 401) router.push('/login');
                     notifyToast(res.message, 'error');
                     return;

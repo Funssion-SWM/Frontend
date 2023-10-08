@@ -103,7 +103,7 @@ export async function createOrUpdateMemo(
     .catch((err) => console.log(err));
 }
 
-export async function deleteMemo(id: number): Promise<void & ErrorResponse> {
+export async function deleteMemo(id: number): Promise<ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${id}`,
     {

@@ -89,9 +89,7 @@ export async function updateQuestion(
     .catch(console.error);
 }
 
-export async function deleteQuestion(
-  id: number
-): Promise<void & ErrorResponse> {
+export async function deleteQuestion(id: number): Promise<ErrorResponse> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions/${id}`, {
     method: 'DELETE',
     credentials: 'include',

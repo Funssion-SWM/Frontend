@@ -50,7 +50,7 @@ export default function MemoCardTemporary({
           onClick={() =>
             open('임시 메모를 삭제하시겠습니까?', () => {
               deleteMemo(memoId).then((res) => {
-                if (res.code) {
+                if (res?.code) {
                   notifyToast(res.message, 'error');
                   return;
                 }
