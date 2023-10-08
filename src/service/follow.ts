@@ -8,7 +8,9 @@ export async function follow(userId: string): Promise<ErrorResponse> {
   url.search = new URLSearchParams(params).toString();
 
   return fetch(url, { method: 'POST', credentials: 'include' })
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) return res.json();
+    })
     .catch((err) => console.log(err));
 }
 
@@ -20,7 +22,9 @@ export async function unfollow(userId: string): Promise<ErrorResponse> {
   url.search = new URLSearchParams(params).toString();
 
   return fetch(url, { method: 'POST', credentials: 'include' })
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) return res.json();
+    })
     .catch((err) => console.log(err));
 }
 

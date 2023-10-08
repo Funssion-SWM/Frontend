@@ -111,7 +111,9 @@ export async function deleteMemo(id: number): Promise<ErrorResponse> {
       credentials: 'include',
     }
   )
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) return res.json();
+    })
     .catch(console.error);
 }
 

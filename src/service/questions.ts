@@ -94,7 +94,9 @@ export async function deleteQuestion(id: number): Promise<ErrorResponse> {
     method: 'DELETE',
     credentials: 'include',
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) return res.json();
+    })
     .catch(console.error);
 }
 
