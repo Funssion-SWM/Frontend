@@ -1,5 +1,6 @@
 import {
   CheckUserResponse,
+  ErrorResponse,
   FindEmailResponse,
   IsSuccessResponse,
   IsValidResponse,
@@ -76,21 +77,18 @@ export async function checkUser(
 export async function checkEmailAndSendCode(
   email: string,
   type: 'signup' | 'find'
-): Promise<IsSuccessResponse> {
+): Promise<IsSuccessResponse & ErrorResponse> {
   return fetch(
     `${
       process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE
-    }/users/authenticate-email${type === 'find' && '/find'}`,
+    }/users/authenticate-email${type === 'find' ? '/find' : ''}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email }),
     }
   )
-    .then((res) => {
-      if (!res.ok) throw new Error('error!!');
-      return res.json();
-    })
+    .then((res) => res.json())
     .catch(console.error);
 }
 
@@ -181,14 +179,18 @@ export async function updateUserInfo(
     .catch(console.error);
 }
 
-export async function getUserInfo(userId: number, cookie?: string): Promise<UserInfo> {
+export async function getUserInfo(
+  userId: number,
+  cookie?: string
+): Promise<UserInfo> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${userId}`,
-    { next: { revalidate: 0 },
+    {
+      next: { revalidate: 0 },
       headers: {
         Cookie: `${cookie}`,
       },
-  }
+    }
   )
     .then((res) => {
       if (!res.ok) throw new Error('error 발생!');

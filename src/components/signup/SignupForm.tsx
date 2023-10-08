@@ -82,10 +82,14 @@ export default function SignupForm() {
       return;
     }
 
-    checkEmailAndSendCode(signupData.email, 'signup').then((data) => {
-      notifyToast(data.message, data.isSuccess ? 'success' : 'error');
+    checkEmailAndSendCode(signupData.email, 'signup').then((res) => {
+      if (res.code) {
+        notifyToast(res.message, 'error');
+        return;
+      }
+      notifyToast(res.message, res.isSuccess ? 'success' : 'error');
       setIsValidCode(false);
-      setIsValidEmail(data.isSuccess ? true : false);
+      setIsValidEmail(res.isSuccess ? true : false);
     });
   };
 
