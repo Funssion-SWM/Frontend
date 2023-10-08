@@ -18,7 +18,7 @@ export default function SignupPage() {
       >
         메인으로
       </Link>
-      <Image src={logo} alt="logo" width={200} />
+      <Image src={logo} alt="logo" width={200} className="my-5" />
       <SignupForm />
       <div className="flex items-center">
         <p className="text-soma-grey-50 mr-3 text-xs sm:text-sm">

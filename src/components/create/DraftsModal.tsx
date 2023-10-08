@@ -9,7 +9,7 @@ export default function Modal() {
 
   return (
     isOpen && (
-      <div className="absolute top-0">
+      <div className="fixed top-0">
         <Overay onClick={() => closeDrafts()} />
         <div
           className="fixed flex flex-col items-center bg-white shadow-inner rounded-2xl py-4 px-5 sm:px-20 w-full h-1/2

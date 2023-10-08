@@ -10,7 +10,15 @@ export default function Modal() {
 
   return (
     isOpen && (
-      <div className="absolute top-0">
+      <div
+        className="fixed top-0"
+        onKeyDown={(e) => {
+          if (e.key == 'Enter') {
+            close();
+            onSuccess();
+          }
+        }}
+      >
         <Overay onClick={() => close()} />
         <div
           className="fixed flex flex-col shadow-lg items-center bg-white rounded-2xl p-5 sm:p-10 
@@ -27,6 +35,17 @@ export default function Modal() {
             />
             <WhiteBtn text="취소" onClick={() => close()} />
           </div>
+          <input
+            type="text"
+            onKeyDown={(e) => {
+              if (e.key == 'Enter') {
+                close();
+                onSuccess();
+              }
+            }}
+            className="opacity-0 w-0 h-0"
+            autoFocus
+          />
         </div>
       </div>
     )

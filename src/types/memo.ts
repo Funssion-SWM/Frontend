@@ -26,6 +26,7 @@ export type PostMemoData = {
 };
 
 export type MemoColor =
+  | 'white'
   | 'yellow'
   | 'green'
   | 'skyblue'

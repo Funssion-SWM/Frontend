@@ -1,0 +1,53 @@
+import { EditorContent, useEditor } from '@tiptap/react';
+import { handleTiptapExtensions } from '../editor/extensions';
+import { handleTiptapEditorProps } from '../editor/props';
+import BlueBtn from '../shared/btn/BlueBtn';
+import { createAnswer } from '@/service/answers';
+import { useRouter } from 'next/navigation';
+import { notifyToast } from '@/service/notification';
+import { EditorBubbleMenu } from '../editor/components';
+
+type Props = {
+  questionId: number;
+};
+
+export default function AnswerForm({ questionId }: Props) {
+  const editor = useEditor({
+    extensions: handleTiptapExtensions('answer', 0),
+    editorProps: handleTiptapEditorProps('answer', 0),
+  });
+  const router = useRouter();
+
+  return (
+    <div className="mx-2 border-t-[1px] border-soma-grey-49">
+      <div className="flex justify-between items-center py-2 mt-10">
+        <p className="sm:text-xl text-soma-grey-60 font-semibold">답변 작성</p>
+        <BlueBtn
+          text="등록"
+          onClick={() => {
+            if (editor?.getText().length === 0) {
+              alert('내용을 작성해주세요!');
+              return;
+            }
+
+            const questionText = JSON.stringify(editor?.getJSON());
+            createAnswer(questionId, questionText).then((res) => {
+              if (res.code) {
+                if (res.code === 401) router.push('/login');
+                notifyToast(res.message, 'error');
+                return;
+              }
+              editor?.commands.setContent('');
+              notifyToast(res.message, 'success');
+              router.refresh();
+            });
+          }}
+        />
+      </div>
+      <div className="h-72 overflow-y-auto border-[0.5px] border-soma-grey-49 rounded-2xl p-3">
+        {editor && <EditorBubbleMenu editor={editor} />}
+        <EditorContent editor={editor} />
+      </div>
+    </div>
+  );
+}

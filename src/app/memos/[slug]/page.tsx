@@ -6,22 +6,27 @@ import MemoSideBar from '@/components/memo/MemoSideBar';
 import { getCommentsByPostTypeAndPostId } from '@/service/comments';
 import { cookies } from 'next/headers';
 import { getIsLike } from '@/service/like';
-import { ACCESS_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { checkUser, getUserInfo } from '@/service/auth';
+import { getQuestionsByMemoId } from '@/service/questions';
 
 type Props = {
   params: {
-    slug: number;
+    slug: string;
   };
 };
 
 export default async function MemoPage({ params: { slug } }: Props) {
-  const cookie = cookies().get(ACCESS_TOKEN)?.value;
+  const accessToken = cookies().get(ACCESS_TOKEN)?.value;
+  const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
+  const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
+  const memoId = Number(slug);
 
-  const memoData = getMemoById(slug, cookie);
-  const likeData = getIsLike('memos', slug, cookie);
-  const commentData = getCommentsByPostTypeAndPostId('memo', slug, cookie);
+  const memoData = getMemoById(memoId, cookie);
+  const likeData = getIsLike('memos', memoId, cookie);
+  const commentData = getCommentsByPostTypeAndPostId('memo', memoId, cookie);
   const myData = checkUser(cookie);
+  const questionsData = getQuestionsByMemoId(memoId);
 
   const [
     {
@@ -34,11 +39,20 @@ export default async function MemoPage({ params: { slug } }: Props) {
       authorProfileImagePath,
       memoTags,
       isMine,
+      createdDate,
     },
     { isLike },
     comments,
     { id, isLogin },
-  ] = await Promise.all([memoData, likeData, commentData, myData]);
+    questions,
+  ] = await Promise.all([
+    memoData,
+    likeData,
+    commentData,
+    myData,
+    questionsData,
+  ]);
+  const { isFollowed } = await getUserInfo(authorId, cookie);
 
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
@@ -46,26 +60,35 @@ export default async function MemoPage({ params: { slug } }: Props) {
 
   return (
     <section>
-      <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
-      <LayoutWrapper paddingY="sm:py-5" bgColor="bg-soma-grey-20">
+      <Header
+        isLogin={isLogin}
+        profileImageFilePath={profileImageFilePath}
+        currentPage="memos"
+      />
+      <LayoutWrapper paddingY="sm:py-5">
         <div className="flex w-full ">
           <MemoViewer
             title={memoTitle}
             content={JSON.parse(memoText)}
             color={memoColor}
             memoTags={memoTags}
-            memoId={slug}
+            memoId={memoId}
             likes={likes}
             isLike={isLike}
             isMyMemo={isMine}
+            createdDate={createdDate}
           />
           <MemoSideBar
             authorName={authorName}
             authorProfileImagePath={authorProfileImagePath}
             authorId={authorId}
             comments={comments}
-            memoId={slug}
+            questions={questions}
+            memoId={memoId}
             userId={id}
+            isFollowed={isFollowed}
+            isMyMemo={isMine}
+            isLogin={isLogin}
           />
         </div>
       </LayoutWrapper>
@@ -73,8 +96,9 @@ export default async function MemoPage({ params: { slug } }: Props) {
   );
 }
 
-export async function generateMetadata({ params }: Props) {
-  const { memoTitle, memoDescription } = await getMemoById(params.slug);
+export async function generateMetadata({ params: { slug } }: Props) {
+  const memoId = Number(slug);
+  const { memoTitle, memoDescription } = await getMemoById(memoId);
 
   return {
     title: memoTitle,

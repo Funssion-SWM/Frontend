@@ -4,6 +4,7 @@ import { deleteMemo } from '@/service/memos';
 import { useContext } from 'react';
 import { ModalContext } from '@/context/ModalProvider';
 import { useRouter } from 'next/navigation';
+import { notifyToast } from '@/service/notification';
 
 type Props = {
   memo: Memo;
@@ -21,6 +22,7 @@ export default function MemoCardTemporary({
     <article
       className={`flex flex-col relative rounded-md shadow-md aspect-square p-4 ${
         {
+          white: 'bg-soma-white',
           yellow: 'bg-memo-yellow',
           green: 'bg-memo-green',
           skyblue: 'bg-memo-skyblue',
@@ -34,7 +36,7 @@ export default function MemoCardTemporary({
       <p className="text-soma-grey-50 text-sm">
         {createdDate.substring(0, 10)}
       </p>
-      <Link href={`/create/memo/${memoId}`} prefetch={false}>
+      <Link href={`/create/memo?id=${memoId}`} prefetch={false}>
         <h2 className="text-2xl text-soma-grey-70 font-extrabold my-3 line-clamp-2 break-all h-16">
           {memoTitle}
         </h2>
@@ -47,7 +49,13 @@ export default function MemoCardTemporary({
           className="absolute right-4 bottom-4 text-sm text-soma-grey-49"
           onClick={() =>
             open('임시 메모를 삭제하시겠습니까?', () => {
-              deleteMemo(memoId).then(() => router.refresh());
+              deleteMemo(memoId).then((res) => {
+                if (res.code) {
+                  notifyToast('삭제에 실패했습니다.', 'error');
+                  return;
+                }
+                router.refresh();
+              });
             })
           }
         >

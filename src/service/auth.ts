@@ -1,13 +1,12 @@
 import {
   CheckUserResponse,
+  FindEmailResponse,
   IsSuccessResponse,
   IsValidResponse,
-  LoginData,
   SignUpData,
   SignupResponse,
   UserInfo,
 } from '@/types';
-import { ACCESS_TOKEN } from '@/utils/const';
 import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url';
 
 export async function signUp(userData: SignUpData): Promise<SignupResponse> {
@@ -25,14 +24,14 @@ export async function signUp(userData: SignUpData): Promise<SignupResponse> {
     .catch(console.error);
 }
 
-export async function login(userData: LoginData): Promise<IsSuccessResponse> {
+export async function login(userData: FormData): Promise<IsSuccessResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/login`,
     {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { Accept: 'application/json' },
       credentials: 'include',
-      body: JSON.stringify(userData),
+      body: userData,
     }
   ).then((res) => res.json());
 }
@@ -55,13 +54,17 @@ export async function checkUser(
 ): Promise<CheckUserResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/check`,
-    {
-      credentials: 'include',
-      next: { revalidate: 0 },
-      headers: {
-        Cookie: `${ACCESS_TOKEN}=${cookie}`,
-      },
-    }
+    cookie
+      ? {
+          next: { revalidate: 0 },
+          headers: {
+            Cookie: `${cookie}`,
+          },
+        }
+      : {
+          next: { revalidate: 0 },
+          credentials: 'include',
+        }
   )
     .then((res) => {
       if (!res.ok) throw new Error('error!!');
@@ -71,10 +74,13 @@ export async function checkUser(
 }
 
 export async function checkEmailAndSendCode(
-  email: string
+  email: string,
+  type: 'signup' | 'find'
 ): Promise<IsSuccessResponse> {
   return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/authenticate-email`,
+    `${
+      process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE
+    }/users/authenticate-email${type === 'find' && '/find'}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -175,10 +181,14 @@ export async function updateUserInfo(
     .catch(console.error);
 }
 
-export async function getUserInfo(userId: number): Promise<UserInfo> {
+export async function getUserInfo(userId: number, cookie?: string): Promise<UserInfo> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${userId}`,
-    { next: { revalidate: 0 } }
+    { next: { revalidate: 0 },
+      headers: {
+        Cookie: `${cookie}`,
+      },
+  }
   )
     .then((res) => {
       if (!res.ok) throw new Error('error 발생!');
@@ -194,6 +204,34 @@ export async function registerNickname(nickname: string, userId: number) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nickname }),
+    }
+  )
+    .then((res) => res.json())
+    .catch(console.error);
+}
+
+export async function findEmail(nickname: string): Promise<FindEmailResponse> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/find-email-by?nickname=${nickname}`
+  )
+    .then((res) => {
+      // if (!res.ok) throw new Error('error 발생!');
+      return res.json();
+    })
+    .catch((err) => err);
+}
+
+export async function changePassword(
+  email: string,
+  code: string,
+  userPw: string
+): Promise<IsSuccessResponse> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/password`,
+    {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, code, userPw }),
     }
   )
     .then((res) => res.json())

@@ -14,34 +14,48 @@ import { handleSlashCommand } from './slash-command';
 import { InputRule } from '@tiptap/core';
 import UploadImagesPlugin from '@/components/editor/plugins/upload-images';
 import UpdatedImage from './updated-image';
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import css from 'highlight.js/lib/languages/css';
+import js from 'highlight.js/lib/languages/javascript';
+import ts from 'highlight.js/lib/languages/typescript';
+import html from 'highlight.js/lib/languages/xml';
+import { lowlight } from 'lowlight/lib/common.js';
+import '@/styles/codeblocklowlight.css';
 
-export const handleTiptapExtensions = (memoId: number | undefined) => {
+lowlight.registerLanguage('html', html);
+lowlight.registerLanguage('css', css);
+lowlight.registerLanguage('js', js);
+lowlight.registerLanguage('ts', ts);
+
+export const handleTiptapExtensions = (
+  type: 'memo' | 'question' | 'answer',
+  postId: number | undefined,
+  callback?: () => Promise<number>,
+  routingCallback?: (id: number) => void
+) => {
   return [
     StarterKit.configure({
       bulletList: {
         HTMLAttributes: {
-          class: 'list-disc list-outside leading-3 -mt-2',
+          class: 'list-disc list-outside -mt-2',
+          style: 'margin:0 !important',
         },
       },
       orderedList: {
         HTMLAttributes: {
-          class: 'list-decimal list-outside leading-3 -mt-2',
+          class: 'list-decimal list-outside -mt-2',
+          style: 'margin:0 !important',
         },
       },
       listItem: {
         HTMLAttributes: {
-          class: 'leading-normal -mb-2',
+          style: 'margin:0 !important',
         },
       },
       blockquote: {
         HTMLAttributes: {
           class: 'border-l-4 border-stone-700',
-        },
-      },
-      codeBlock: {
-        HTMLAttributes: {
-          class:
-            'rounded-lg bg-soma-grey-70 p-5 font-mono font-medium text-white my-3',
+          style: 'margin:0 !important',
         },
       },
       code: {
@@ -81,8 +95,35 @@ export const handleTiptapExtensions = (memoId: number | undefined) => {
       },
     }).configure({
       HTMLAttributes: {
-        class: 'mt-4 mb-6 border-t border-stone-300',
+        class: 'border-t border-stone-300',
+        style:
+          'margin-top: 15.5px !important; margin-bottom: 15.5px !important;',
       },
+    }),
+    CodeBlockLowlight.extend({
+      priority: 50,
+      addKeyboardShortcuts() {
+        return {
+          Tab: () => {
+            if (this.editor.isActive('codeBlock')) {
+              this.editor
+                .chain()
+                .command(({ tr }) => {
+                  tr.insertText('\t');
+                  return true;
+                })
+                .run();
+            }
+            return true;
+          },
+        };
+      },
+    }).configure({
+      HTMLAttributes: {
+        class:
+          'rounded-lg bg-soma-grey-70 p-5 font-mono font-medium text-white my-3',
+      },
+      lowlight,
     }),
     TiptapLink.configure({
       HTMLAttributes: {
@@ -110,12 +151,13 @@ export const handleTiptapExtensions = (memoId: number | undefined) => {
         if (node.type.name === 'heading') {
           return `Heading ${node.attrs.level}`;
         }
-        // return "Press '/' for commands, or '++' for AI autocomplete";
-        return "명령어는 '/' , 텍스트 자동 생성은 질문 작성 후 '++' 입력";
+        if (type === 'memo')
+          return "명령어는 '/' , 텍스트 자동 생성은 질문 작성 후 '++' 입력";
+        else return "명령어는 '/'";
       },
       includeChildren: true,
     }),
-    handleSlashCommand(memoId),
+    handleSlashCommand(type, postId, callback, routingCallback),
     TiptapUnderline,
     TextStyle,
     Color,
@@ -125,6 +167,7 @@ export const handleTiptapExtensions = (memoId: number | undefined) => {
     TaskList.configure({
       HTMLAttributes: {
         class: 'not-prose pl-2',
+        style: 'margin: 0 !important',
       },
     }),
     TaskItem.configure({

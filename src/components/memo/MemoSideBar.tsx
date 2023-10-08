@@ -7,14 +7,21 @@ import CommentForm from '@/components/memo/comment/CommentForm';
 import arrowRight from '@/assets/icons/arrow_right.svg';
 import Image from 'next/image';
 import { useState } from 'react';
+import { Question } from '@/types/question';
+import QuestionsList from '../question/QuestionsList';
+import Link from 'next/link';
 
 type Props = {
   authorName: string;
   authorProfileImagePath: string;
   authorId: number;
   comments: Comment[];
+  questions: Question[];
   memoId: number;
   userId: number;
+  isFollowed: boolean;
+  isMyMemo: boolean;
+  isLogin: boolean;
 };
 
 export default function MemoSideBar({
@@ -22,10 +29,17 @@ export default function MemoSideBar({
   authorProfileImagePath,
   authorId,
   comments,
+  questions,
   memoId,
   userId,
+  isFollowed,
+  isMyMemo,
+  isLogin,
 }: Props) {
   const [isVisible, setIsVisible] = useState(true);
+  const [currnetCategory, setCurrnetCategory] = useState<
+    'comment' | 'question' | 'recommendation'
+  >('comment');
 
   return (
     <div className="sticky top-24 flex max-h-for-fit-screen  ">
@@ -39,23 +53,56 @@ export default function MemoSideBar({
       </button>
       {isVisible && (
         <aside
-          className={`ml-4 absolute right-0 top-0 sm:static h-full bg-white flex flex-col rounded-2xl shadow min-w-[300px]`}
+          className={`ml-4 absolute right-0 top-0 sm:static h-full bg-white flex flex-col rounded-2xl shadow-md min-w-[300px]`}
         >
           <MemoSidebarHeader
             authorId={authorId}
             authorName={authorName}
             authorProfileImagePath={authorProfileImagePath}
+            currentCategory={currnetCategory}
+            onCategoryBtnClick={(category) => setCurrnetCategory(category)}
+            isFollowed={isFollowed}
+            isMyMemo={isMyMemo}
+            isLogin={isLogin}
           />
-          {comments.length === 0 ? (
-            <p className="flex justify-center items-center h-full text-sm text-soma-grey-49">
-              작성된 댓글이 없습니다...
-            </p>
-          ) : (
-            <CommentsList comments={comments} userId={userId} />
+          {currnetCategory === 'comment' &&
+            (comments.length === 0 ? (
+              <p className="flex justify-center items-center h-full text-sm text-soma-grey-49">
+                작성된 댓글이 없습니다...
+              </p>
+            ) : (
+              <CommentsList
+                comments={comments}
+                userId={userId}
+                onClick={() => {}}
+              />
+            ))}
+          {currnetCategory === 'comment' && (
+            <div className="sticky bottom-0 px-2 py-3 bg-white rounded-b-2xl">
+              <CommentForm
+                postId={memoId}
+                postType={'MEMO'}
+                onClick={() => {}}
+              />
+            </div>
           )}
-          <div className="sticky bottom-0 p-1 bg-white shadow-inner rounded-b-2xl">
-            <CommentForm postId={memoId} />
-          </div>
+          {currnetCategory === 'question' && (
+            <>
+              {questions.length === 0 ? (
+                <p className="flex justify-center items-center h-full text-sm text-soma-grey-49">
+                  해당 메모와 관련된 질문이 없습니다...
+                </p>
+              ) : (
+                <QuestionsList questions={questions} size="small" />
+              )}
+              <Link
+                href={`/create/question?memoId=${memoId}`}
+                className="absolute bg-white bottom-3 right-3 text-sm rounded-2xl text-soma-grey-60 border-[0.5px] border-soma-grey-49 px-2 py-1"
+              >
+                질문하기
+              </Link>
+            </>
+          )}
         </aside>
       )}
     </div>

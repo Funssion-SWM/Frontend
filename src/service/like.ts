@@ -1,18 +1,23 @@
-import { Like } from '@/types';
-import { ACCESS_TOKEN } from '@/utils/const';
+import { ErrorResponse, Like } from '@/types';
 
 export async function getIsLike(
-  postType: string,
+  postType: 'memos' | 'blogs' | 'questions' | 'answers',
   postId: number,
   cookie?: string | undefined
 ): Promise<Like> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/${postType}/${postId}/like`,
-    {
-      next: { revalidate: 0 },
-      credentials: 'include',
-      headers: { Cookie: `${ACCESS_TOKEN}=${cookie}` },
-    }
+    cookie
+      ? {
+          next: { revalidate: 0 },
+          headers: {
+            Cookie: `${cookie}`,
+          },
+        }
+      : {
+          next: { revalidate: 0 },
+          credentials: 'include',
+        }
   )
     .then((res) => {
       if (res.status == 404 || res.ok) {
@@ -24,44 +29,88 @@ export async function getIsLike(
     .catch(console.error);
 }
 
-export async function like(postType: string, postId: number): Promise<void> {
+export async function like(
+  postType: 'memos' | 'blogs' | 'questions' | 'answers',
+  postId: number
+): Promise<ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/${postType}/${postId}/like`,
     { method: 'POST', credentials: 'include' }
-  ).then((res) => {
-    if (!res.ok) throw new Error('like error 발생!');
-  });
+  )
+    .then((res) => {
+      if (!res.ok) return res.json();
+    })
+    .catch((err) => console.log(err));
 }
 
-export async function unlike(postType: string, postId: number): Promise<void> {
+export async function unlike(
+  postType: 'memos' | 'blogs' | 'questions' | 'answers',
+  postId: number
+): Promise<ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/${postType}/${postId}/unlike`,
     { method: 'POST', credentials: 'include' }
-  ).then((res) => {
-    if (!res.ok) throw new Error('unlike error 발생!');
-  });
+  )
+    .then((res) => {
+      if (!res.ok) return res.json();
+    })
+    .catch((err) => console.log(err));
 }
 
-export async function likeComment(commentId: number, isReComment: boolean) {
+export async function dislike(
+  postType: 'memos' | 'blogs' | 'questions' | 'answers',
+  postId: number
+): Promise<ErrorResponse> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/${postType}/${postId}/dislike`,
+    { method: 'POST', credentials: 'include' }
+  )
+    .then((res) => {
+      if (!res.ok) return res.json();
+    })
+    .catch((err) => console.log(err));
+}
+
+export async function undislike(
+  postType: 'memos' | 'blogs' | 'questions' | 'answers',
+  postId: number
+): Promise<ErrorResponse> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/${postType}/${postId}/undislike`,
+    { method: 'POST', credentials: 'include' }
+  )
+    .then((res) => {
+      if (!res.ok) return res.json();
+    })
+    .catch((err) => console.log(err));
+}
+
+export async function likeComment(
+  commentId: number,
+  isReComment: boolean
+): Promise<ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/like/${commentId}?isReComment=${isReComment}`,
     {
       method: 'POST',
       credentials: 'include',
     }
-  ).then((res) => {
-    if (!res.ok) throw new Error('like comment error 발생!');
-  });
+  )
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 }
 
-export async function unlikeComment(commentId: number, isReComment: boolean) {
+export async function unlikeComment(
+  commentId: number,
+  isReComment: boolean
+): Promise<ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/like/${commentId}?isReComment=${isReComment}`,
     {
       method: 'DELETE',
       credentials: 'include',
     }
-  ).then((res) => {
-    if (!res.ok) throw new Error('unllike comment error 발생!');
-  });
+  )
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 }

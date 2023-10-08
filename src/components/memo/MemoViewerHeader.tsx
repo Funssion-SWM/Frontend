@@ -1,17 +1,20 @@
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import { useContext, useRef } from 'react';
-import Like from '../shared/Like';
 import { useRouter } from 'next/navigation';
 import { deleteMemo } from '@/service/memos';
 import more from '../../assets/icons/more.svg';
 import Image from 'next/image';
 import { ModalContext } from '@/context/ModalProvider';
+import LikeBox from '../shared/LikeBox';
+import { extractYMDHM } from '@/service/time';
+import { notifyToast } from '@/service/notification';
 
 type Props = {
   memoId: number;
   likes: number;
   isLike: boolean;
   isMyMemo: boolean;
+  createdDate: string;
 };
 
 export default function MemoViewerHeader({
@@ -19,6 +22,7 @@ export default function MemoViewerHeader({
   likes,
   isLike,
   isMyMemo,
+  createdDate,
 }: Props) {
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -26,17 +30,30 @@ export default function MemoViewerHeader({
   const { open } = useContext(ModalContext);
 
   const handleDelete = () =>
-    deleteMemo(memoId).then(() => {
+    deleteMemo(memoId).then((res) => {
+      if (res.code) {
+        notifyToast('삭제에 실패했습니다.', 'error');
+        return;
+      }
       router.push('/memos');
       router.refresh();
     });
 
   return (
-    <div className="py-4 px-2 flex justify-end items-center">
-      <nav className="relative flex items-center" ref={dropdownRef}>
-        <Like likes={likes} memoId={memoId} isLike={isLike} />
+    <div className="p-4 flex justify-between items-center">
+      <div className="text-sm text-soma-grey-49">
+        {extractYMDHM(createdDate)}
+      </div>
+      <nav className="relative flex items-center pl-5" ref={dropdownRef}>
+        <LikeBox
+          likeNum={likes}
+          postId={memoId}
+          isLike={isLike}
+          postType="memo"
+          iconSize={20}
+        />
         {isMyMemo && (
-          <div className="flex">
+          <div className="flex ml-2">
             <button onClick={() => setIsActive((pre) => !pre)}>
               <Image src={more} alt="more" />
             </button>
@@ -49,7 +66,7 @@ export default function MemoViewerHeader({
                 className="hover:bg-gray-200 p-2 rounded-t-lg"
                 onClick={() => {
                   setIsActive(false);
-                  router.push(`/create/memo/${memoId}`);
+                  router.push(`/create/memo/?id=${memoId}`);
                   router.refresh();
                 }}
               >

@@ -7,7 +7,7 @@ import { searchMemos } from '@/service/memos';
 import CategoryBtn from '@/components/shared/btn/CategoryBtn';
 import MemosGrid from '../memo/MemosGrid';
 import { useDebounce } from '@/hooks/useDebounce';
-// import CategoryBtn from '../shared/btn/CategoryBtn';
+import { SEARCH_RESULT_TIME } from '@/utils/const';
 
 type Props = {
   searchString: string;
@@ -29,7 +29,7 @@ export default function SearchResultMemosContainer({
     setSelectedOrderType(orderBy);
   };
 
-  const tempSearchString = useDebounce(searchString, 1000);
+  const tempSearchString = useDebounce(searchString, SEARCH_RESULT_TIME);
 
   const init = async () => {
     const memos = await searchMemos(
@@ -49,13 +49,15 @@ export default function SearchResultMemosContainer({
     <div>
       <div className="flex gap-2 ml-1">
         <CategoryBtn
-          text="Hot🔥"
+          text="Hot"
           onClick={() => handleClick('hot')}
+          size="big"
           isSelected={selectedOrderType === 'hot'}
         />
         <CategoryBtn
-          text="New✨"
+          text="New"
           onClick={() => handleClick('new')}
+          size="big"
           isSelected={selectedOrderType === 'new'}
         />
       </div>

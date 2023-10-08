@@ -23,6 +23,13 @@ export type LoginFormData = {
   pw: string;
 };
 
+export type FindPasswrdFormData = {
+  email: string;
+  authCode: string;
+  pw: string;
+  confirmPw: string;
+};
+
 export type CheckUserResponse = {
   id: number;
   isLogin: boolean;
@@ -47,10 +54,14 @@ export type SignupResponse = {
 };
 
 export type UserInfo = {
+  userId: number;
   profileImageFilePath: string;
   nickname: string;
   introduce: string;
   userTags: string[];
+  followCnt: number;
+  followerCnt: number;
+  isFollowed: boolean;
 };
 
 export type HistoryItem = {
@@ -74,6 +85,18 @@ export type Period = 'day' | 'week' | 'month' | 'year';
 
 export type Orderby = 'hot' | 'new';
 
-export type PostType = 'memo' | 'question';
+export type PostType = 'memo' | 'question' | 'answer';
 
 export type ButtonSize = 'small' | 'medium' | 'big';
+
+export type ModalType = 'alert' | 'info';
+
+export type FindEmailResponse = {
+  email: string;
+  message: string;
+};
+
+export type ErrorResponse = {
+  code: number;
+  message: string;
+};

@@ -21,7 +21,7 @@ export default async function SignupSettingPage({ params: { slug } }: Props) {
 
   return (
     <section className="flex flex-col w-full items-center max-w-screen-sm mx-auto py-5 px-10 sm:px-16">
-      <Image src={logo} alt="logo" width={200} />
+      <Image src={logo} alt="logo" width={160} className="my-2" />
       <MyInfoForm userId={slug} isSignup={true} defaultTags={defaultTags} />
     </section>
   );

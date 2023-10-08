@@ -12,7 +12,7 @@ export default function MemoCardMain({
   memoDescription,
 }: Props) {
   return (
-    <Link href={`/memos/${memoId}`} className="w-full flex-1 ">
+    <Link href={`/memos/${memoId}`} className="w-full flex-1 " prefetch={false}>
       <h2 className="text-2xl text-soma-grey-70 font-extrabold my-3 line-clamp-2 break-all h-16">
         {memoTitle}
       </h2>

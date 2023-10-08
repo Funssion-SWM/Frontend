@@ -11,16 +11,13 @@ import { useRouter } from 'next/navigation';
 import { SignupFormData } from '@/types';
 import BlueBtn from '../shared/btn/BlueBtn';
 import IsValidBtn from '../shared/btn/IsValidBtn';
-import PromptgMessage from '../shared/PromptMessage';
 import {
   validateEmail,
   validateNickname,
   validatePassword,
 } from '@/service/validation';
-import { useMessage } from '@/hooks/useMessage';
-
-const INPUT_STYLE =
-  'border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow text-sm sm:text-base';
+import { BASIC_INPUT_STYLE } from '@/utils/tailwindcss';
+import { notifyToast } from '@/service/notification';
 
 export default function SignupForm() {
   const router = useRouter();
@@ -34,8 +31,6 @@ export default function SignupForm() {
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidCode, setIsValidCode] = useState(false);
   const [isValidNickname, setIsValidNickname] = useState(false);
-
-  const [messageProperty, showMessage] = useMessage();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
@@ -52,17 +47,17 @@ export default function SignupForm() {
         validateNickname(signupData.nickname)
       )
     ) {
-      showMessage('중복확인, 인증 처리에 문제가 있습니다.', 'fail');
+      notifyToast('중복확인, 인증 처리에 문제가 있습니다.', 'error');
       return;
     }
 
     if (!validatePassword(signupData.pw)) {
-      showMessage('비밀번호 형식에 맞지 않습니다.', 'fail');
+      notifyToast('비밀번호 형식에 맞지 않습니다.', 'error');
       return;
     }
 
     if (signupData.pw !== signupData.confirmPw) {
-      showMessage('비밀번호가 같지 않습니다.', 'fail');
+      notifyToast('비밀번호가 같지 않습니다.', 'error');
       return;
     }
 
@@ -75,49 +70,54 @@ export default function SignupForm() {
   };
 
   const handleIsValidEmail = () => {
-    if (!validateEmail(signupData.email)) {
-      showMessage('이메일 형식에 맞지 않습니다.', 'fail');
-      setIsValidNickname(false);
+    if (signupData.email.length === 0) {
+      notifyToast('이메일을 입력해주세요.', 'error');
+      setIsValidEmail(false);
       return;
     }
 
-    checkEmailAndSendCode(signupData.email).then((data) => {
+    if (!validateEmail(signupData.email)) {
+      notifyToast('이메일 형식에 맞지 않습니다', 'error');
+      setIsValidEmail(false);
+      return;
+    }
+
+    checkEmailAndSendCode(signupData.email, 'signup').then((data) => {
+      notifyToast(data.message, data.isSuccess ? 'success' : 'error');
       setIsValidCode(false);
-      showMessage(data.message, data.isSuccess ? 'success' : 'fail');
       setIsValidEmail(data.isSuccess ? true : false);
     });
   };
 
   const handleConfirmCode = () => {
     confirmCode(signupData.email, signupData.authCode).then((data) => {
-      showMessage(data.message, data.valid ? 'success' : 'fail');
+      notifyToast(data.message, data.valid ? 'success' : 'error');
       setIsValidCode(data.valid ? true : false);
     });
   };
 
   const handleIsValidNickname = () => {
     if (!validateNickname(signupData.nickname)) {
-      showMessage('닉네임 형식에 맞지 않습니다.', 'fail');
+      notifyToast('닉네임 형식에 맞지 않습니다.', 'error');
       setIsValidNickname(false);
       return;
     }
 
     checkNickname(signupData.nickname).then((data) => {
-      showMessage(data.message, data.valid ? 'success' : 'fail');
+      notifyToast(data.message, data.valid ? 'success' : 'error');
       setIsValidNickname(data.valid ? true : false);
     });
   };
 
   return (
     <form className="flex flex-col w-full" onSubmit={handleSubmit}>
-      <PromptgMessage property={messageProperty} />
       <div className="flex flex-col my-1">
         <label htmlFor="email" className="text-xs sm:text-sm">
           이메일
         </label>
         <div className="flex items-center">
           <input
-            className={INPUT_STYLE}
+            className={BASIC_INPUT_STYLE}
             type="email"
             id="email"
             name="email"
@@ -142,7 +142,7 @@ export default function SignupForm() {
           </label>
           <div className="flex items-center">
             <input
-              className={INPUT_STYLE}
+              className={BASIC_INPUT_STYLE}
               type="text"
               id="authCode"
               name="authCode"
@@ -167,7 +167,7 @@ export default function SignupForm() {
         </label>
         <div className="flex items-center">
           <input
-            className={INPUT_STYLE}
+            className={BASIC_INPUT_STYLE}
             type="text"
             id="nickname"
             name="nickname"
@@ -188,7 +188,7 @@ export default function SignupForm() {
           비밀번호
         </label>
         <input
-          className={INPUT_STYLE}
+          className={BASIC_INPUT_STYLE}
           type="password"
           id="pw"
           name="pw"
@@ -203,7 +203,7 @@ export default function SignupForm() {
           비밀번호 확인
         </label>
         <input
-          className={INPUT_STYLE}
+          className={BASIC_INPUT_STYLE}
           type="password"
           id="confirmPw"
           name="confirmPw"

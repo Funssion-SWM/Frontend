@@ -4,7 +4,7 @@ import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import MeDraftContainer from '@/components/me/MeDraftContainer';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { cookies } from 'next/headers';
-import { ACCESS_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { Metadata } from 'next';
 
 type Props = {
@@ -14,7 +14,9 @@ type Props = {
 };
 
 export default async function MeDraftPage({ params: { slug } }: Props) {
-  const cookie = cookies().get(ACCESS_TOKEN)?.value;
+  const accessToken = cookies().get(ACCESS_TOKEN)?.value;
+  const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
+  const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
 
   const memosDraftData = getMemosDraftsByUserId(slug);
   const myData = checkUser(cookie);

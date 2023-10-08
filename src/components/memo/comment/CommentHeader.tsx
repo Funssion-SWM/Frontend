@@ -1,10 +1,8 @@
 import Image from 'next/image';
 import basicProfileImg from '@/assets/profile.svg';
 import Link from 'next/link';
-import fillHeart from '@/assets/icons/heart_fill.svg';
-import emptyHeart from '@/assets/icons/heart_empty.svg';
-import { useState } from 'react';
-import { likeComment, unlikeComment } from '@/service/like';
+import LikeBox from '@/components/shared/LikeBox';
+import { formatDate } from '@/service/time';
 
 type Props = {
   commentId: number;
@@ -27,31 +25,10 @@ export default function CommentHeader({
   likeNum,
   isRecomment,
 }: Props) {
-  const [currentLikeNum, setCurrentLikeNum] = useState(likeNum);
-  const [currentIsLike, setCurrentIsLike] = useState(isLike);
-
-  const handleClickLike = () => {
-    unlikeComment(commentId, isRecomment)
-      .then(() => {
-        setCurrentLikeNum((pre) => pre - 1);
-        setCurrentIsLike(false);
-      })
-      .catch((err) => console.error(err));
-  };
-
-  const handleClickUnlike = () => {
-    likeComment(commentId, isRecomment)
-      .then(() => {
-        setCurrentLikeNum((pre) => pre + 1);
-        setCurrentIsLike(true);
-      })
-      .catch((err) => console.error(err));
-  };
-
   return (
     <div className={`flex justify-between ${!isRecomment && 'px-3'}`}>
       <div className="flex items-center ">
-        <Link href={`/me/${authorId}`}>
+        <Link href={`/me/${authorId}`} prefetch={false}>
           <Image
             src={authorImagePath ?? basicProfileImg}
             alt="profileImg"
@@ -62,21 +39,18 @@ export default function CommentHeader({
         </Link>
         <div className="ml-2 text-xs">
           <div className="text-soma-grey-60">{authorName}</div>
-          <p className="text-xs text-soma-grey-49">{createdDate}</p>
+          <p className="text-xs text-soma-grey-49">
+            {formatDate(createdDate, 'YMDHM')}
+          </p>
         </div>
       </div>
-      <div className="flex items-center">
-        {currentIsLike ? (
-          <button onClick={handleClickLike}>
-            <Image src={fillHeart} alt="fill_heart" width={15} height={15} />
-          </button>
-        ) : (
-          <button onClick={handleClickUnlike}>
-            <Image src={emptyHeart} alt="empty_heart" width={15} height={15} />
-          </button>
-        )}
-        <span className="text-sm ml-1 text-soma-grey-49">{currentLikeNum}</span>
-      </div>
+      <LikeBox
+        likeNum={likeNum}
+        postId={commentId}
+        isLike={isLike}
+        postType={isRecomment ? 'recomment' : 'comment'}
+        iconSize={15}
+      />
     </div>
   );
 }

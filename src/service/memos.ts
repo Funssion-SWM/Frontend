@@ -1,7 +1,6 @@
-import { Orderby, Period } from '@/types';
+import { ErrorResponse, Orderby, Period } from '@/types';
 import { PostImageResponse } from '@/types/image';
 import { Memo, PostMemoData } from '@/types/memo';
-import { ACCESS_TOKEN } from '@/utils/const';
 
 export async function searchMemos(
   searchString: string,
@@ -30,10 +29,17 @@ export async function searchMemos(
 
 export async function getMemos(
   period: Period = 'month',
-  orderBy: Orderby = 'new'
+  orderBy: Orderby = 'new',
+  pageNum: number = 0,
+  memoCnt: number = 20
 ): Promise<Memo[]> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`);
-  const params = { period: period, orderBy: orderBy };
+  const params = {
+    period: period,
+    orderBy: orderBy,
+    pageNum: pageNum.toString(),
+    memoCnt: memoCnt.toString(),
+  };
   url.search = new URLSearchParams(params).toString();
 
   return fetch(url, { next: { revalidate: 0 } })
@@ -60,12 +66,20 @@ export async function getMemoById(
   id: number,
   cookie?: string | undefined
 ): Promise<Memo> {
-  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/${id}`, {
-    next: { revalidate: 0 },
-    headers: {
-      Cookie: `${ACCESS_TOKEN}=${cookie}`,
-    },
-  })
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/${id}`,
+    cookie
+      ? {
+          next: { revalidate: 0 },
+          headers: {
+            Cookie: `${cookie}`,
+          },
+        }
+      : {
+          next: { revalidate: 0 },
+          credentials: 'include',
+        }
+  )
     .then((res) => {
       if (!res.ok) throw new Error('error');
       return res.json();
@@ -76,7 +90,7 @@ export async function getMemoById(
 export async function createOrUpdateMemo(
   url: string,
   bodyData: PostMemoData
-): Promise<Memo> {
+): Promise<Memo & ErrorResponse> {
   return fetch(url, {
     method: 'POST',
     headers: {
@@ -84,15 +98,12 @@ export async function createOrUpdateMemo(
     },
     credentials: 'include',
     body: JSON.stringify(bodyData),
-  }).then((res) => {
-    if (!res.ok) {
-      throw new Error('error');
-    }
-    return res.json();
-  });
+  })
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 }
 
-export async function deleteMemo(id: number) {
+export async function deleteMemo(id: number): Promise<void & ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${id}`,
     {
@@ -100,15 +111,11 @@ export async function deleteMemo(id: number) {
       credentials: 'include',
     }
   )
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('error');
-      }
-    })
+    .then((res) => res.json())
     .catch(console.error);
 }
 
-export async function postImage(
+export async function postImageInMemo(
   memoId: number,
   image: File
 ): Promise<PostImageResponse> {
@@ -123,8 +130,11 @@ export async function postImage(
     }
   )
     .then((res) => {
-      if (!res.ok) throw new Error('error!!');
       return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+      return data;
     })
     .catch(console.error);
 }

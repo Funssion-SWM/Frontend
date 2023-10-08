@@ -1,5 +1,3 @@
-'use client';
-
 import { Comment } from '@/types/comment';
 import { deleteComeent, updateComment } from '@/service/comments';
 import { useRouter } from 'next/navigation';
@@ -9,17 +7,20 @@ import WhiteBtn from '@/components/shared/btn/WhiteBtn';
 import { ModalContext } from '@/context/ModalProvider';
 import RecommentContainer from '@/components/memo/recomment/RecommentContainer';
 import CommentHeader from './CommentHeader';
+import { notifyToast } from '@/service/notification';
 
 type Props = {
   commentProperty: Comment;
   isMyComment: boolean;
   userId: number;
+  onClick: () => void;
 };
 
 export default function CommentItem({
   commentProperty,
   isMyComment,
   userId,
+  onClick,
 }: Props) {
   const {
     id,
@@ -41,7 +42,7 @@ export default function CommentItem({
   const router = useRouter();
 
   return (
-    <div className="w-full border-b-2 border-soma-grey-30 pt-3">
+    <div className="w-full border-b-[0.5px] border-soma-grey-49 pt-3">
       <CommentHeader
         commentId={id}
         authorId={authorId}
@@ -63,7 +64,7 @@ export default function CommentItem({
           autoFocus
         />
       ) : (
-        <p className="px-3 text-sm my-2 text-soma-grey-60 w-[300px] break-all">
+        <p className="px-3 text-sm my-2 text-soma-grey-60 w-full break-all">
           {commentText}
         </p>
       )}
@@ -91,7 +92,14 @@ export default function CommentItem({
               <button
                 onClick={() => {
                   open('댓글을 삭제하시겠습니까?', () => {
-                    deleteComeent(id).then(() => router.refresh());
+                    deleteComeent(id).then((res) => {
+                      if (res.code) {
+                        notifyToast('삭제에 실패했습니다.', 'error');
+                        return;
+                      }
+                      onClick();
+                      router.refresh();
+                    });
                   });
                 }}
               >
@@ -116,8 +124,13 @@ export default function CommentItem({
                     window.alert('댓글을 작성해주세요');
                     return;
                   }
-                  updateComment(id, updatedText).then(() => {
+                  updateComment(id, updatedText).then((res) => {
+                    if (res.code) {
+                      notifyToast('등록에 실패했습니다.', 'error');
+                      return;
+                    }
                     setIsEditMode(false);
+                    onClick();
                     router.refresh();
                   });
                 }}

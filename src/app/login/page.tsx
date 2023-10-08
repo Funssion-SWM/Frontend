@@ -12,26 +12,33 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <section className="relative flex flex-col w-full items-center max-w-screen-sm mx-auto mt-40 py-5 px-10 sm:px-32">
+    <section className="relative flex flex-col w-full items-center max-w-screen-sm mx-auto mt-32 py-5 px-10 sm:px-32">
       <Link
         href="/memos"
         className="absolute top-2 right-4 text-soma-grey-50 text-sm sm:text-base"
       >
         메인으로
       </Link>
-      <Image src={logo} alt="logo" width={200} />
+      <Image src={logo} alt="logo" width={200} className="my-5" />
       <LoginForm />
       <GoogleLoginBtn />
-      <div className="flex items-center mt-7">
-        <p className="text-soma-grey-50 mr-3 text-xs sm:text-sm">
-          계정이 없으신가요?
-        </p>
-        <Link
-          href="/signup"
-          className="self-end my-2 font-semibold text-soma-blue-50 text-sm sm:text-base"
-        >
-          회원가입하기
-        </Link>
+      <div className="flex flex-col items-center mt-7">
+        <div className="flex items-center ">
+          <p className="text-soma-grey-50 mr-3 text-xs sm:text-sm">
+            계정이 없으신가요?
+          </p>
+          <Link
+            href="/signup"
+            className="self-end my-2 font-semibold text-soma-blue-50 text-sm sm:text-base"
+          >
+            회원가입하기
+          </Link>
+        </div>
+        <div className="flex text-soma-grey-50 text-xs sm:text-sm gap-2">
+          <Link href="/find/email">이메일 찾기</Link>
+          <p>|</p>
+          <Link href="/find/password">비밀번호 변경</Link>
+        </div>
       </div>
     </section>
   );

@@ -11,20 +11,33 @@ import { useRouter } from 'next/navigation';
 import BlueBtn from './btn/BlueBtn';
 import { ModalContext } from '@/context/ModalProvider';
 import logo from '@/assets/inforum_logo.png';
+import { useScrollDirection } from '@/hooks/useScrollDirection';
+import { CreationModalContext } from '@/context/CreationModalProvider';
 
 type Props = {
   isLogin: boolean;
   profileImageFilePath: string | undefined;
+  currentPage?: 'memos' | 'questions';
 };
 
-export default function Header({ isLogin, profileImageFilePath }: Props) {
+export default function Header({
+  isLogin,
+  profileImageFilePath,
+  currentPage,
+}: Props) {
   const router = useRouter();
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const { open } = useContext(ModalContext);
+  const { openCreationModal } = useContext(CreationModalContext);
+  const scrollDirection = useScrollDirection();
 
   return (
-    <header className="border-b-[1px] border-soma-grey-40 sticky top-0 bg-white z-10 ">
+    <header
+      className={`sticky top-0 bg-white z-10 transition-all ease-in-out duration-300 ${
+        scrollDirection === 'down' && 'opacity-0 invisible'
+      }`}
+    >
       <div className="flex justify-between items-center py-4 px-5 max-w-screen-xl m-auto h-[70px]">
         <Image
           src={logo}
@@ -36,6 +49,22 @@ export default function Header({ isLogin, profileImageFilePath }: Props) {
           }}
           className="cursor-pointer"
         />
+        <div className="flex gap-4 font-semibold text-soma-grey-50 sm:text-lg">
+          <Link
+            href="/memos"
+            className={`${currentPage === 'memos' && 'text-soma-blue-40'}`}
+            prefetch={false}
+          >
+            Memos
+          </Link>
+          <Link
+            href="/questions"
+            className={`${currentPage === 'questions' && 'text-soma-blue-40'}`}
+            prefetch={false}
+          >
+            Questions
+          </Link>
+        </div>
         {isLogin ? (
           <nav className="flex items-center gap-3 relative" ref={dropdownRef}>
             <button onClick={() => router.push('/search/form')}>
@@ -45,7 +74,6 @@ export default function Header({ isLogin, profileImageFilePath }: Props) {
                 alt="search_icon"
               />
             </button>
-
             <button onClick={() => setIsActive((pre) => !pre)}>
               <Image
                 src={profileImageFilePath ?? basicProfileImg}
@@ -102,15 +130,24 @@ export default function Header({ isLogin, profileImageFilePath }: Props) {
             <BlueBtn
               text={'글쓰기'}
               onClick={() => {
-                router.push('/create/memo');
+                openCreationModal();
                 setIsActive(false);
               }}
             />
           </nav>
         ) : (
-          <Link href="/login">
-            <BlueBtn text="로그인" onClick={() => {}} />
-          </Link>
+          <nav className="flex items-center gap-3">
+            <button onClick={() => router.push('/search/form')}>
+              <Image
+                className="cursor-pointer"
+                src={searchIcon}
+                alt="search_icon"
+              />
+            </button>
+            <Link href="/login">
+              <BlueBtn text="로그인" onClick={() => {}} />
+            </Link>
+          </nav>
         )}
       </div>
     </header>

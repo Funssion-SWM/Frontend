@@ -9,6 +9,7 @@ import {
   updateRecomment,
 } from '@/service/comments';
 import CommentHeader from '../comment/CommentHeader';
+import { notifyToast } from '@/service/notification';
 
 type Props = {
   commentProperty: Comment;
@@ -39,7 +40,7 @@ export default function RecommentItem({
   const { open } = useContext(ModalContext);
 
   return (
-    <div className="w-full border-t-2 border-soma-grey-30 p-3 pl-6 bg-soma-grey-20">
+    <div className="w-full border-b-[0.5px] border-soma-grey-49 p-3 pl-7 ">
       <CommentHeader
         commentId={id}
         authorId={authorId}
@@ -77,7 +78,11 @@ export default function RecommentItem({
               <button
                 onClick={() => {
                   open('답글을 삭제하시겠습니까?', () => {
-                    deleteRecomeent(id).then(async () => {
+                    deleteRecomeent(id).then(async (res) => {
+                      if (res.code) {
+                        notifyToast('삭제에 실패했습니다.', 'error');
+                        return;
+                      }
                       const recomments = await getRecommentsByCommentId(
                         commentId
                       );
@@ -107,7 +112,11 @@ export default function RecommentItem({
                     window.alert('댓글을 작성해주세요');
                     return;
                   }
-                  updateRecomment(id, updatedText).then(async () => {
+                  updateRecomment(id, updatedText).then(async (res) => {
+                    if (res.code) {
+                      notifyToast('등록에 실패했습니다.', 'error');
+                      return;
+                    }
                     const recomments = await getRecommentsByCommentId(
                       commentId
                     );

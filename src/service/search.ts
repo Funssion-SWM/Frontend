@@ -19,10 +19,20 @@ export async function addSearchHistory(
 export async function getRecentSearchHistoryTop10(
   cookie?: string
 ): Promise<SearchHistory[]> {
-  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/search/history`, {
-    next: { revalidate: 0 },
-    headers: { Cookie: `${ACCESS_TOKEN}=${cookie}` },
-  })
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/search/history`,
+    cookie
+      ? {
+          next: { revalidate: 0 },
+          headers: {
+            Cookie: `${cookie}`,
+          },
+        }
+      : {
+          next: { revalidate: 0 },
+          credentials: 'include',
+        }
+  )
     .then((res) => {
       if (!res.ok) throw new Error('search history error 발생!');
       return res.json();
