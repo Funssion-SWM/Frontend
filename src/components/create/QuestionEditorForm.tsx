@@ -32,62 +32,9 @@ export default function QuestionEditorForm() {
   const [contents, setContents] = useState('');
   const [isQuestionLoading, setIsQuestionLoading] = useState(false);
 
-  // const temporarySaveCallbackForSavingImage = async () => {
-  //   return createOrUpdateMemo(
-  //     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos`,
-  //     {
-  //       memoTitle: 'temp',
-  //       memoDescription: 'temp',
-  //       memoText:
-  //         '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"temp"}]}]}',
-  //       memoColor: selectedColor,
-  //       memoTags: tags,
-  //       isTemporary: true,
-  //     }
-  //   ).then((data) => data.questionId);
-  // };
-
-  // const routingAfterUploadImage = (questionId: number) => {
-  //   router.push(`/create/memo?id=${questionId}`);
-  // };
-
-  // const isInitialMount = useRef(true);
-  // // questionId가 변경되면 실행 for 이미지 임시저장
-  // useEffect(() => {
-  //   if (isInitialMount.current) {
-  //     isInitialMount.current = false;
-  //   } else {
-  //     console.log('hello');
-  //     if (questionId) {
-  //       const memoDescription = getDescription(contents);
-  //       createOrUpdateMemo(
-  //         `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${questionId}`,
-  //         {
-  //           memoTitle: title,
-  //           memoDescription,
-  //           memoText: contents,
-  //           memoColor: selectedColor,
-  //           memoTags: tags,
-  //           isTemporary: true,
-  //         }
-  //       );
-  //     }
-  //   }
-  // }, [questionId]);
-
   const editor = useEditor({
-    extensions: handleTiptapExtensions(
-      'question',
-      questionId
-      // temporarySaveCallbackForSavingImage,
-      // (questionId: number) => routingAfterUploadImage(questionId)
-    ),
-    editorProps: handleTiptapEditorProps(
-      'question',
-      questionId
-      // temporarySaveCallbackForSavingImage,
-      // (questionId: number) => routingAfterUploadImage(questionId)
-    ),
+    extensions: handleTiptapExtensions('question', questionId),
+    editorProps: handleTiptapEditorProps('question', questionId),
     autofocus: questionId ? 'end' : false,
     onCreate: async (e) => {
       if (questionId)

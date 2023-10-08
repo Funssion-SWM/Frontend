@@ -212,7 +212,6 @@ const getSuggestionItems = (
         input.type = 'file';
         input.accept = 'image/*';
         input.onchange = async () => {
-          console.log(postId);
           if (input.files?.length) {
             const file = input.files[0];
             const pos = editor.view.state.selection.from;

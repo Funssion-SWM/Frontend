@@ -134,9 +134,5 @@ export async function postImageInMemo(
     .then((res) => {
       return res.json();
     })
-    .then((data) => {
-      console.log(data);
-      return data;
-    })
     .catch(console.error);
 }
