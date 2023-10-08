@@ -101,7 +101,7 @@ export default function AnswerCardHeader({
                 <Image src={more} alt="more" />
               </button>
               <nav
-                className={`absolute top-6 right-0 bg-white flex flex-col gap-1 rounded-lg shadow-inner ${
+                className={`absolute top-6 right-0 bg-white flex flex-col z-10 gap-1 rounded-lg shadow-inner ${
                   isActive ? 'visible' : 'invisible'
                 }`}
               >
