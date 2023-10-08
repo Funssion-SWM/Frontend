@@ -97,7 +97,7 @@ export default function MemoSideBar({
               )}
               <Link
                 href={`/create/question?memoId=${memoId}`}
-                className="absolute bg-white bottom-3 right-3 text-sm rounded-2xl text-soma-grey-60 border-[0.5px] border-soma-grey-49 px-2 py-1"
+                className="absolute bg-white bottom-3 right-3 text-sm rounded-2xl text-soma-grey-60 border-[0.5px] border-soma-grey-49 px-2 py-1 hover:bg-soma-grey-25 transition-all"
               >
                 질문하기
               </Link>
