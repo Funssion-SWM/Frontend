@@ -17,17 +17,16 @@ export default function RecommentForm({
 }: Props) {
   const [recommentText, setRecommentText] = useState('');
   const router = useRouter();
-  const formRef = useRef<HTMLFormElement | null>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key == 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      formRef.current?.requestSubmit();
+      handleSubmit();
     }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = (e?: FormEvent<HTMLFormElement>) => {
+    e?.preventDefault();
     if (recommentText === '') {
       notifyToast('내용을 작성해주세요', 'warning');
       return;
@@ -49,11 +48,7 @@ export default function RecommentForm({
   };
 
   return (
-    <form
-      className="flex w-full text-[13px]"
-      onSubmit={handleSubmit}
-      ref={formRef}
-    >
+    <form className="flex w-full text-[13px]" onSubmit={handleSubmit}>
       <textarea
         id="recomment"
         name="recomment"

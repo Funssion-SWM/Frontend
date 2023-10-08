@@ -13,17 +13,9 @@ type Props = {
 export default function CommentForm({ postId, postType, onClick }: Props) {
   const [commentText, setCommentText] = useState('');
   const router = useRouter();
-  const formRef = useRef<HTMLFormElement | null>(null);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key == 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      formRef.current?.requestSubmit();
-    }
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = (e?: FormEvent<HTMLFormElement>) => {
+    e?.preventDefault();
     if (commentText === '') {
       notifyToast('내용을 작성해주세요', 'warning');
       return;
@@ -42,12 +34,15 @@ export default function CommentForm({ postId, postType, onClick }: Props) {
     );
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key == 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
   return (
-    <form
-      className="flex w-full text-[13px]"
-      onSubmit={handleSubmit}
-      ref={formRef}
-    >
+    <form className="flex w-full text-[13px]" onSubmit={handleSubmit}>
       <textarea
         id="comment"
         name="comment"
