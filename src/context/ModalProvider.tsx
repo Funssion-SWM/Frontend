@@ -31,12 +31,12 @@ export default function ModalProvider({ children }: Props) {
     setOnSuccess(() => {
       return callback;
     });
-    document.body.style.overflow = 'hidden';
+    // document.body.style.overflow = 'hidden';
   };
 
   const close = () => {
     setIsOpen(false);
-    document.body.style.overflow = 'unset';
+    // document.body.style.overflow = 'unset';
   };
 
   return (
