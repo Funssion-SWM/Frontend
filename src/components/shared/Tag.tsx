@@ -12,8 +12,8 @@ export default function Tag({ tagText, onClick, isSelected }: Props) {
   return (
     <div
       className={`cursor-pointer py-1 px-3 rounded-2xl ${
-        selected ? 'bg-soma-grey-40 ' : 'bg-soma-grey-25'
-      } text-soma-blue-50 text-sm sm:text-base`}
+        selected ? 'bg-soma-grey-40 ' : 'bg-soma-grey-20'
+      } text-soma-blue-40 text-sm sm:text-base`}
       onClick={() => {
         if (onClick(selected)) setSelected((pre) => !pre);
       }}
