@@ -19,8 +19,8 @@ export default function AnswerForm({ questionId }: Props) {
   const router = useRouter();
 
   return (
-    <div className="my-10">
-      <div className="flex justify-between items-center m-2">
+    <div className="my-10 mx-2 sm:mx-0">
+      <div className="flex justify-between items-center my-2">
         <p className="sm:text-xl text-soma-grey-60 font-semibold">답변 작성</p>
         <BlueBtn
           text="등록"

@@ -68,7 +68,9 @@ export default function AnswerCardHeader({
           />
         </Link>
         <div className="ml-2">
-          <h4 className="text-soma-grey-60 font-medium">{authorName}</h4>
+          <h4 className="text-soma-grey-60 font-medium text-xs sm:text-base">
+            {authorName}
+          </h4>
           <RelativeDate date={createdDate} type="YMDHM" />
         </div>
       </div>

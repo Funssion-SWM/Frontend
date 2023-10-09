@@ -33,14 +33,14 @@ export default function QuestionCard({
       <div
         className={`${
           solved
-            ? 'bg-soma-blue-40 text-soma-green font-medium'
+            ? 'bg-soma-blue-40 text-soma-white font-medium'
             : 'bg-soma-grey-30 text-soma-grey-49'
-        } absolute top-0 left-0 h-full w-14 ${
+        } absolute top-0 left-0 h-full w-14 text-[11px] sm:text-base ${
           size === 'big' && 'sm:w-20'
         } flex flex-col justify-center items-center`}
       >
-        {solved && <BsCheckLg className="w-10 h-10" />}
-        {solved && <p>solved</p>}
+        {solved && <BsCheckLg className="w-10 h-10 text-soma-green" />}
+        <p>{solved ? 'solved' : 'unsolved'}</p>
       </div>
       <div
         className={`flex flex-col grow ml-14 ${size === 'big' && 'sm:ml-20'}`}
