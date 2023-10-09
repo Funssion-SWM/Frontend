@@ -59,7 +59,8 @@ export async function checkUser(
       ? {
           next: { revalidate: 0 },
           headers: {
-            Cookie: `${cookie}`,
+            // Cookie: `${cookie}`,
+            Cookie: "accessToken=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMSIsImF1dGgiOiIiLCJleHAiOjE2OTY4Mjk4NzB9.-TMvjDM40kHc_De-KdAmtjK6a9EQ5nL3zVzl0v5NevlXSSFir6tA8S4Xj_sjaF_0kxdPbbYYpHg2UGXwzuVmLQ"
           },
         }
       : {

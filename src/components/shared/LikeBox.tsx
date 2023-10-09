@@ -50,7 +50,7 @@ export default function LikeBox({
         notifyToast(res.message, 'error');
         return;
       }
-      setCurrentLikeNum((pre) => pre - 1);
+      setCurrentLikeNum(isLike ? likeNum - 1 : likeNum);
       setCurrentIsLike(false);
     });
   }
@@ -79,7 +79,7 @@ export default function LikeBox({
         notifyToast(res.message, 'error');
         return;
       }
-      setCurrentLikeNum((pre) => pre + 1);
+      setCurrentLikeNum(isLike ? likeNum : likeNum + 1);
       setCurrentIsLike(true);
     });
   }
