@@ -94,6 +94,7 @@ export default function QuestionEditorForm() {
             notifyToast(res.message, 'error');
             return;
           }
+          notifyToast('성공적으로 등록되었습니다.', 'success');
           router.push(`/questions/${questionId}`);
           router.refresh();
         })
@@ -105,6 +106,7 @@ export default function QuestionEditorForm() {
             notifyToast(res.message, 'error');
             return;
           }
+          notifyToast('성공적으로 등록되었습니다.', 'success');
           router.push(`/questions`);
           router.refresh();
         });

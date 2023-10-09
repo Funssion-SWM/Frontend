@@ -293,8 +293,10 @@ export default function EditorForm() {
       }
 
       if (saveMode === 'temporary') {
+        notifyToast('임시 저장되었습니다.', 'success');
         !memoId && router.push(`/create/memo?id=${data.memoId}`);
       } else {
+        notifyToast('성공적으로 등록되었습니다.', 'success');
         memoId ? router.push(`/memos/${memoId}`) : router.push('/memos');
       }
       router.refresh();
