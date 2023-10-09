@@ -35,8 +35,8 @@ export default function QuestionCard({
           solved
             ? 'bg-soma-blue-40 text-soma-white font-medium'
             : 'bg-soma-grey-30 text-soma-grey-49'
-        } absolute top-0 left-0 h-full w-14 text-[11px] sm:text-base ${
-          size === 'big' && 'sm:w-20'
+        } absolute top-0 left-0 h-full w-14 text-[11px] ${
+          size === 'big' && 'sm:w-20 sm:text-base'
         } flex flex-col justify-center items-center`}
       >
         {solved && <BsCheckLg className="w-10 h-10 text-soma-green" />}
