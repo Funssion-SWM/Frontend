@@ -62,3 +62,13 @@ export default async function QuestionPage({ params: { slug } }: Props) {
     </section>
   );
 }
+
+export async function generateMetadata({ params: { slug } }: Props) {
+  const questionId = Number(slug);
+  const { title, description } = await getQuestionById(questionId);
+
+  return {
+    title: title,
+    description: description.slice(0, 160),
+  };
+}
