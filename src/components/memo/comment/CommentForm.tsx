@@ -13,6 +13,7 @@ type Props = {
 export default function CommentForm({ postId, postType, onClick }: Props) {
   const [commentText, setCommentText] = useState('');
   const router = useRouter();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = (e?: FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
@@ -37,12 +38,12 @@ export default function CommentForm({ postId, postType, onClick }: Props) {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key == 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      handleSubmit();
+      formRef.current?.requestSubmit();
     }
   };
 
   return (
-    <form className="flex w-full text-[13px]" onSubmit={handleSubmit}>
+    <form className="flex w-full text-[13px]" onSubmit={handleSubmit} ref={formRef}>
       <textarea
         id="comment"
         name="comment"
