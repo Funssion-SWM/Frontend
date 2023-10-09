@@ -16,8 +16,8 @@ export default function RelativeDate({ date, type }: Props) {
   }, []);
 
   return (
-    isClient && (
-      <p className="text-xs text-soma-grey-49">{formatDate(date, type)}</p>
-    )
+    <p className="text-xs text-soma-grey-49">
+      {isClient ? formatDate(date, type) : 'loading...'}
+    </p>
   );
 }
