@@ -9,11 +9,13 @@ import { notifyToast } from '@/service/notification';
 type Props = {
   memo: Memo;
   delBtnIsVisible?: boolean;
+  isMine?: boolean;
 };
 
 export default function MemoCardTemporary({
   memo: { memoId, memoTitle, memoDescription, memoColor, createdDate },
   delBtnIsVisible = true,
+  isMine = false,
 }: Props) {
   const { open } = useContext(ModalContext);
   const router = useRouter();
@@ -44,7 +46,7 @@ export default function MemoCardTemporary({
           {memoDescription}
         </p>
       </Link>
-      {delBtnIsVisible && (
+      {delBtnIsVisible && isMine && (
         <button
           className="absolute right-4 bottom-4 text-sm text-soma-grey-49"
           onClick={() =>
