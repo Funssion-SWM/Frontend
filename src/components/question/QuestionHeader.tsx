@@ -33,7 +33,7 @@ export default function QuestionHeader({
   const handleDelete = () =>
     deleteQuestion(questionId).then((res) => {
       if (res?.code) {
-        notifyToast('삭제에 실패했습니다.', 'error');
+        notifyToast(res.message, 'error');
         return;
       }
       router.push('/questions');
