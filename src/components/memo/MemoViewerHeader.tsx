@@ -35,6 +35,7 @@ export default function MemoViewerHeader({
         notifyToast(res.message, 'error');
         return;
       }
+      notifyToast('메모가 삭제되었습니다.', 'error');
       router.push('/memos');
       router.refresh();
     });

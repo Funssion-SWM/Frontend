@@ -97,6 +97,7 @@ export default function CommentItem({
                         notifyToast(res.message, 'error');
                         return;
                       }
+                      notifyToast(res.message, 'success');
                       onClick();
                       router.refresh();
                     });

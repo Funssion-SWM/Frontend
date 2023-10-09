@@ -36,6 +36,7 @@ export default function QuestionHeader({
         notifyToast(res.message, 'error');
         return;
       }
+      notifyToast(res.message, 'success');
       router.push('/questions');
       router.refresh();
     });

@@ -45,6 +45,7 @@ export default function RecommentForm({
         setIsCreating(false);
         return;
       }
+      notifyToast(res.message, 'success');
       const recomments = await getRecommentsByCommentId(parentCommentId);
       onSubmit(recomments);
       setRecommentText('');
@@ -53,7 +54,11 @@ export default function RecommentForm({
   };
 
   return (
-    <form className="flex w-full text-[13px]" onSubmit={handleSubmit} ref={formRef}>
+    <form
+      className="flex w-full text-[13px]"
+      onSubmit={handleSubmit}
+      ref={formRef}
+    >
       <textarea
         id="recomment"
         name="recomment"

@@ -83,6 +83,7 @@ export default function RecommentItem({
                         notifyToast(res.message, 'error');
                         return;
                       }
+                      notifyToast(res.message, 'success');
                       const recomments = await getRecommentsByCommentId(
                         commentId
                       );

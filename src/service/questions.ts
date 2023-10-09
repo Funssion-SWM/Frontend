@@ -1,4 +1,4 @@
-import { ErrorResponse } from '@/types';
+import { ErrorResponse, IsSuccessResponse } from '@/types';
 import { PostImageResponse } from '@/types/image';
 import { PostQuestionData, Question, QuestionOrderBy } from '@/types/question';
 
@@ -89,7 +89,9 @@ export async function updateQuestion(
     .catch(console.error);
 }
 
-export async function deleteQuestion(id: number): Promise<ErrorResponse> {
+export async function deleteQuestion(
+  id: number
+): Promise<IsSuccessResponse & ErrorResponse> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions/${id}`, {
     method: 'DELETE',
     credentials: 'include',

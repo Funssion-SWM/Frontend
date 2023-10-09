@@ -31,6 +31,7 @@ export default function CommentForm({ postId, postType, onClick }: Props) {
           setIsCreating(false);
           return;
         }
+        notifyToast(res.message, 'success');
         setCommentText('');
         setIsCreating(false);
         onClick();
@@ -47,7 +48,11 @@ export default function CommentForm({ postId, postType, onClick }: Props) {
   };
 
   return (
-    <form className="flex w-full text-[13px]" onSubmit={handleSubmit} ref={formRef}>
+    <form
+      className="flex w-full text-[13px]"
+      onSubmit={handleSubmit}
+      ref={formRef}
+    >
       <textarea
         id="comment"
         name="comment"
