@@ -29,15 +29,19 @@ export default function QuestionCardHeader({
           <Image
             src={imagePath ?? basicProfileImg}
             alt="profileImg"
-            width={size === 'big' ? 36 : 28}
-            height={size === 'big' ? 36 : 28}
-            className={`rounded-full object-cover ${
-              size === 'big' ? 'w-9 h-9' : 'w-7 h-7'
-            }`}
+            width={32}
+            height={32}
+            className={'rounded-full object-cover w-8 h-8'}
           />
         </Link>
-        <div className={`ml-2 ${size === 'small' && 'text-xs'}`}>
-          <h4 className="text-soma-grey-60 font-medium">{authorName}</h4>
+        <div className={'ml-2'}>
+          <h4
+            className={`text-soma-grey-60 font-medium text-xs ${
+              size === 'big' && 'sm:text-base'
+            }`}
+          >
+            {authorName}
+          </h4>
           <RelativeDate date={createdDate} type="YMD" />
         </div>
       </div>

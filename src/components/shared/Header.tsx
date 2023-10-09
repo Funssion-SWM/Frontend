@@ -154,7 +154,7 @@ export default function Header({
           </nav>
         )}
       </div>
-      <div className="sm:hidden gap-4 font-semibold text-soma-grey-50 sm:text-lg flex justify-center">
+      <div className="sm:hidden gap-4 font-semibold text-soma-grey-50 sm:text-lg flex justify-center my-2">
         <Link
           href="/memos"
           className={`${
