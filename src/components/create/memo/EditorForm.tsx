@@ -32,6 +32,7 @@ export default function EditorForm() {
   const { openDrafts } = useContext(DraftsInModalContext);
 
   const memoId = Number(useSearchParams()?.get('id'));
+  const isFromDraftModal = useSearchParams()?.get('temp');
 
   const { complete, completion, isLoading, stop } = useCompletion({
     id: 'inforum',
@@ -86,6 +87,15 @@ export default function EditorForm() {
       isInitialMount.current = false;
     } else {
       if (memoId) {
+        if (isFromDraftModal === 'true') {
+          getMemoById(memoId).then((data) => {
+            setTitle(data.memoTitle);
+            setSelectedColor(data.memoColor);
+            setTags(data.memoTags);
+            editor?.commands.setContent(JSON.parse(data.memoText));
+          });
+          return;
+        }
         const memoDescription = getDescription(contents);
         createOrUpdateMemo(
           `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${memoId}`,

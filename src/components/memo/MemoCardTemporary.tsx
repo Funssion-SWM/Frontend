@@ -36,7 +36,7 @@ export default function MemoCardTemporary({
       <p className="text-soma-grey-50 text-sm">
         {createdDate.substring(0, 10)}
       </p>
-      <Link href={`/create/memo?id=${memoId}`} prefetch={false}>
+      <Link href={`/create/memo?id=${memoId}&temp=true`} prefetch={false}>
         <h2 className="text-2xl text-soma-grey-70 font-extrabold my-3 line-clamp-2 break-all h-16">
           {memoTitle}
         </h2>
