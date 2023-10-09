@@ -4,6 +4,7 @@ import basicProfileImg from '@/assets/profile.svg';
 import fillHeart from '@/assets/icons/heart_fill.svg';
 import { QuestionCardSize } from '@/types/question';
 import RelativeDate from '../shared/RelativeDate';
+import { azertMono } from '@/styles/fonts';
 
 type Props = {
   createdDate: string;
@@ -47,7 +48,9 @@ export default function QuestionCardHeader({
       </div>
       <div className="flex items-center">
         <Image src={fillHeart} alt="fill_heart" width={15} height={15} />
-        <span className="text-soma-grey-49 text-sm text-center ml-1">
+        <span
+          className={`text-soma-grey-49 text-sm text-center ml-1 ${azertMono.className} `}
+        >
           {likeNum}
         </span>
       </div>

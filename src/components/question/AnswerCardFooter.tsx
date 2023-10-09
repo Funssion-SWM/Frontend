@@ -7,6 +7,7 @@ import { useState } from 'react';
 import AnswerCommentContainer from './AnswerCommentContainer';
 import { dislike, like, undislike, unlike } from '@/service/like';
 import { notifyToast } from '@/service/notification';
+import { azertMono } from '@/styles/fonts';
 
 type Props = {
   repliesCount: number;
@@ -132,7 +133,7 @@ export default function AnswerCardFooter({
             ? '댓글 작성'
             : `${repliesCount}개의 댓글`}
         </button>
-        <div className="flex gap-2">
+        <div className={`flex gap-3 ${azertMono.className} text-soma-grey-60`}>
           <div className="flex">
             <button onClick={handleThumbUpClick}>
               {currentIsLike ? (

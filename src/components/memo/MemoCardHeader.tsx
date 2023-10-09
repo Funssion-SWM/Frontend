@@ -3,6 +3,7 @@ import basicProfileImg from '@/assets/profile.svg';
 import fillHeart from '../../assets/icons/heart_fill.svg';
 import Link from 'next/link';
 import RelativeDate from '../shared/RelativeDate';
+import { azertMono } from '@/styles/fonts';
 
 type Props = {
   createDate: string;
@@ -38,7 +39,9 @@ export default function MemoCardHeader({
       </div>
       <div className="flex items-center">
         <Image src={fillHeart} alt="fill_heart" width={16} height={16} />
-        <p className="text-soma-grey-49 text-xs w-5 text-center ml-0.5">
+        <p
+          className={`text-soma-grey-49 text-xs w-5 text-center ml-0.5 ${azertMono.className} `}
+        >
           {likes}
         </p>
       </div>
