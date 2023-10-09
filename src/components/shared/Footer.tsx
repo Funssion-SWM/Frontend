@@ -20,8 +20,22 @@ export default function Footer({ extraClass }: Props) {
               className="mr-7 sm:mb-0 sm:inline-block"
             />
             <div className="flex gap-5">
-              <button className="font-bold">이용약관</button>
-              <button className="font-bold">개인정보 처리 방침</button>
+              <a
+                href="https://honored-pint-49e.notion.site/1fe5366d8caf40b49dfc7a22a6b0320d"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold"
+              >
+                이용약관
+              </a>
+              <a
+                href="https://honored-pint-49e.notion.site/405818ae6a3d41d4894bfa7d223a5de4"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold"
+              >
+                개인정보 처리 방침
+              </a>
             </div>
           </p>
           <p className="mt-5 sm:mt-10">
@@ -29,13 +43,15 @@ export default function Footer({ extraClass }: Props) {
             <span>서울특별시 강남구 테헤란로 311 SW마에스트로 연수센터</span>
           </p>
           <p className="mt-5 sm:mt-3">
-            <span className="font-bold mr-2">Tel.</span>
-            <Link
+            <span className="font-bold mr-2">Channel.</span>
+            <a
               href="http://pf.kakao.com/_WxdeCG"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-soma-blue-50"
             >
               카카오톡 채널
-            </Link>
+            </a>
           </p>
         </div>
 
@@ -45,18 +61,26 @@ export default function Footer({ extraClass }: Props) {
             <span>dongwoo0307@naver.com</span>
           </p>
           <p className="mt-5 sm:mt-3">
-            <span className="font-bold mr-2">문의 구글폼</span>
-            <span>?</span>
+            <span className="font-bold mr-2">Form.</span>
+            <a
+              href="https://forms.gle/KSUMNMhubdPmTMxk8"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-soma-blue-50"
+            >
+              문의하기
+            </a>
           </p>
         </div>
 
         <div className="hidden sm:block mt-20 ml-auto">
-          <Link
+          <a
             href="http://pf.kakao.com/_WxdeCG"
-            className="text-soma-blue-50"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <Image src={kakao} alt="kakao" width={24} />
-          </Link>
+          </a>
         </div>
       </div>
       <p className="text-sm sm:text-base mt-5 sm:mt-10 px-4 text-[#888] max-w-screen-xl sm:mx-auto font-normal w-72 sm:w-auto mr-auto">
