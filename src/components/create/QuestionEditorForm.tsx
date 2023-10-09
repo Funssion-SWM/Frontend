@@ -73,8 +73,8 @@ export default function QuestionEditorForm() {
       return;
     }
 
-    if (title.length > 75) {
-      notifyToast('제목 수 제한 75자를 초과하였습니다!', 'warning');
+    if (title.length > 120) {
+      notifyToast('제목 수 제한 120자를 초과하였습니다!', 'warning');
       return;
     }
 
@@ -143,7 +143,7 @@ export default function QuestionEditorForm() {
           </div>
           <input
             type="text"
-            placeholder="제목을 입력해주세요."
+            placeholder="질문을 입력해주세요."
             name="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}

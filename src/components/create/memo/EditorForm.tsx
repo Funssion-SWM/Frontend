@@ -261,8 +261,8 @@ export default function EditorForm() {
       return;
     }
 
-    if (title.length > 75) {
-      notifyToast('제목 수 제한 75자를 초과하였습니다!', 'warning');
+    if (title.length > 120) {
+      notifyToast('제목 수 제한 120자를 초과하였습니다!', 'warning');
       return;
     }
 
