@@ -131,7 +131,7 @@ export async function registerUserInfo(
   introduce: string,
   tags: string[],
   isEmptyProfileImage: string
-) {
+): Promise<IsSuccessResponse & ErrorResponse> {
   const formdata = new FormData();
   formdata.append('isEmptyProfileImage', isEmptyProfileImage);
   if (image !== null) formdata.append('image', image);
@@ -145,10 +145,7 @@ export async function registerUserInfo(
       body: formdata,
     }
   )
-    .then((res) => {
-      if (!res.ok) throw new Error('error!!');
-      return res.json();
-    })
+    .then((res) => res.json())
     .catch(console.error);
 }
 
@@ -158,7 +155,7 @@ export async function updateUserInfo(
   introduce: string,
   tags: string[],
   isEmptyProfileImage: string
-) {
+): Promise<IsSuccessResponse & ErrorResponse> {
   const formdata = new FormData();
   formdata.append('isEmptyProfileImage', isEmptyProfileImage);
   if (image !== null) formdata.append('image', image);
@@ -172,10 +169,7 @@ export async function updateUserInfo(
       body: formdata,
     }
   )
-    .then((res) => {
-      if (!res.ok) throw new Error('error!!');
-      return res.json();
-    })
+    .then((res) => res.json())
     .catch(console.error);
 }
 

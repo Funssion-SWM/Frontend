@@ -18,6 +18,7 @@ import Link from 'next/link';
 import { checkUser, registerUserInfo, updateUserInfo } from '@/service/auth';
 import { UserInfo } from '@/types';
 import Tag from './shared/Tag';
+import { notifyToast } from '@/service/notification';
 
 type Props = {
   userId: number;
@@ -63,8 +64,13 @@ export default function MyInfoForm({
           intro,
           selectedtdTags,
           imageUrl === '' && imageFile === null ? 'true' : 'false'
-        ).then(() => {
+        ).then((res) => {
+          if (res.code) {
+            notifyToast(res.message, 'error');
+            return;
+          }
           checkUser().then((data) => {
+            notifyToast(res.message, 'success');
             router.push(data.isLogin ? '/memos' : '/login');
           });
         })
@@ -74,7 +80,12 @@ export default function MyInfoForm({
           intro,
           selectedtdTags,
           imageUrl === '' && imageFile === null ? 'true' : 'false'
-        ).then(() => {
+        ).then((res) => {
+          if (res.code) {
+            notifyToast(res.message, 'error');
+            return;
+          }
+          notifyToast;
           router.push(`/me/${userId}`);
         });
   };
