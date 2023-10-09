@@ -11,7 +11,7 @@ export async function follow(userId: string): Promise<ErrorResponse> {
     .then((res) => {
       if (!res.ok) return res.json();
     })
-    .catch((err) => console.log(err));
+    .catch(console.error);
 }
 
 export async function unfollow(userId: string): Promise<ErrorResponse> {
@@ -25,7 +25,7 @@ export async function unfollow(userId: string): Promise<ErrorResponse> {
     .then((res) => {
       if (!res.ok) return res.json();
     })
-    .catch((err) => console.log(err));
+    .catch(console.error);
 }
 
 export async function getFollowings(userId: string): Promise<UserInfo[]> {

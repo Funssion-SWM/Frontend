@@ -100,7 +100,7 @@ export async function createOrUpdateMemo(
     body: JSON.stringify(bodyData),
   })
     .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .catch(console.error);
 }
 
 export async function deleteMemo(id: number): Promise<ErrorResponse> {

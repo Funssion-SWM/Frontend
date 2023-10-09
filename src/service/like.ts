@@ -40,7 +40,7 @@ export async function like(
     .then((res) => {
       if (!res.ok) return res.json();
     })
-    .catch((err) => console.log(err));
+    .catch(console.error);
 }
 
 export async function unlike(
@@ -54,7 +54,7 @@ export async function unlike(
     .then((res) => {
       if (!res.ok) return res.json();
     })
-    .catch((err) => console.log(err));
+    .catch(console.error);
 }
 
 export async function dislike(
@@ -68,7 +68,7 @@ export async function dislike(
     .then((res) => {
       if (!res.ok) return res.json();
     })
-    .catch((err) => console.log(err));
+    .catch(console.error);
 }
 
 export async function undislike(
@@ -82,7 +82,7 @@ export async function undislike(
     .then((res) => {
       if (!res.ok) return res.json();
     })
-    .catch((err) => console.log(err));
+    .catch(console.error);
 }
 
 export async function likeComment(
@@ -97,7 +97,7 @@ export async function likeComment(
     }
   )
     .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .catch(console.error);
 }
 
 export async function unlikeComment(
@@ -112,5 +112,5 @@ export async function unlikeComment(
     }
   )
     .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .catch(console.error);
 }

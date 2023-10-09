@@ -5,8 +5,8 @@ type Props = {
 };
 
 export default function HistoryBox({ item }: Props) {
-  console.log(item);
-  const postCnt = item.answerCnt + item.memoCnt + item.questionCnt + item.blogCnt;
+  const postCnt =
+    item.answerCnt + item.memoCnt + item.questionCnt + item.blogCnt;
   const isWriteMemo = item.memoCnt != 0 ? 1 : 0;
   const isWriteQuestion = item.questionCnt != 0 ? 1 : 0;
   const isWriteAnswer = item.answerCnt != 0 ? 1 : 0;
@@ -22,14 +22,16 @@ export default function HistoryBox({ item }: Props) {
         }[(postCnt >= 4 && 4) || postCnt % 4]
       }`}
     >
-      <div className={`w-20 bg-gray-800 text-white absolute invisible group-hover:visible z-10 text-xs rounded-md p-1 ${
-        {
-          0: '-top-[40px]',
-          1: '-top-[40px]',
-          2: '-top-[56px]',
-          3: '-top-[72px]',
-        }[isWriteMemo + isWriteQuestion + isWriteAnswer]
-      }`}>
+      <div
+        className={`w-20 bg-gray-800 text-white absolute invisible group-hover:visible z-10 text-xs rounded-md p-1 ${
+          {
+            0: '-top-[40px]',
+            1: '-top-[40px]',
+            2: '-top-[56px]',
+            3: '-top-[72px]',
+          }[isWriteMemo + isWriteQuestion + isWriteAnswer]
+        }`}
+      >
         <p>{item.date}</p>
         {postCnt === 0 ? <p>{postCnt} Posts</p> : <></>}
         {isWriteMemo ? <p>{item.memoCnt} Memos</p> : <></>}
