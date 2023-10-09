@@ -302,15 +302,19 @@ export default function EditorForm() {
   };
 
   const edirotRef = useRef<HTMLDivElement>(null);
-  const [currentScrollHeight, setCurrentScrollHeight] = useState<number>(0);
+  const [preScrollHeight, setPreScrollHeight] = useState<number>(0);
   useEffect(() => {
     if (edirotRef.current && document.scrollingElement) {
-      if (currentScrollHeight < edirotRef.current.scrollHeight) {
-        document.scrollingElement.scrollTop = edirotRef.current.scrollHeight;
+      if (preScrollHeight < edirotRef.current.scrollHeight) {
+        document.scrollingElement.scrollTop +=
+          edirotRef.current.scrollHeight - preScrollHeight;
+      } else if (preScrollHeight > edirotRef.current.scrollHeight) {
+        document.scrollingElement.scrollTop +=
+          preScrollHeight - edirotRef.current.scrollHeight;
       }
-      setCurrentScrollHeight(edirotRef.current.scrollHeight);
+      setPreScrollHeight(edirotRef.current.scrollHeight);
     }
-  }, [editor?.state.selection, currentScrollHeight]);
+  }, [editor?.state.selection, preScrollHeight]);
 
   return (
     isMemoLoading && (
