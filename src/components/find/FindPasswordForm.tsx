@@ -40,7 +40,10 @@ export default function FindPasswordForm() {
     }
 
     if (!validatePassword(findPasswordData.pw)) {
-      notifyToast('비밀번호 형식에 맞지 않습니다.', 'error');
+      notifyToast(
+        '비밀번호 형식에 맞지 않습니다. 비빌번호 형식 : 8~15자리 (영어, 숫자, 특수문자(@$!%*#?&)) 포함)',
+        'error'
+      );
       return;
     }
 

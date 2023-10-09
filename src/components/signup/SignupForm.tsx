@@ -52,7 +52,10 @@ export default function SignupForm() {
     }
 
     if (!validatePassword(signupData.pw)) {
-      notifyToast('비밀번호 형식에 맞지 않습니다.', 'error');
+      notifyToast(
+        '비밀번호 형식에 맞지 않습니다. 비빌번호 형식 : 8~15자리 (영어, 숫자, 특수문자(@$!%*#?&)) 포함)',
+        'error'
+      );
       return;
     }
 
@@ -102,7 +105,10 @@ export default function SignupForm() {
 
   const handleIsValidNickname = () => {
     if (!validateNickname(signupData.nickname)) {
-      notifyToast('닉네임 형식에 맞지 않습니다.', 'error');
+      notifyToast(
+        '닉네임 형식에 맞지 않습니다. 닉네임 형식 : 4~14자리 (영어, 숫자 : 1자, 한글 : 2자)',
+        'error'
+      );
       setIsValidNickname(false);
       return;
     }

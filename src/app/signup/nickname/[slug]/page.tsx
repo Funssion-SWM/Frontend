@@ -23,7 +23,10 @@ export default function SignupNicknameSettingPage({ params: { slug } }: Props) {
 
   const handleIsValidNickname = () => {
     if (!validateNickname(nickname)) {
-      notifyToast('닉네임 형식에 맞지 않습니다.', 'error');
+      notifyToast(
+        '닉네임 형식에 맞지 않습니다. 닉네임 형식 : 4~14자리 (영어, 숫자 : 1자, 한글 : 2자)',
+        'error'
+      );
       setIsValidNickname(false);
       return;
     }
