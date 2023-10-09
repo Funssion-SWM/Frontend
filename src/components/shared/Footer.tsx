@@ -12,7 +12,7 @@ export default function Footer({ extraClass }: Props) {
     <footer className={`bg-soma-grey-25 py-10 ${extraClass}`}>
       <div className="flex flex-col sm:flex-row items-center px-4 sm:max-w-screen-xl m-auto text-soma-grey-70 text-xs sm:text-sm">
         <div className="flex flex-col w-full sm:w-auto">
-          <p className="flex items-center">
+          <div className="flex items-center">
             <Image
               src={logo}
               alt="logo"
@@ -37,12 +37,12 @@ export default function Footer({ extraClass }: Props) {
                 개인정보 처리 방침
               </a>
             </div>
-          </p>
-          <p className="mt-5 sm:mt-10">
+          </div>
+          <div className="mt-5 sm:mt-10">
             <span className="font-bold mr-2">Add.</span>
             <span>서울특별시 강남구 테헤란로 311 SW마에스트로 연수센터</span>
-          </p>
-          <p className="mt-5 sm:mt-3">
+          </div>
+          <div className="mt-5 sm:mt-3">
             <span className="font-bold mr-2">Channel.</span>
             <a
               href="http://pf.kakao.com/_WxdeCG"
@@ -52,15 +52,15 @@ export default function Footer({ extraClass }: Props) {
             >
               카카오톡 채널
             </a>
-          </p>
+          </div>
         </div>
 
         <div className="flex flex-col sm:ml-20 w-full sm:w-auto">
-          <p className="mt-5 sm:mt-20">
+          <div className="mt-5 sm:mt-20">
             <span className="font-bold mr-2">Mail.</span>
             <span>dongwoo0307@naver.com</span>
-          </p>
-          <p className="mt-5 sm:mt-3">
+          </div>
+          <div className="mt-5 sm:mt-3">
             <span className="font-bold mr-2">Form.</span>
             <a
               href="https://forms.gle/KSUMNMhubdPmTMxk8"
@@ -70,7 +70,7 @@ export default function Footer({ extraClass }: Props) {
             >
               문의하기
             </a>
-          </p>
+          </div>
         </div>
 
         <div className="hidden sm:block mt-20 ml-auto">
