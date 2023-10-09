@@ -15,7 +15,7 @@ export default function QuestionCardMain({
   size,
 }: Props) {
   return (
-    <Link href={`/questions/${questionId}`} className="my-2">
+    <Link href={`/questions/${questionId}`} className="my-3">
       <h2
         className={`${
           size === 'big' && 'sm:text-2xl'
@@ -26,7 +26,7 @@ export default function QuestionCardMain({
       <p
         className={`${
           size === 'big' && 'sm:text-base'
-        } text-sm text-soma-grey-60 line-clamp-2 mt-1 break-all hover:text-soma-blue-50 transition-all`}
+        } text-sm text-soma-grey-60 line-clamp-2 mt-2 break-all hover:text-soma-blue-50 transition-all`}
       >
         {questionDescription}
       </p>
