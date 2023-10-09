@@ -28,6 +28,7 @@ export default function CommentForm({ postId, postType, onClick }: Props) {
         if (res.code) {
           if (res.code === 401) router.push('/login');
           notifyToast(res.message, 'error');
+          setIsCreating(false);
           return;
         }
         setCommentText('');

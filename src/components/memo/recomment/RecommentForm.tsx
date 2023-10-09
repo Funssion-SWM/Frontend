@@ -16,12 +16,14 @@ export default function RecommentForm({
   onSubmit,
 }: Props) {
   const [recommentText, setRecommentText] = useState('');
+  const [isCreateing, setIsCreating] = useState(false);
   const router = useRouter();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key == 'Enter' && !e.shiftKey) {
+    if (e.key == 'Enter' && !e.shiftKey && !isCreateing) {
       e.preventDefault();
-      handleSubmit();
+      formRef.current?.requestSubmit();
     }
   };
 
@@ -31,6 +33,7 @@ export default function RecommentForm({
       notifyToast('내용을 작성해주세요', 'warning');
       return;
     }
+    setIsCreating(true);
     createRecomment({
       parentCommentId,
       authorId,
@@ -39,16 +42,18 @@ export default function RecommentForm({
       if (res.code) {
         if (res.code === 401) router.push('/login');
         notifyToast(res.message, 'error');
+        setIsCreating(false);
         return;
       }
       const recomments = await getRecommentsByCommentId(parentCommentId);
       onSubmit(recomments);
       setRecommentText('');
+      setIsCreating(false);
     });
   };
 
   return (
-    <form className="flex w-full text-[13px]" onSubmit={handleSubmit}>
+    <form className="flex w-full text-[13px]" onSubmit={handleSubmit} ref={formRef}>
       <textarea
         id="recomment"
         name="recomment"
