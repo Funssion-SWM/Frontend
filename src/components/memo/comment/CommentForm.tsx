@@ -12,6 +12,7 @@ type Props = {
 // onClick : client side에서 상태 업데이트하는 용도
 export default function CommentForm({ postId, postType, onClick }: Props) {
   const [commentText, setCommentText] = useState('');
+  const [isCreateing, setIsCreating] = useState(false);
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -21,6 +22,7 @@ export default function CommentForm({ postId, postType, onClick }: Props) {
       notifyToast('내용을 작성해주세요', 'warning');
       return;
     }
+    setIsCreating(true);
     createComment({ postTypeWithComment: postType, postId, commentText }).then(
       (res) => {
         if (res.code) {
@@ -29,6 +31,7 @@ export default function CommentForm({ postId, postType, onClick }: Props) {
           return;
         }
         setCommentText('');
+        setIsCreating(false);
         onClick();
         router.refresh();
       }
@@ -36,7 +39,7 @@ export default function CommentForm({ postId, postType, onClick }: Props) {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key == 'Enter' && !e.shiftKey) {
+    if (e.key == 'Enter' && !e.shiftKey && !isCreateing) {
       e.preventDefault();
       formRef.current?.requestSubmit();
     }

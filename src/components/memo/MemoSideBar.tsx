@@ -48,7 +48,7 @@ export default function MemoSideBar({
   const router = useRouter();
 
   return (
-    <div className="sticky top-24 flex max-h-for-fit-screen  ">
+    <div className="sticky top-24 flex max-h-for-fit-screen ">
       <button
         className={`flex z-10 absolute -left-10 sm:-left-3 justify-center items-center border-[1px] border-soma-grey-30 w-10 h-10 shadow-inner bg-white rounded-full self-center ${
           !isVisible && '-scale-x-100'
@@ -59,7 +59,7 @@ export default function MemoSideBar({
       </button>
       {isVisible && (
         <aside
-          className={`ml-4 absolute right-0 top-0 sm:static h-full bg-white flex flex-col rounded-2xl shadow-md min-w-[300px]`}
+          className={`ml-4 absolute right-0 top-0 sm:static h-full bg-white flex flex-col rounded-2xl shadow-md max-w-[300px] min-w-[300px]`}
         >
           <MemoSidebarHeader
             authorId={authorId}
