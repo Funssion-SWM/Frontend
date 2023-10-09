@@ -67,7 +67,10 @@ export type UserInfo = {
 export type HistoryItem = {
   id: number;
   date: string;
-  postCnt: number;
+  memoCnt: number;
+  blogCnt: number;
+  questionCnt: number;
+  answerCnt: number;
 };
 
 export type Like = {
