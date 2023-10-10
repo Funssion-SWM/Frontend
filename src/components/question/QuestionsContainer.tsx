@@ -23,7 +23,7 @@ export default function QuestionsContainer({ questions }: Props) {
 
   return (
     <div>
-      <div className="flex gap-2 sm:mb-3">
+      <div className="flex gap-2 mb-3">
         <CategoryBtn
           text="New"
           onClick={() => handleClick('NEW')}
