@@ -30,10 +30,8 @@ export default function MeMainContainer({ memos, userId }: Props) {
     'memo'
   );
   const handleClick = async (type: 'my' | 'answered' | 'liked') => {
-    console.log(type);
     if (type === 'answered') {
       const questions = await getAnswerdQuestionsByUserId(userId);
-      console.log(questions);
       setQuestionData(questions);
     } else {
       const memos =
