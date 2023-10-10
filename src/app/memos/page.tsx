@@ -30,7 +30,6 @@ export default async function MemosPage() {
       <LayoutWrapper paddingY="sm:py-5">
         <MemosContainer memos={memos} />
       </LayoutWrapper>
-      <Footer />
     </section>
   );
 }
