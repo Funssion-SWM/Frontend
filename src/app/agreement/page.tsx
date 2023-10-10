@@ -10,7 +10,6 @@ export default function AgreementPage() {
   return (
     <section className="flex justify-center">
       <LayoutWrapper>
-        <h2 className="text-2xl font-bold my-10">서비스 이용약관</h2>
         <MarkDown text={markdownText} />
       </LayoutWrapper>
     </section>

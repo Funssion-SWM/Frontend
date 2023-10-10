@@ -18,6 +18,7 @@ import {
 } from '@/service/validation';
 import { BASIC_INPUT_STYLE } from '@/utils/tailwindcss';
 import { notifyToast } from '@/service/notification';
+import Link from 'next/link';
 
 export default function SignupForm() {
   const router = useRouter();
@@ -224,6 +225,17 @@ export default function SignupForm() {
         />
       </div>
       <BlueBtn text="회원가입" onClick={() => {}} extraStyle="my-5" />
+      <div className="flex items-center justify-center">
+        <p className="text-soma-grey-50 mr-3 text-xs sm:text-sm">
+          계정이 이미 있나요?
+        </p>
+        <Link
+          href="/login"
+          className="self-end my-2 font-semibold text-soma-blue-50 text-sm sm:text-base"
+        >
+          로그인하기
+        </Link>
+      </div>
     </form>
   );
 }

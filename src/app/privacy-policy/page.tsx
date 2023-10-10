@@ -13,7 +13,6 @@ export default async function PrivacyPolicyPage() {
   return (
     <section className="flex justify-center w-full">
       <LayoutWrapper>
-        <h2 className="text-2xl font-bold my-10">개인정보처리방침</h2>
         <MarkDown text={markdownText} />
       </LayoutWrapper>
     </section>
