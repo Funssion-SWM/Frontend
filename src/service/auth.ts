@@ -233,3 +233,17 @@ export async function changePassword(
     .then((res) => res.json())
     .catch(console.error);
 }
+
+export async function withdraw(): Promise<ErrorResponse> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/withdraw`,
+    {
+      method: 'POST',
+      credentials: 'include',
+    }
+  )
+    .then((res) => {
+      if (!res.ok) return res.json();
+    })
+    .catch(console.error);
+}
