@@ -19,7 +19,7 @@ type Props = {
   userId: string;
 };
 
-export default function SearchResultMemosContainer({
+export default function SearchResultContainer({
   searchString,
   isTag,
   userId,
@@ -34,7 +34,7 @@ export default function SearchResultMemosContainer({
 
   const fetchPost = async () => {
     switch (postType) {
-      case 'memo' : {
+      case 'memo': {
         const memos = await searchMemos(
           tempSearchString,
           selectedOrderType,
@@ -44,7 +44,7 @@ export default function SearchResultMemosContainer({
         setMemoData(memos);
         return;
       }
-      case 'question' : {
+      case 'question': {
         const questions = await searchQuestions(
           tempSearchString,
           selectedOrderType,
@@ -63,20 +63,22 @@ export default function SearchResultMemosContainer({
 
   return (
     <div>
-      <div className='flex mb-2'>
+      <div className="flex mb-2">
         <BarBtn
           isSelected={isSelected}
-          text='Memos'
+          text="Memos"
           onClick={() => {
             setIsSelected(true);
+            setSelectedOrderType('hot');
             setPostType('memo');
           }}
         />
         <BarBtn
           isSelected={!isSelected}
-          text='Questions'
+          text="Questions"
           onClick={() => {
             setIsSelected(false);
+            setSelectedOrderType('hot');
             setPostType('question');
           }}
         />
@@ -96,14 +98,21 @@ export default function SearchResultMemosContainer({
         />
       </div>
       <div className="my-4 font-medium ml-2">
-        <span className="text-soma-blue-40">{{'memo' : memoData.length, 'question' : questionData.length, 'answer' : 0}[postType]}개</span>의 검색
-        결과가 있습니다.
+        <span className="text-soma-blue-40">
+          {
+            { memo: memoData.length, question: questionData.length, answer: 0 }[
+              postType
+            ]
+          }
+          개
+        </span>
+        의 검색 결과가 있습니다.
       </div>
       {
         {
-          'memo': (<MemosGrid memos={memoData} colNum={4} />),
-          'question' : (<QuestionsList questions={questionData} size='big'/>),
-          'answer' : (<></>)
+          memo: <MemosGrid memos={memoData} colNum={4} />,
+          question: <QuestionsList questions={questionData} size="big" />,
+          answer: <></>,
         }[postType]
       }
     </div>

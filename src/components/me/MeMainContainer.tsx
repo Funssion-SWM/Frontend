@@ -30,8 +30,10 @@ export default function MeMainContainer({ memos, userId }: Props) {
     'memo'
   );
   const handleClick = async (type: 'my' | 'answered' | 'liked') => {
+    console.log(type);
     if (type === 'answered') {
       const questions = await getAnswerdQuestionsByUserId(userId);
+      console.log(questions);
       setQuestionData(questions);
     } else {
       const memos =
@@ -104,10 +106,10 @@ export default function MeMainContainer({ memos, userId }: Props) {
       {selectedBigCategory !== 'answered' && selectedPostType === 'memo' && (
         <MemosGrid memos={memodata} colNum={3} />
       )}
-      {selectedBigCategory === 'answered' ||
-        (selectedPostType === 'question' && (
-          <QuestionsList questions={questiondata} size="big" />
-        ))}
+      {(selectedBigCategory === 'answered' ||
+        selectedPostType === 'question') && (
+        <QuestionsList questions={questiondata} size="big" />
+      )}
     </div>
   );
 }
