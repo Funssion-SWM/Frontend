@@ -4,6 +4,8 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import SearchForm from './SearchForm';
 import { useSearchParams } from 'next/navigation';
 import SearchResultMemosContainer from './SearchResultMemosContainer';
+import BarBtn from '../shared/btn/BarBtn';
+import { PostType } from '@/types';
 
 type Props = {
   isLogin: boolean;
