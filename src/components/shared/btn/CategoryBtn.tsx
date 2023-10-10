@@ -15,7 +15,7 @@ export default function CategoryBtn({
 }: Props) {
   return (
     <button
-      className={` py-2 px-3.5 transition ${
+      className={` py-1 px-3.5 transition ${
         {
           big: 'text-sm sm:text-base',
           medium: 'text-xs sm:text-sm',
@@ -24,7 +24,7 @@ export default function CategoryBtn({
       }
       ${
         isSelected
-          ? 'border-soma-blue-50 text-soma-blue-50 font-semibold border-b-2'
+          ? 'border-soma-blue-50 text-soma-blue-50 font-semibold border-2 rounded-3xl'
           : 'border-soma-grey-40 bg-white hover:border-soma-blue-50 hover:text-soma-blue-50'
       }`}
       onClick={() => onClick()}

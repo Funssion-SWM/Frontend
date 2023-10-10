@@ -1,5 +1,6 @@
 import { HistoryItem } from '@/types';
 import { Memo } from '@/types/memo';
+import { Question } from '@/types/question';
 
 export async function getHistory(
   userId: number,
@@ -58,6 +59,54 @@ export async function getLikedMemosByUserId(userId: number): Promise<Memo[]> {
   )
     .then((res) => {
       if (!res.ok) throw new Error('error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
+}
+
+export async function getQuestionsByUserId(
+  userId: number
+): Promise<Question[]> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}/questions`,
+    {
+      next: { revalidate: 0 },
+    }
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('get question by user id error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
+}
+
+export async function getLikedQuestionsByUserId(
+  userId: number
+): Promise<Question[]> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}/questions/liked`,
+    {
+      next: { revalidate: 0 },
+    }
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('get question by user id error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
+}
+
+export async function getAnswerdQuestionsByUserId(
+  userId: number
+): Promise<Question[]> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}/questions/answered`,
+    {
+      next: { revalidate: 0 },
+    }
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('get question by user id error 발생!');
       return res.json();
     })
     .catch(console.error);
