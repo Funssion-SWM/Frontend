@@ -16,7 +16,7 @@ export default function SignupBox({
   const [agreed, setAgreed] = useState(false);
 
   return (
-    <div>
+    <div className="w-full">
       {agreed ? (
         <SignupForm />
       ) : (
