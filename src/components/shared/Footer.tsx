@@ -20,22 +20,12 @@ export default function Footer({ extraClass }: Props) {
               className="mr-7 sm:mb-0 sm:inline-block"
             />
             <div className="flex gap-5">
-              <a
-                href="https://honored-pint-49e.notion.site/1fe5366d8caf40b49dfc7a22a6b0320d"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-bold"
-              >
+              <Link href="/agreement" className="font-bold">
                 이용약관
-              </a>
-              <a
-                href="https://honored-pint-49e.notion.site/405818ae6a3d41d4894bfa7d223a5de4"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-bold"
-              >
+              </Link>
+              <Link href="/privacy-policy" className="font-bold">
                 개인정보 처리 방침
-              </a>
+              </Link>
             </div>
           </div>
           <div className="mt-5 sm:mt-10">
