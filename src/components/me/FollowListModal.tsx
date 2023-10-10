@@ -54,7 +54,7 @@ export default function FollowListModal({ isMine }: Props) {
                     onClick={() => close()}
                     href={`/me/${item.userId}`}
                     prefetch={false}
-                    className="flex transition-all w-full hover:bg-soma-grey-25 rounded-3xl"
+                    className="flex transition-all grow hover:bg-soma-grey-25 rounded-3xl"
                   >
                     <Image
                       src={item.profileImageFilePath ?? basicProfileImg}
@@ -67,6 +67,7 @@ export default function FollowListModal({ isMine }: Props) {
                       {item.nickname}
                     </h4>
                   </Link>
+
                   {type === 'following' && isMine && (
                     <WhiteBtn
                       text="취소"
@@ -75,7 +76,7 @@ export default function FollowListModal({ isMine }: Props) {
                           handleCancelFollowing(item.userId);
                         });
                       }}
-                      extraStyle={`ml-auto`}
+                      extraStyle={`ml-auto i`}
                     />
                   )}
                 </li>
