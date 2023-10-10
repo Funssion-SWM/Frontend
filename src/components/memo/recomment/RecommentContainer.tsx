@@ -30,7 +30,7 @@ export default function RecommentContainer({
   return (
     !loading && (
       <div className="flex flex-col">
-        <div className="border-[0.5px] p-2 border-soma-grey-49 rounded-lg my-2">
+        <div className="border-[0.5px] p-2 border-soma-grey-49 rounded-lg my-2 bg-white">
           <RecommentForm
             parentCommentId={commentId}
             authorId={authorId}
