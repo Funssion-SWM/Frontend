@@ -48,13 +48,13 @@ export default function FollowListModal({ isMine }: Props) {
                 <li
                   key={item.userId}
                   id={item.userId.toString()}
-                  className="flex w-full  items-center"
+                  className="flex w-full items-center"
                 >
                   <Link
                     onClick={() => close()}
                     href={`/me/${item.userId}`}
                     prefetch={false}
-                    className="flex transition-all hover:bg-soma-grey-25 rounded-3xl"
+                    className="flex transition-all w-full hover:bg-soma-grey-25 rounded-3xl"
                   >
                     <Image
                       src={item.profileImageFilePath ?? basicProfileImg}
@@ -63,7 +63,7 @@ export default function FollowListModal({ isMine }: Props) {
                       height={40}
                       className="rounded-full w-10 h-10 object-cover"
                     />
-                    <h4 className="text-soma-grey-60 self-center font-medium ml-4">
+                    <h4 className="text-soma-grey-60 self-center font-medium ml-4 grow">
                       {item.nickname}
                     </h4>
                   </Link>
