@@ -27,7 +27,7 @@ export default function MeSideBar({
         myUserInfo={myUserInfo}
       />
       <History history={history} userId={userId} />
-      {myId === Number(userId) && <Setting myId={myId} />}
+      {true && <Setting myId={myId} />}
     </section>
   );
 }

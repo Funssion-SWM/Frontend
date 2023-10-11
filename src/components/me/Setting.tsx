@@ -22,17 +22,20 @@ export default function Setting({ myId }: Props) {
       </Link>
       <button
         onClick={() => {
-          open('회원 탈퇴하시겠습니까?', () => {
-            withdraw().then((res) => {
-              if (res?.code) {
-                notifyToast(res.message, 'error');
-                return;
-              }
-              notifyToast('성공적으로 탈퇴되었습니다.', 'success');
-              router.push('/memos');
-              router.refresh();
-            });
-          });
+          open(
+            '회원 탈퇴 시 이용 데이터는 복구할 수 없습니다. 정말 탈퇴하시겠습니까?',
+            () => {
+              withdraw().then((res) => {
+                if (res?.code) {
+                  notifyToast(res.message, 'error');
+                  return;
+                }
+                notifyToast('성공적으로 탈퇴되었습니다.', 'success');
+                router.push('/memos');
+                router.refresh();
+              });
+            }
+          );
         }}
       >
         회원 탈퇴
