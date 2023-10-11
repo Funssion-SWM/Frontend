@@ -38,7 +38,7 @@ export default function Header({
         scrollDirection === 'down' && 'opacity-0 invisible'
       }`}
     >
-      <div className="flex justify-between items-center py-4 px-1 sm:px-5 max-w-screen-xl m-auto h-[70px]">
+      <div className="flex justify-center relative items-center py-4 px-1 sm:px-5 max-w-screen-xl m-auto h-[70px]">
         <Image
           src={logo}
           alt="logo"
@@ -47,7 +47,7 @@ export default function Header({
             router.push('/memos');
             router.refresh();
           }}
-          className="cursor-pointer"
+          className="cursor-pointer absolute left-0"
         />
         <div className="sm:flex gap-4 font-semibold text-soma-grey-50 sm:text-lg hidden">
           <Link
@@ -71,7 +71,7 @@ export default function Header({
         </div>
         {isLogin ? (
           <nav
-            className="flex items-center gap-2 sm:gap-3 relative"
+            className="flex items-center gap-2 sm:gap-3 absolute right-0"
             ref={dropdownRef}
           >
             <a
@@ -152,7 +152,7 @@ export default function Header({
             />
           </nav>
         ) : (
-          <nav className="flex items-center gap-3">
+          <nav className="flex items-center gap-3 absolute right-0">
             <button onClick={() => router.push('/search/form')}>
               <Image
                 className="cursor-pointer"
