@@ -31,7 +31,7 @@ export default function TagView({
       `}
       onClick={() => {
         router.push(
-          `/search?q=${tagText}&isTag=true&userId=${
+          `/search?q=${encodeURIComponent(tagText)}&isTag=true&userId=${
             color === 'green' ? userId : '0'
           }&userName=${color === 'green' ? userName : ''}`
         );

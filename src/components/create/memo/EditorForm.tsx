@@ -25,6 +25,7 @@ import { DraftsInModalContext } from '@/context/DraftsInModalProvider';
 import { TEMPORARY_SAVE_INTERVAL_TIME } from '@/utils/const';
 import Tag from '@/components/shared/Tag';
 import { notifyToast } from '@/service/notification';
+import { hasSpecialChar } from '@/service/validation';
 
 export default function EditorForm() {
   const router = useRouter();
@@ -211,7 +212,15 @@ export default function EditorForm() {
       return;
     }
     if ((inputTag !== '' && e.key === 'Enter') || e.key === ',') {
-      !tags.includes(inputTag) && setTags([...tags, inputTag]);
+      if (hasSpecialChar(inputTag)) {
+        notifyToast('특수문자는 사용할 수 없습니다.', 'warning');
+        return;
+      }
+      if (tags.includes(inputTag)) {
+        notifyToast('중복된 태그는 사용할 수 없습니다.', 'warning');
+        return;
+      }
+      setTags([...tags, inputTag]);
       setInputTag('');
     }
   };
