@@ -77,6 +77,7 @@ export default function MyInfoForm({
           checkUser().then((data) => {
             notifyToast(res.message, 'success');
             router.push(data.isLogin ? '/memos' : '/login');
+            router.refresh();
           });
         })
       : updateUserInfo(
@@ -92,6 +93,7 @@ export default function MyInfoForm({
           }
           notifyToast;
           router.push(`/me/${userId}`);
+          router.refresh();
         });
   };
 
