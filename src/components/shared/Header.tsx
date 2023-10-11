@@ -69,7 +69,7 @@ export default function Header({
             Q&A
           </Link>
         </div>
-        {isLogin ? (
+        {true ? (
           <nav
             className="flex items-center gap-2 sm:gap-3 relative"
             ref={dropdownRef}
@@ -101,12 +101,12 @@ export default function Header({
             </button>
 
             <nav
-              className={`absolute top-9 right-[51px] sm:top-10 sm:right-14 bg-white flex flex-col gap-1 rounded-lg shadow-inner z-10 ${
+              className={`absolute top-9 right-[36px] sm:top-10 sm:right-[44px] bg-white flex flex-col gap-1 rounded-lg shadow-inner z-10 ${
                 isActive ? 'visible' : 'invisible'
               }`}
             >
               <button
-                className="hover:bg-gray-200 p-2 rounded-t-lg"
+                className="hover:bg-gray-200 p-2 rounded-t-lg tracking-wider px-3"
                 onClick={() => {
                   checkUser().then((data) => {
                     router.push(`/me/${data.id}`);
@@ -115,10 +115,10 @@ export default function Header({
                   setIsActive(false);
                 }}
               >
-                프로필
+                마이페이지
               </button>
               <button
-                className="hover:bg-gray-200 p-2 rounded-t-lg"
+                className="hover:bg-gray-200 p-2 tracking-wider px-3"
                 onClick={() => {
                   checkUser().then((data) =>
                     router.push(`/me/${data.id}/drafts`)
@@ -126,10 +126,10 @@ export default function Header({
                   setIsActive(false);
                 }}
               >
-                임시저장
+                임시글
               </button>
               <button
-                className="hover:bg-gray-200 p-2 rounded-b-lg"
+                className="hover:bg-gray-200 p-2 rounded-b-lg tracking-wider px-3"
                 onClick={() => {
                   setIsActive(false);
                   open('로그아웃 하시겠습니까?', () => {
