@@ -24,9 +24,12 @@ export default function CheckForm({
         <div className="flex self-end items-center">
           <input
             type="checkbox"
+            id="privacyPolicy"
             onChange={(e) => setIsPrivacyPolicyChecked(e.target.checked)}
           />
-          <label className="ml-1">개인정보 수집 및 이용에 동의합니다.</label>
+          <label className="ml-1" htmlFor="privacyPolicy">
+            개인정보 수집 및 이용에 동의합니다.
+          </label>
         </div>
       </div>
       <div className="flex flex-col gap-2">
@@ -36,9 +39,12 @@ export default function CheckForm({
         <div className="flex self-end items-center">
           <input
             type="checkbox"
+            id="agreement"
             onChange={(e) => setIsAgreementChecked(e.target.checked)}
           />
-          <label className="ml-1">이용 정책 및 약관에 동의합니다.</label>
+          <label className="ml-1" htmlFor="agreement">
+            이용 정책 및 약관에 동의합니다.
+          </label>
         </div>
       </div>
       <button
