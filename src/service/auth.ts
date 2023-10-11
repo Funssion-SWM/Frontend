@@ -143,6 +143,7 @@ export async function registerUserInfo(
     {
       method: 'POST',
       body: formdata,
+      credentials: 'include',
     }
   )
     .then((res) => res.json())
@@ -167,6 +168,7 @@ export async function updateUserInfo(
     {
       method: 'PATCH',
       body: formdata,
+      credentials: 'include',
     }
   )
     .then((res) => res.json())
@@ -179,12 +181,17 @@ export async function getUserInfo(
 ): Promise<UserInfo> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${userId}`,
-    {
-      next: { revalidate: 0 },
-      headers: {
-        Cookie: `${cookie}`,
-      },
-    }
+    cookie
+      ? {
+          next: { revalidate: 0 },
+          headers: {
+            Cookie: `${cookie}`,
+          },
+        }
+      : {
+          next: { revalidate: 0 },
+          credentials: 'include',
+        }
   )
     .then((res) => {
       if (!res.ok) throw new Error('error 발생!');
@@ -200,6 +207,7 @@ export async function registerNickname(nickname: string, userId: number) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nickname }),
+      credentials: 'include',
     }
   )
     .then((res) => res.json())
