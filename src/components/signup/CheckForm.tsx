@@ -18,27 +18,33 @@ export default function CheckForm({
   return (
     <section className="flex flex-col my-3 gap-5">
       <div className="flex flex-col gap-2">
-        <div className="h-48 overflow-y-scroll text-sm break-all border-[1px] border-soma-grey-40 p-2">
+        <div className="h-48 overflow-y-scroll text-sm break-all border-[1px] border-soma-grey-40 p-5">
           <MarkDown text={privacyPolicyMdText} />
         </div>
         <div className="flex self-end items-center">
           <input
             type="checkbox"
+            id="privacyPolicy"
             onChange={(e) => setIsPrivacyPolicyChecked(e.target.checked)}
           />
-          <label className="ml-1">개인정보 수집 및 이용에 동의합니다.</label>
+          <label className="ml-1" htmlFor="privacyPolicy">
+            개인정보 수집 및 이용에 동의합니다.
+          </label>
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <div className="h-48 overflow-y-scroll text-sm break-all border-[1px] border-soma-grey-40 p-2">
+        <div className="h-48 overflow-y-scroll text-sm break-all border-[1px] border-soma-grey-40 p-5">
           <MarkDown text={agreementMdText} />
         </div>
         <div className="flex self-end items-center">
           <input
             type="checkbox"
+            id="agreement"
             onChange={(e) => setIsAgreementChecked(e.target.checked)}
           />
-          <label className="ml-1">이용 정책 및 약관에 동의합니다.</label>
+          <label className="ml-1" htmlFor="agreement">
+            이용 정책 및 약관에 동의합니다.
+          </label>
         </div>
       </div>
       <button

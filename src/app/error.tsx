@@ -1,5 +1,6 @@
 'use client'; // Error components must be Client Components
 
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function Error({
@@ -9,6 +10,7 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const router = useRouter();
   useEffect(() => {
     // Log the error to an error reporting service
     console.error(error);
@@ -22,7 +24,10 @@ export default function Error({
       </h3>
       <button
         className="bg-soma-blue-40 w-72 h-16 shadow-2xl text-white px-3.5 py-2 rounded-3xl transition hover:bg-soma-blue-50 sm:text-2xl mt-10"
-        onClick={() => reset()}
+        onClick={() => {
+          router.push('/memos');
+          router.refresh();
+        }}
       >
         돌아가기
       </button>

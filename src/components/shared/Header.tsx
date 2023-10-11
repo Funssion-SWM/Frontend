@@ -38,7 +38,7 @@ export default function Header({
         scrollDirection === 'down' && 'opacity-0 invisible'
       }`}
     >
-      <div className="flex justify-between items-center py-4 px-1 sm:px-5 max-w-screen-xl m-auto h-[70px]">
+      <div className="flex justify-center relative items-center py-4 px-1 sm:px-5 max-w-screen-xl m-auto h-[70px]">
         <Image
           src={logo}
           alt="logo"
@@ -47,7 +47,7 @@ export default function Header({
             router.push('/memos');
             router.refresh();
           }}
-          className="cursor-pointer"
+          className="cursor-pointer absolute left-1 sm:left-3"
         />
         <div className="sm:flex gap-4 font-semibold text-soma-grey-50 sm:text-lg hidden">
           <Link
@@ -71,7 +71,7 @@ export default function Header({
         </div>
         {isLogin ? (
           <nav
-            className="flex items-center gap-2 sm:gap-3 relative"
+            className="flex items-center gap-2 sm:gap-3 absolute right-1 sm:right-3"
             ref={dropdownRef}
           >
             <a
@@ -101,12 +101,12 @@ export default function Header({
             </button>
 
             <nav
-              className={`absolute top-9 right-[51px] sm:top-10 sm:right-14 bg-white flex flex-col gap-1 rounded-lg shadow-inner z-10 ${
+              className={`absolute top-9 right-[36px] sm:top-10 sm:right-[44px] bg-white flex flex-col gap-1 rounded-lg shadow-inner z-10 ${
                 isActive ? 'visible' : 'invisible'
               }`}
             >
               <button
-                className="hover:bg-gray-200 p-2 rounded-t-lg"
+                className="hover:bg-gray-200 p-2 rounded-t-lg tracking-wider px-3"
                 onClick={() => {
                   checkUser().then((data) => {
                     router.push(`/me/${data.id}`);
@@ -115,10 +115,10 @@ export default function Header({
                   setIsActive(false);
                 }}
               >
-                프로필
+                마이페이지
               </button>
               <button
-                className="hover:bg-gray-200 p-2 rounded-t-lg"
+                className="hover:bg-gray-200 p-2 tracking-wider px-3"
                 onClick={() => {
                   checkUser().then((data) =>
                     router.push(`/me/${data.id}/drafts`)
@@ -126,10 +126,10 @@ export default function Header({
                   setIsActive(false);
                 }}
               >
-                임시저장
+                임시글
               </button>
               <button
-                className="hover:bg-gray-200 p-2 rounded-b-lg"
+                className="hover:bg-gray-200 p-2 rounded-b-lg tracking-wider px-3"
                 onClick={() => {
                   setIsActive(false);
                   open('로그아웃 하시겠습니까?', () => {
@@ -152,7 +152,7 @@ export default function Header({
             />
           </nav>
         ) : (
-          <nav className="flex items-center gap-3">
+          <nav className="flex items-center gap-3 absolute right-1 sm:right-3">
             <button onClick={() => router.push('/search/form')}>
               <Image
                 className="cursor-pointer"

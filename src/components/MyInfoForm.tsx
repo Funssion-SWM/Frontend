@@ -19,6 +19,7 @@ import { checkUser, registerUserInfo, updateUserInfo } from '@/service/auth';
 import { UserInfo } from '@/types';
 import Tag from './shared/Tag';
 import { notifyToast } from '@/service/notification';
+import { MAX_PROFILE_IMAGE_BYTE } from '@/utils/const';
 
 type Props = {
   userId: number;
@@ -49,6 +50,10 @@ export default function MyInfoForm({
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
       const file = e.target.files[0];
+      if (file.size > MAX_PROFILE_IMAGE_BYTE) {
+        notifyToast('최대 프로필 이미지 사이즈 2MB를 초과하였습니다.', 'error');
+        return;
+      }
       const url = window.URL.createObjectURL(file);
       setImageFile(file);
       setImageUrl(url);
@@ -72,6 +77,7 @@ export default function MyInfoForm({
           checkUser().then((data) => {
             notifyToast(res.message, 'success');
             router.push(data.isLogin ? '/memos' : '/login');
+            router.refresh();
           });
         })
       : updateUserInfo(
@@ -87,6 +93,7 @@ export default function MyInfoForm({
           }
           notifyToast;
           router.push(`/me/${userId}`);
+          router.refresh();
         });
   };
 
@@ -178,7 +185,7 @@ export default function MyInfoForm({
       <div className="flex flex-col gap-2 my-3">
         <BlueBtn text={isSignup ? '등록' : '수정'} onClick={() => {}} />
         {isSignup && (
-          <Link href="/login">
+          <Link href="/memos">
             <WhiteBtn text="나중에" onClick={() => {}} extraStyle="w-full" />
           </Link>
         )}

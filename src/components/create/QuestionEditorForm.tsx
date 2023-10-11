@@ -17,6 +17,7 @@ import {
   updateQuestion,
 } from '@/service/questions';
 import { getMemoById } from '@/service/memos';
+import { hasSpecialChar } from '@/service/validation';
 
 export default function QuestionEditorForm() {
   const router = useRouter();
@@ -62,7 +63,15 @@ export default function QuestionEditorForm() {
       return;
     }
     if ((inputTag !== '' && e.key === 'Enter') || e.key === ',') {
-      !tags.includes(inputTag) && setTags([...tags, inputTag]);
+      if (hasSpecialChar(inputTag)) {
+        notifyToast('특수문자는 사용할 수 없습니다.', 'warning');
+        return;
+      }
+      if (tags.includes(inputTag)) {
+        notifyToast('중복된 태그는 사용할 수 없습니다.', 'warning');
+        return;
+      }
+      setTags([...tags, inputTag]);
       setInputTag('');
     }
   };

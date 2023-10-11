@@ -12,12 +12,23 @@ type Props = {
 
 export default function QuestionsContainer({ questions }: Props) {
   const [questionData, setQuestionData] = useState<Question[]>(questions);
-  const [selectedOrderType, setSelectedOrderType] =
-    useState<QuestionOrderBy>('NEW');
+  const [selectedOrderType, setSelectedOrderType] = useState<
+    QuestionOrderBy | 'EVENT'
+  >('NEW');
 
-  const handleClick = async (orderBy: QuestionOrderBy) => {
-    const memos = await getQuestions(orderBy);
-    setQuestionData(memos);
+  const handleClick = async (orderBy: QuestionOrderBy | 'EVENT') => {
+    if (orderBy === 'EVENT') {
+      const questions = (await getQuestions('NEW')).filter(
+        (question) =>
+          question.authorId === 1 ||
+          question.authorId === 31 ||
+          question.authorId === 32
+      );
+      setQuestionData(questions);
+    } else {
+      const questions = await getQuestions(orderBy);
+      setQuestionData(questions);
+    }
     setSelectedOrderType(orderBy);
   };
 
@@ -35,6 +46,12 @@ export default function QuestionsContainer({ questions }: Props) {
           onClick={() => handleClick('HOT')}
           size="big"
           isSelected={selectedOrderType === 'HOT'}
+        />
+        <CategoryBtn
+          text="Event"
+          onClick={() => handleClick('EVENT')}
+          size="big"
+          isSelected={selectedOrderType === 'EVENT'}
         />
       </div>
       <QuestionsList questions={questionData} size="big" />

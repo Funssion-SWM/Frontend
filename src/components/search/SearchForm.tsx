@@ -45,6 +45,7 @@ export default function SearchForm({ onChange, isLogin }: Props) {
       className={`bg-[#F8F9FB] border-2  ${borderColor} my-2 rounded-3xl h-14 align-middle flex ease-in duration-200`}
       action="/search"
       onSubmit={handleSubmit}
+      acceptCharset="utf8"
     >
       <Image
         className={`${isTag ? '' : 'cursor-pointer'} ml-8`}

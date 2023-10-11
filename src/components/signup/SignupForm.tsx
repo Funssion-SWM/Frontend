@@ -48,13 +48,13 @@ export default function SignupForm() {
         validateNickname(signupData.nickname)
       )
     ) {
-      notifyToast('중복확인, 인증 처리에 문제가 있습니다.', 'error');
+      notifyToast('중복확인 또는 인증 처리에 문제가 있습니다.', 'error');
       return;
     }
 
     if (!validatePassword(signupData.pw)) {
       notifyToast(
-        '비밀번호 형식에 맞지 않습니다. 비빌번호 형식 : 8~15자리 (영어, 숫자, 특수문자(@$!%*#?&)) 포함)',
+        '비밀번호 형식에 맞지 않습니다. 비밀번호 형식 : 8~15자리 (영어, 숫자, 특수문자(@$!%*#?&)) 포함)',
         'error'
       );
       return;

@@ -33,6 +33,10 @@ function isNum(char: string): boolean {
   return /^[0-9]$/.test(char);
 }
 
+export function hasSpecialChar(string: string): boolean {
+  return /[!@#$%^&*()_+{}\[\]:;<>,.?~|]+/.test(string);
+}
+
 export function validatePassword(pw: string): boolean {
   return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,15}$/.test(
     pw
