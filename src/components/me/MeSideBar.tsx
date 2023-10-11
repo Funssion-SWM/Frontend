@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import Profile from './Profile';
 import History from './History';
 import { HistoryItem, UserInfo } from '@/types';
+import Setting from './Setting';
 
 type Props = {
   userInfo: UserInfo;
@@ -27,17 +27,7 @@ export default function MeSideBar({
         myUserInfo={myUserInfo}
       />
       <History history={history} userId={userId} />
-      {myId === Number(userId) && (
-        <div className="flex flex-col mt-8">
-          <Link
-            href={`/me/setting/${myId}`}
-            prefetch={false}
-            className="text-center text-soma-grey-50 text-sm"
-          >
-            회원 정보 수정
-          </Link>
-        </div>
-      )}
+      {myId === Number(userId) && <Setting myId={myId} />}
     </section>
   );
 }

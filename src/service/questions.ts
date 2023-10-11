@@ -1,4 +1,4 @@
-import { ErrorResponse } from '@/types';
+import { ErrorResponse, IsSuccessResponse } from '@/types';
 import { PostImageResponse } from '@/types/image';
 import { PostQuestionData, Question, QuestionOrderBy } from '@/types/question';
 
@@ -91,7 +91,7 @@ export async function updateQuestion(
 
 export async function deleteQuestion(
   id: number
-): Promise<void & ErrorResponse> {
+): Promise<IsSuccessResponse & ErrorResponse> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions/${id}`, {
     method: 'DELETE',
     credentials: 'include',
@@ -102,7 +102,7 @@ export async function deleteQuestion(
 
 export async function postImageInQuestion(
   image: File
-): Promise<PostImageResponse> {
+): Promise<PostImageResponse & ErrorResponse> {
   const formdata = new FormData();
   formdata.append('image', image);
   return fetch(
@@ -113,6 +113,11 @@ export async function postImageInQuestion(
       credentials: 'include',
     }
   )
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === 413) {
+        return { code: 413, message: '이미지 크기가 10MB를 초과하였습니다.' };
+      }
+      return res.json();
+    })
     .catch(console.error);
 }

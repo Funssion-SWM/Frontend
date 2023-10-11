@@ -7,6 +7,7 @@ import fillHeart from '@/assets/icons/heart_fill.svg';
 import emptyHeart from '@/assets/icons/heart_empty.svg';
 import { useRouter } from 'next/navigation';
 import { notifyToast } from '@/service/notification';
+import { azertMono } from '@/styles/fonts';
 
 type Props = {
   likeNum: number;
@@ -50,7 +51,7 @@ export default function LikeBox({
         notifyToast(res.message, 'error');
         return;
       }
-      setCurrentLikeNum((pre) => pre - 1);
+      setCurrentLikeNum(isLike ? likeNum - 1 : likeNum);
       setCurrentIsLike(false);
     });
   }
@@ -79,7 +80,7 @@ export default function LikeBox({
         notifyToast(res.message, 'error');
         return;
       }
-      setCurrentLikeNum((pre) => pre + 1);
+      setCurrentLikeNum(isLike ? likeNum : likeNum + 1);
       setCurrentIsLike(true);
     });
   }
@@ -105,7 +106,11 @@ export default function LikeBox({
           />
         </button>
       )}
-      <span className="text-sm ml-1 text-soma-grey-49">{currentLikeNum}</span>
+      <span
+        className={`text-sm ml-1 text-soma-grey-49 ${azertMono.className} `}
+      >
+        {currentLikeNum}
+      </span>
     </div>
   );
 }

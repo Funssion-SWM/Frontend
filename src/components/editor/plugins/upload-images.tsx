@@ -4,6 +4,7 @@ import { Decoration, DecorationSet, EditorView } from '@tiptap/pm/view';
 import { postImageInMemo } from '@/service/memos';
 import { postImageInQuestion } from '@/service/questions';
 import { postImageInAnswer } from '@/service/answers';
+import { notifyToast } from '@/service/notification';
 
 const uploadKey = new PluginKey('upload-image');
 
@@ -71,12 +72,12 @@ export function startImageUpload(
 ) {
   // check if the file is an image
   if (!file.type.includes('image/')) {
-    toast.error('File type not supported.');
+    notifyToast('해당 파일 형식은 제공되지 않습니다.', 'error');
     return;
 
     // check if the file size is less than 20MB
-  } else if (file.size / 1024 / 1024 > 20) {
-    toast.error('File size too big (max 20MB).');
+  } else if (file.size / 1024 / 1024 > 10) {
+    notifyToast('파일 사이즈가 너무 큽니다. (max 10MB)', 'error');
     return;
   }
 
@@ -100,28 +101,34 @@ export function startImageUpload(
     view.dispatch(tr);
   };
 
-  handleImageUpload(file, type, postId).then((src) => {
-    const { schema } = view.state;
+  handleImageUpload(file, type, postId)
+    .then((src) => {
+      const { schema } = view.state;
 
-    let pos = findPlaceholder(view.state, id);
-    // If the content around the placeholder has been deleted, drop
-    // the image
-    if (pos == null) return;
+      let pos = findPlaceholder(view.state, id);
+      // If the content around the placeholder has been deleted, drop
+      // the image
+      if (pos == null) return;
 
-    // Otherwise, insert it at the placeholder's position, and remove
-    // the placeholder
+      // Otherwise, insert it at the placeholder's position, and remove
+      // the placeholder
 
-    // When BLOB_READ_WRITE_TOKEN is not valid or unavailable, read
-    // the image locally
-    const imageSrc = typeof src === 'object' ? reader.result : src;
+      // When BLOB_READ_WRITE_TOKEN is not valid or unavailable, read
+      // the image locally
+      const imageSrc = typeof src === 'object' ? reader.result : src;
 
-    const node = schema.nodes.image.create({ src: imageSrc });
-    const transaction = view.state.tr
-      .replaceWith(pos, pos, node)
-      .setMeta(uploadKey, { remove: { id } });
-    view.dispatch(transaction);
-    type === 'memo' && routingCallback && routingCallback(postId);
-  });
+      const node = schema.nodes.image.create({ src: imageSrc });
+      const transaction = view.state.tr
+        .replaceWith(pos, pos, node)
+        .setMeta(uploadKey, { remove: { id } });
+      view.dispatch(transaction);
+      type === 'memo' && routingCallback && routingCallback(postId);
+    })
+    .catch((err) => {
+      const transaction = view.state.tr.setMeta(uploadKey, { remove: { id } });
+      view.dispatch(transaction);
+      notifyToast(err, 'error');
+    });
 }
 
 export const handleImageUpload = (
@@ -130,10 +137,13 @@ export const handleImageUpload = (
   postId: number
 ) => {
   // upload to Vercel Blob
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     switch (type) {
       case 'memo':
-        postImageInMemo(postId, file).then(async (res) => {
+        postImageInMemo(postId, file).then((res) => {
+          if (res?.code) {
+            reject(res.message);
+          }
           let image = new Image();
           image.src = res.imagePath;
           image.onload = () => {
@@ -142,7 +152,10 @@ export const handleImageUpload = (
         });
         break;
       case 'question':
-        postImageInQuestion(file).then(async (res) => {
+        postImageInQuestion(file).then((res) => {
+          if (res?.code) {
+            reject(res.message);
+          }
           let image = new Image();
           image.src = res.imagePath;
           image.onload = () => {
@@ -151,7 +164,10 @@ export const handleImageUpload = (
         });
         break;
       case 'answer':
-        postImageInAnswer(file).then(async (res) => {
+        postImageInAnswer(file).then((res) => {
+          if (res?.code) {
+            reject(res.message);
+          }
           let image = new Image();
           image.src = res.imagePath;
           image.onload = () => {

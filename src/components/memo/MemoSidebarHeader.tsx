@@ -19,6 +19,8 @@ type Props = {
   isFollowed: boolean;
   isMyMemo: boolean;
   isLogin: boolean;
+  authorFollowingNum: number;
+  authorFollowerNum: number;
 };
 
 export default function MemoSidebarHeader({
@@ -30,8 +32,12 @@ export default function MemoSidebarHeader({
   isFollowed,
   isMyMemo,
   isLogin,
+  authorFollowingNum,
+  authorFollowerNum,
 }: Props) {
   const [isCurrentFollowed, setIsCurrentFollowed] = useState(isFollowed);
+  const [currentFollowerNum, setCurrentFollowerNum] =
+    useState(authorFollowerNum);
   const router = useRouter();
 
   return (
@@ -49,6 +55,10 @@ export default function MemoSidebarHeader({
           </Link>
           <div className="ml-3">
             <div className="text-soma-grey-60 font-semibold">{authorName}</div>
+            <div className="flex gap-1 text-xs text-soma-grey-49">
+              <div>팔로워 {currentFollowerNum}</div>
+              <div>팔로잉 {authorFollowingNum}</div>
+            </div>
           </div>
         </div>
         {isLogin &&
@@ -58,11 +68,12 @@ export default function MemoSidebarHeader({
               text="팔로우 취소"
               onClick={() => {
                 unfollow(authorId.toString()).then((res) => {
-                  if (res.code) {
+                  if (res?.code) {
                     if (res.code === 401) router.push('/login');
                     notifyToast(res.message, 'error');
                     return;
                   }
+                  setCurrentFollowerNum((pre) => pre - 1);
                   setIsCurrentFollowed(false);
                 });
               }}
@@ -72,11 +83,12 @@ export default function MemoSidebarHeader({
               text="팔로우"
               onClick={() => {
                 follow(authorId.toString()).then((res) => {
-                  if (res.code) {
+                  if (res?.code) {
                     if (res.code === 401) router.push('/login');
                     notifyToast(res.message, 'error');
                     return;
                   }
+                  setCurrentFollowerNum((pre) => pre + 1);
                   setIsCurrentFollowed(true);
                 });
               }}

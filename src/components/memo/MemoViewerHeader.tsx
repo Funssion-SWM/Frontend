@@ -31,10 +31,11 @@ export default function MemoViewerHeader({
 
   const handleDelete = () =>
     deleteMemo(memoId).then((res) => {
-      if (res.code) {
-        notifyToast('삭제에 실패했습니다.', 'error');
+      if (res?.code) {
+        notifyToast(res.message, 'error');
         return;
       }
+      notifyToast('성공적으로 메모가 삭제되었습니다.', 'success');
       router.push('/memos');
       router.refresh();
     });

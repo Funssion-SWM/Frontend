@@ -1,5 +1,6 @@
 import {
   CheckUserResponse,
+  ErrorResponse,
   FindEmailResponse,
   IsSuccessResponse,
   IsValidResponse,
@@ -76,21 +77,18 @@ export async function checkUser(
 export async function checkEmailAndSendCode(
   email: string,
   type: 'signup' | 'find'
-): Promise<IsSuccessResponse> {
+): Promise<IsSuccessResponse & ErrorResponse> {
   return fetch(
     `${
       process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE
-    }/users/authenticate-email${type === 'find' && '/find'}`,
+    }/users/authenticate-email${type === 'find' ? '/find' : ''}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email }),
     }
   )
-    .then((res) => {
-      if (!res.ok) throw new Error('error!!');
-      return res.json();
-    })
+    .then((res) => res.json())
     .catch(console.error);
 }
 
@@ -133,7 +131,7 @@ export async function registerUserInfo(
   introduce: string,
   tags: string[],
   isEmptyProfileImage: string
-) {
+): Promise<IsSuccessResponse & ErrorResponse> {
   const formdata = new FormData();
   formdata.append('isEmptyProfileImage', isEmptyProfileImage);
   if (image !== null) formdata.append('image', image);
@@ -147,10 +145,7 @@ export async function registerUserInfo(
       body: formdata,
     }
   )
-    .then((res) => {
-      if (!res.ok) throw new Error('error!!');
-      return res.json();
-    })
+    .then((res) => res.json())
     .catch(console.error);
 }
 
@@ -160,7 +155,7 @@ export async function updateUserInfo(
   introduce: string,
   tags: string[],
   isEmptyProfileImage: string
-) {
+): Promise<IsSuccessResponse & ErrorResponse> {
   const formdata = new FormData();
   formdata.append('isEmptyProfileImage', isEmptyProfileImage);
   if (image !== null) formdata.append('image', image);
@@ -174,21 +169,22 @@ export async function updateUserInfo(
       body: formdata,
     }
   )
-    .then((res) => {
-      if (!res.ok) throw new Error('error!!');
-      return res.json();
-    })
+    .then((res) => res.json())
     .catch(console.error);
 }
 
-export async function getUserInfo(userId: number, cookie?: string): Promise<UserInfo> {
+export async function getUserInfo(
+  userId: number,
+  cookie?: string
+): Promise<UserInfo> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/${userId}`,
-    { next: { revalidate: 0 },
+    {
+      next: { revalidate: 0 },
       headers: {
         Cookie: `${cookie}`,
       },
-  }
+    }
   )
     .then((res) => {
       if (!res.ok) throw new Error('error 발생!');
@@ -235,5 +231,19 @@ export async function changePassword(
     }
   )
     .then((res) => res.json())
+    .catch(console.error);
+}
+
+export async function withdraw(): Promise<ErrorResponse> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/withdraw`,
+    {
+      method: 'POST',
+      credentials: 'include',
+    }
+  )
+    .then((res) => {
+      if (!res.ok) return res.json();
+    })
     .catch(console.error);
 }

@@ -12,12 +12,6 @@ export default function Modal() {
     isOpen && (
       <div
         className="fixed top-0"
-        onKeyDown={(e) => {
-          if (e.key == 'Enter') {
-            close();
-            onSuccess();
-          }
-        }}
       >
         <Overay onClick={() => close()} />
         <div
@@ -41,6 +35,8 @@ export default function Modal() {
               if (e.key == 'Enter') {
                 close();
                 onSuccess();
+              } else if (e.key == 'Escape') {
+                close();
               }
             }}
             className="opacity-0 w-0 h-0"

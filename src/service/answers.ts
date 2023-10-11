@@ -78,7 +78,7 @@ export async function deleteAnswer(
 
 export async function postImageInAnswer(
   image: File
-): Promise<PostImageResponse> {
+): Promise<PostImageResponse & ErrorResponse> {
   const formdata = new FormData();
   formdata.append('image', image);
   return fetch(
@@ -89,7 +89,12 @@ export async function postImageInAnswer(
       credentials: 'include',
     }
   )
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === 413) {
+        return { code: 413, message: '이미지 크기가 10MB를 초과하였습니다.' };
+      }
+      return res.json();
+    })
     .catch(console.error);
 }
 

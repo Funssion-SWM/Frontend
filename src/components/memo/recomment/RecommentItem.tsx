@@ -80,9 +80,10 @@ export default function RecommentItem({
                   open('답글을 삭제하시겠습니까?', () => {
                     deleteRecomeent(id).then(async (res) => {
                       if (res.code) {
-                        notifyToast('삭제에 실패했습니다.', 'error');
+                        notifyToast(res.message, 'error');
                         return;
                       }
+                      notifyToast(res.message, 'success');
                       const recomments = await getRecommentsByCommentId(
                         commentId
                       );
@@ -109,12 +110,12 @@ export default function RecommentItem({
                 size="small"
                 onClick={() => {
                   if (updatedText === '') {
-                    window.alert('댓글을 작성해주세요');
+                    notifyToast('내용을 작성해주세요', 'warning');
                     return;
                   }
                   updateRecomment(id, updatedText).then(async (res) => {
                     if (res.code) {
-                      notifyToast('등록에 실패했습니다.', 'error');
+                      notifyToast(res.message, 'error');
                       return;
                     }
                     const recomments = await getRecommentsByCommentId(

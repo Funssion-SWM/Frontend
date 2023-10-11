@@ -39,7 +39,7 @@ export async function createComment(
     body: JSON.stringify(bodyData),
   })
     .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .catch(console.error);
 }
 
 export async function updateComment(
@@ -58,7 +58,7 @@ export async function updateComment(
     }
   )
     .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .catch(console.error);
 }
 
 export async function deleteComeent(
@@ -72,7 +72,7 @@ export async function deleteComeent(
     }
   )
     .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .catch(console.error);
 }
 
 export async function getRecommentsByCommentId(
@@ -107,7 +107,7 @@ export async function createRecomment(
     }
   )
     .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .catch(console.error);
 }
 
 export async function updateRecomment(

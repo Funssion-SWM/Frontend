@@ -1,8 +1,10 @@
-import SignupForm from '@/components/signup/SignupForm';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import logo from '@/assets/inforum_logo.png';
+import { join } from 'path';
+import fs from 'fs';
+import SignupBox from '@/components/signup/SignupBox';
 
 export const metadata: Metadata = {
   title: '회원가입',
@@ -10,6 +12,23 @@ export const metadata: Metadata = {
 };
 
 export default function SignupPage() {
+  const PrivacyPolicyMarkdownPath = join(
+    process.cwd(),
+    'src/assets/markdown/privacy_policy.md'
+  );
+  const AgreementyMarkdownPath = join(
+    process.cwd(),
+    'src/assets/markdown/agreement.md'
+  );
+  const PrivacyPolicyMarkdownText = fs.readFileSync(
+    PrivacyPolicyMarkdownPath,
+    'utf8'
+  );
+  const AgreementyMarkdownText = fs.readFileSync(
+    AgreementyMarkdownPath,
+    'utf8'
+  );
+
   return (
     <section className="relative flex flex-col w-full items-center max-w-screen-sm mx-auto mt-12 py-5 px-10 sm:px-32">
       <Link
@@ -19,18 +38,10 @@ export default function SignupPage() {
         메인으로
       </Link>
       <Image src={logo} alt="logo" width={200} className="my-5" />
-      <SignupForm />
-      <div className="flex items-center">
-        <p className="text-soma-grey-50 mr-3 text-xs sm:text-sm">
-          계정이 이미 있나요?
-        </p>
-        <Link
-          href="/login"
-          className="self-end my-2 font-semibold text-soma-blue-50 text-sm sm:text-base"
-        >
-          로그인하기
-        </Link>
-      </div>
+      <SignupBox
+        privacyPolicyMdText={PrivacyPolicyMarkdownText}
+        agreementMdText={AgreementyMarkdownText}
+      />
     </section>
   );
 }

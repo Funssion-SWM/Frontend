@@ -1,9 +1,9 @@
 'use client';
 
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import SearchForm from './SearchForm';
 import { useSearchParams } from 'next/navigation';
-import SearchResultMemosContainer from './SearchResultMemosContainer';
+import SearchResultContainer from './SearchResultContainer';
 
 type Props = {
   isLogin: boolean;
@@ -28,7 +28,7 @@ export default function SearchContainer({ isLogin }: Props) {
           isLogin={isLogin}
         />
       </section>
-      <SearchResultMemosContainer
+      <SearchResultContainer
         searchString={searchString}
         isTag={isTag}
         userId={userId}

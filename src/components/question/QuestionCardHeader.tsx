@@ -2,8 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import basicProfileImg from '@/assets/profile.svg';
 import fillHeart from '@/assets/icons/heart_fill.svg';
-import { formatDate } from '@/service/time';
 import { QuestionCardSize } from '@/types/question';
+import RelativeDate from '../shared/RelativeDate';
+import { azertMono } from '@/styles/fonts';
 
 type Props = {
   createdDate: string;
@@ -29,23 +30,27 @@ export default function QuestionCardHeader({
           <Image
             src={imagePath ?? basicProfileImg}
             alt="profileImg"
-            width={size === 'big' ? 36 : 28}
-            height={size === 'big' ? 36 : 28}
-            className={`rounded-full object-cover ${
-              size === 'big' ? 'w-9 h-9' : 'w-7 h-7'
-            }`}
+            width={32}
+            height={32}
+            className={'rounded-full object-cover w-8 h-8'}
           />
         </Link>
-        <div className={`ml-2 ${size === 'small' && 'text-xs'}`}>
-          <h4 className="text-soma-grey-60 font-medium">{authorName}</h4>
-          <p className="text-xs text-soma-grey-49">
-            {formatDate(createdDate, 'YMD')}
-          </p>
+        <div className={'ml-2'}>
+          <h4
+            className={`text-soma-grey-60 font-medium text-xs ${
+              size === 'big' && 'sm:text-base'
+            }`}
+          >
+            {authorName}
+          </h4>
+          <RelativeDate date={createdDate} type="YMD" />
         </div>
       </div>
       <div className="flex items-center">
         <Image src={fillHeart} alt="fill_heart" width={15} height={15} />
-        <span className="text-soma-grey-49 text-sm text-center ml-1">
+        <span
+          className={`text-soma-grey-49 text-sm text-center ml-1 ${azertMono.className} `}
+        >
           {likeNum}
         </span>
       </div>

@@ -18,6 +18,7 @@ import {
 } from '@/service/validation';
 import { BASIC_INPUT_STYLE } from '@/utils/tailwindcss';
 import { notifyToast } from '@/service/notification';
+import Link from 'next/link';
 
 export default function SignupForm() {
   const router = useRouter();
@@ -52,7 +53,10 @@ export default function SignupForm() {
     }
 
     if (!validatePassword(signupData.pw)) {
-      notifyToast('비밀번호 형식에 맞지 않습니다.', 'error');
+      notifyToast(
+        '비밀번호 형식에 맞지 않습니다. 비빌번호 형식 : 8~15자리 (영어, 숫자, 특수문자(@$!%*#?&)) 포함)',
+        'error'
+      );
       return;
     }
 
@@ -82,10 +86,14 @@ export default function SignupForm() {
       return;
     }
 
-    checkEmailAndSendCode(signupData.email, 'signup').then((data) => {
-      notifyToast(data.message, data.isSuccess ? 'success' : 'error');
+    checkEmailAndSendCode(signupData.email, 'signup').then((res) => {
+      if (res.code) {
+        notifyToast(res.message, 'error');
+        return;
+      }
+      notifyToast(res.message, res.isSuccess ? 'success' : 'error');
       setIsValidCode(false);
-      setIsValidEmail(data.isSuccess ? true : false);
+      setIsValidEmail(res.isSuccess ? true : false);
     });
   };
 
@@ -98,7 +106,10 @@ export default function SignupForm() {
 
   const handleIsValidNickname = () => {
     if (!validateNickname(signupData.nickname)) {
-      notifyToast('닉네임 형식에 맞지 않습니다.', 'error');
+      notifyToast(
+        '닉네임 형식에 맞지 않습니다. 닉네임 형식 : 4~14자리 (영어, 숫자 : 1자, 한글 : 2자)',
+        'error'
+      );
       setIsValidNickname(false);
       return;
     }
@@ -214,6 +225,17 @@ export default function SignupForm() {
         />
       </div>
       <BlueBtn text="회원가입" onClick={() => {}} extraStyle="my-5" />
+      <div className="flex items-center justify-center">
+        <p className="text-soma-grey-50 mr-3 text-xs sm:text-sm">
+          계정이 이미 있나요?
+        </p>
+        <Link
+          href="/login"
+          className="self-end my-2 font-semibold text-soma-blue-50 text-sm sm:text-base"
+        >
+          로그인하기
+        </Link>
+      </div>
     </form>
   );
 }

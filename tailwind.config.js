@@ -71,6 +71,7 @@ module.exports = {
             70: 'var(--soma-grey-70)',
             80: 'var(--soma-grey-80)',
           },
+          green: 'var(--soma-green)',
         },
       },
       minHeight: {

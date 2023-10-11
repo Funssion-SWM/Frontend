@@ -32,62 +32,9 @@ export default function QuestionEditorForm() {
   const [contents, setContents] = useState('');
   const [isQuestionLoading, setIsQuestionLoading] = useState(false);
 
-  // const temporarySaveCallbackForSavingImage = async () => {
-  //   return createOrUpdateMemo(
-  //     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos`,
-  //     {
-  //       memoTitle: 'temp',
-  //       memoDescription: 'temp',
-  //       memoText:
-  //         '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"temp"}]}]}',
-  //       memoColor: selectedColor,
-  //       memoTags: tags,
-  //       isTemporary: true,
-  //     }
-  //   ).then((data) => data.questionId);
-  // };
-
-  // const routingAfterUploadImage = (questionId: number) => {
-  //   router.push(`/create/memo?id=${questionId}`);
-  // };
-
-  // const isInitialMount = useRef(true);
-  // // questionId가 변경되면 실행 for 이미지 임시저장
-  // useEffect(() => {
-  //   if (isInitialMount.current) {
-  //     isInitialMount.current = false;
-  //   } else {
-  //     console.log('hello');
-  //     if (questionId) {
-  //       const memoDescription = getDescription(contents);
-  //       createOrUpdateMemo(
-  //         `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${questionId}`,
-  //         {
-  //           memoTitle: title,
-  //           memoDescription,
-  //           memoText: contents,
-  //           memoColor: selectedColor,
-  //           memoTags: tags,
-  //           isTemporary: true,
-  //         }
-  //       );
-  //     }
-  //   }
-  // }, [questionId]);
-
   const editor = useEditor({
-    extensions: handleTiptapExtensions(
-      'question',
-      questionId
-      // temporarySaveCallbackForSavingImage,
-      // (questionId: number) => routingAfterUploadImage(questionId)
-    ),
-    editorProps: handleTiptapEditorProps(
-      'question',
-      questionId
-      // temporarySaveCallbackForSavingImage,
-      // (questionId: number) => routingAfterUploadImage(questionId)
-    ),
+    extensions: handleTiptapExtensions('question', questionId),
+    editorProps: handleTiptapEditorProps('question', questionId),
     autofocus: questionId ? 'end' : false,
     onCreate: async (e) => {
       if (questionId)
@@ -122,18 +69,18 @@ export default function QuestionEditorForm() {
 
   const savePost = () => {
     if (title === '') {
-      alert('제목을 작성해주세요!');
+      notifyToast('제목을 작성해주세요!', 'warning');
       return;
     }
 
-    if (title.length > 75) {
-      alert('제목 수 제한 75자를 초과하였습니다!');
+    if (title.length > 120) {
+      notifyToast('제목 수 제한 120자를 초과하였습니다!', 'warning');
       return;
     }
 
     const questionText = editor?.getText();
     if (questionText === '') {
-      alert('내용을 작성해주세요!');
+      notifyToast('내용을 작성해주세요!', 'warning');
       return;
     }
 
@@ -144,9 +91,10 @@ export default function QuestionEditorForm() {
           questionId
         ).then((res) => {
           if (res.code) {
-            notifyToast('등록에 실패했습니다.', 'error');
+            notifyToast(res.message, 'error');
             return;
           }
+          notifyToast('성공적으로 등록되었습니다.', 'success');
           router.push(`/questions/${questionId}`);
           router.refresh();
         })
@@ -155,9 +103,10 @@ export default function QuestionEditorForm() {
           memoId
         ).then((res) => {
           if (res.code) {
-            notifyToast('등록에 실패했습니다.', 'error');
+            notifyToast(res.message, 'error');
             return;
           }
+          notifyToast('성공적으로 등록되었습니다.', 'success');
           router.push(`/questions`);
           router.refresh();
         });
@@ -194,7 +143,7 @@ export default function QuestionEditorForm() {
           </div>
           <input
             type="text"
-            placeholder="제목을 입력해주세요."
+            placeholder="질문을 입력해주세요."
             name="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}

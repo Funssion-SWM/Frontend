@@ -6,6 +6,7 @@ import { checkUser, getUserInfo } from '@/service/auth';
 import { cookies } from 'next/headers';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 
 type Props = {
   params: {
@@ -27,11 +28,13 @@ export default async function MeDraftPage({ params: { slug } }: Props) {
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
 
+  id !== Number(slug) && redirect('/memos');
+
   return (
     <section>
       <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
       <LayoutWrapper paddingY="sm:py-5">
-        <MeDraftContainer memos={memos} />
+        <MeDraftContainer memos={memos} isMine={id === Number(slug)} />
       </LayoutWrapper>
     </section>
   );

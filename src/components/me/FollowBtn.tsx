@@ -20,7 +20,7 @@ export default function FollowBtn({ isFollowed, userId, myUserInfo }: Props) {
 
   const clickFollow = () => {
     follow(userId.toString()).then((res) => {
-      if (res.code) {
+      if (res?.code) {
         if (res.code === 401) router.push('/login');
         notifyToast(res.message, 'error');
         return;
@@ -32,7 +32,7 @@ export default function FollowBtn({ isFollowed, userId, myUserInfo }: Props) {
 
   const clickUnfollow = () => {
     unfollow(userId.toString()).then((res) => {
-      if (res.code) {
+      if (res?.code) {
         if (res.code === 401) router.push('/login');
         notifyToast(res.message, 'error');
         return;

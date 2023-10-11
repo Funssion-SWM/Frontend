@@ -9,7 +9,8 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { Question } from '@/types/question';
 import QuestionsList from '../question/QuestionsList';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { notifyToast } from '@/service/notification';
 
 type Props = {
   authorName: string;
@@ -22,6 +23,8 @@ type Props = {
   isFollowed: boolean;
   isMyMemo: boolean;
   isLogin: boolean;
+  authorFollowingNum: number;
+  authorFollowerNum: number;
 };
 
 export default function MemoSideBar({
@@ -35,16 +38,19 @@ export default function MemoSideBar({
   isFollowed,
   isMyMemo,
   isLogin,
+  authorFollowingNum,
+  authorFollowerNum,
 }: Props) {
   const [isVisible, setIsVisible] = useState(true);
   const [currnetCategory, setCurrnetCategory] = useState<
     'comment' | 'question' | 'recommendation'
   >('comment');
+  const router = useRouter();
 
   return (
-    <div className="sticky top-24 flex max-h-for-fit-screen  ">
+    <div className="sticky top-24 flex max-h-for-fit-screen ">
       <button
-        className={`flex z-10 absolute -left-10 sm:-left-3 justify-center items-center opacity-50 w-10 h-10 shadow-inner bg-white rounded-full self-center ${
+        className={`flex z-10 absolute -left-10 sm:-left-3 justify-center items-center border-[1px] border-soma-grey-30 w-10 h-10 shadow-inner bg-white rounded-full self-center ${
           !isVisible && '-scale-x-100'
         }`}
         onClick={() => setIsVisible((pre) => !pre)}
@@ -53,7 +59,7 @@ export default function MemoSideBar({
       </button>
       {isVisible && (
         <aside
-          className={`ml-4 absolute right-0 top-0 sm:static h-full bg-white flex flex-col rounded-2xl shadow-md min-w-[300px]`}
+          className={`ml-4 absolute right-0 top-0 sm:static h-full bg-white flex flex-col rounded-2xl shadow-md w-[300px]`}
         >
           <MemoSidebarHeader
             authorId={authorId}
@@ -64,6 +70,8 @@ export default function MemoSideBar({
             isFollowed={isFollowed}
             isMyMemo={isMyMemo}
             isLogin={isLogin}
+            authorFollowingNum={authorFollowingNum}
+            authorFollowerNum={authorFollowerNum}
           />
           {currnetCategory === 'comment' &&
             (comments.length === 0 ? (
@@ -95,12 +103,19 @@ export default function MemoSideBar({
               ) : (
                 <QuestionsList questions={questions} size="small" />
               )}
-              <Link
-                href={`/create/question?memoId=${memoId}`}
-                className="absolute bg-white bottom-3 right-3 text-sm rounded-2xl text-soma-grey-60 border-[0.5px] border-soma-grey-49 px-2 py-1"
+              <button
+                className="absolute bg-white bottom-3 right-3 text-sm rounded-2xl text-soma-grey-60 border-[0.5px] border-soma-grey-49 px-2 py-1 hover:bg-soma-grey-25 transition-all"
+                onClick={() => {
+                  if (isLogin) {
+                    router.push(`/create/question?memoId=${memoId}`);
+                    return;
+                  }
+                  router.push('/login');
+                  notifyToast('로그인을 해주세요.', 'error');
+                }}
               >
                 질문하기
-              </Link>
+              </button>
             </>
           )}
         </aside>

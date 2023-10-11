@@ -19,14 +19,14 @@ export default function AnswerForm({ questionId }: Props) {
   const router = useRouter();
 
   return (
-    <div className="mx-2 border-t-[1px] border-soma-grey-49">
-      <div className="flex justify-between items-center py-2 mt-10">
+    <div className="my-10 mx-2 sm:mx-0">
+      <div className="flex justify-between items-center my-2">
         <p className="sm:text-xl text-soma-grey-60 font-semibold">답변 작성</p>
         <BlueBtn
           text="등록"
           onClick={() => {
             if (editor?.getText().length === 0) {
-              alert('내용을 작성해주세요!');
+              notifyToast('내용을 작성해주세요', 'warning');
               return;
             }
 

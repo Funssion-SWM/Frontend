@@ -1,5 +1,10 @@
 import localFont from 'next/font/local';
-import { Crimson_Text, Inconsolata, Inter } from 'next/font/google';
+import {
+  Crimson_Text,
+  Inconsolata,
+  Inter,
+  Azeret_Mono,
+} from 'next/font/google';
 
 export const pretendard = localFont({
   src: '../styles/PretendardVariable.woff2',
@@ -53,3 +58,5 @@ export const defaultFontMapper = {
   Serif: crimson.variable,
   Mono: inconsolata.variable,
 };
+
+export const azertMono = Azeret_Mono({ subsets: ['latin'] });

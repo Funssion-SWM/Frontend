@@ -21,7 +21,7 @@ export default function Profile({
 }: Props) {
   return (
     <section className="flex flex-col items-center w-full">
-      <div className="text-center">
+      <div className="flex flex-col items-center">
         <Image
           src={userInfo.profileImageFilePath ?? basicProfileImg}
           alt="profileImg"

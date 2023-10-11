@@ -100,10 +100,10 @@ export async function createOrUpdateMemo(
     body: JSON.stringify(bodyData),
   })
     .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .catch(console.error);
 }
 
-export async function deleteMemo(id: number): Promise<void & ErrorResponse> {
+export async function deleteMemo(id: number): Promise<ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${id}`,
     {
@@ -111,14 +111,16 @@ export async function deleteMemo(id: number): Promise<void & ErrorResponse> {
       credentials: 'include',
     }
   )
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) return res.json();
+    })
     .catch(console.error);
 }
 
 export async function postImageInMemo(
   memoId: number,
   image: File
-): Promise<PostImageResponse> {
+): Promise<PostImageResponse & ErrorResponse> {
   const formdata = new FormData();
   formdata.append('image', image);
   return fetch(
@@ -130,11 +132,10 @@ export async function postImageInMemo(
     }
   )
     .then((res) => {
+      if (res.status === 413) {
+        return { code: 413, message: '이미지 크기가 10MB를 초과하였습니다.' };
+      }
       return res.json();
-    })
-    .then((data) => {
-      console.log(data);
-      return data;
     })
     .catch(console.error);
 }

@@ -57,7 +57,10 @@ export default function History({ history, userId }: Props) {
       date: `${date.getFullYear()}-${Math.floor(curMonth / 10)}${
         curMonth % 10
       }-${Math.floor(date.getDate() / 10)}${date.getDate() % 10}`,
-      postCnt: 0,
+      memoCnt: 0,
+      blogCnt: 0,
+      questionCnt: 0,
+      answerCnt: 0
     };
 
     if (
@@ -84,7 +87,7 @@ export default function History({ history, userId }: Props) {
   }
 
   return (
-    <section className="self-start w-full mt-5">
+    <section className="self-start w-full sm:min-w-[230px] mt-5">
       <Calendar
         calendarType="gregory"
         locale="en"

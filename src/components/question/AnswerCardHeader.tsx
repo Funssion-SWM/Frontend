@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import basicProfileImg from '@/assets/profile.svg';
-import { formatDate } from '@/service/time';
 import { useContext, useRef } from 'react';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import more from '@/assets/icons/more.svg';
@@ -10,6 +9,7 @@ import { deleteAnswer, selectAnswer } from '@/service/answers';
 import { ModalContext } from '@/context/ModalProvider';
 import BlueBtn from '../shared/btn/BlueBtn';
 import { notifyToast } from '@/service/notification';
+import RelativeDate from '../shared/RelativeDate';
 
 type Props = {
   answerId: number;
@@ -68,10 +68,10 @@ export default function AnswerCardHeader({
           />
         </Link>
         <div className="ml-2">
-          <h4 className="text-soma-grey-60 font-medium">{authorName}</h4>
-          <p className="text-xs text-soma-grey-49">
-            {formatDate(createdDate, 'YMDHM')}
-          </p>
+          <h4 className="text-soma-grey-60 font-medium text-xs sm:text-base">
+            {authorName}
+          </h4>
+          <RelativeDate date={createdDate} type="YMDHM" />
         </div>
       </div>
       {isEditMode ? (
@@ -82,24 +82,26 @@ export default function AnswerCardHeader({
             <BlueBtn
               text="채택하기"
               onClick={() => {
-                selectAnswer(questionId, answerId).then((res) => {
-                  if (res.code) {
-                    notifyToast(res.message, 'error');
-                    return;
-                  }
-                  notifyToast(res.message, 'success');
-                  router.refresh();
+                open('이 답변을 채택하시겠습니까?', () => {
+                  selectAnswer(questionId, answerId).then((res) => {
+                    if (res.code) {
+                      notifyToast(res.message, 'error');
+                      return;
+                    }
+                    notifyToast(res.message, 'success');
+                    router.refresh();
+                  });
                 });
               }}
             />
           )}
-          {isMyAnswer && (
+          {isMyAnswer && !isSolved && (
             <div className="flex ml-2">
               <button onClick={() => setIsActive((pre) => !pre)}>
                 <Image src={more} alt="more" />
               </button>
               <nav
-                className={`absolute top-6 right-0 bg-white flex flex-col gap-1 rounded-lg shadow-inner ${
+                className={`absolute top-6 right-0 bg-white flex flex-col z-10 gap-1 rounded-lg shadow-inner ${
                   isActive ? 'visible' : 'invisible'
                 }`}
               >

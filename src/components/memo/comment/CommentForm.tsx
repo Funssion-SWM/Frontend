@@ -12,34 +12,39 @@ type Props = {
 // onClick : client side에서 상태 업데이트하는 용도
 export default function CommentForm({ postId, postType, onClick }: Props) {
   const [commentText, setCommentText] = useState('');
+  const [isCreateing, setIsCreating] = useState(false);
   const router = useRouter();
-  const formRef = useRef<HTMLFormElement | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key == 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      formRef.current?.requestSubmit();
-    }
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = (e?: FormEvent<HTMLFormElement>) => {
+    e?.preventDefault();
     if (commentText === '') {
-      window.alert('댓글을 작성해주세요');
+      notifyToast('내용을 작성해주세요', 'warning');
       return;
     }
+    setIsCreating(true);
     createComment({ postTypeWithComment: postType, postId, commentText }).then(
       (res) => {
         if (res.code) {
           if (res.code === 401) router.push('/login');
           notifyToast(res.message, 'error');
+          setIsCreating(false);
           return;
         }
+        notifyToast(res.message, 'success');
         setCommentText('');
+        setIsCreating(false);
         onClick();
         router.refresh();
       }
     );
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key == 'Enter' && !e.shiftKey && !isCreateing) {
+      e.preventDefault();
+      formRef.current?.requestSubmit();
+    }
   };
 
   return (

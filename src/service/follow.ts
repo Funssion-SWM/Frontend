@@ -1,6 +1,6 @@
 import { ErrorResponse, UserInfo } from '@/types';
 
-export async function follow(userId: string): Promise<void & ErrorResponse> {
+export async function follow(userId: string): Promise<ErrorResponse> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/follow`);
   const params = {
     userId: userId,
@@ -8,11 +8,13 @@ export async function follow(userId: string): Promise<void & ErrorResponse> {
   url.search = new URLSearchParams(params).toString();
 
   return fetch(url, { method: 'POST', credentials: 'include' })
-    .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .then((res) => {
+      if (!res.ok) return res.json();
+    })
+    .catch(console.error);
 }
 
-export async function unfollow(userId: string): Promise<void & ErrorResponse> {
+export async function unfollow(userId: string): Promise<ErrorResponse> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/unfollow`);
   const params = {
     userId: userId,
@@ -20,8 +22,10 @@ export async function unfollow(userId: string): Promise<void & ErrorResponse> {
   url.search = new URLSearchParams(params).toString();
 
   return fetch(url, { method: 'POST', credentials: 'include' })
-    .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .then((res) => {
+      if (!res.ok) return res.json();
+    })
+    .catch(console.error);
 }
 
 export async function getFollowings(userId: string): Promise<UserInfo[]> {

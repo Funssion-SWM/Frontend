@@ -9,6 +9,7 @@ import { getIsLike } from '@/service/like';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { getQuestionsByMemoId } from '@/service/questions';
+import { getFollowers, getFollowings } from '@/service/follow';
 
 type Props = {
   params: {
@@ -52,7 +53,11 @@ export default async function MemoPage({ params: { slug } }: Props) {
     myData,
     questionsData,
   ]);
-  const { isFollowed } = await getUserInfo(authorId, cookie);
+
+  const { isFollowed, followCnt, followerCnt } = await getUserInfo(
+    authorId,
+    cookie
+  );
 
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
@@ -89,6 +94,8 @@ export default async function MemoPage({ params: { slug } }: Props) {
             isFollowed={isFollowed}
             isMyMemo={isMine}
             isLogin={isLogin}
+            authorFollowingNum={followCnt}
+            authorFollowerNum={followerCnt}
           />
         </div>
       </LayoutWrapper>

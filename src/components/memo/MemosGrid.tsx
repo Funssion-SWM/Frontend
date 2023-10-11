@@ -6,12 +6,14 @@ type Props = {
   memos: Memo[];
   colNum: number;
   isTemporary?: boolean;
+  isMine?: boolean;
 };
 
 export default function MemosGrid({
   memos,
   colNum,
   isTemporary = false,
+  isMine = false,
 }: Props) {
   return (
     <ul
@@ -28,7 +30,7 @@ export default function MemosGrid({
       {memos?.map((memo) => (
         <li key={memo.memoId}>
           {isTemporary ? (
-            <MemoCardTemporary memo={memo} />
+            <MemoCardTemporary memo={memo} isMine={isMine} />
           ) : (
             <MemoCard memo={memo} />
           )}

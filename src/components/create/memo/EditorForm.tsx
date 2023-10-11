@@ -32,6 +32,7 @@ export default function EditorForm() {
   const { openDrafts } = useContext(DraftsInModalContext);
 
   const memoId = Number(useSearchParams()?.get('id'));
+  const isFromDraftModal = useSearchParams()?.get('temp');
 
   const { complete, completion, isLoading, stop } = useCompletion({
     id: 'inforum',
@@ -54,7 +55,7 @@ export default function EditorForm() {
   });
 
   const [title, setTitle] = useState<string>('');
-  const [selectedColor, setSelectedColor] = useState<MemoColor>('white');
+  const [selectedColor, setSelectedColor] = useState<MemoColor>('yellow');
   const [inputTag, setInputTag] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
   const [contents, setContents] = useState('');
@@ -86,6 +87,15 @@ export default function EditorForm() {
       isInitialMount.current = false;
     } else {
       if (memoId) {
+        if (isFromDraftModal === 'true') {
+          getMemoById(memoId).then((data) => {
+            setTitle(data.memoTitle);
+            setSelectedColor(data.memoColor);
+            setTags(data.memoTags);
+            editor?.commands.setContent(JSON.parse(data.memoText));
+          });
+          return;
+        }
         const memoDescription = getDescription(contents);
         createOrUpdateMemo(
           `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${memoId}`,
@@ -247,19 +257,19 @@ export default function EditorForm() {
 
   const savePost = (saveMode: 'permanent' | 'temporary') => {
     if (title === '') {
-      alert('제목을 작성해주세요!');
+      notifyToast('제목을 작성해주세요!', 'warning');
       return;
     }
 
-    if (title.length > 75) {
-      alert('제목 수 제한 75자를 초과하였습니다!');
+    if (title.length > 120) {
+      notifyToast('제목 수 제한 120자를 초과하였습니다!', 'warning');
       return;
     }
 
     const memoText = JSON.stringify(editor?.getJSON());
 
     if (!memoText.includes('text')) {
-      alert('내용을 작성해주세요!');
+      notifyToast('내용을 작성해주세요!', 'warning');
       return;
     }
 
@@ -278,13 +288,15 @@ export default function EditorForm() {
       }
     ).then((data) => {
       if (data.code) {
-        notifyToast('등록에 실패했습니다', 'error');
+        notifyToast(data.message, 'error');
         return;
       }
 
       if (saveMode === 'temporary') {
+        notifyToast('임시 저장되었습니다.', 'success');
         !memoId && router.push(`/create/memo?id=${data.memoId}`);
       } else {
+        notifyToast('성공적으로 등록되었습니다.', 'success');
         memoId ? router.push(`/memos/${memoId}`) : router.push('/memos');
       }
       router.refresh();
@@ -292,23 +304,25 @@ export default function EditorForm() {
   };
 
   const edirotRef = useRef<HTMLDivElement>(null);
-  const [currentScrollHeight, setCurrentScrollHeight] = useState<number>(0);
+  const [preScrollHeight, setPreScrollHeight] = useState<number>(0);
   useEffect(() => {
     if (edirotRef.current && document.scrollingElement) {
-      if (currentScrollHeight < edirotRef.current.scrollHeight) {
-        document.scrollingElement.scrollTop = edirotRef.current.scrollHeight;
+      if (preScrollHeight < edirotRef.current.scrollHeight) {
+        document.scrollingElement.scrollTop +=
+          edirotRef.current.scrollHeight - preScrollHeight;
+      } else if (preScrollHeight > edirotRef.current.scrollHeight) {
+        document.scrollingElement.scrollTop +=
+          preScrollHeight - edirotRef.current.scrollHeight;
       }
-      setCurrentScrollHeight(edirotRef.current.scrollHeight);
+      setPreScrollHeight(edirotRef.current.scrollHeight);
     }
-  }, [editor?.state.selection, currentScrollHeight]);
+  }, [editor?.state.selection, preScrollHeight]);
 
   return (
     isMemoLoading && (
       <div className="flex w-full" ref={edirotRef}>
         <div
-          className={`relative flex flex-col rounded-lg ${
-            selectedColor !== 'white' && 'shadow-lg'
-          } px-2 pt-2 pb-4 min-h-screen sm:min-h-for-fit-screen w-full ${
+          className={`relative flex flex-col rounded-lg shadow-lg px-2 pt-2 pb-4 min-h-screen sm:min-h-for-fit-screen w-full ${
             {
               white: 'bg-soma-white',
               yellow: 'bg-memo-yellow',

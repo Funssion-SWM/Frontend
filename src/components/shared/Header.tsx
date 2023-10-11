@@ -38,7 +38,7 @@ export default function Header({
         scrollDirection === 'down' && 'opacity-0 invisible'
       }`}
     >
-      <div className="flex justify-between items-center py-4 px-5 max-w-screen-xl m-auto h-[70px]">
+      <div className="flex justify-between items-center py-4 px-1 sm:px-5 max-w-screen-xl m-auto h-[70px]">
         <Image
           src={logo}
           alt="logo"
@@ -49,24 +49,40 @@ export default function Header({
           }}
           className="cursor-pointer"
         />
-        <div className="flex gap-4 font-semibold text-soma-grey-50 sm:text-lg">
+        <div className="sm:flex gap-4 font-semibold text-soma-grey-50 sm:text-lg hidden">
           <Link
             href="/memos"
-            className={`${currentPage === 'memos' && 'text-soma-blue-40'}`}
+            className={`${
+              currentPage === 'memos' && 'text-soma-blue-40'
+            } hover:text-soma-blue-40 transition-all`}
             prefetch={false}
           >
             Memos
           </Link>
           <Link
             href="/questions"
-            className={`${currentPage === 'questions' && 'text-soma-blue-40'}`}
+            className={`${
+              currentPage === 'questions' && 'text-soma-blue-40'
+            } hover:text-soma-blue-40 transition-all`}
             prefetch={false}
           >
-            Questions
+            Q&A
           </Link>
         </div>
         {isLogin ? (
-          <nav className="flex items-center gap-3 relative" ref={dropdownRef}>
+          <nav
+            className="flex items-center gap-2 sm:gap-3 relative"
+            ref={dropdownRef}
+          >
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSfnkPn7J4uwSP-g3nclOVsx1m4ePUbf_GEpYG1Cpsh2aWgtMQ/viewform?usp=sf_link"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-soma-grey-50 hover:text-soma-blue-40 text-sm"
+            >
+              이벤트참여
+            </a>
+
             <button onClick={() => router.push('/search/form')}>
               <Image
                 className="cursor-pointer"
@@ -85,7 +101,7 @@ export default function Header({
             </button>
 
             <nav
-              className={`absolute top-10 bg-white flex flex-col gap-1 rounded-lg shadow-inner z-10 ${
+              className={`absolute top-9 right-[51px] sm:top-10 sm:right-14 bg-white flex flex-col gap-1 rounded-lg shadow-inner z-10 ${
                 isActive ? 'visible' : 'invisible'
               }`}
             >
@@ -110,7 +126,7 @@ export default function Header({
                   setIsActive(false);
                 }}
               >
-                임시 글
+                임시저장
               </button>
               <button
                 className="hover:bg-gray-200 p-2 rounded-b-lg"
@@ -149,6 +165,26 @@ export default function Header({
             </Link>
           </nav>
         )}
+      </div>
+      <div className="sm:hidden gap-4 font-semibold text-soma-grey-50 sm:text-lg flex justify-center my-2">
+        <Link
+          href="/memos"
+          className={`${
+            currentPage === 'memos' && 'text-soma-blue-40'
+          } hover:text-soma-blue-40 transition-all`}
+          prefetch={false}
+        >
+          Memos
+        </Link>
+        <Link
+          href="/questions"
+          className={`${
+            currentPage === 'questions' && 'text-soma-blue-40'
+          } hover:text-soma-blue-40 transition-all`}
+          prefetch={false}
+        >
+          Questions
+        </Link>
       </div>
     </header>
   );

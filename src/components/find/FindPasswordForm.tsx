@@ -40,7 +40,10 @@ export default function FindPasswordForm() {
     }
 
     if (!validatePassword(findPasswordData.pw)) {
-      notifyToast('비밀번호 형식에 맞지 않습니다.', 'error');
+      notifyToast(
+        '비밀번호 형식에 맞지 않습니다. 비빌번호 형식 : 8~15자리 (영어, 숫자, 특수문자(@$!%*#?&)) 포함)',
+        'error'
+      );
       return;
     }
 
@@ -72,10 +75,14 @@ export default function FindPasswordForm() {
       return;
     }
 
-    checkEmailAndSendCode(findPasswordData.email, 'find').then((data) => {
-      notifyToast(data.message, data.isSuccess ? 'success' : 'error');
+    checkEmailAndSendCode(findPasswordData.email, 'find').then((res) => {
+      if (res.code) {
+        notifyToast(res.message, 'error');
+        return;
+      }
+      notifyToast(res.message, res.isSuccess ? 'success' : 'error');
       setIsValidCode(false);
-      setIsValidEmail(data.isSuccess ? true : false);
+      setIsValidEmail(res.isSuccess ? true : false);
     });
   };
 

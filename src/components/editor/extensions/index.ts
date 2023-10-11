@@ -152,8 +152,8 @@ export const handleTiptapExtensions = (
           return `Heading ${node.attrs.level}`;
         }
         if (type === 'memo')
-          return "명령어는 '/' , 텍스트 자동 생성은 질문 작성 후 '++' 입력";
-        else return "명령어는 '/'";
+          return "명령어는 '/' , 텍스트 자동 생성은 질문 작성 후 '++' 입력하세요.";
+        else return "명령어는 '/' 입니다.";
       },
       includeChildren: true,
     }),
