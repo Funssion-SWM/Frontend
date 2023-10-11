@@ -47,7 +47,7 @@ export default function Header({
             router.push('/memos');
             router.refresh();
           }}
-          className="cursor-pointer absolute left-0"
+          className="cursor-pointer absolute left-1 sm:left-3"
         />
         <div className="sm:flex gap-4 font-semibold text-soma-grey-50 sm:text-lg hidden">
           <Link
@@ -71,7 +71,7 @@ export default function Header({
         </div>
         {isLogin ? (
           <nav
-            className="flex items-center gap-2 sm:gap-3 absolute right-0"
+            className="flex items-center gap-2 sm:gap-3 absolute right-1 sm:right-3"
             ref={dropdownRef}
           >
             <a
@@ -152,7 +152,7 @@ export default function Header({
             />
           </nav>
         ) : (
-          <nav className="flex items-center gap-3 absolute right-0">
+          <nav className="flex items-center gap-3 absolute right-1 sm:right-3">
             <button onClick={() => router.push('/search/form')}>
               <Image
                 className="cursor-pointer"
