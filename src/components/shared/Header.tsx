@@ -69,7 +69,7 @@ export default function Header({
             Q&A
           </Link>
         </div>
-        {true ? (
+        {isLogin ? (
           <nav
             className="flex items-center gap-2 sm:gap-3 relative"
             ref={dropdownRef}
