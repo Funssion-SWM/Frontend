@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import logo from '@/assets/inforum_logo.png';
 import kakao from '@/assets/icons/kakao.svg';
+import insta from '@/assets/icons/insta.svg';
 
 type Props = {
   extraClass?: string;
@@ -63,7 +64,14 @@ export default function Footer({ extraClass }: Props) {
           </div>
         </div>
 
-        <div className="hidden sm:block mt-20 ml-auto">
+        <div className="hidden sm:flex sm:gap-3 mt-20 ml-auto">
+          <a
+            href="https://www.instagram.com/inforum_swm/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image src={insta} alt="insta" width={24} />
+          </a>
           <a
             href="http://pf.kakao.com/_WxdeCG"
             target="_blank"
