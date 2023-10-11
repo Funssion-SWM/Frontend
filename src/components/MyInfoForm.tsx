@@ -185,7 +185,7 @@ export default function MyInfoForm({
       <div className="flex flex-col gap-2 my-3">
         <BlueBtn text={isSignup ? '등록' : '수정'} onClick={() => {}} />
         {isSignup && (
-          <Link href="/login">
+          <Link href="/memos">
             <WhiteBtn text="나중에" onClick={() => {}} extraStyle="w-full" />
           </Link>
         )}
