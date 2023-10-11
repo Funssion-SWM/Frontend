@@ -49,7 +49,7 @@ export default function Footer({ extraClass }: Props) {
         <div className="flex flex-col sm:ml-20 w-full sm:w-auto">
           <div className="mt-5 sm:mt-20">
             <span className="font-bold mr-2">Mail.</span>
-            <span>dongwoo0307@naver.com</span>
+            <span>inforum_2023@naver.com</span>
           </div>
           <div className="mt-5 sm:mt-3">
             <span className="font-bold mr-2">Form.</span>
