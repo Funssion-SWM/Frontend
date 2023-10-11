@@ -48,7 +48,7 @@ export default function SignupForm() {
         validateNickname(signupData.nickname)
       )
     ) {
-      notifyToast('중복확인, 인증 처리에 문제가 있습니다.', 'error');
+      notifyToast('중복확인 또는 인증 처리에 문제가 있습니다.', 'error');
       return;
     }
 
