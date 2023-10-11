@@ -19,6 +19,7 @@ import { checkUser, registerUserInfo, updateUserInfo } from '@/service/auth';
 import { UserInfo } from '@/types';
 import Tag from './shared/Tag';
 import { notifyToast } from '@/service/notification';
+import { MAX_PROFILE_IMAGE_BYTE } from '@/utils/const';
 
 type Props = {
   userId: number;
@@ -49,6 +50,10 @@ export default function MyInfoForm({
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
       const file = e.target.files[0];
+      if (file.size > MAX_PROFILE_IMAGE_BYTE) {
+        notifyToast('최대 프로필 이미지 사이즈 2MB를 초과하였습니다.', 'error');
+        return;
+      }
       const url = window.URL.createObjectURL(file);
       setImageFile(file);
       setImageUrl(url);
