@@ -73,7 +73,7 @@ export default function MemoSidebarHeader({
                     notifyToast(res.message, 'error');
                     return;
                   }
-                  setCurrentFollowerNum(authorFollowerNum - 1);
+                  setCurrentFollowerNum(currentFollowerNum - 1);
                   setIsCurrentFollowed(false);
                 });
               }}
@@ -88,7 +88,7 @@ export default function MemoSidebarHeader({
                     notifyToast(res.message, 'error');
                     return;
                   }
-                  setCurrentFollowerNum(authorFollowerNum + 1);
+                  setCurrentFollowerNum(currentFollowerNum + 1);
                   setIsCurrentFollowed(true);
                 });
               }}

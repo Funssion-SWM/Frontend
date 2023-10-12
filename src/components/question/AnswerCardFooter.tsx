@@ -8,6 +8,7 @@ import AnswerCommentContainer from './AnswerCommentContainer';
 import { dislike, like, undislike, unlike } from '@/service/like';
 import { notifyToast } from '@/service/notification';
 import { azertMono } from '@/styles/fonts';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   repliesCount: number;
@@ -37,11 +38,13 @@ export default function AnswerCardFooter({
   const [currentLikeNum, setCurrentLikeNum] = useState<number>(likeNum);
   const [currentDislikeNum, setCurrentDislikeNum] =
     useState<number>(dislikeNum);
+  const router = useRouter();
 
   const handleThumbUpClick = () => {
     if (currentIsLike) {
       unlike('answers', answerId).then((res) => {
         if (res?.code) {
+          if (res.code === 401) router.push('/login');
           notifyToast(res.message, 'error');
           return;
         }
@@ -52,6 +55,7 @@ export default function AnswerCardFooter({
       if (currentIsDislike) {
         undislike('answers', answerId).then((res) => {
           if (res?.code) {
+            if (res.code === 401) router.push('/login');
             notifyToast(res.message, 'error');
             return;
           }
@@ -59,6 +63,7 @@ export default function AnswerCardFooter({
           setCurrentDislikeNum((pre) => pre - 1);
           like('answers', answerId).then((res) => {
             if (res?.code) {
+              if (res.code === 401) router.push('/login');
               notifyToast(res.message, 'error');
               return;
             }
@@ -69,6 +74,7 @@ export default function AnswerCardFooter({
       } else {
         like('answers', answerId).then((res) => {
           if (res?.code) {
+            if (res.code === 401) router.push('/login');
             notifyToast(res.message, 'error');
             return;
           }
@@ -83,6 +89,7 @@ export default function AnswerCardFooter({
     if (currentIsDislike) {
       undislike('answers', answerId).then((res) => {
         if (res?.code) {
+          if (res.code === 401) router.push('/login');
           notifyToast(res.message, 'error');
           return;
         }
@@ -93,6 +100,7 @@ export default function AnswerCardFooter({
       if (currentIsLike) {
         unlike('answers', answerId).then((res) => {
           if (res?.code) {
+            if (res.code === 401) router.push('/login');
             notifyToast(res.message, 'error');
             return;
           }
@@ -100,6 +108,7 @@ export default function AnswerCardFooter({
           setCurrentLikeNum((pre) => pre - 1);
           dislike('answers', answerId).then((res) => {
             if (res?.code) {
+              if (res.code === 401) router.push('/login');
               notifyToast(res.message, 'error');
               return;
             }
@@ -110,6 +119,7 @@ export default function AnswerCardFooter({
       } else {
         dislike('answers', answerId).then((res) => {
           if (res?.code) {
+            if (res.code === 401) router.push('/login');
             notifyToast(res.message, 'error');
             return;
           }
