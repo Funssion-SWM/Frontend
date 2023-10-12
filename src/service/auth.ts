@@ -14,6 +14,7 @@ export async function signUp(userData: SignUpData): Promise<SignupResponse> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
     body: JSON.stringify(userData),
   })
     .then((res) => {
