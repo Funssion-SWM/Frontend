@@ -7,7 +7,7 @@ export async function searchMemos(
   orderBy: Orderby,
   isTag: Boolean,
   userId: string
-): Promise<Memo[]> {
+): Promise<Memo[] & ErrorResponse> {
   const url = new URL(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/search`
   );
@@ -21,7 +21,6 @@ export async function searchMemos(
 
   return fetch(url, { next: { revalidate: 0 } })
     .then((res) => {
-      if (!res.ok) throw new Error('error 발생!');
       return res.json();
     })
     .catch(console.error);
