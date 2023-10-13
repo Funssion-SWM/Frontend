@@ -73,7 +73,7 @@ export default function MemoDndCard({ card, index, moveCard }: Props) {
   return (
     <div
       ref={ref}
-      className={`flex flex-col relative rounded-md w-[150px] shadow-md cursor-move aspect-square p-3 transition ease-in-out duration-300${
+      className={`flex flex-col relative rounded-md w-32 shadow-md cursor-move aspect-square p-3 transition ease-in-out duration-300${
         isDragging ? 'opacity-0' : 'opacity-100'
       } ${
         {

@@ -36,13 +36,8 @@ export default function MemoOrderContainer() {
     },
     {
       id: 6,
-      text: '이펙티브 자바 4',
-      memoColor: 'purple',
-    },
-    {
-      id: 7,
       text: '이펙티브 자바 7',
-      memoColor: 'skyblue',
+      memoColor: 'navy',
     },
   ]);
   const moveCard = (dragIndex: number, hoverIndex: number) => {
@@ -56,7 +51,7 @@ export default function MemoOrderContainer() {
   };
 
   return (
-    <ul className="flex gap-3 overflow-x-auto h-[180px]">
+    <ul className="flex gap-3 overflow-x-auto h-48 items-center bg-soma-grey-10 px-3 rounded-lg">
       {cards.map((card, idx) => (
         <li key={card.id}>
           <MemoDndCard card={card} index={idx} moveCard={moveCard} />

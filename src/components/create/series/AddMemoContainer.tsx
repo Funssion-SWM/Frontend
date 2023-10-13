@@ -24,7 +24,7 @@ export default function AddMemoContainer() {
   }, [realSearchString]);
 
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col my-3">
       <BlueBtn text="메모 추가" onClick={() => {}} extraStyle="self-end" />
       <input
         type="text"

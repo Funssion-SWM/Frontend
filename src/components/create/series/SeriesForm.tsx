@@ -3,41 +3,91 @@
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import BlueBtn from '../../shared/btn/BlueBtn';
-import { Memo } from '@/types/memo';
-import { useState } from 'react';
+import { ChangeEvent, MutableRefObject, useRef, useState } from 'react';
 import AddMemoContainer from './AddMemoContainer';
 import MemoOrderContainer from './MemoOrderContainer';
+import { MAX_PROFILE_IMAGE_BYTE } from '@/utils/const';
+import { notifyToast } from '@/service/notification';
+import Image from 'next/image';
+import { AiOutlinePicture } from 'react-icons/ai';
 
 export default function SeriesForm() {
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFile, setImageFile] = useState<File>();
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [memoIds, setMemoIds] = useState<number[]>([]);
+  const [imageUrl, setImageUrl] = useState<string>();
+
+  const fileInput = useRef() as MutableRefObject<HTMLInputElement>;
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files !== null) {
+      const file = e.target.files[0];
+      if (file.size > MAX_PROFILE_IMAGE_BYTE) {
+        notifyToast('최대 프로필 이미지 사이즈 2MB를 초과하였습니다.', 'error');
+        return;
+      }
+      const url = window.URL.createObjectURL(file);
+      setImageFile(file);
+      setImageUrl(url);
+    }
+  };
 
   return (
-    <div className="flex flex-col w-full min-h-for-fit-screen">
-      <div className="flex justify-between">
-        <div className="text-3xl font-semibold">Series</div>
+    <div className="flex flex-col w-full min-h-for-fit-scree">
+      <div className="flex justify-between items-center mb-2">
+        <div className="text-2xl font-semibold">Series</div>
         <BlueBtn text="만들기" onClick={() => {}} />
       </div>
-      <div className="flex w-full gap-4">
-        <div className="w-1/3 flex flex-col">
-          <div className="flex flex-col h-60">
-            <button className="flex justify-center items-center h-full my-3 bg-soma-grey-25">
-              썸네일 업로드
+      <div className="sm:flex-row flex w-full gap-4 flex-col">
+        <div className="sm:min-w-[300px] flex flex-col rounded-lg">
+          <div className="flex flex-col h-48">
+            <input
+              type="file"
+              id="imageFile"
+              name="imageFile"
+              className="hidden"
+              accept="image/*"
+              ref={fileInput}
+              onChange={handleFileChange}
+            />
+            <button
+              className="flex justify-center items-center h-full bg-soma-grey-25 "
+              onClick={() => fileInput.current.click()}
+            >
+              {imageUrl ? (
+                <Image
+                  src={imageUrl}
+                  width={96}
+                  height={96}
+                  alt="profile"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              ) : (
+                <div>
+                  <AiOutlinePicture className="w-24 h-24" />
+                  <p className="text-soma-grey-60 font-semibold">
+                    썸네일 업로드
+                  </p>
+                </div>
+              )}
             </button>
           </div>
           <input
             type="text"
-            className="bg-soma-grey-25 p-3  my-3"
+            className="bg-soma-grey-25 p-3 my-3 outline-none rounded-lg"
             placeholder="시리즈 제목"
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
           ></input>
           <textarea
-            className="bg-soma-grey-25 p-3 grow my-3 align-top max-h-[200px] resize-none"
+            className="bg-soma-grey-25 p-3 resize-none outline-none rounded-lg h-72"
             placeholder="시리즈를 짧게 소개해보세요..."
+            onChange={(e) => setDescription(e.target.value)}
+            value={description}
           ></textarea>
         </div>
-        <div className="w-2/3 my-3">
+        <div className="grow">
           <DndProvider backend={HTML5Backend}>
             <MemoOrderContainer />
           </DndProvider>
