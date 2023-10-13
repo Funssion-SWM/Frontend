@@ -12,6 +12,7 @@ import BarBtn from '../shared/btn/BarBtn';
 import QuestionsList from '../question/QuestionsList';
 import { Question } from '@/types/question';
 import { searchQuestions } from '@/service/search';
+import { notifyToast } from '@/service/notification';
 
 type Props = {
   searchString: string;
@@ -35,13 +36,15 @@ export default function SearchResultContainer({
   const fetchPost = async () => {
     switch (postType) {
       case 'memo': {
-        const memos = await searchMemos(
-          tempSearchString,
-          selectedOrderType,
-          isTag,
-          userId
+        searchMemos(tempSearchString, selectedOrderType, isTag, userId).then(
+          (res) => {
+            if ('code' in res) {
+              notifyToast(res.message, 'error');
+              return;
+            }
+            setMemoData(res);
+          }
         );
-        setMemoData(memos);
         return;
       }
       case 'question': {
