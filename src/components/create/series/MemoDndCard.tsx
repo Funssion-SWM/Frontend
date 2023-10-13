@@ -36,21 +36,19 @@ export default function MemoDndCard({ card, index, moveCard }: Props) {
       // Determine rectangle on screen
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
       // Get vertical middle
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const hoverMiddleX =
+        (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
       // Determine mouse position
       const clientOffset: any = monitor.getClientOffset();
-      // Get pixels to the top
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
-      // Dragging downwards
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+      // Get pixels to the left
+      const hoverClientX = clientOffset.x - hoverBoundingRect.left;
+
+      // Dragging right
+      if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
         return;
       }
-      // Dragging upwards
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+      // Dragging left
+      if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
         return;
       }
       // Time to actually perform the action
@@ -62,11 +60,9 @@ export default function MemoDndCard({ card, index, moveCard }: Props) {
       item.index = hoverIndex;
     },
   });
-  const [{ isDragging }, drag] = useDrag({
+  const [{ isDragging }, drag, preview] = useDrag({
     type: ItemTypes.CARD,
-    item: () => {
-      return { id, index };
-    },
+    item: { id, index },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -77,7 +73,7 @@ export default function MemoDndCard({ card, index, moveCard }: Props) {
   return (
     <div
       ref={ref}
-      className={`flex flex-col relative rounded-md w-[150px] shadow-md cursor-move aspect-square p-3 sm:hover:scale-105 transition ease-in-out duration-300${
+      className={`flex flex-col relative rounded-md w-[150px] shadow-md cursor-move aspect-square p-3 transition ease-in-out duration-300${
         isDragging ? 'opacity-0' : 'opacity-100'
       } ${
         {
