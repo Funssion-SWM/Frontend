@@ -7,7 +7,7 @@ export async function searchMemos(
   orderBy: Orderby,
   isTag: Boolean,
   userId: string
-): Promise<Memo[] & ErrorResponse> {
+): Promise<Memo[] | ErrorResponse> {
   const url = new URL(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/search`
   );

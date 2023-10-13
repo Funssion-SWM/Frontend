@@ -15,7 +15,7 @@ export default function AddMemoContainer() {
 
   useEffect(() => {
     searchMemos(realSearchString, 'new', false, '1').then((res) => {
-      if (res.code) {
+      if ('code' in res) {
         notifyToast(res.message, 'error');
         return;
       }
