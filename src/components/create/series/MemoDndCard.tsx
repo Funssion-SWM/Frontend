@@ -1,19 +1,26 @@
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { ExampleCardType } from './MemoOrderContainer';
+import { Memo } from '@/types/memo';
+import { AiOutlineMinusCircle } from 'react-icons/ai';
 
 type Props = {
-  card: ExampleCardType;
+  memo: Memo;
   index: number;
   moveCard: (dragIndex: number, hoverIndex: number) => void;
+  onDeleteBtnClick: (id: number) => void;
 };
 
 export const ItemTypes = {
   CARD: 'card',
 };
 
-export default function MemoDndCard({ card, index, moveCard }: Props) {
-  const { id, text, memoColor } = card;
+export default function MemoDndCard({
+  memo,
+  index,
+  moveCard,
+  onDeleteBtnClick,
+}: Props) {
+  const { memoId, memoTitle, memoColor, memoDescription } = memo;
 
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop({
@@ -62,7 +69,7 @@ export default function MemoDndCard({ card, index, moveCard }: Props) {
   });
   const [{ isDragging }, drag, preview] = useDrag({
     type: ItemTypes.CARD,
-    item: { id, index },
+    item: { memoId, index },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -89,7 +96,18 @@ export default function MemoDndCard({ card, index, moveCard }: Props) {
       }`}
       data-handler-id={handlerId}
     >
-      <p className="line-clamp-2"> {text}</p>
+      <p className="line-clamp-2 font-semibold text-sm break-all text-soma-grey-70 h-10">
+        {memoTitle}
+      </p>
+      <p className="line-clamp-2 text-xs break-all text-soma-grey-60 mt-2">
+        {memoDescription}
+      </p>
+      <button
+        className="absolute -top-2 -right-2"
+        onClick={() => onDeleteBtnClick(memoId)}
+      >
+        <AiOutlineMinusCircle className="text-soma-blue-40 w-5 h-5" />
+      </button>
     </div>
   );
 }

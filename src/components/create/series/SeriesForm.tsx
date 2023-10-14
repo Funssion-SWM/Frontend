@@ -10,12 +10,13 @@ import { MAX_PROFILE_IMAGE_BYTE } from '@/utils/const';
 import { notifyToast } from '@/service/notification';
 import Image from 'next/image';
 import { AiOutlinePicture } from 'react-icons/ai';
+import { Memo } from '@/types/memo';
 
 export default function SeriesForm() {
   const [imageFile, setImageFile] = useState<File>();
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
-  const [memoIds, setMemoIds] = useState<number[]>([]);
+  const [memos, setMemos] = useState<Memo[]>([]);
   const [imageUrl, setImageUrl] = useState<string>();
 
   const fileInput = useRef() as MutableRefObject<HTMLInputElement>;
@@ -33,13 +34,31 @@ export default function SeriesForm() {
     }
   };
 
+  const handleAdd = (memos: Memo[]) => {
+    setMemos((preMemos) => [...preMemos, ...memos]);
+  };
+
+  const moveCard = (dragIndex: number, hoverIndex: number) => {
+    setMemos((prevMemo) => {
+      const arr = [...prevMemo];
+      const elementToMove = arr[dragIndex];
+      arr.splice(dragIndex, 1);
+      arr.splice(hoverIndex, 0, elementToMove);
+      return arr;
+    });
+  };
+
+  const handleDeleteBtnClick = (memoId: number) => {
+    setMemos((preMemos) => preMemos.filter((memo) => memo.memoId !== memoId));
+  };
+
   return (
-    <div className="flex flex-col w-full min-h-for-fit-scree">
+    <div className="flex flex-col w-full min-h-for-fit-screen">
       <div className="flex justify-between items-center mb-2">
         <div className="text-2xl font-semibold">Series</div>
         <BlueBtn text="만들기" onClick={() => {}} />
       </div>
-      <div className="sm:flex-row flex w-full gap-4 flex-col">
+      <div className="flex flex-col sm:flex-row  w-full gap-4 ">
         <div className="sm:min-w-[300px] flex flex-col rounded-lg">
           <div className="flex flex-col h-48">
             <input
@@ -87,11 +106,18 @@ export default function SeriesForm() {
             value={description}
           ></textarea>
         </div>
-        <div className="grow">
+        <div className="flex flex-col grow">
           <DndProvider backend={HTML5Backend}>
-            <MemoOrderContainer />
+            <MemoOrderContainer
+              memos={memos}
+              moveCard={moveCard}
+              onDeleteBtnClick={handleDeleteBtnClick}
+            />
           </DndProvider>
-          <AddMemoContainer />
+          <AddMemoContainer
+            memoIdsInSeries={memos.map((memo) => memo.memoId)}
+            onAdd={handleAdd}
+          />
         </div>
       </div>
     </div>

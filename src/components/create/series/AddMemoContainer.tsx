@@ -1,4 +1,3 @@
-import MemosGrid from '@/components/memo/MemosGrid';
 import BlueBtn from '@/components/shared/btn/BlueBtn';
 import { useDebounce } from '@/hooks/useDebounce';
 import { searchMemos } from '@/service/memos';
@@ -6,15 +5,22 @@ import { notifyToast } from '@/service/notification';
 import { Memo } from '@/types/memo';
 import { SEARCH_RESULT_TIME } from '@/utils/const';
 import { useEffect, useState } from 'react';
+import SelectCard from './SelectCard';
 
-export default function AddMemoContainer() {
+type Props = {
+  memoIdsInSeries: number[];
+  onAdd: (ids: Memo[]) => void;
+};
+
+export default function AddMemoContainer({ memoIdsInSeries, onAdd }: Props) {
   const [searchString, setSearchString] = useState('');
   const [memos, setMemos] = useState<Memo[]>([]);
+  const [selectedMemos, setSelectedMemos] = useState<Memo[]>([]);
 
   const realSearchString = useDebounce(searchString, SEARCH_RESULT_TIME);
 
   useEffect(() => {
-    searchMemos(realSearchString, 'new', false, '1').then((res) => {
+    searchMemos(realSearchString, 'new', false, '506').then((res) => {
       if ('code' in res) {
         notifyToast(res.message, 'error');
         return;
@@ -23,17 +29,42 @@ export default function AddMemoContainer() {
     });
   }, [realSearchString]);
 
+  const handleClickCard = (selected: boolean, memo: Memo) => {
+    selected
+      ? setSelectedMemos(
+          selectedMemos.filter((item) => item.memoId !== memo.memoId)
+        )
+      : setSelectedMemos([...selectedMemos, memo]);
+  };
+
+  const handleClickAddBtn = () => {
+    onAdd(selectedMemos);
+    setSelectedMemos([]);
+  };
+
   return (
-    <div className="flex flex-col my-3">
-      <BlueBtn text="메모 추가" onClick={() => {}} extraStyle="self-end" />
+    <div className="flex flex-col my-3 ">
+      <BlueBtn
+        text="메모 추가"
+        onClick={handleClickAddBtn}
+        extraStyle="self-end"
+      />
       <input
         type="text"
-        className="w-full rounded-lg my-2 bg-soma-grey-25 p-3"
+        className="rounded-lg my-2 bg-soma-grey-25 p-3 outline-none"
         placeholder="검색어를 입력해주세요..."
         onChange={(e) => setSearchString(e.target.value)}
         value={searchString}
       ></input>
-      <MemosGrid memos={memos} colNum={3} />
+      <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {memos
+          .filter((memo) => !memoIdsInSeries.includes(memo.memoId))
+          .map((memo) => (
+            <li key={memo.memoId}>
+              <SelectCard memo={memo} onClick={handleClickCard} />
+            </li>
+          ))}
+      </ul>
     </div>
   );
 }
