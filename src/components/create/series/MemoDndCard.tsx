@@ -80,7 +80,7 @@ export default function MemoDndCard({
   return (
     <div
       ref={ref}
-      className={`flex flex-col relative rounded-md w-32 shadow-md cursor-move aspect-square p-3 transition ease-in-out duration-300${
+      className={`flex flex-col relative rounded-md w-32 shadow-md cursor-move aspect-square p-3 transition ease-in-out duration-300 ${
         isDragging ? 'opacity-0' : 'opacity-100'
       } ${
         {
@@ -103,7 +103,7 @@ export default function MemoDndCard({
         {memoDescription}
       </p>
       <button
-        className="absolute -top-2 -right-2"
+        className="absolute top-0 right-0"
         onClick={() => onDeleteBtnClick(memoId)}
       >
         <AiOutlineMinusCircle className="text-soma-blue-40 w-5 h-5" />
