@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      scale: {
+        102: '1.02',
+      },
       fontFamily: {
         display: ['var(--font-display)', 'system-ui', 'sans-serif'],
         default: ['var(--font-default)', 'system-ui', 'sans-serif'],
