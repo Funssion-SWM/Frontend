@@ -37,7 +37,12 @@ export default function SeriesDetailContainer({
   authorFollowerNum,
   memoIds,
 }: Props) {
-  const [titles, setTitles] = useState(['test1', 'test2', 'test3', 'test4']);
+  const [titles, setTitles] = useState([
+    'test1',
+    'test2',
+    'test3sdfsdfdsfasdasdsdㅁㄴㅇㅁㄴㅇ',
+    '이펙티브자바자바자바바바바바바바',
+  ]);
 
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [currentMemo, setCurrentMemo] = useState<Memo>(memo);
@@ -62,15 +67,21 @@ export default function SeriesDetailContainer({
   }, [currentIdx]);
 
   return (
-    <div>
-      <ul className="flex gap-2">
+    <div className="flex flex-col">
+      <ul className="flex gap-2 w-full overflow-x-auto my-2 py-2">
         {titles.map((title, idx) => (
           <button
             key={idx}
-            className="bg-soma-blue-40 text-white rounded-2xl px-2 py-1"
             onClick={() => setCurrentIdx(idx)}
+            className={`px-4 py-2 border-[1px] min-w-[128px] w-32
+            rounded-3xl text-sm font-semibold hover:text-soma-blue-50 hover:border-soma-blue-50
+            transition-all ${
+              idx === currentIdx
+                ? 'border-soma-blue-50 text-soma-blue-50'
+                : 'text-soma-grey-60 border-soma-grey-40'
+            }`}
           >
-            {title}
+            <p className="line-clamp-1">{title}</p>
           </button>
         ))}
       </ul>
