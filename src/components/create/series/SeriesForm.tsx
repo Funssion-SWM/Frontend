@@ -3,7 +3,13 @@
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import BlueBtn from '../../shared/btn/BlueBtn';
-import { ChangeEvent, MutableRefObject, useRef, useState } from 'react';
+import {
+  ChangeEvent,
+  MutableRefObject,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import AddMemoContainer from './AddMemoContainer';
 import MemoOrderContainer from './MemoOrderContainer';
 import { MAX_PROFILE_IMAGE_BYTE } from '@/utils/const';
@@ -11,15 +17,25 @@ import { notifyToast } from '@/service/notification';
 import Image from 'next/image';
 import { AiOutlinePicture } from 'react-icons/ai';
 import { Memo } from '@/types/memo';
+import { createSeries } from '@/service/series';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function SeriesForm() {
-  const [imageFile, setImageFile] = useState<File>();
+  const seriesId = Number(useSearchParams()?.get('id'));
+
+  const [imageFile, setImageFile] = useState<File | undefined>();
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [memos, setMemos] = useState<Memo[]>([]);
   const [imageUrl, setImageUrl] = useState<string>();
+  const router = useRouter();
 
   const fileInput = useRef() as MutableRefObject<HTMLInputElement>;
+
+  useEffect(() => {
+    if (seriesId) {
+    }
+  }, []);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
@@ -52,11 +68,27 @@ export default function SeriesForm() {
     setMemos((preMemos) => preMemos.filter((memo) => memo.memoId !== memoId));
   };
 
+  const handleCreateBtnClick = () => {
+    createSeries(
+      title,
+      description,
+      memos.map((memo) => memo.memoId),
+      imageFile
+    ).then((res) => {
+      if ('code' in res) {
+        notifyToast(res.message, 'error');
+        return;
+      }
+      notifyToast('성공적으로 시리즈가 만들어졌습니다.', 'success');
+      router.push(`/series/${res.seriesId}`);
+    });
+  };
+
   return (
     <div className="flex flex-col w-full min-h-for-fit-screen">
       <div className="flex justify-between items-center mb-2">
         <div className="text-2xl font-semibold">Series</div>
-        <BlueBtn text="만들기" onClick={() => {}} />
+        <BlueBtn text="만들기" onClick={handleCreateBtnClick} />
       </div>
       <div className="flex flex-col sm:flex-row  w-full gap-4 ">
         <div className="sm:min-w-[300px] flex flex-col rounded-lg">

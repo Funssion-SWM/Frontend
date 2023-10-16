@@ -6,6 +6,7 @@ import { getCommentsByPostTypeAndPostId } from '@/service/comments';
 import { getIsLike } from '@/service/like';
 import { getMemoById } from '@/service/memos';
 import { getQuestionsByMemoId } from '@/service/questions';
+import { getSeriesById } from '@/service/series';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { cookies } from 'next/headers';
 
@@ -15,7 +16,7 @@ type Props = {
   };
 };
 
-const memoIds = [387, 388, 389, 390];
+// const memoIds = [387, 388, 389, 390];
 
 export default async function SeriesDetailPage({ params: { slug } }: Props) {
   const accessToken = cookies().get(ACCESS_TOKEN)?.value;
@@ -23,15 +24,17 @@ export default async function SeriesDetailPage({ params: { slug } }: Props) {
   const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
   const seriesId = Number(slug);
 
-  const memoData = getMemoById(memoIds[0], cookie);
-  const likeData = getIsLike('memos', memoIds[0], cookie);
+  const { memoInfoList } = await getSeriesById(seriesId);
+
+  const memoData = getMemoById(memoInfoList[0].id, cookie);
+  const likeData = getIsLike('memos', memoInfoList[0].id, cookie);
   const commentData = getCommentsByPostTypeAndPostId(
     'memo',
-    memoIds[0],
+    memoInfoList[0].id,
     cookie
   );
   const myData = checkUser(cookie);
-  const questionsData = getQuestionsByMemoId(memoIds[0]);
+  const questionsData = getQuestionsByMemoId(memoInfoList[0].id);
 
   const [memo, { isLike }, comments, { id, isLogin }, questions] =
     await Promise.all([memoData, likeData, commentData, myData, questionsData]);
@@ -63,7 +66,7 @@ export default async function SeriesDetailPage({ params: { slug } }: Props) {
           isFollowed={isFollowed}
           authorFollowingNum={followCnt}
           authorFollowerNum={followerCnt}
-          memoIds={memoIds}
+          memoInfoList={memoInfoList}
         />
       </LayoutWrapper>
     </section>

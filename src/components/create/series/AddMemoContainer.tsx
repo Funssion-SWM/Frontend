@@ -20,7 +20,7 @@ export default function AddMemoContainer({ memoIdsInSeries, onAdd }: Props) {
   const realSearchString = useDebounce(searchString, SEARCH_RESULT_TIME);
 
   useEffect(() => {
-    searchMemos(realSearchString, 'new', false, '506').then((res) => {
+    searchMemos(realSearchString, 'new', false, '697').then((res) => {
       if ('code' in res) {
         notifyToast(res.message, 'error');
         return;

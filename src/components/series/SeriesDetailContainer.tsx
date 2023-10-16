@@ -10,6 +10,7 @@ import { getQuestionsByMemoId } from '@/service/questions';
 import { Question } from '@/types/question';
 import { Memo } from '@/types/memo';
 import { Comment } from '@/types/comment';
+import { MemoInfo } from '@/types/series';
 
 type Props = {
   memo: Memo;
@@ -21,7 +22,7 @@ type Props = {
   isFollowed: boolean;
   authorFollowingNum: number;
   authorFollowerNum: number;
-  memoIds: number[];
+  memoInfoList: MemoInfo[];
 };
 
 export default function SeriesDetailContainer({
@@ -35,15 +36,8 @@ export default function SeriesDetailContainer({
   isFollowed,
   authorFollowingNum,
   authorFollowerNum,
-  memoIds,
+  memoInfoList,
 }: Props) {
-  const [titles, setTitles] = useState([
-    'test1',
-    'test2',
-    'test3sdfsdfdsfasdasdsdㅁㄴㅇㅁㄴㅇ',
-    '이펙티브자바자바자바바바바바바바',
-  ]);
-
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [currentMemo, setCurrentMemo] = useState<Memo>(memo);
   const [currnetIsLike, setCurrentIsLike] = useState<boolean>(isLike);
@@ -52,16 +46,16 @@ export default function SeriesDetailContainer({
     useState<Question[]>(questions);
 
   useEffect(() => {
-    getMemoById(memoIds[currentIdx]).then((memo) => {
+    getMemoById(memoInfoList[currentIdx].id).then((memo) => {
       setCurrentMemo(memo);
     });
-    getIsLike('memos', memoIds[currentIdx]).then((likedata) =>
+    getIsLike('memos', memoInfoList[currentIdx].id).then((likedata) =>
       setCurrentIsLike(likedata.isLike)
     );
-    getCommentsByPostTypeAndPostId('memo', memoIds[currentIdx]).then(
+    getCommentsByPostTypeAndPostId('memo', memoInfoList[currentIdx].id).then(
       (comments) => setCurrentComments(comments)
     );
-    getQuestionsByMemoId(memoIds[currentIdx]).then((questions) =>
+    getQuestionsByMemoId(memoInfoList[currentIdx].id).then((questions) =>
       setCurrentQuestions(questions)
     );
   }, [currentIdx]);
@@ -69,7 +63,7 @@ export default function SeriesDetailContainer({
   return (
     <div className="flex flex-col">
       <ul className="flex gap-2 w-full overflow-x-auto my-2 py-2">
-        {titles.map((title, idx) => (
+        {memoInfoList.map(({ title }, idx) => (
           <button
             key={idx}
             onClick={() => setCurrentIdx(idx)}
