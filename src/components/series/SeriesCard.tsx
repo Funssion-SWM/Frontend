@@ -70,7 +70,7 @@ export default function SeriesCard({ series }: Props) {
           }[topThreeColors[0] ?? 'white']
         }`}
       >
-        <Link href={`/series/${id}`}>
+        <Link href={`/series/${id}`} prefetch={false}>
           <div className="relative h-1/2 rounded-md">
             <Image
               src={thumbnailImagePath ?? inforumImg}
