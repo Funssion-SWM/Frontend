@@ -32,7 +32,7 @@ export default function AnswerForm({ questionId }: Props) {
 
             const questionText = JSON.stringify(editor?.getJSON());
             createAnswer(questionId, questionText).then((res) => {
-              if (res.code) {
+              if ('code' in res) {
                 if (res.code === 401) router.push('/login');
                 notifyToast(res.message, 'error');
                 return;

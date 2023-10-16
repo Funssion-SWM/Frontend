@@ -99,7 +99,7 @@ export default function QuestionEditorForm() {
           { title, text: contents, description, tags },
           questionId
         ).then((res) => {
-          if (res.code) {
+          if ('code' in res) {
             notifyToast(res.message, 'error');
             return;
           }
@@ -111,7 +111,7 @@ export default function QuestionEditorForm() {
           { title, text: contents, description, tags },
           memoId
         ).then((res) => {
-          if (res.code) {
+          if ('code' in res) {
             notifyToast(res.message, 'error');
             return;
           }

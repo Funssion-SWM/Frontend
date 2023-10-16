@@ -25,7 +25,7 @@ export default function CommentForm({ postId, postType, onClick }: Props) {
     setIsCreating(true);
     createComment({ postTypeWithComment: postType, postId, commentText }).then(
       (res) => {
-        if (res.code) {
+        if ('code' in res) {
           if (res.code === 401) router.push('/login');
           notifyToast(res.message, 'error');
           setIsCreating(false);

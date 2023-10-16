@@ -142,8 +142,9 @@ export const handleImageUpload = (
     switch (type) {
       case 'memo':
         postImageInMemo(postId, file).then((res) => {
-          if (res?.code) {
+          if ('code' in res) {
             reject(res.message);
+            return;
           }
           let image = new Image();
           image.src = res.imagePath;
@@ -154,8 +155,9 @@ export const handleImageUpload = (
         break;
       case 'question':
         postImageInQuestion(file).then((res) => {
-          if (res?.code) {
+          if ('code' in res) {
             reject(res.message);
+            return;
           }
           let image = new Image();
           image.src = res.imagePath;
@@ -166,8 +168,9 @@ export const handleImageUpload = (
         break;
       case 'answer':
         postImageInAnswer(file).then((res) => {
-          if (res?.code) {
+          if ('code' in res) {
             reject(res.message);
+            return;
           }
           let image = new Image();
           image.src = res.imagePath;

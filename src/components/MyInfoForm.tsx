@@ -70,7 +70,7 @@ export default function MyInfoForm({
           selectedtdTags,
           imageUrl === '' && imageFile === null ? 'true' : 'false'
         ).then((res) => {
-          if (res.code) {
+          if ('code' in res) {
             notifyToast(res.message, 'error');
             return;
           }
@@ -87,7 +87,7 @@ export default function MyInfoForm({
           selectedtdTags,
           imageUrl === '' && imageFile === null ? 'true' : 'false'
         ).then((res) => {
-          if (res.code) {
+          if ('code' in res) {
             notifyToast(res.message, 'error');
             return;
           }

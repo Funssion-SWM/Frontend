@@ -32,7 +32,7 @@ export default function QuestionHeader({
 
   const handleDelete = () =>
     deleteQuestion(questionId).then((res) => {
-      if (res.code) {
+      if ('code' in res) {
         notifyToast(res.message, 'error');
         return;
       }

@@ -119,7 +119,7 @@ export async function deleteMemo(id: number): Promise<ErrorResponse> {
 export async function postImageInMemo(
   memoId: number,
   image: File
-): Promise<PostImageResponse & ErrorResponse> {
+): Promise<PostImageResponse | ErrorResponse> {
   const formdata = new FormData();
   formdata.append('image', image);
   return fetch(

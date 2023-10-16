@@ -47,7 +47,7 @@ export default function AnswerCardHeader({
 
   const handleDelete = () =>
     deleteAnswer(answerId).then((res) => {
-      if (res.code) {
+      if ('code' in res) {
         notifyToast(res.message, 'error');
         return;
       }
@@ -84,7 +84,7 @@ export default function AnswerCardHeader({
               onClick={() => {
                 open('이 답변을 채택하시겠습니까?', () => {
                   selectAnswer(questionId, answerId).then((res) => {
-                    if (res.code) {
+                    if ('code' in res) {
                       notifyToast(res.message, 'error');
                       return;
                     }

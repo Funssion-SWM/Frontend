@@ -55,7 +55,7 @@ export default function AnswerCard({
 
   const handleUpdate = () => {
     updateAnswer(id, JSON.stringify(editor?.getJSON())).then((res) => {
-      if (res.code) {
+      if ('code' in res) {
         notifyToast(res.message, 'error');
         return;
       }

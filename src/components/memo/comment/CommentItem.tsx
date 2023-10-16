@@ -93,7 +93,7 @@ export default function CommentItem({
                 onClick={() => {
                   open('댓글을 삭제하시겠습니까?', () => {
                     deleteComeent(id).then((res) => {
-                      if (res.code) {
+                      if ('code' in res) {
                         notifyToast(res.message, 'error');
                         return;
                       }
@@ -126,7 +126,7 @@ export default function CommentItem({
                     return;
                   }
                   updateComment(id, updatedText).then((res) => {
-                    if (res.code) {
+                    if ('code' in res) {
                       notifyToast(res.message, 'error');
                       return;
                     }

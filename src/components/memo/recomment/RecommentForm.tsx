@@ -39,7 +39,7 @@ export default function RecommentForm({
       authorId,
       commentText: recommentText,
     }).then(async (res) => {
-      if (res.code) {
+      if ('code' in res) {
         if (res.code === 401) router.push('/login');
         notifyToast(res.message, 'error');
         setIsCreating(false);
