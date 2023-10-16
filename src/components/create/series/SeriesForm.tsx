@@ -28,7 +28,7 @@ type Props = {
 export default function SeriesForm({ userId }: Props) {
   const seriesId = Number(useSearchParams()?.get('id'));
 
-  const [imageFile, setImageFile] = useState<File | undefined>();
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [memos, setMemos] = useState<MemoInfo[]>([]);
@@ -40,11 +40,11 @@ export default function SeriesForm({ userId }: Props) {
   useEffect(() => {
     if (seriesId) {
       getSeriesById(seriesId).then((res) => {
-        const { title, description, memoInfoList } = res;
+        const { title, description, memoInfoList, thumbnailImagePath } = res;
         setTitle(title);
         setDescription(description);
         setMemos(memoInfoList);
-        // setImageUrl()
+        setImageUrl(thumbnailImagePath);
       });
     }
   }, []);

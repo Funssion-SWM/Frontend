@@ -38,14 +38,14 @@ export async function createSeries(
   title: string,
   description: string,
   memoIdList: number[],
-  thumbnailImage: File | undefined
+  thumbnailImage: File | null
 ): Promise<PostSeriesResponse | ErrorResponse> {
   const formdata = new FormData();
   console.log(thumbnailImage);
   formdata.append('title', title);
   formdata.append('description', description);
   formdata.append('memoIdList', JSON.stringify(memoIdList));
-  if (thumbnailImage !== undefined)
+  if (thumbnailImage !== null)
     formdata.append('thumbnailImage', thumbnailImage);
 
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/series`, {
@@ -62,17 +62,18 @@ export async function updateSeries(
   title: string,
   description: string,
   memoIdList: number[],
-  thumbnailImage: File | undefined
+  thumbnailImage: File | null
 ): Promise<PostSeriesResponse | ErrorResponse> {
   const formdata = new FormData();
 
   formdata.append('title', title);
   formdata.append('description', description);
   formdata.append('memoIdList', JSON.stringify(memoIdList));
-  formdata.append('thumbnailImage', thumbnailImage ?? '');
+  if (thumbnailImage !== null)
+    formdata.append('thumbnailImage', thumbnailImage);
 
   return fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/series${id}`,
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/series/${id}`,
     {
       method: 'POST',
       body: formdata,

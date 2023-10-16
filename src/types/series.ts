@@ -21,6 +21,7 @@ export type GetSeriesByIdResponse = {
   id: number;
   title: string;
   description: string;
+  thumbnailImagePath: string;
   memoInfoList: MemoInfo[];
   likes: number;
   created: string;
