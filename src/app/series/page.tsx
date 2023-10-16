@@ -29,7 +29,7 @@ export default async function SeriesPage() {
       <Header
         isLogin={isLogin}
         profileImageFilePath={profileImageFilePath}
-        currentPage="memos"
+        currentPage="series"
       />
       <LayoutWrapper paddingY="sm:py-5">
         <SeriesContainer seriesArray={seriesArray} />

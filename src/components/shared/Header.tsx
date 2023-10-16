@@ -17,7 +17,7 @@ import { CreationModalContext } from '@/context/CreationModalProvider';
 type Props = {
   isLogin: boolean;
   profileImageFilePath: string | undefined;
-  currentPage?: 'memos' | 'questions';
+  currentPage?: 'memos' | 'questions' | 'series';
 };
 
 export default function Header({
@@ -67,6 +67,15 @@ export default function Header({
             prefetch={false}
           >
             Q&A
+          </Link>
+          <Link
+            href="/series"
+            className={`${
+              currentPage === 'series' && 'text-soma-blue-40'
+            } hover:text-soma-blue-40 transition-all`}
+            prefetch={false}
+          >
+            Series
           </Link>
         </div>
         {isLogin ? (
@@ -144,7 +153,7 @@ export default function Header({
               </button>
             </nav>
             <BlueBtn
-              text={'글쓰기'}
+              text={'만들기'}
               onClick={() => {
                 openCreationModal();
                 setIsActive(false);
@@ -184,6 +193,15 @@ export default function Header({
           prefetch={false}
         >
           Questions
+        </Link>
+        <Link
+          href="/series"
+          className={`${
+            currentPage === 'series' && 'text-soma-blue-40'
+          } hover:text-soma-blue-40 transition-all`}
+          prefetch={false}
+        >
+          Series
         </Link>
       </div>
     </header>

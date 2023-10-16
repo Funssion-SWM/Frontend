@@ -24,14 +24,21 @@ top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 gap-2 "
               onClick={() => closeCreationModal()}
               className={LINK_STYLE}
             >
-              메모 작성
+              메모
             </Link>
             <Link
               href="/create/question"
               onClick={() => closeCreationModal()}
               className={LINK_STYLE}
             >
-              질문 작성
+              질문
+            </Link>
+            <Link
+              href="/create/series"
+              onClick={() => closeCreationModal()}
+              className={LINK_STYLE}
+            >
+              시리즈
             </Link>
           </div>
         </div>
