@@ -78,7 +78,7 @@ export default function SeriesDetailContainer({
 
   const handleDelete = () => {
     deleteSeries(seriesId).then((res) => {
-      if ('code' in res) {
+      if (res?.code) {
         notifyToast(res.message, 'error');
         return;
       }
