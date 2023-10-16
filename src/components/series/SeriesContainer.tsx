@@ -6,89 +6,15 @@ import { useState } from 'react';
 import SeriesGrid from './SeriesGrid';
 import { Series } from '@/types/series';
 
-export default function SeriesContainer() {
+type Props = {
+  seriesArray: Series[];
+};
+
+export default function SeriesContainer({ seriesArray }: Props) {
   const [selectedOrderType, setSelectedOrderType] = useState<Orderby>('new');
 
-  const seriesArr: Series[] = [
-    {
-      id: 1,
-      title: '자바스크립트 정리',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod molestias provident explicabo dolorum fugiat exercitationem ipsa maiores illum aliquid architecto repudiandae fuga odit perspiciatis quidem, rem eaque, tempore cum quos?',
-      thumbnailImagePath: '',
-      firstColors: ['yellow', 'green', 'pink'],
-      authorName: 'dongree',
-      authorId: 0,
-      authorProfileImagePath: '',
-      likes: 0,
-      created: '1일 전',
-    },
-    {
-      id: 2,
-      title: '자바 정리',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod molestias provident explicabo dolorum fugiat exercitationem ipsa maiores illum aliquid architecto repudiandae fuga odit perspiciatis quidem, rem eaque, tempore cum quos?',
-      thumbnailImagePath: '',
-      firstColors: ['skyblue', 'purple', 'yellow'],
-      authorName: 'dongree',
-      authorId: 0,
-      authorProfileImagePath: '',
-      likes: 0,
-      created: '2023-10-05',
-    },
-    {
-      id: 3,
-      title: '소프트웨어마에스트로 회고',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod molestias provident explicabo dolorum fugiat exercitationem ipsa maiores illum aliquid architecto repudiandae fuga odit perspiciatis quidem, rem eaque, tempore cum quos?',
-      thumbnailImagePath: '',
-      firstColors: ['white', 'skyblue', 'yellow'],
-      authorName: 'dongree',
-      authorId: 0,
-      authorProfileImagePath: '',
-      likes: 0,
-      created: '2023-10-05',
-    },
-    {
-      id: 4,
-      title: '자바스크립트 정리',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod molestias provident explicabo dolorum fugiat exercitationem ipsa maiores illum aliquid architecto repudiandae fuga odit perspiciatis quidem, rem eaque, tempore cum quos?',
-      thumbnailImagePath: '',
-      firstColors: ['yellow', 'green', 'pink'],
-      authorName: 'dongree',
-      authorId: 0,
-      authorProfileImagePath: '',
-      likes: 0,
-      created: '2023-10-05',
-    },
-    {
-      id: 5,
-      title: '자바 정리',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod molestias provident explicabo dolorum fugiat exercitationem ipsa maiores illum aliquid architecto repudiandae fuga odit perspiciatis quidem, rem eaque, tempore cum quos?',
-      thumbnailImagePath: '',
-      firstColors: ['skyblue', 'purple', 'yellow'],
-      authorName: 'dongree',
-      authorId: 0,
-      authorProfileImagePath: '',
-      likes: 0,
-      created: '2023-10-05',
-    },
-    {
-      id: 6,
-      title: '소프트웨어마에스트로 회고',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod molestias provident explicabo dolorum fugiat exercitationem ipsa maiores illum aliquid architecto repudiandae fuga odit perspiciatis quidem, rem eaque, tempore cum quos?',
-      thumbnailImagePath: '',
-      firstColors: ['white', 'skyblue', 'yellow'],
-      authorName: 'dongree',
-      authorId: 0,
-      authorProfileImagePath: '',
-      likes: 0,
-      created: '2023-10-05',
-    },
-  ];
+  const [currentSeriesArray, setCurrentSeriesArray] =
+    useState<Series[]>(seriesArray);
 
   return (
     <div>
@@ -106,7 +32,7 @@ export default function SeriesContainer() {
           isSelected={selectedOrderType === 'hot'}
         />
       </div>
-      <SeriesGrid seriesArr={seriesArr} colNum={4} />
+      <SeriesGrid seriesArr={currentSeriesArray} colNum={4} />
     </div>
   );
 }

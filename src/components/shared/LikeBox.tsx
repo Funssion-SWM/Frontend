@@ -13,7 +13,7 @@ type Props = {
   likeNum: number;
   postId: number;
   isLike: boolean;
-  postType: 'memo' | 'question' | 'comment' | 'recomment';
+  postType: 'memo' | 'question' | 'comment' | 'recomment' | 'series';
   iconSize: number;
 };
 export default function LikeBox({
@@ -42,8 +42,10 @@ export default function LikeBox({
       case 'question':
         fn = unlike('questions', postId);
         break;
+      case 'series':
+        fn = unlike('series', postId);
       default:
-        throw new Error('해당하는 like item type이 없음');
+        throw new Error('해당하는 unlike item type이 없음');
     }
     fn?.then((res) => {
       if (res?.code) {
@@ -71,6 +73,8 @@ export default function LikeBox({
       case 'question':
         fn = like('questions', postId);
         break;
+      case 'series':
+        fn = like('series', postId);
       default:
         throw new Error('해당하는 like item type이 없음');
     }

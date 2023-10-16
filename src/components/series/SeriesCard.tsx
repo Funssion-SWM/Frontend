@@ -1,10 +1,11 @@
 import { Series } from '@/types/series';
 import Image from 'next/image';
-import exampleImg from '@/assets/inforumlogo1.jpeg';
+import inforumImg from '@/assets/inforumlogo1.jpeg';
 import Link from 'next/link';
 import basicProfileImg from '@/assets/profile.svg';
 import fillHeart from '@/assets/icons/heart_fill.svg';
 import { azertMono } from '@/styles/fonts';
+import RelativeDate from '../shared/RelativeDate';
 
 type Props = {
   series: Series;
@@ -15,7 +16,7 @@ const SERIES_CARD_PIECE_STYLE =
 
 export default function SeriesCard({ series }: Props) {
   const {
-    firstColors,
+    topThreeColors,
     title,
     description,
     id,
@@ -23,6 +24,7 @@ export default function SeriesCard({ series }: Props) {
     authorProfileImagePath,
     created,
     likes,
+    thumbnailImagePath,
   } = series;
   return (
     <article className={`flex flex-col relative w-full h-full aspect-square`}>
@@ -37,7 +39,7 @@ export default function SeriesCard({ series }: Props) {
             pink: 'bg-memo-pink',
             navy: 'bg-memo-navy',
             purple: 'bg-memo-purple',
-          }[firstColors[2]]
+          }[topThreeColors[2] ?? 'white']
         }`}
       ></div>
       <div
@@ -51,7 +53,7 @@ export default function SeriesCard({ series }: Props) {
             pink: 'bg-memo-pink',
             navy: 'bg-memo-navy',
             purple: 'bg-memo-purple',
-          }[firstColors[1]]
+          }[topThreeColors[1] ?? 'white']
         }`}
       ></div>
       <div
@@ -65,15 +67,19 @@ export default function SeriesCard({ series }: Props) {
             pink: 'bg-memo-pink',
             navy: 'bg-memo-navy',
             purple: 'bg-memo-purple',
-          }[firstColors[0]]
+          }[topThreeColors[0] ?? 'white']
         }`}
       >
         <Link href={`/series/${id}`}>
-          <Image
-            src={exampleImg}
-            alt="example"
-            className="object-cover h-1/2 rounded-md"
-          ></Image>
+          <div className="relative h-1/2 rounded-md">
+            <Image
+              src={thumbnailImagePath ?? inforumImg}
+              fill={true}
+              alt="thumbnailImg"
+              className="object-cover rounded-md"
+            ></Image>
+          </div>
+
           <div className="p-2 relative h-1/2">
             <p className="font-semibold text-lg text-soma-grey-70 line-clamp-1 my-1">
               {title}
@@ -92,7 +98,7 @@ export default function SeriesCard({ series }: Props) {
                 />
                 <p className="ml-1 font-medium">{authorName}</p>
                 <p className="mx-1 text-soma-grey-45">|</p>
-                <p className="flex">{created}</p>
+                <RelativeDate date={created} type="YMD" />
               </div>
               <div className="flex items-center">
                 <Image

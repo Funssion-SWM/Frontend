@@ -10,9 +10,14 @@ import SelectCard from './SelectCard';
 type Props = {
   memoIdsInSeries: number[];
   onAdd: (ids: Memo[]) => void;
+  userId: number;
 };
 
-export default function AddMemoContainer({ memoIdsInSeries, onAdd }: Props) {
+export default function AddMemoContainer({
+  memoIdsInSeries,
+  onAdd,
+  userId,
+}: Props) {
   const [searchString, setSearchString] = useState('');
   const [memos, setMemos] = useState<Memo[]>([]);
   const [selectedMemos, setSelectedMemos] = useState<Memo[]>([]);
@@ -20,13 +25,15 @@ export default function AddMemoContainer({ memoIdsInSeries, onAdd }: Props) {
   const realSearchString = useDebounce(searchString, SEARCH_RESULT_TIME);
 
   useEffect(() => {
-    searchMemos(realSearchString, 'new', false, '697').then((res) => {
-      if ('code' in res) {
-        notifyToast(res.message, 'error');
-        return;
+    searchMemos(realSearchString, 'new', false, userId.toString()).then(
+      (res) => {
+        if ('code' in res) {
+          notifyToast(res.message, 'error');
+          return;
+        }
+        setMemos(res);
       }
-      setMemos(res);
-    });
+    );
   }, [realSearchString]);
 
   const handleClickCard = (selected: boolean, memo: Memo) => {

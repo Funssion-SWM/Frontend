@@ -10,7 +10,7 @@ export type Series = {
   thumbnailImagePath: string;
   likes: number;
   created: string;
-  firstColors: MemoColor[];
+  topThreeColors: MemoColor[];
 };
 
 export type PostSeriesResponse = {
@@ -29,4 +29,5 @@ export type GetSeriesByIdResponse = {
 export type MemoInfo = {
   id: number;
   title: string;
+  color: MemoColor;
 };

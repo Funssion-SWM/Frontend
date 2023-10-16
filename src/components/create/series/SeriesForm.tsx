@@ -16,17 +16,22 @@ import { MAX_PROFILE_IMAGE_BYTE } from '@/utils/const';
 import { notifyToast } from '@/service/notification';
 import Image from 'next/image';
 import { AiOutlinePicture } from 'react-icons/ai';
-import { Memo } from '@/types/memo';
-import { createSeries } from '@/service/series';
+import { createSeries, getSeriesById, updateSeries } from '@/service/series';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { MemoInfo } from '@/types/series';
+import { Memo } from '@/types/memo';
 
-export default function SeriesForm() {
+type Props = {
+  userId: number;
+};
+
+export default function SeriesForm({ userId }: Props) {
   const seriesId = Number(useSearchParams()?.get('id'));
 
   const [imageFile, setImageFile] = useState<File | undefined>();
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
-  const [memos, setMemos] = useState<Memo[]>([]);
+  const [memos, setMemos] = useState<MemoInfo[]>([]);
   const [imageUrl, setImageUrl] = useState<string>();
   const router = useRouter();
 
@@ -34,6 +39,13 @@ export default function SeriesForm() {
 
   useEffect(() => {
     if (seriesId) {
+      getSeriesById(seriesId).then((res) => {
+        const { title, description, memoInfoList } = res;
+        setTitle(title);
+        setDescription(description);
+        setMemos(memoInfoList);
+        // setImageUrl()
+      });
     }
   }, []);
 
@@ -51,7 +63,14 @@ export default function SeriesForm() {
   };
 
   const handleAdd = (memos: Memo[]) => {
-    setMemos((preMemos) => [...preMemos, ...memos]);
+    const memoInfos: MemoInfo[] = memos.map((memo) => {
+      return {
+        id: memo.memoId,
+        title: memo.memoTitle,
+        color: memo.memoColor,
+      };
+    });
+    setMemos((preMemos) => [...preMemos, ...memoInfos]);
   };
 
   const moveCard = (dragIndex: number, hoverIndex: number) => {
@@ -65,21 +84,31 @@ export default function SeriesForm() {
   };
 
   const handleDeleteBtnClick = (memoId: number) => {
-    setMemos((preMemos) => preMemos.filter((memo) => memo.memoId !== memoId));
+    setMemos((preMemos) => preMemos.filter((memo) => memo.id !== memoId));
   };
 
   const handleCreateBtnClick = () => {
-    createSeries(
-      title,
-      description,
-      memos.map((memo) => memo.memoId),
-      imageFile
-    ).then((res) => {
+    const fn = seriesId
+      ? updateSeries(
+          seriesId,
+          title,
+          description,
+          memos.map((memo) => memo.id),
+          imageFile
+        )
+      : createSeries(
+          title,
+          description,
+          memos.map((memo) => memo.id),
+          imageFile
+        );
+
+    fn.then((res) => {
       if ('code' in res) {
         notifyToast(res.message, 'error');
         return;
       }
-      notifyToast('성공적으로 시리즈가 만들어졌습니다.', 'success');
+      notifyToast('성공적으로 시리즈가  등록되었습니다.', 'success');
       router.push(`/series/${res.seriesId}`);
     });
   };
@@ -88,7 +117,7 @@ export default function SeriesForm() {
     <div className="flex flex-col w-full min-h-for-fit-screen">
       <div className="flex justify-between items-center mb-2">
         <div className="text-2xl font-semibold">Series</div>
-        <BlueBtn text="만들기" onClick={handleCreateBtnClick} />
+        <BlueBtn text="등록" onClick={handleCreateBtnClick} />
       </div>
       <div className="flex flex-col sm:flex-row  w-full gap-4 ">
         <div className="sm:min-w-[300px] flex flex-col rounded-lg">
@@ -147,8 +176,9 @@ export default function SeriesForm() {
             />
           </DndProvider>
           <AddMemoContainer
-            memoIdsInSeries={memos.map((memo) => memo.memoId)}
+            memoIdsInSeries={memos.map((memo) => memo.id)}
             onAdd={handleAdd}
+            userId={userId}
           />
         </div>
       </div>

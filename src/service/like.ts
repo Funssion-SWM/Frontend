@@ -1,7 +1,9 @@
 import { ErrorResponse, Like } from '@/types';
 
+type LikePostType = 'memos' | 'blogs' | 'questions' | 'answers' | 'series';
+
 export async function getIsLike(
-  postType: 'memos' | 'blogs' | 'questions' | 'answers',
+  postType: LikePostType,
   postId: number,
   cookie?: string | undefined
 ): Promise<Like> {
@@ -30,7 +32,7 @@ export async function getIsLike(
 }
 
 export async function like(
-  postType: 'memos' | 'blogs' | 'questions' | 'answers',
+  postType: LikePostType,
   postId: number
 ): Promise<ErrorResponse> {
   return fetch(
@@ -44,7 +46,7 @@ export async function like(
 }
 
 export async function unlike(
-  postType: 'memos' | 'blogs' | 'questions' | 'answers',
+  postType: LikePostType,
   postId: number
 ): Promise<ErrorResponse> {
   return fetch(
@@ -58,7 +60,7 @@ export async function unlike(
 }
 
 export async function dislike(
-  postType: 'memos' | 'blogs' | 'questions' | 'answers',
+  postType: LikePostType,
   postId: number
 ): Promise<ErrorResponse> {
   return fetch(
@@ -72,7 +74,7 @@ export async function dislike(
 }
 
 export async function undislike(
-  postType: 'memos' | 'blogs' | 'questions' | 'answers',
+  postType: LikePostType,
   postId: number
 ): Promise<ErrorResponse> {
   return fetch(

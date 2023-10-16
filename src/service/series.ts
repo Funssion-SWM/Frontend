@@ -45,7 +45,8 @@ export async function createSeries(
   formdata.append('title', title);
   formdata.append('description', description);
   formdata.append('memoIdList', JSON.stringify(memoIdList));
-  formdata.append('thumbnailImage', thumbnailImage ?? '');
+  if (thumbnailImage !== undefined)
+    formdata.append('thumbnailImage', thumbnailImage);
 
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/series`, {
     method: 'POST',
@@ -82,7 +83,7 @@ export async function updateSeries(
     .catch(console.error);
 }
 
-export async function deleteSeries(id: number): Promise<void | ErrorResponse> {
+export async function deleteSeries(id: number): Promise<ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/series/${id}`,
     {

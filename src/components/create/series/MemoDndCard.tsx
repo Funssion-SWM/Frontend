@@ -1,10 +1,10 @@
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { Memo } from '@/types/memo';
 import { AiOutlineMinusCircle } from 'react-icons/ai';
+import { MemoInfo } from '@/types/series';
 
 type Props = {
-  memo: Memo;
+  memo: MemoInfo;
   index: number;
   moveCard: (dragIndex: number, hoverIndex: number) => void;
   onDeleteBtnClick: (id: number) => void;
@@ -20,7 +20,7 @@ export default function MemoDndCard({
   moveCard,
   onDeleteBtnClick,
 }: Props) {
-  const { memoId, memoTitle, memoColor, memoDescription } = memo;
+  const { id, title, color } = memo;
 
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop({
@@ -69,7 +69,7 @@ export default function MemoDndCard({
   });
   const [{ isDragging }, drag, preview] = useDrag({
     type: ItemTypes.CARD,
-    item: { memoId, index },
+    item: { id, index },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -80,7 +80,7 @@ export default function MemoDndCard({
   return (
     <div
       ref={ref}
-      className={`flex flex-col relative rounded-md w-32 shadow-md cursor-move aspect-square p-3 transition ease-in-out duration-300 ${
+      className={`flex flex-col relative rounded-md w-32 shadow-md cursor-move aspect-square p-3 transition ease-in-out duration-300 justify-center items-center ${
         isDragging ? 'opacity-0' : 'opacity-100'
       } ${
         {
@@ -92,19 +92,16 @@ export default function MemoDndCard({
           pink: 'bg-memo-pink',
           navy: 'bg-memo-navy',
           purple: 'bg-memo-purple',
-        }[memoColor]
+        }[color]
       }`}
       data-handler-id={handlerId}
     >
-      <p className="line-clamp-2 font-semibold text-sm break-all text-soma-grey-70 h-10">
-        {memoTitle}
-      </p>
-      <p className="line-clamp-2 text-xs break-all text-soma-grey-60 mt-2">
-        {memoDescription}
+      <p className="line-clamp-3 font-semibold text-sm break-all text-soma-grey-70">
+        {title}
       </p>
       <button
         className="absolute top-0 right-0"
-        onClick={() => onDeleteBtnClick(memoId)}
+        onClick={() => onDeleteBtnClick(id)}
       >
         <AiOutlineMinusCircle className="text-soma-blue-40 w-5 h-5" />
       </button>

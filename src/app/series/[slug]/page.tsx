@@ -16,15 +16,13 @@ type Props = {
   };
 };
 
-// const memoIds = [387, 388, 389, 390];
-
 export default async function SeriesDetailPage({ params: { slug } }: Props) {
   const accessToken = cookies().get(ACCESS_TOKEN)?.value;
   const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
   const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
   const seriesId = Number(slug);
 
-  const { memoInfoList } = await getSeriesById(seriesId);
+  const { memoInfoList, likes, title } = await getSeriesById(seriesId);
 
   const memoData = getMemoById(memoInfoList[0].id, cookie);
   const likeData = getIsLike('memos', memoInfoList[0].id, cookie);
@@ -67,6 +65,10 @@ export default async function SeriesDetailPage({ params: { slug } }: Props) {
           authorFollowingNum={followCnt}
           authorFollowerNum={followerCnt}
           memoInfoList={memoInfoList}
+          seriesLikeNum={likes}
+          seriesId={seriesId}
+          isMySeries={id === memo.authorId}
+          seriesTitle={title}
         />
       </LayoutWrapper>
     </section>
