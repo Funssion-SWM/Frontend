@@ -88,6 +88,31 @@ export default function SeriesForm({ userId }: Props) {
   };
 
   const handleCreateBtnClick = () => {
+    if (title.length === 0) {
+      notifyToast('제목을 입력해주세요.', 'warning');
+      return;
+    }
+
+    if (title.length > 120) {
+      notifyToast('제목 수 제한 120자를 초과하였습니다.', 'warning');
+      return;
+    }
+
+    if (description.length === 0) {
+      notifyToast('description을 입력해주세요.', 'warning');
+      return;
+    }
+
+    if (description.length > 500) {
+      notifyToast('description 수 제한 500자를 초과하였습니다.', 'warning');
+      return;
+    }
+
+    if (memos.length === 0) {
+      notifyToast('시리즈에 추가할 메모를 추가해주세요.', 'warning');
+      return;
+    }
+
     const fn = seriesId
       ? updateSeries(
           seriesId,
