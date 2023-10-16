@@ -16,6 +16,7 @@ type Props = {
   isLike: boolean;
   isMyMemo: boolean;
   createdDate: string;
+  type?: 'memo' | 'series';
 };
 
 export default function MemoViewer({
@@ -28,6 +29,7 @@ export default function MemoViewer({
   isLike,
   isMyMemo,
   createdDate,
+  type = 'memo',
 }: Props) {
   return (
     <section
@@ -44,14 +46,20 @@ export default function MemoViewer({
         }[color]
       } `}
     >
-      <MemoViewerHeader
-        memoId={memoId}
-        likes={likes}
-        isLike={isLike}
-        isMyMemo={isMyMemo}
-        createdDate={createdDate}
-      />
-      <h1 className={`text-2xl sm:text-4xl font-bold py-2 px-4 break-all`}>
+      {type === 'memo' && (
+        <MemoViewerHeader
+          memoId={memoId}
+          likes={likes}
+          isLike={isLike}
+          isMyMemo={isMyMemo}
+          createdDate={createdDate}
+        />
+      )}
+      <h1
+        className={`text-2xl sm:text-4xl font-bold py-2 px-4 break-all ${
+          type === 'series' && 'pt-8'
+        }`}
+      >
         {title}
       </h1>
       <div className="h-[0.5px] mx-3 my-4 bg-soma-grey-49"></div>

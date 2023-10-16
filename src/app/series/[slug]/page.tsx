@@ -25,7 +25,7 @@ export default async function SeriesDetailPage({ params: { slug } }: Props) {
   const { memoInfoList, likes, title } = await getSeriesById(seriesId);
 
   const memoData = getMemoById(memoInfoList[0].id, cookie);
-  const likeData = getIsLike('memos', memoInfoList[0].id, cookie);
+  const likeData = getIsLike('series', seriesId, cookie);
   const commentData = getCommentsByPostTypeAndPostId(
     'memo',
     memoInfoList[0].id,

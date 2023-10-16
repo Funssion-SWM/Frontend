@@ -56,7 +56,6 @@ export default function SeriesDetailContainer({
 }: Props) {
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [currentMemo, setCurrentMemo] = useState<Memo>(memo);
-  const [currentMemoIsLike, setCurrentMemoIsLike] = useState<boolean>(isLike);
   const [currentComments, setCurrentComments] = useState<Comment[]>(comments);
   const [currentQuestions, setCurrentQuestions] =
     useState<Question[]>(questions);
@@ -69,9 +68,6 @@ export default function SeriesDetailContainer({
     getMemoById(memoInfoList[currentIdx].id).then((memo) => {
       setCurrentMemo(memo);
     });
-    getIsLike('memos', memoInfoList[currentIdx].id).then((likedata) =>
-      setCurrentMemoIsLike(likedata.isLike)
-    );
     getCommentsByPostTypeAndPostId('memo', memoInfoList[currentIdx].id).then(
       (comments) => setCurrentComments(comments)
     );
@@ -103,7 +99,7 @@ export default function SeriesDetailContainer({
           <LikeBox
             likeNum={seriesLikeNum}
             postId={seriesId}
-            isLike={false}
+            isLike={isLike}
             postType="series"
             iconSize={20}
           />
@@ -168,9 +164,10 @@ export default function SeriesDetailContainer({
           memoTags={currentMemo.memoTags}
           memoId={currentMemo.memoId}
           likes={currentMemo.likes}
-          isLike={currentMemoIsLike}
+          isLike={false}
           isMyMemo={isMine}
           createdDate={currentMemo.createdDate}
+          type="series"
         />
         <MemoSideBar
           authorName={authorName}
