@@ -44,6 +44,7 @@ export default function LikeBox({
         break;
       case 'series':
         fn = unlike('series', postId);
+        break;
       default:
         throw new Error('해당하는 unlike item type이 없음');
     }
@@ -75,6 +76,7 @@ export default function LikeBox({
         break;
       case 'series':
         fn = like('series', postId);
+        break;
       default:
         throw new Error('해당하는 like item type이 없음');
     }
