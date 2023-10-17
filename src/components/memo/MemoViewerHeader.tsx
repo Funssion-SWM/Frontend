@@ -81,7 +81,7 @@ export default function MemoViewerHeader({
                   setIsActive(false);
                   open(
                     seriesId
-                      ? '시리즈에 속한 메모입니다. 메모륵 삭제하시겠습니까?'
+                      ? '시리즈에 속한 메모입니다. 메모를 삭제하시겠습니까?'
                       : '메모를 삭제하시겠습니까?',
                     () => {
                       handleDelete();
