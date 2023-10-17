@@ -103,8 +103,8 @@ export default function SeriesForm({ userId }: Props) {
       return;
     }
 
-    if (description.length > 500) {
-      notifyToast('description 수 제한 500자를 초과하였습니다.', 'warning');
+    if (description.length > 255) {
+      notifyToast('description 수 제한 255자를 초과하였습니다.', 'warning');
       return;
     }
 
