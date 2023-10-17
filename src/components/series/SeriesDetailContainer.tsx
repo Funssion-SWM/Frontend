@@ -4,7 +4,6 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import MemoViewer from '../memo/MemoViewer';
 import MemoSideBar from '../memo/MemoSideBar';
 import { getMemoById } from '@/service/memos';
-import { getIsLike } from '@/service/like';
 import { getCommentsByPostTypeAndPostId } from '@/service/comments';
 import { getQuestionsByMemoId } from '@/service/questions';
 import { Question } from '@/types/question';
@@ -19,6 +18,7 @@ import { useRouter } from 'next/navigation';
 import { ModalContext } from '@/context/ModalProvider';
 import { deleteSeries } from '@/service/series';
 import { notifyToast } from '@/service/notification';
+import arrowIcon from '@/assets/icons/arrow_icon.svg';
 
 type Props = {
   memo: Memo;
@@ -88,9 +88,19 @@ export default function SeriesDetailContainer({
     });
   };
 
+  const handleLeftBtnClick = () => {
+    if (currentIdx === 0) return;
+    setCurrentIdx((preIdx) => preIdx - 1);
+  };
+
+  const handleRightBtnClick = () => {
+    if (currentIdx === memoInfoList.length - 1) return;
+    setCurrentIdx((preIdx) => preIdx + 1);
+  };
+
   return (
     <div className="flex flex-col">
-      <div className="flex items-center justify-between bg-soma-grey-20 py-4 px-2 rounded-lg">
+      <div className="flex items-center justify-between bg-soma-grey-20 p-4 rounded-lg">
         <h2 className="text-xl sm:text-3xl font-semibold">
           <span className="text-soma-blue-50">Series </span>
           {seriesTitle}
@@ -184,6 +194,30 @@ export default function SeriesDetailContainer({
           authorFollowingNum={authorFollowingNum}
           authorFollowerNum={authorFollowerNum}
         />
+      </div>
+      <div className="flex justify-center items-center mt-5">
+        <button
+          className={`rounded-full border-2 p-1 border-soma-grey-30 rotate-180 ${
+            currentIdx === 0 ? 'opacity-40 pointer-events-none' : ''
+          }`}
+          onClick={handleLeftBtnClick}
+        >
+          <Image src={arrowIcon} alt="arrowIcon" />
+        </button>
+        <div className="text-soma-grey-48 mx-5">
+          <span className="text-soma-blue-50">Series {currentIdx + 1}</span> /{' '}
+          {memoInfoList.length}
+        </div>
+        <button
+          className={`rounded-full border-2 p-1 border-soma-grey-30 ${
+            currentIdx === memoInfoList.length - 1
+              ? 'opacity-40 pointer-events-none'
+              : ''
+          }`}
+          onClick={handleRightBtnClick}
+        >
+          <Image src={arrowIcon} alt="arrowIcon" />
+        </button>
       </div>
     </div>
   );
