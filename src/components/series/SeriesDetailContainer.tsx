@@ -195,7 +195,7 @@ export default function SeriesDetailContainer({
           authorFollowerNum={authorFollowerNum}
         />
       </div>
-      <div className="flex justify-center items-center mt-5">
+      <div className="flex justify-center items-center my-5">
         <button
           className={`rounded-full border-2 p-1 border-soma-grey-30 rotate-180 ${
             currentIdx === 0 ? 'opacity-40 pointer-events-none' : ''
