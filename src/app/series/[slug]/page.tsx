@@ -51,7 +51,7 @@ export default async function SeriesDetailPage({ params: { slug } }: Props) {
       <Header
         isLogin={isLogin}
         profileImageFilePath={profileImageFilePath}
-        currentPage="memos"
+        currentPage="series"
       />
       <LayoutWrapper paddingY="sm:py-5">
         <SeriesDetailContainer
