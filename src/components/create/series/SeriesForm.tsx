@@ -6,6 +6,7 @@ import BlueBtn from '../../shared/btn/BlueBtn';
 import {
   ChangeEvent,
   MutableRefObject,
+  useContext,
   useEffect,
   useRef,
   useState,
@@ -15,12 +16,12 @@ import MemoOrderContainer from './MemoOrderContainer';
 import { MAX_IMAGE_BYTE } from '@/utils/const';
 import { notifyToast } from '@/service/notification';
 import Image from 'next/image';
-import { AiOutlinePicture } from 'react-icons/ai';
 import { createSeries, getSeriesById, updateSeries } from '@/service/series';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { MemoInfo } from '@/types/series';
 import { Memo } from '@/types/memo';
 import defaultImage from '@/assets/inforumlogo1.jpeg';
+import { ModalContext } from '@/context/ModalProvider';
 
 type Props = {
   userId: number;
@@ -36,6 +37,7 @@ export default function SeriesForm({ userId }: Props) {
   const [imageUrl, setImageUrl] = useState<string>();
   const [isEmptyImage, setIsEmptyImage] = useState<'true' | 'false'>('true');
   const router = useRouter();
+  const { open } = useContext(ModalContext);
 
   const fileInput = useRef() as MutableRefObject<HTMLInputElement>;
 
@@ -162,8 +164,8 @@ export default function SeriesForm({ userId }: Props) {
 
   return (
     <div className="flex flex-col w-full min-h-for-fit-screen">
-      <div className="flex justify-between items-center mb-2">
-        <div className="text-2xl font-semibold">Series</div>
+      <div className="flex justify-between items-center mb-2 mx-2 sm:mx-0">
+        <div className="text-3xl font-semibold">Series</div>
         <BlueBtn text="등록" onClick={handleCreateBtnClick} />
       </div>
       <div className="flex flex-col sm:flex-row  w-full gap-4 ">
@@ -229,8 +231,18 @@ export default function SeriesForm({ userId }: Props) {
             onChange={(e) => setDescription(e.target.value)}
             value={description}
           ></textarea>
+          <button
+            className="text-soma-grey-50 mt-5 text-sm"
+            onClick={() =>
+              open('나가시겠습니까?', () => {
+                router.push(`/series`);
+              })
+            }
+          >
+            나가기
+          </button>
         </div>
-        <div className="flex flex-col grow">
+        <div className="flex flex-col grow mt-6">
           <DndProvider backend={HTML5Backend}>
             <MemoOrderContainer
               memos={memos}

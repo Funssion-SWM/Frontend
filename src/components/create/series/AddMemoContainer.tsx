@@ -28,7 +28,7 @@ export default function AddMemoContainer({
     searchMemos(realSearchString, 'new', false, userId.toString()).then(
       (res) => {
         if ('code' in res) {
-          notifyToast(res.message, 'error');
+          // notifyToast(res.message, 'error');
           return;
         }
         setMemos(res);
@@ -55,7 +55,7 @@ export default function AddMemoContainer({
       <BlueBtn
         text="메모 추가"
         onClick={handleClickAddBtn}
-        extraStyle="self-end"
+        extraStyle="self-end my-2"
       />
       <input
         type="text"
