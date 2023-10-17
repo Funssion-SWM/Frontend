@@ -16,6 +16,7 @@ export type Memo = {
   isTemporary: boolean;
   isMine: boolean;
   seriesId: number;
+  isCreated: boolean;
 };
 
 export type PostMemoData = {

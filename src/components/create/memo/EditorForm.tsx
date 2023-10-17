@@ -61,6 +61,7 @@ export default function EditorForm() {
   const [tags, setTags] = useState<string[]>([]);
   const [contents, setContents] = useState('');
   const [isMemoLoading, setIsMemoLoading] = useState(false);
+  const [isCreated, setIsCreated] = useState(false);
 
   const temporarySaveCallbackForSavingImage = async () => {
     return createOrUpdateMemo(
@@ -130,11 +131,12 @@ export default function EditorForm() {
     onCreate: async (e) => {
       if (memoId)
         await getMemoById(memoId).then(
-          ({ memoTitle, memoColor, memoTags, memoText }) => {
+          ({ memoTitle, memoColor, memoTags, memoText, isCreated }) => {
             setTitle(memoTitle);
             setSelectedColor(memoColor);
             setTags(memoTags);
             e.editor.commands.setContent(JSON.parse(memoText));
+            setIsCreated(isCreated);
           }
         );
       setIsMemoLoading(true);
@@ -229,7 +231,8 @@ export default function EditorForm() {
 
   // 자동 임시 저장
   useEffect(() => {
-    if (!title || !temporaryContents || !contents || isLoading) return;
+    if (!title || !temporaryContents || !contents || isLoading || isCreated)
+      return;
 
     const memoDescription = getDescription(contents);
     createOrUpdateMemo(
@@ -345,12 +348,14 @@ export default function EditorForm() {
           }`}
         >
           <div className="flex justify-end gap-2 mr-1 my-1">
-            <WhiteBtnWithCount
-              text="임시저장"
-              count={drafts.length}
-              onClickBtn={() => savePost('temporary')}
-              onClickCount={() => openDrafts(drafts)}
-            />
+            {!isCreated && (
+              <WhiteBtnWithCount
+                text="임시저장"
+                count={drafts.length}
+                onClickBtn={() => savePost('temporary')}
+                onClickCount={() => openDrafts(drafts)}
+              />
+            )}
             <BlueBtn text="등록" onClick={() => savePost('permanent')} />
           </div>
           <input
