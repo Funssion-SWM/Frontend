@@ -15,6 +15,7 @@ type Props = {
   isLike: boolean;
   isMyMemo: boolean;
   createdDate: string;
+  seriesId: number;
 };
 
 export default function MemoViewerHeader({
@@ -23,6 +24,7 @@ export default function MemoViewerHeader({
   isLike,
   isMyMemo,
   createdDate,
+  seriesId,
 }: Props) {
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -77,9 +79,14 @@ export default function MemoViewerHeader({
                 className="hover:bg-gray-200 p-2 rounded-b-lg"
                 onClick={() => {
                   setIsActive(false);
-                  open('메모를 삭제하시겠습니까?', () => {
-                    handleDelete();
-                  });
+                  open(
+                    seriesId
+                      ? '시리즈에 속한 메모입니다. 메모륵 삭제하시겠습니까?'
+                      : '메모를 삭제하시겠습니까?',
+                    () => {
+                      handleDelete();
+                    }
+                  );
                 }}
               >
                 삭제하기

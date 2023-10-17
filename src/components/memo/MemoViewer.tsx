@@ -17,6 +17,7 @@ type Props = {
   isMyMemo: boolean;
   createdDate: string;
   type?: 'memo' | 'series';
+  seriesId: number;
 };
 
 export default function MemoViewer({
@@ -30,6 +31,7 @@ export default function MemoViewer({
   isMyMemo,
   createdDate,
   type = 'memo',
+  seriesId,
 }: Props) {
   return (
     <section
@@ -53,6 +55,7 @@ export default function MemoViewer({
           isLike={isLike}
           isMyMemo={isMyMemo}
           createdDate={createdDate}
+          seriesId={seriesId}
         />
       )}
       <h1

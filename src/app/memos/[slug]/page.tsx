@@ -41,6 +41,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
       memoTags,
       isMine,
       createdDate,
+      seriesId,
     },
     { isLike },
     comments,
@@ -82,6 +83,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
             isLike={isLike}
             isMyMemo={isMine}
             createdDate={createdDate}
+            seriesId={seriesId}
           />
           <MemoSideBar
             authorName={authorName}
