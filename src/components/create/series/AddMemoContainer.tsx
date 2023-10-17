@@ -32,6 +32,7 @@ export default function AddMemoContainer({
           return;
         }
         setMemos(res);
+        setSelectedMemos([]);
       }
     );
   }, [realSearchString]);

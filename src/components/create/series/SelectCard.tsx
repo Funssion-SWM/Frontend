@@ -9,7 +9,7 @@ type Props = {
 
 export default function SelectCard({ memo, onClick }: Props) {
   const [selected, setSelected] = useState(false);
-  const { memoTitle, memoDescription, memoColor } = memo;
+  const { memoTitle, memoDescription, memoColor, seriesId } = memo;
 
   const handleClick = () => {
     setSelected((pre) => !pre);
@@ -20,7 +20,9 @@ export default function SelectCard({ memo, onClick }: Props) {
     <article
       className={`flex flex-col relative rounded-md shadow-md aspect-square p-2 ${
         selected ? 'brightness-75' : ''
-      } ${
+      } 
+      ${seriesId ? 'pointer-events-none brightness-50' : ''}
+      ${
         {
           white: 'bg-soma-white',
           yellow: 'bg-memo-yellow',
@@ -35,12 +37,17 @@ export default function SelectCard({ memo, onClick }: Props) {
       onClick={handleClick}
     >
       <div className="self-end text-soma-blue-40">
-        {selected ? (
+        {seriesId ? (
+          <div className="text-xs h-5 font font-medium">
+            다른 시리즈에 속한 메모
+          </div>
+        ) : selected ? (
           <AiFillCheckCircle className="w-5 h-5" />
         ) : (
           <AiOutlineCheckCircle className="w-5 h-5" />
         )}
       </div>
+
       <div className="w-full flex-1">
         <h2 className="text-xl text-soma-grey-70 font-extrabold my-3 line-clamp-2 break-all h-14">
           {memoTitle}

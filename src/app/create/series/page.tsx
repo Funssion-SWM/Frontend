@@ -5,7 +5,8 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { cookies } from 'next/headers';
 
 export default async function CreateSeriesPage() {
-  const accessToken = cookies().get(ACCESS_TOKEN)?.value;
+  const accessToken =
+    'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2OTciLCJhdXRoIjoiIiwiZXhwIjoxNjk3NTIxMjgzfQ.7UQz_iUKsIkYyAvmBOv4aGA2Wa7Qzvld5uWs9EVlMUvCUxctqJ4PsXJX9caPn4FIWa9Fl-buWXhg9MLrkfJpGg';
   const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
   const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
 
