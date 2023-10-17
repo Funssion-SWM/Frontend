@@ -8,28 +8,33 @@ import {
   getAnswerdQuestionsByUserId,
   getLikedMemosByUserId,
   getLikedQuestionsByUserId,
+  getLikedSeriesByUserId,
   getMemosByUserId,
   getQuestionsByUserId,
+  getSeriesByUserId,
 } from '@/service/me';
 import CategoryBtn from '../shared/btn/CategoryBtn';
 import { Question } from '@/types/question';
 import QuestionsList from '../question/QuestionsList';
+import { Series } from '@/types/series';
+import SeriesGrid from '../series/SeriesGrid';
 
 type Props = {
   memos: Memo[];
   userId: number;
 };
 
+type BigCategory = 'my' | 'answered' | 'liked';
+type PostType = 'memo' | 'question' | 'series';
+
 export default function MeMainContainer({ memos, userId }: Props) {
   const [memodata, setMemodata] = useState<Memo[]>(memos);
   const [questiondata, setQuestionData] = useState<Question[]>([]);
-  const [selectedBigCategory, setSelectedBigCategory] = useState<
-    'my' | 'answered' | 'liked'
-  >('my');
-  const [selectedPostType, setSelectedPostType] = useState<'memo' | 'question'>(
-    'memo'
-  );
-  const handleClick = async (type: 'my' | 'answered' | 'liked') => {
+  const [seriesData, setSeriesData] = useState<Series[]>([]);
+  const [selectedBigCategory, setSelectedBigCategory] =
+    useState<BigCategory>('my');
+  const [selectedPostType, setSelectedPostType] = useState<PostType>('memo');
+  const handleClick = async (type: BigCategory) => {
     if (type === 'answered') {
       const questions = await getAnswerdQuestionsByUserId(userId);
       setQuestionData(questions);
@@ -44,7 +49,7 @@ export default function MeMainContainer({ memos, userId }: Props) {
     setSelectedBigCategory(type);
   };
 
-  const handlePostCategotyClick = async (type: 'memo' | 'question') => {
+  const handlePostCategotyClick = async (type: PostType) => {
     let data;
     switch (type) {
       case 'memo':
@@ -62,6 +67,14 @@ export default function MeMainContainer({ memos, userId }: Props) {
             : await getLikedQuestionsByUserId(userId);
         setQuestionData(data);
         setSelectedPostType('question');
+        break;
+      case 'series':
+        data =
+          selectedBigCategory === 'my'
+            ? await getSeriesByUserId(userId)
+            : await getLikedSeriesByUserId(userId);
+        setSeriesData(data);
+        setSelectedPostType('series');
         break;
       default:
         throw new Error('알맞은 타입이 아님');
@@ -99,6 +112,11 @@ export default function MeMainContainer({ memos, userId }: Props) {
             onClick={() => handlePostCategotyClick('question')}
             isSelected={selectedPostType === 'question'}
           />
+          <CategoryBtn
+            text="series"
+            onClick={() => handlePostCategotyClick('series')}
+            isSelected={selectedPostType === 'series'}
+          />
         </div>
       )}
       {selectedBigCategory !== 'answered' && selectedPostType === 'memo' && (
@@ -107,6 +125,9 @@ export default function MeMainContainer({ memos, userId }: Props) {
       {(selectedBigCategory === 'answered' ||
         selectedPostType === 'question') && (
         <QuestionsList questions={questiondata} size="big" />
+      )}
+      {selectedBigCategory !== 'answered' && selectedPostType === 'series' && (
+        <SeriesGrid seriesArr={seriesData} colNum={3} />
       )}
     </div>
   );

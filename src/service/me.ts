@@ -1,6 +1,7 @@
 import { HistoryItem } from '@/types';
 import { Memo } from '@/types/memo';
 import { Question } from '@/types/question';
+import { Series } from '@/types/series';
 
 export async function getHistory(
   userId: number,
@@ -91,6 +92,36 @@ export async function getLikedQuestionsByUserId(
   )
     .then((res) => {
       if (!res.ok) throw new Error('get question by user id error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
+}
+
+export async function getSeriesByUserId(userId: number): Promise<Series[]> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}/series`,
+    {
+      next: { revalidate: 0 },
+    }
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('get series by user id error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
+}
+
+export async function getLikedSeriesByUserId(
+  userId: number
+): Promise<Series[]> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}/series/liked`,
+    {
+      next: { revalidate: 0 },
+    }
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('get liked series by user id error 발생!');
       return res.json();
     })
     .catch(console.error);
