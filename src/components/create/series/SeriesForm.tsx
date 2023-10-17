@@ -12,7 +12,7 @@ import {
 } from 'react';
 import AddMemoContainer from './AddMemoContainer';
 import MemoOrderContainer from './MemoOrderContainer';
-import { MAX_PROFILE_IMAGE_BYTE } from '@/utils/const';
+import { MAX_IMAGE_BYTE } from '@/utils/const';
 import { notifyToast } from '@/service/notification';
 import Image from 'next/image';
 import { AiOutlinePicture } from 'react-icons/ai';
@@ -54,8 +54,11 @@ export default function SeriesForm({ userId }: Props) {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
       const file = e.target.files[0];
-      if (file.size > MAX_PROFILE_IMAGE_BYTE) {
-        notifyToast('최대 프로필 이미지 사이즈 2MB를 초과하였습니다.', 'error');
+      if (file.size > MAX_IMAGE_BYTE) {
+        notifyToast(
+          '최대 썸네일 이미지 사이즈 10MB를 초과하였습니다.',
+          'error'
+        );
         return;
       }
       const url = window.URL.createObjectURL(file);
