@@ -1,7 +1,7 @@
 'use client';
 
 import { Memo } from '@/types/memo';
-import { Orderby, PostType } from '@/types';
+import { Orderby } from '@/types';
 import { useEffect, useState } from 'react';
 import { searchMemos } from '@/service/memos';
 import CategoryBtn from '@/components/shared/btn/CategoryBtn';
@@ -11,14 +11,18 @@ import { SEARCH_RESULT_TIME } from '@/utils/const';
 import BarBtn from '../shared/btn/BarBtn';
 import QuestionsList from '../question/QuestionsList';
 import { Question } from '@/types/question';
-import { searchQuestions } from '@/service/search';
+import { searchQuestions, searchSeries } from '@/service/search';
 import { notifyToast } from '@/service/notification';
+import { Series } from '@/types/series';
+import SeriesGrid from '../series/SeriesGrid';
 
 type Props = {
   searchString: string;
   isTag: boolean;
   userId: string;
 };
+
+type PostType = 'memo' | 'question' | 'series';
 
 export default function SearchResultContainer({
   searchString,
@@ -27,9 +31,9 @@ export default function SearchResultContainer({
 }: Props) {
   const [memoData, setMemoData] = useState<Memo[]>([]);
   const [questionData, setQuestionData] = useState<Question[]>([]);
+  const [seriesData, setSeriesData] = useState<Series[]>([]);
   const [selectedOrderType, setSelectedOrderType] = useState<Orderby>('hot');
   const [postType, setPostType] = useState<PostType>('memo');
-  const [isSelected, setIsSelected] = useState<boolean>(true);
 
   const tempSearchString = useDebounce(searchString, SEARCH_RESULT_TIME);
 
@@ -48,14 +52,28 @@ export default function SearchResultContainer({
         return;
       }
       case 'question': {
-        const questions = await searchQuestions(
+        searchQuestions(
           tempSearchString,
           selectedOrderType,
           isTag,
           userId
-        );
-        setQuestionData(questions);
+        ).then((res) => {
+          if ('code' in res) {
+            notifyToast(res.message, 'error');
+            return;
+          }
+          setQuestionData(res);
+        });
         return;
+      }
+      case 'series': {
+        searchSeries(tempSearchString, selectedOrderType).then((res) => {
+          if ('code' in res) {
+            notifyToast(res.message, 'error');
+            return;
+          }
+          setSeriesData(res);
+        });
       }
     }
   };
@@ -68,21 +86,27 @@ export default function SearchResultContainer({
     <div>
       <div className="flex mb-2">
         <BarBtn
-          isSelected={isSelected}
+          isSelected={postType === 'memo'}
           text="Memos"
           onClick={() => {
-            setIsSelected(true);
             setSelectedOrderType('hot');
             setPostType('memo');
           }}
         />
         <BarBtn
-          isSelected={!isSelected}
+          isSelected={postType === 'question'}
           text="Questions"
           onClick={() => {
-            setIsSelected(false);
             setSelectedOrderType('hot');
             setPostType('question');
+          }}
+        />
+        <BarBtn
+          isSelected={postType === 'series'}
+          text="Series"
+          onClick={() => {
+            setSelectedOrderType('hot');
+            setPostType('series');
           }}
         />
       </div>
@@ -103,9 +127,11 @@ export default function SearchResultContainer({
       <div className="my-4 font-medium ml-2">
         <span className="text-soma-blue-40">
           {
-            { memo: memoData.length, question: questionData.length, answer: 0 }[
-              postType
-            ]
+            {
+              memo: memoData.length,
+              question: questionData.length,
+              series: seriesData.length,
+            }[postType]
           }
           개
         </span>
@@ -115,7 +141,7 @@ export default function SearchResultContainer({
         {
           memo: <MemosGrid memos={memoData} colNum={4} />,
           question: <QuestionsList questions={questionData} size="big" />,
-          answer: <></>,
+          series: <SeriesGrid seriesArr={seriesData} colNum={4} />,
         }[postType]
       }
     </div>

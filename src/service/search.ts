@@ -1,6 +1,7 @@
-import { Orderby, SearchHistory } from '@/types';
+import { ErrorResponse, Orderby, SearchHistory } from '@/types';
 import { Memo } from '@/types/memo';
 import { Question } from '@/types/question';
+import { Series } from '@/types/series';
 import { ACCESS_TOKEN } from '@/utils/const';
 
 export async function addSearchHistory(
@@ -65,7 +66,7 @@ export async function searchMemos(
   orderBy: Orderby,
   isTag: Boolean,
   userId: string
-): Promise<Memo[]> {
+): Promise<Memo[] | ErrorResponse> {
   const url = new URL(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/search`
   );
@@ -90,7 +91,7 @@ export async function searchQuestions(
   orderBy: Orderby,
   isTag: Boolean,
   userId: string
-): Promise<Question[]> {
+): Promise<Question[] | ErrorResponse> {
   const url = new URL(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions/search`
   );
@@ -99,6 +100,25 @@ export async function searchQuestions(
     orderBy: orderBy,
     isTag: isTag.toString(),
     userId: userId,
+  };
+  url.search = new URLSearchParams(params).toString();
+
+  return fetch(url, { next: { revalidate: 0 } })
+    .then((res) => {
+      if (!res.ok) throw new Error('error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
+}
+
+export async function searchSeries(
+  searchString: string,
+  orderBy: Orderby
+): Promise<Series[] | ErrorResponse> {
+  const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/series`);
+  const params = {
+    searchString: searchString,
+    orderBy: orderBy,
   };
   url.search = new URLSearchParams(params).toString();
 
