@@ -62,13 +62,15 @@ export async function updateSeries(
   title: string,
   description: string,
   memoIdList: number[],
-  thumbnailImage: File | null
-): Promise<PostSeriesResponse | ErrorResponse> {
+  thumbnailImage: File | null,
+  isEmpty: 'true' | 'false'
+): Promise<GetSeriesByIdResponse | ErrorResponse> {
   const formdata = new FormData();
 
   formdata.append('title', title);
   formdata.append('description', description);
   formdata.append('memoIdList', JSON.stringify(memoIdList));
+  formdata.append('isEmpty', isEmpty);
   if (thumbnailImage !== null)
     formdata.append('thumbnailImage', thumbnailImage);
 

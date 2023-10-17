@@ -33,6 +33,7 @@ export default function SeriesForm({ userId }: Props) {
   const [description, setDescription] = useState<string>('');
   const [memos, setMemos] = useState<MemoInfo[]>([]);
   const [imageUrl, setImageUrl] = useState<string>();
+  const [isEmptyImage, setIsEmptyImage] = useState<'true' | 'false'>('true');
   const router = useRouter();
 
   const fileInput = useRef() as MutableRefObject<HTMLInputElement>;
@@ -45,6 +46,7 @@ export default function SeriesForm({ userId }: Props) {
         setDescription(description);
         setMemos(memoInfoList);
         setImageUrl(thumbnailImagePath);
+        thumbnailImagePath && setIsEmptyImage('false');
       });
     }
   }, []);
@@ -59,6 +61,7 @@ export default function SeriesForm({ userId }: Props) {
       const url = window.URL.createObjectURL(file);
       setImageFile(file);
       setImageUrl(url);
+      setIsEmptyImage('false');
     }
   };
 
@@ -108,34 +111,49 @@ export default function SeriesForm({ userId }: Props) {
       return;
     }
 
-    if (memos.length === 0) {
-      notifyToast('시리즈에 추가할 메모를 추가해주세요.', 'warning');
+    if (memos.length < 2) {
+      notifyToast(
+        '시리즈에 필요한 최소 메모 개수 2개를 추가해주세요.',
+        'warning'
+      );
       return;
     }
 
-    const fn = seriesId
+    seriesId
       ? updateSeries(
           seriesId,
           title,
           description,
           memos.map((memo) => memo.id),
-          imageFile
-        )
+          imageFile,
+          isEmptyImage
+        ).then((res) => {
+          if ('code' in res) {
+            notifyToast(res.message, 'error');
+            return;
+          }
+          notifyToast('성공적으로 시리즈가 수정되었습니다.', 'success');
+          router.push(`/series/${seriesId}`);
+        })
       : createSeries(
           title,
           description,
           memos.map((memo) => memo.id),
           imageFile
-        );
+        ).then((res) => {
+          if ('code' in res) {
+            notifyToast(res.message, 'error');
+            return;
+          }
+          notifyToast('성공적으로 시리즈가  등록되었습니다.', 'success');
+          router.push(`/series/${res.seriesId}`);
+        });
+  };
 
-    fn.then((res) => {
-      if ('code' in res) {
-        notifyToast(res.message, 'error');
-        return;
-      }
-      notifyToast('성공적으로 시리즈가  등록되었습니다.', 'success');
-      router.push(`/series/${res.seriesId}`);
-    });
+  const handleCancelImage = () => {
+    setImageUrl('');
+    setImageFile(null);
+    setIsEmptyImage('true');
   };
 
   return (
@@ -146,6 +164,14 @@ export default function SeriesForm({ userId }: Props) {
       </div>
       <div className="flex flex-col sm:flex-row  w-full gap-4 ">
         <div className="sm:min-w-[300px] flex flex-col rounded-lg">
+          {isEmptyImage === 'false' && (
+            <button
+              className="self-end text-xs my-1 text-soma-grey-49"
+              onClick={handleCancelImage}
+            >
+              기본 이미지로
+            </button>
+          )}
           <div className="flex flex-col h-48">
             <input
               type="file"
@@ -163,10 +189,10 @@ export default function SeriesForm({ userId }: Props) {
               {imageUrl ? (
                 <Image
                   src={imageUrl}
-                  width={96}
-                  height={96}
+                  width={300}
+                  height={192}
                   alt="profile"
-                  className="w-full h-full object-cover rounded-lg"
+                  className="w-ful h-full object-cover rounded-lg"
                 />
               ) : (
                 <div>
