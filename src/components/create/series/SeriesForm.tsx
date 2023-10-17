@@ -20,6 +20,7 @@ import { createSeries, getSeriesById, updateSeries } from '@/service/series';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { MemoInfo } from '@/types/series';
 import { Memo } from '@/types/memo';
+import defaultImage from '@/assets/inforumlogo1.jpeg';
 
 type Props = {
   userId: number;
@@ -167,13 +168,15 @@ export default function SeriesForm({ userId }: Props) {
       </div>
       <div className="flex flex-col sm:flex-row  w-full gap-4 ">
         <div className="sm:min-w-[300px] flex flex-col rounded-lg">
-          {isEmptyImage === 'false' && (
+          {isEmptyImage === 'false' ? (
             <button
               className="self-end text-xs my-1 text-soma-grey-49"
               onClick={handleCancelImage}
             >
               기본 이미지로
             </button>
+          ) : (
+            <div className="h-4 my-1"></div>
           )}
           <div className="flex flex-col h-48">
             <input
@@ -186,7 +189,7 @@ export default function SeriesForm({ userId }: Props) {
               onChange={handleFileChange}
             />
             <button
-              className="flex justify-center items-center h-full bg-soma-grey-25 "
+              className="flex relative justify-center items-center h-full"
               onClick={() => fileInput.current.click()}
             >
               {imageUrl ? (
@@ -198,11 +201,17 @@ export default function SeriesForm({ userId }: Props) {
                   className="w-ful h-full object-cover rounded-lg"
                 />
               ) : (
-                <div>
-                  <AiOutlinePicture className="w-24 h-24" />
-                  <p className="text-soma-grey-60 font-semibold">
-                    썸네일 업로드
-                  </p>
+                <Image
+                  src={defaultImage}
+                  width={300}
+                  height={192}
+                  alt="profile"
+                  className="w-ful h-full object-cover rounded-lg"
+                />
+              )}
+              {!imageUrl && (
+                <div className="absolute bottom-2 text-soma-blue-40 font-semibold bg-white px-2 py-1 rounded-3xl text-sm">
+                  썸네일 업로드
                 </div>
               )}
             </button>
