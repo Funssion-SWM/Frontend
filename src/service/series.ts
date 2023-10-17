@@ -6,13 +6,17 @@ import {
 } from '@/types/series';
 
 export async function getSeriesArray(
-  period: Period,
-  orderBy: Orderby
+  period: Period = 'month',
+  orderBy: Orderby = 'new',
+  pageNum: number = 0,
+  resultCntPerPage: number = 12
 ): Promise<Series[] | ErrorResponse> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/series`);
   const params = {
     period: period,
     orderBy: orderBy,
+    pageNum: pageNum.toString(),
+    resultCntPerPage: resultCntPerPage.toString(),
   };
   url.search = new URLSearchParams(params).toString();
 
