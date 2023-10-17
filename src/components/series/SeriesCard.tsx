@@ -25,6 +25,7 @@ export default function SeriesCard({ series }: Props) {
     created,
     likes,
     thumbnailImagePath,
+    authorId,
   } = series;
   return (
     <article className={`flex flex-col relative w-full h-full aspect-square`}>
@@ -79,16 +80,22 @@ export default function SeriesCard({ series }: Props) {
               className="object-cover rounded-md"
             ></Image>
           </div>
+        </Link>
 
-          <div className="p-2 relative h-1/2">
-            <p className="font-semibold text-lg text-soma-grey-70 line-clamp-1 my-1">
-              {title}
-            </p>
-            <p className="line-clamp-2 break-all text-soma-grey-60 text-sm">
-              {description}
-            </p>
-            <div className="absolute w-full flex items-center text-soma-grey-60 justify-between bottom-0 left-0 p-2 text-xs">
-              <div className="flex">
+        <div className="p-2 relative h-1/2">
+          <Link href={`/series/${id}`} prefetch={false}>
+            <div className="flex flex-col h-full">
+              <p className="font-semibold text-lg text-soma-grey-70 line-clamp-1 my-1">
+                {title}
+              </p>
+              <p className="line-clamp-2 break-all text-soma-grey-60 text-sm">
+                {description}
+              </p>
+            </div>
+          </Link>
+          <div className="absolute w-full flex items-center text-soma-grey-60 justify-between bottom-0 left-0 p-2 text-xs">
+            <div className="flex">
+              <Link href={`/me/${authorId}`} prefetch={false}>
                 <Image
                   src={authorProfileImagePath || basicProfileImg}
                   alt="profileImage"
@@ -96,24 +103,19 @@ export default function SeriesCard({ series }: Props) {
                   height={16}
                   className="rounded-full w-4 h-4 object-cover"
                 />
-                <p className="ml-1 font-medium">{authorName}</p>
-                <p className="mx-1 text-soma-grey-45">|</p>
-                <RelativeDate date={created} type="YMD" />
-              </div>
-              <div className="flex items-center">
-                <Image
-                  src={fillHeart}
-                  alt="fill_heart"
-                  width={12}
-                  height={12}
-                />
-                <p className={`ml-1 text-soma-grey-49 ${azertMono.className}`}>
-                  {likes}
-                </p>
-              </div>
+              </Link>
+              <p className="ml-1 font-medium">{authorName}</p>
+              <p className="mx-1 text-soma-grey-45">|</p>
+              <RelativeDate date={created} type="YMD" />
+            </div>
+            <div className="flex items-center">
+              <Image src={fillHeart} alt="fill_heart" width={12} height={12} />
+              <p className={`ml-1 text-soma-grey-49 ${azertMono.className}`}>
+                {likes}
+              </p>
             </div>
           </div>
-        </Link>
+        </div>
       </div>
     </article>
   );
