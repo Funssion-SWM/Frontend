@@ -6,6 +6,7 @@ import basicProfileImg from '@/assets/profile.svg';
 import fillHeart from '@/assets/icons/heart_fill.svg';
 import { azertMono } from '@/styles/fonts';
 import RelativeDate from '../shared/RelativeDate';
+import { getImageSrcFromRank } from '@/service/rank';
 
 type Props = {
   series: Series;
@@ -26,6 +27,7 @@ export default function SeriesCard({ series }: Props) {
     likes,
     thumbnailImagePath,
     authorId,
+    authorRank,
   } = series;
   return (
     <article className={`flex flex-col relative w-full h-full aspect-square`}>
@@ -95,16 +97,23 @@ export default function SeriesCard({ series }: Props) {
           </Link>
           <div className="absolute w-full flex items-center text-soma-grey-60 justify-between bottom-0 left-0 p-2 text-xs">
             <div className="flex">
+              <Image
+                src={getImageSrcFromRank(authorRank)}
+                alt="rank"
+                width={16}
+                height={16}
+              />
               <Link href={`/me/${authorId}`} prefetch={false}>
                 <Image
                   src={authorProfileImagePath || basicProfileImg}
                   alt="profileImage"
                   width={16}
                   height={16}
-                  className="rounded-full w-4 h-4 object-cover"
+                  className="rounded-full w-4 h-4 object-cover mx-[2px]"
                 />
               </Link>
-              <p className="ml-1 font-medium">{authorName}</p>
+
+              <p className="font-medium">{authorName}</p>
               <p className="mx-1 text-soma-grey-45">|</p>
               <RelativeDate date={created} type="YMD" />
             </div>

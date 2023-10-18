@@ -10,6 +10,8 @@ import { ModalContext } from '@/context/ModalProvider';
 import BlueBtn from '../shared/btn/BlueBtn';
 import { notifyToast } from '@/service/notification';
 import RelativeDate from '../shared/RelativeDate';
+import { Rank } from '@/types/rank';
+import { getImageSrcFromRank } from '@/service/rank';
 
 type Props = {
   answerId: number;
@@ -24,6 +26,7 @@ type Props = {
   isMyQuestion: boolean;
   isSolved: boolean;
   questionId: number;
+  authorRank: Rank;
 };
 
 export default function AnswerCardHeader({
@@ -39,6 +42,7 @@ export default function AnswerCardHeader({
   isMyQuestion,
   isSolved,
   questionId,
+  authorRank,
 }: Props) {
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -58,15 +62,24 @@ export default function AnswerCardHeader({
   return (
     <div className="flex justify-between">
       <div className="flex items-center">
-        <Link href={`/me/${authorId}`} prefetch={false}>
+        <div className="relative">
+          <Link href={`/me/${authorId}`} prefetch={false}>
+            <Image
+              src={authorImagePath ?? basicProfileImg}
+              alt="profileImg"
+              width={36}
+              height={36}
+              className="rounded-full w-9 h-9 object-cover"
+            />
+          </Link>
           <Image
-            src={authorImagePath ?? basicProfileImg}
-            alt="profileImg"
-            width={36}
-            height={36}
-            className="rounded-full w-9 h-9 object-cover"
+            src={getImageSrcFromRank(authorRank)}
+            alt="rank"
+            width={30}
+            height={30}
+            className="absolute top-0 -translate-x-1/2 -translate-y-1/2"
           />
-        </Link>
+        </div>
         <div className="ml-2">
           <h4 className="text-soma-grey-60 font-medium text-xs sm:text-base">
             {authorName}

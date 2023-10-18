@@ -27,25 +27,29 @@ export default function MemoCardHeader({
   return (
     <div className="flex justify-between h-10 items-center">
       <div className="flex items-center">
-        <Link href={`/me/${authorId}`} prefetch={false}>
-          <Image
-            src={imagePath ?? basicProfileImg}
-            alt="profileImg"
-            width={40}
-            height={40}
-            className="rounded-full w-10 h-10 object-cover"
-          />
-        </Link>
-        <div className="ml-2">
-          <div className="flex items-center gap-1">
-            <h4 className="text-soma-grey-60 font-medium">{authorName}</h4>
+        <div className="relative">
+          <Link href={`/me/${authorId}`} prefetch={false}>
             <Image
-              src={getImageSrcFromRank(authorRank)}
-              alt="rank"
-              width={20}
-              height={20}
+              src={imagePath ?? basicProfileImg}
+              alt="profileImg"
+              width={40}
+              height={40}
+              className="rounded-full w-10 h-10 object-cover"
             />
-          </div>
+          </Link>
+          <Image
+            src={getImageSrcFromRank(authorRank)}
+            alt="rank"
+            width={35}
+            height={35}
+            className="absolute top-0 -translate-x-1/2 -translate-y-1/2"
+          />
+        </div>
+
+        <div className="ml-2">
+          <h4 className="text-soma-grey-60 font-medium text-sm line-clamp-1">
+            {authorName}
+          </h4>
           <RelativeDate date={createDate} type="YMD" />
         </div>
       </div>

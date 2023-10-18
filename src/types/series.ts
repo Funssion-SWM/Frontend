@@ -1,10 +1,12 @@
 import { MemoColor } from './memo';
+import { Rank } from './rank';
 
 export type Series = {
   id: number;
   authorId: number;
   authorName: string;
   authorProfileImagePath: string;
+  authorRank: Rank;
   title: string;
   description: string;
   thumbnailImagePath: string;

@@ -7,6 +7,8 @@ import { useState } from 'react';
 import { follow, unfollow } from '@/service/follow';
 import { notifyToast } from '@/service/notification';
 import { useRouter } from 'next/navigation';
+import { Rank } from '@/types/rank';
+import { getImageSrcFromRank } from '@/service/rank';
 
 type Props = {
   authorId: number;
@@ -21,6 +23,7 @@ type Props = {
   isLogin: boolean;
   authorFollowingNum: number;
   authorFollowerNum: number;
+  authorRank: Rank;
 };
 
 export default function MemoSidebarHeader({
@@ -34,6 +37,7 @@ export default function MemoSidebarHeader({
   isLogin,
   authorFollowingNum,
   authorFollowerNum,
+  authorRank,
 }: Props) {
   const [isCurrentFollowed, setIsCurrentFollowed] = useState(isFollowed);
   const [currentFollowerNum, setCurrentFollowerNum] =
@@ -44,15 +48,24 @@ export default function MemoSidebarHeader({
     <div className="bg-white rounded-t-2xl sticky top-0 p-3 pb-0 ">
       <div className="flex justify-between items-center">
         <div className="flex items-center text-sm">
-          <Link href={`/me/${authorId}`} prefetch={false}>
+          <div className="relative">
+            <Link href={`/me/${authorId}`} prefetch={false}>
+              <Image
+                src={authorProfileImagePath ?? basicProfileImg}
+                alt="profileImg"
+                width={35}
+                height={35}
+                className="w-9 h-9 rounded-full border-2 border-soma-grey-30"
+              />
+            </Link>
             <Image
-              src={authorProfileImagePath ?? basicProfileImg}
-              alt="profileImg"
-              width={36}
-              height={36}
-              className="w-9 h-9 rounded-full border-2"
+              src={getImageSrcFromRank(authorRank)}
+              alt="rank"
+              width={30}
+              height={30}
+              className="absolute top-0 -translate-x-1/2 -translate-y-1/2"
             />
-          </Link>
+          </div>
           <div className="ml-3">
             <div className="text-soma-grey-60 font-semibold">{authorName}</div>
             <div className="flex gap-1 text-xs text-soma-grey-49">

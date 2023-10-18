@@ -32,6 +32,7 @@ export default function AnswerCard({
     disLike,
     questionId,
     selected,
+    rank,
   },
   userId,
   isMyQuestion,
@@ -85,6 +86,7 @@ export default function AnswerCard({
         isMyQuestion={isMyQuestion}
         isSolved={isSolved}
         questionId={questionId}
+        authorRank={rank}
       />
       <div className="break-all my-3">
         <EditorContent editor={editor} />

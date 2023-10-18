@@ -42,6 +42,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
       createdDate,
       seriesId,
       seriesTitle,
+      authorRank,
     },
     { isLike },
     comments,
@@ -99,6 +100,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
             isLogin={isLogin}
             authorFollowingNum={followCnt}
             authorFollowerNum={followerCnt}
+            authorRank={authorRank}
           />
         </div>
       </LayoutWrapper>

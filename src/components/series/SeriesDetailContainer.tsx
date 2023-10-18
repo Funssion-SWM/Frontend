@@ -38,7 +38,7 @@ type Props = {
 };
 
 export default function SeriesDetailContainer({
-  memo: { authorId, authorName, authorProfileImagePath, isMine },
+  memo: { authorId, authorName, authorProfileImagePath, isMine, authorRank },
   memo,
   comments,
   questions,
@@ -199,6 +199,7 @@ export default function SeriesDetailContainer({
           isLogin={isLogin}
           authorFollowingNum={authorFollowingNum}
           authorFollowerNum={authorFollowerNum}
+          authorRank={authorRank}
         />
       </div>
       <div className="flex justify-center items-center my-5">

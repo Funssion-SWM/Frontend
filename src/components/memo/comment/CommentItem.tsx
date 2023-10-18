@@ -32,6 +32,7 @@ export default function CommentItem({
     isLike,
     likes,
     reCommentsNumber,
+    authorRank,
   } = commentProperty;
 
   const [updatedText, setUpdatedText] = useState<string>(commentText);
@@ -52,6 +53,7 @@ export default function CommentItem({
         isLike={isLike}
         likeNum={likes}
         isRecomment={false}
+        authorRank={authorRank}
       />
       {isEditMode ? (
         <textarea
