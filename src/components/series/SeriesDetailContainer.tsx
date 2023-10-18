@@ -94,11 +94,13 @@ export default function SeriesDetailContainer({
   const handleLeftBtnClick = () => {
     if (currentIdx === 0) return;
     setCurrentIdx((preIdx) => preIdx - 1);
+    window.scrollTo(0, 0);
   };
 
   const handleRightBtnClick = () => {
     if (currentIdx === memoInfoList.length - 1) return;
     setCurrentIdx((preIdx) => preIdx + 1);
+    window.scrollTo(0, 0);
   };
 
   return (
