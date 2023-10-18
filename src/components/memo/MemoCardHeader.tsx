@@ -56,7 +56,7 @@ export default function MemoCardHeader({
       <div className="flex items-center">
         <Image src={fillHeart} alt="fill_heart" width={16} height={16} />
         <p
-          className={`text-soma-grey-49 text-xs w-5 text-center ml-0.5 ${azertMono.className} `}
+          className={`text-soma-grey-49 text-sm text-center ml-1 ${azertMono.className} `}
         >
           {likes}
         </p>
