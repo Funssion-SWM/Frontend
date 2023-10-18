@@ -1,3 +1,5 @@
+import { Rank } from './rank';
+
 export type Memo = {
   memoId: number;
   memoTitle: string;
@@ -17,6 +19,7 @@ export type Memo = {
   isMine: boolean;
   seriesId: number;
   isCreated: boolean;
+  authorRank: Rank;
 };
 
 export type PostMemoData = {
