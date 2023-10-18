@@ -20,7 +20,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={pretendard.className}>
+    <html lang="ko" className={pretendard.className}>
       <GoogleAnalytics />
       <body className="flex flex-col">
         <ToastProvider>
