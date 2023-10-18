@@ -42,6 +42,14 @@ module.exports = {
           skyblue: 'var(--memo-bgcolor-skyblue)',
           orange: 'var(--memo-bgcolor-orange)',
         },
+        rank: {
+          bronze: 'var(--rank-bronze)',
+          silver: 'var(--rank-silver)',
+          gold: 'var(--rank-gold)',
+          platinum: 'var(--rank-platinum)',
+          diamond: 'var(--rank-diamond)',
+          infinity: 'var(--rank-infinity)',
+        },
         soma: {
           black: 'var(--soma-black)',
           white: 'var(--soma-white)',

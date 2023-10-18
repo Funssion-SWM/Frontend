@@ -5,6 +5,7 @@ import basicProfileImg from '../../assets/profile.svg';
 import { UserInfo } from '@/types';
 import FollowBtn from './FollowBtn';
 import CountInfo from './CountInfo';
+import Rank from '../shared/Rank';
 
 type Props = {
   userInfo: UserInfo;
@@ -21,7 +22,7 @@ export default function Profile({
 }: Props) {
   return (
     <section className="flex flex-col items-center w-full">
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center mb-3">
         <Image
           src={userInfo.profileImageFilePath ?? basicProfileImg}
           alt="profileImg"
@@ -30,11 +31,12 @@ export default function Profile({
           className="rounded-full w-24 h-24 object-cover"
         />
         <p className="font-bold mt-2 text-lg">{userInfo.nickname}</p>
+        <Rank />
       </div>
+      <CountInfo isMine={isMine} />
       <p className="p-3 rounded-md mt-1 w-full break-all text-sm overflow-y-auto text-soma-grey-60">
         {userInfo.introduce}
       </p>
-      <CountInfo isMine={isMine} />
       {userInfo.userTags.length !== 0 && (
         <div className="flex text-sm gap-1 mt-2 self-start overflow-x-hidden w-full">
           {userInfo.userTags.map((tag, idx) => (
