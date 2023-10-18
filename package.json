@@ -11,6 +11,7 @@
     "test:coverage": "npm test -- --coverage"
   },
   "dependencies": {
+    "@ramonak/react-progress-bar": "^5.0.3",
     "@sentry/nextjs": "^7.61.0",
     "@tailwindcss/typography": "^0.5.9",
     "@tiptap/core": "^2.0.3",
