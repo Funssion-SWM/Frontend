@@ -68,13 +68,16 @@ export default function SeriesDetailContainer({
     getMemoById(memoInfoList[currentIdx].id).then((memo) => {
       setCurrentMemo(memo);
     });
-    getCommentsByPostTypeAndPostId('memo', memoInfoList[currentIdx].id).then(
-      (comments) => setCurrentComments(comments)
-    );
     getQuestionsByMemoId(memoInfoList[currentIdx].id).then((questions) =>
       setCurrentQuestions(questions)
     );
   }, [currentIdx]);
+
+  useEffect(() => {
+    getCommentsByPostTypeAndPostId('memo', memoInfoList[currentIdx].id).then(
+      (comments) => setCurrentComments(comments)
+    );
+  }, [currentIdx, comments]);
 
   const handleDelete = () => {
     deleteSeries(seriesId).then((res) => {
