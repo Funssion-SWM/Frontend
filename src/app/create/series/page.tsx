@@ -2,7 +2,13 @@ import SeriesForm from '@/components/create/series/SeriesForm';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser } from '@/service/auth';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
+import { Metadata } from 'next';
 import { cookies } from 'next/headers';
+
+export const metadata: Metadata = {
+  title: '시리즈 작성',
+  description: '시리즈 작성하는 곳입니다.',
+};
 
 export default async function CreateSeriesPage() {
   const accessToken = cookies().get(ACCESS_TOKEN)?.value;

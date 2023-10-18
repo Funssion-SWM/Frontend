@@ -74,3 +74,13 @@ export default async function SeriesDetailPage({ params: { slug } }: Props) {
     </section>
   );
 }
+
+export async function generateMetadata({ params: { slug } }: Props) {
+  const seriesId = Number(slug);
+  const { title, description } = await getSeriesById(seriesId);
+
+  return {
+    title: title,
+    description: description.slice(0, 160),
+  };
+}
