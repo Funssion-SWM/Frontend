@@ -11,6 +11,7 @@ import MeTagsContainer from '@/components/me/MeTagsContainer';
 import { getFollowers, getFollowings } from '@/service/follow';
 import FollowListModalProvider from '@/context/FollowListModalProvider';
 import FollowListModal from '@/components/me/FollowListModal';
+import PieChart from '@/components/shared/PieChart';
 
 type Props = {
   params: {
@@ -87,6 +88,9 @@ export default async function MePage({ params: { slug } }: Props) {
                 isLogin={isLogin}
               />
             )}
+            <div className="flex justify-center w-full">
+              <PieChart />
+            </div>
             <MeMainContainer memos={memos} userId={userId} />
           </div>
         </div>
