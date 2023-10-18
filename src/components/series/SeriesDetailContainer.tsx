@@ -184,6 +184,7 @@ export default function SeriesDetailContainer({
           createdDate={currentMemo.createdDate}
           type="series"
           seriesId={seriesId}
+          seriesTitle={seriesTitle}
         />
         <MemoSideBar
           authorName={authorName}

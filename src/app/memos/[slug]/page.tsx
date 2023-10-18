@@ -9,7 +9,6 @@ import { getIsLike } from '@/service/like';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { getQuestionsByMemoId } from '@/service/questions';
-import { getFollowers, getFollowings } from '@/service/follow';
 
 type Props = {
   params: {
@@ -42,6 +41,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
       isMine,
       createdDate,
       seriesId,
+      seriesTitle,
     },
     { isLike },
     comments,
@@ -84,6 +84,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
             isMyMemo={isMine}
             createdDate={createdDate}
             seriesId={seriesId}
+            seriesTitle={seriesTitle}
           />
           <MemoSideBar
             authorName={authorName}

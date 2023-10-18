@@ -20,6 +20,7 @@ export type Memo = {
   seriesId: number;
   isCreated: boolean;
   authorRank: Rank;
+  seriesTitle: string;
 };
 
 export type PostMemoData = {
