@@ -106,10 +106,10 @@ export default function SeriesDetailContainer({
   return (
     <div className="flex flex-col">
       <div className="flex items-center justify-between bg-soma-grey-20 p-4 rounded-lg">
-        <h2 className="text-xl sm:text-3xl font-semibold">
+        <h1 className="text-xl sm:text-3xl font-semibold">
           <span className="text-soma-blue-50">Series </span>
           {seriesTitle}
-        </h2>
+        </h1>
         <nav className="relative flex items-center z-0" ref={dropdownRef}>
           <LikeBox
             likeNum={seriesLikeNum}

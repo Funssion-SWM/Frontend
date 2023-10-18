@@ -4,7 +4,14 @@ import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { getSeriesArray } from '@/service/series';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
+import { Metadata } from 'next';
 import { cookies } from 'next/headers';
+
+export const metadata: Metadata = {
+  title: 'Inforum - Series',
+  description: 'Inforum Series 페이지입니다.',
+  keywords: ['inforum', '인포럼', '시리즈', 'series', '블로그', 'blog'],
+};
 
 export default async function SeriesPage() {
   const accessToken = cookies().get(ACCESS_TOKEN)?.value;

@@ -12,6 +12,17 @@ import CreationModal from '@/components/shared/CreationModal';
 export const metadata = {
   title: 'Inforum',
   description: '개발 기록을 쉽고, 즐겁게',
+  keywords: [
+    'inforun',
+    '인포럼',
+    'memos',
+    '메모',
+    '개발',
+    '개발블로그',
+    '질문답변',
+    '개발질문',
+    '시리즈',
+  ],
 };
 
 export default async function RootLayout({

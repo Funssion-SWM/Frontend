@@ -48,9 +48,9 @@ export default function QuestionDetail({
           isLike={isLike}
         />
         <div className="my-5">
-          <h2 className="text-2xl sm:text-4xl text-soma-grey-70 font-bold break-all">
+          <h1 className="text-2xl sm:text-4xl text-soma-grey-70 font-bold break-all">
             {title}
-          </h2>
+          </h1>
           <div className="h-[0.5px] mx-1 my-4 bg-soma-grey-49"></div>
           <div className="break-all ">
             <EditorContent

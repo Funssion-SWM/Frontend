@@ -5,7 +5,14 @@ import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { getMemos } from '@/service/memos';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
+import { Metadata } from 'next';
 import { cookies } from 'next/headers';
+
+export const metadata: Metadata = {
+  title: 'Inforum - Memos',
+  description: 'Inforum Memos 페이지입니다.',
+  keywords: ['inforum', '인포럼', 'memo', '메모', '블로그', 'blog'],
+};
 
 export default async function MemosPage() {
   const accessToken = cookies().get(ACCESS_TOKEN)?.value;

@@ -5,7 +5,14 @@ import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { getQuestions } from '@/service/questions';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
+import { Metadata } from 'next';
 import { cookies } from 'next/headers';
+
+export const metadata: Metadata = {
+  title: 'Inforum - Q&A',
+  description: 'Inforum Q&A 페이지입니다.',
+  keywords: ['inforum', '인포럼', 'question', 'answer', '질문', '답변', 'q&a'],
+};
 
 export default async function QuestionsPage() {
   const accessToken = cookies().get(ACCESS_TOKEN)?.value;
