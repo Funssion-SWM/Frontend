@@ -1,7 +1,7 @@
 import { HistoryItem } from '@/types';
 import { Memo } from '@/types/memo';
 import { Question } from '@/types/question';
-import { RankInfo } from '@/types/rank';
+import { RankInfo, Stats } from '@/types/rank';
 import { Series } from '@/types/series';
 
 export async function getHistory(
@@ -153,6 +153,20 @@ export async function getRankInfoByUserId(userId: number): Promise<RankInfo> {
   )
     .then((res) => {
       if (!res.ok) throw new Error('get rankinfo by user id error 발생!');
+      return res.json();
+    })
+    .catch(console.error);
+}
+
+export async function getStatsByUserId(userId: number): Promise<Stats> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/mypage/${userId}/stats`,
+    {
+      next: { revalidate: 0 },
+    }
+  )
+    .then((res) => {
+      if (!res.ok) throw new Error('get stats by user id error 발생!');
       return res.json();
     })
     .catch(console.error);

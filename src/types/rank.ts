@@ -36,3 +36,25 @@ export type RankInfo = {
   rankInterval: number;
   rankMaxScore: number;
 };
+
+type ScoreAndCount = {
+  score: number;
+  count: number;
+};
+
+export type Stats = {
+  memoScoreAndCount: ScoreAndCount;
+  questionScoreAndCount: ScoreAndCount;
+  selectingAnswerScoreAndCount: ScoreAndCount;
+  answerScoreAndCount: ScoreAndCount;
+  commentScoreAndCount: ScoreAndCount;
+  likeScoreAndCount: ScoreAndCount;
+  bestAnswerScoreAndCount: ScoreAndCount;
+  memoPercent: number;
+  questionPercent: number;
+  selectingAnswerPercent: number;
+  answerPercent: number;
+  commentPercent: number;
+  likePercent: number;
+  bestAnswerPercent: number;
+};
