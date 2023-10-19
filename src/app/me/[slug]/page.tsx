@@ -100,7 +100,7 @@ export default async function MePage({ params: { slug } }: Props) {
                 isLogin={isLogin}
               />
             )}
-            <StatsInfo userStats={userStats} />
+            {userRankInfo.myScore !== 0 && <StatsInfo userStats={userStats} />}
             <MeMainContainer memos={memos} userId={userId} />
           </div>
         </div>

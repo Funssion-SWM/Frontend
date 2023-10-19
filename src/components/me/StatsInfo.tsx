@@ -22,7 +22,7 @@ export default function StatsInfo({ userStats }: Props) {
   return (
     <div className="flex flex-col sm:flex-row justify-center items-center w-full gap-8">
       <PieChart userStats={userStats} />
-      <ul className="text-center">
+      <ul className="text-soma-grey-70">
         <li>
           메모를 총{' '}
           <span className={countStyle}>{memoScoreAndCount.count}개</span>{' '}
@@ -59,7 +59,7 @@ export default function StatsInfo({ userStats }: Props) {
         <li>
           답변이 총{' '}
           <span className={countStyle}>{bestAnswerScoreAndCount.count}번</span>{' '}
-          채택되었고
+          채택되었고{' '}
           <span className={scoreStyle}>{bestAnswerScoreAndCount.score}점</span>
           을 얻었습니다.
         </li>
