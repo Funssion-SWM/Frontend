@@ -1,9 +1,12 @@
 import { getImageSrcFromRank } from '@/service/rank';
+import { Rank } from '@/types/rank';
 import Image from 'next/image';
 
-const rank = 'INFINITY_1';
+type Props = {
+  rank: Rank;
+};
 
-export default function Rank() {
+export default function RankWithBadge({ rank }: Props) {
   return (
     <div className="flex items-center">
       <Image src={getImageSrcFromRank(rank)} alt="rank" width={25} />

@@ -5,14 +5,17 @@ import basicProfileImg from '../../assets/profile.svg';
 import { UserInfo } from '@/types';
 import FollowBtn from './FollowBtn';
 import CountInfo from './CountInfo';
-import Rank from '../shared/Rank';
 import MyProgressBar from '../shared/MyProgressBar';
+import { RankInfo } from '@/types/rank';
+import RankWithBadge from '../shared/RankWithBadge';
+import { calcRankPercentage } from '@/service/rank';
 
 type Props = {
   userInfo: UserInfo;
   userId: number;
   isMine: boolean;
   myUserInfo: UserInfo;
+  userRankInfo: RankInfo;
 };
 
 export default function Profile({
@@ -20,6 +23,7 @@ export default function Profile({
   userId,
   isMine,
   myUserInfo,
+  userRankInfo: { myRank, myScore, rankInterval, rankMaxScore },
 }: Props) {
   return (
     <section className="flex flex-col items-center w-full">
@@ -32,9 +36,17 @@ export default function Profile({
           className="rounded-full w-24 h-24 object-cover"
         />
         <p className="font-bold mt-2 text-lg">{userInfo.nickname}</p>
-        <Rank />
+        <RankWithBadge rank={myRank} />
       </div>
-      <MyProgressBar />
+      <MyProgressBar
+        rank={myRank}
+        rankMinScore={rankMaxScore - rankInterval}
+        rankMaxScore={rankMaxScore}
+        currentRankPercentage={calcRankPercentage(
+          rankMaxScore - myScore,
+          rankMaxScore - rankInterval
+        )}
+      />
       <CountInfo isMine={isMine} />
       <p className="p-3 rounded-md mt-1 w-full break-all text-sm overflow-y-auto text-soma-grey-60">
         {userInfo.introduce}

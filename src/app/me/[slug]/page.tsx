@@ -1,5 +1,9 @@
 import Header from '@/components/shared/Header';
-import { getHistory, getMemosByUserId } from '@/service/me';
+import {
+  getHistory,
+  getMemosByUserId,
+  getRankInfoByUserId,
+} from '@/service/me';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
 import MeMainContainer from '@/components/me/MeMainContainer';
@@ -37,6 +41,7 @@ export default async function MePage({ params: { slug } }: Props) {
   const tagData = getUserTags(slug, MY_TAG_MAX_COUNT);
   const followingData = getFollowings(slug);
   const followerData = getFollowers(slug);
+  const userRankData = getRankInfoByUserId(userId);
 
   const [
     memos,
@@ -46,6 +51,7 @@ export default async function MePage({ params: { slug } }: Props) {
     tags,
     followings,
     followers,
+    userRankInfo,
   ] = await Promise.all([
     memosData,
     userData,
@@ -54,6 +60,7 @@ export default async function MePage({ params: { slug } }: Props) {
     tagData,
     followingData,
     followerData,
+    userRankData,
   ]);
 
   const myUserInfo = await getUserInfo(id);
@@ -76,6 +83,7 @@ export default async function MePage({ params: { slug } }: Props) {
               userId={userId}
               myId={id}
               myUserInfo={myUserInfo}
+              userRankInfo={userRankInfo}
             />
             <FollowListModal isMine={id === userId} />
           </FollowListModalProvider>

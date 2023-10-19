@@ -29,3 +29,10 @@ export type Rank =
   | 'INFINITY_3'
   | 'INFINITY_2'
   | 'INFINITY_1';
+
+export type RankInfo = {
+  myRank: Rank;
+  myScore: number;
+  rankInterval: number;
+  rankMaxScore: number;
+};
