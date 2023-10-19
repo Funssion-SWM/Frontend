@@ -1,6 +1,12 @@
 import Image from 'next/image';
 import logo from '@/assets/inforum_logo.png';
 import FindEmailForm from '@/components/find/FindEmailForm';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Inforum - Find Email',
+  description: 'Inforum Find Email 페이지입니다.',
+};
 
 export default function FindEmailPage() {
   return (
