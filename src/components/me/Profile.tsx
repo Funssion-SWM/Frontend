@@ -37,14 +37,15 @@ export default function Profile({
         />
         <p className="font-bold mt-2 text-lg">{userInfo.nickname}</p>
         <RankWithBadge rank={myRank} />
+        <div className="text-soma-grey-60 text-sm">{myScore}점</div>
       </div>
       <MyProgressBar
         rank={myRank}
         rankMinScore={rankMaxScore - rankInterval}
         rankMaxScore={rankMaxScore}
         currentRankPercentage={calcRankPercentage(
-          rankMaxScore - myScore,
-          rankMaxScore - rankInterval
+          rankInterval - (rankMaxScore - myScore),
+          rankInterval
         )}
       />
       <CountInfo isMine={isMine} />
