@@ -87,10 +87,10 @@ export default function SeriesCard({ series }: Props) {
         <div className="p-2 relative h-1/2">
           <Link href={`/series/${id}`} prefetch={false}>
             <div className="flex flex-col h-full">
-              <p className="font-semibold text-lg text-soma-grey-70 line-clamp-1 my-1">
+              <p className="font-semibold text-lg text-soma-grey-70 line-clamp-1 my-1 break-all">
                 {title}
               </p>
-              <p className="line-clamp-2 break-all text-soma-grey-60 text-sm">
+              <p className="line-clamp-2 break-all text-soma-grey-60 text-sm break-all">
                 {description}
               </p>
             </div>
