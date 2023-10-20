@@ -2,6 +2,7 @@ import { getImageSrcFromRank } from '@/service/rank';
 import { Rank } from '@/types/rank';
 import Image from 'next/image';
 import { AiOutlineSmile } from 'react-icons/ai';
+import basicProfileImg from '@/assets/profile.svg';
 
 type Props = {
   rankNum: number;
@@ -9,6 +10,7 @@ type Props = {
   tier: Rank;
   score: number;
   isMine: boolean;
+  profileImagePath: string;
 };
 
 export default function RankingCard({
@@ -17,6 +19,7 @@ export default function RankingCard({
   tier,
   score,
   isMine,
+  profileImagePath,
 }: Props) {
   return (
     <div
@@ -36,7 +39,14 @@ export default function RankingCard({
       }`}
     >
       <div className="flex items-center">
-        <div className="mr-2">{rankNum}위</div>
+        <div>{rankNum}위</div>
+        <Image
+          src={profileImagePath ?? basicProfileImg}
+          alt="profileImg"
+          width={20}
+          height={20}
+          className="mx-2 w-5 h-5 rounded-full"
+        />
         <div>{nickname}</div>
         <Image src={getImageSrcFromRank(tier)} alt="rankIcon" />
         {isMine && <AiOutlineSmile className="text-2xl" />}

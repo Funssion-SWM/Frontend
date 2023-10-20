@@ -19,6 +19,7 @@ export default function RankingContainer({ top10Ranking, myId }: Props) {
               tier={item.scoreRank.rank}
               score={item.scoreRank.score}
               isMine={myId === item.memberProfileEntity.userId}
+              profileImagePath={item.memberProfileEntity.profileImageFilePath}
             />
           </li>
         ))}
