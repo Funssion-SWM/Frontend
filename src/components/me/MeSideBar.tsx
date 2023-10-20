@@ -2,7 +2,9 @@ import Profile from './Profile';
 import History from './History';
 import { HistoryItem, UserInfo } from '@/types';
 import Setting from './Setting';
-import { RankInfo } from '@/types/rank';
+import { RankInfo, Stats } from '@/types/rank';
+import ScoreDetailProvider from '@/context/ScoreDetailProvider';
+import ScoreDetailModal from './ScoreDetailModal';
 
 type Props = {
   userInfo: UserInfo;
@@ -11,6 +13,7 @@ type Props = {
   myId: number;
   myUserInfo: UserInfo;
   userRankInfo: RankInfo;
+  userStats: Stats;
 };
 
 export default function MeSideBar({
@@ -20,16 +23,20 @@ export default function MeSideBar({
   myId,
   myUserInfo,
   userRankInfo,
+  userStats,
 }: Props) {
   return (
     <section className="flex flex-col items-center w-full sm:w-[350px] sm:min-h-screen p-6 bg-soma-grey-20">
-      <Profile
-        userInfo={userInfo}
-        userId={userId}
-        isMine={myId === Number(userId)}
-        myUserInfo={myUserInfo}
-        userRankInfo={userRankInfo}
-      />
+      <ScoreDetailProvider>
+        <Profile
+          userInfo={userInfo}
+          userId={userId}
+          isMine={myId === Number(userId)}
+          myUserInfo={myUserInfo}
+          userRankInfo={userRankInfo}
+        />
+        <ScoreDetailModal userStats={userStats} />
+      </ScoreDetailProvider>
       <History history={history} userId={userId} />
       {myId === Number(userId) && <Setting myId={myId} />}
     </section>

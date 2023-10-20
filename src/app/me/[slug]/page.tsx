@@ -16,9 +16,7 @@ import MeTagsContainer from '@/components/me/MeTagsContainer';
 import { getFollowers, getFollowings } from '@/service/follow';
 import FollowListModalProvider from '@/context/FollowListModalProvider';
 import FollowListModal from '@/components/me/FollowListModal';
-import PieChart from '@/components/shared/PieChart';
 import { getNotificationsTop30 } from '@/service/notification';
-import StatsInfo from '@/components/me/StatsInfo';
 
 type Props = {
   params: {
@@ -71,9 +69,7 @@ export default async function MePage({ params: { slug } }: Props) {
 
   const myUserInfo = await getUserInfo(id);
 
-  const notifications = isLogin
-    ? await getNotificationsTop30(cookie)
-    : [];
+  const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
 
   return (
     <section>
@@ -95,6 +91,7 @@ export default async function MePage({ params: { slug } }: Props) {
               myId={id}
               myUserInfo={myUserInfo}
               userRankInfo={userRankInfo}
+              userStats={userStats}
             />
             <FollowListModal isMine={id === userId} />
           </FollowListModalProvider>
@@ -107,7 +104,6 @@ export default async function MePage({ params: { slug } }: Props) {
                 isLogin={isLogin}
               />
             )}
-            {userRankInfo.myScore !== 0 && <StatsInfo userStats={userStats} />}
             <MeMainContainer memos={memos} userId={userId} />
           </div>
         </div>

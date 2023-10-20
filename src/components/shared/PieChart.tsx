@@ -23,15 +23,7 @@ export default function PieChart({
   },
 }: Props) {
   const data = {
-    labels: [
-      'Memo',
-      'Question',
-      'Answer',
-      'SelectingAnswer',
-      'SelectedAnswer',
-      'Comment',
-      'Like',
-    ],
+    labels: ['메모', '질문', '답변', '채택함', '채택됨', '댓글', '좋아요'],
     datasets: [
       {
         label: '(%)',

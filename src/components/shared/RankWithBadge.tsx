@@ -23,7 +23,7 @@ export default function RankWithBadge({ rank }: Props) {
     }[rank.replace('_', '').slice(0, -1)]
   }`}
       >
-        {rank.replace('_', '')}
+        {rank.replace('_', ' ')}
       </span>
     </div>
   );

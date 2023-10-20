@@ -9,6 +9,9 @@ import MyProgressBar from '../shared/MyProgressBar';
 import { RankInfo } from '@/types/rank';
 import RankWithBadge from '../shared/RankWithBadge';
 import { calcRankPercentage } from '@/service/rank';
+import { AiFillPlusSquare } from 'react-icons/ai';
+import { useContext } from 'react';
+import { ScoreDetailContext } from '@/context/ScoreDetailProvider';
 
 type Props = {
   userInfo: UserInfo;
@@ -25,6 +28,8 @@ export default function Profile({
   myUserInfo,
   userRankInfo: { myRank, myScore, rankInterval, rankMaxScore },
 }: Props) {
+  const { openScoreDetail } = useContext(ScoreDetailContext);
+
   return (
     <section className="flex flex-col items-center w-full">
       <div className="flex flex-col items-center mb-3">
@@ -37,7 +42,14 @@ export default function Profile({
         />
         <p className="font-bold mt-2 text-lg">{userInfo.nickname}</p>
         <RankWithBadge rank={myRank} />
-        <div className="text-soma-grey-60 text-sm">{myScore}점</div>
+        <div className="flex items-center text-soma-grey-60 ">
+          <div className="text-sm">{myScore}점</div>
+          {myScore !== 0 && (
+            <button className="mx-[2px]" onClick={() => openScoreDetail()}>
+              <AiFillPlusSquare />
+            </button>
+          )}
+        </div>
       </div>
       <MyProgressBar
         rank={myRank}
