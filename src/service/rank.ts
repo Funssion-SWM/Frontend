@@ -96,3 +96,9 @@ export function getImageSrcFromRank(rank: Rank): string {
       throw new Error('wrong rank type');
   }
 }
+
+export function calcRankPercentage(numerator: number, denominator: number) {
+  const divided = numerator / (denominator === 0 ? 100 : denominator);
+  if (divided === 1) return 0;
+  return Math.round(divided * 1000) / 10;
+}

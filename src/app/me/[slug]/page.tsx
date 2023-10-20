@@ -1,5 +1,10 @@
 import Header from '@/components/shared/Header';
-import { getHistory, getMemosByUserId } from '@/service/me';
+import {
+  getHistory,
+  getMemosByUserId,
+  getRankInfoByUserId,
+  getStatsByUserId,
+} from '@/service/me';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
 import MeMainContainer from '@/components/me/MeMainContainer';
@@ -13,6 +18,7 @@ import FollowListModalProvider from '@/context/FollowListModalProvider';
 import FollowListModal from '@/components/me/FollowListModal';
 import PieChart from '@/components/shared/PieChart';
 import { getNotificationsTop30 } from '@/service/notification';
+import StatsInfo from '@/components/me/StatsInfo';
 
 type Props = {
   params: {
@@ -38,6 +44,8 @@ export default async function MePage({ params: { slug } }: Props) {
   const tagData = getUserTags(slug, MY_TAG_MAX_COUNT);
   const followingData = getFollowings(slug);
   const followerData = getFollowers(slug);
+  const userRankData = getRankInfoByUserId(userId);
+  const userStatsData = getStatsByUserId(userId);
 
   const [
     memos,
@@ -47,6 +55,8 @@ export default async function MePage({ params: { slug } }: Props) {
     tags,
     followings,
     followers,
+    userRankInfo,
+    userStats,
   ] = await Promise.all([
     memosData,
     userData,
@@ -55,6 +65,8 @@ export default async function MePage({ params: { slug } }: Props) {
     tagData,
     followingData,
     followerData,
+    userRankData,
+    userStatsData,
   ]);
 
   const myUserInfo = await getUserInfo(id);
@@ -82,6 +94,7 @@ export default async function MePage({ params: { slug } }: Props) {
               userId={userId}
               myId={id}
               myUserInfo={myUserInfo}
+              userRankInfo={userRankInfo}
             />
             <FollowListModal isMine={id === userId} />
           </FollowListModalProvider>
@@ -94,9 +107,7 @@ export default async function MePage({ params: { slug } }: Props) {
                 isLogin={isLogin}
               />
             )}
-            <div className="flex justify-center w-full">
-              <PieChart />
-            </div>
+            {userRankInfo.myScore !== 0 && <StatsInfo userStats={userStats} />}
             <MeMainContainer memos={memos} userId={userId} />
           </div>
         </div>

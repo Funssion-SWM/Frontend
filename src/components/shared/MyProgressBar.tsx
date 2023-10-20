@@ -1,17 +1,27 @@
 import ProgressBar from '@ramonak/react-progress-bar';
 import '@/styles/progressbar.css';
+import { Rank } from '@/types/rank';
 
-const rank = 'INFINITY_1';
-
-export default function MyProgressBar() {
+type Props = {
+  rank: Rank;
+  rankMinScore: number;
+  rankMaxScore: number;
+  currentRankPercentage: number;
+};
+export default function MyProgressBar({
+  rank,
+  rankMinScore,
+  rankMaxScore,
+  currentRankPercentage,
+}: Props) {
   return (
     <div className="w-full">
       <div className="flex justify-between text-xs font-semibold text-soma-grey-50 mb-1">
-        <span>0</span>
-        <span>100</span>
+        <span>{rankMinScore}</span>
+        <span>{rankMaxScore}</span>
       </div>
       <ProgressBar
-        completed={50}
+        completed={currentRankPercentage}
         bgColor={`${
           {
             BRONZE: 'var(--rank-bronze)',
