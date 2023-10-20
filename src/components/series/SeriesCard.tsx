@@ -13,7 +13,7 @@ type Props = {
 };
 
 const SERIES_CARD_PIECE_STYLE =
-  'absolute w-11/12 h-10/12 rounded-md shadow-md aspect-square sm:hover:scale-102 duration-300';
+  'absolute w-19/20 h-19/20 rounded-md shadow-md aspect-square sm:hover:scale-102 duration-300';
 
 export default function SeriesCard({ series }: Props) {
   const {
@@ -46,7 +46,7 @@ export default function SeriesCard({ series }: Props) {
         }`}
       ></div>
       <div
-        className={`bottom-4 right-4 sm:bottom-3 sm:right-3 ${SERIES_CARD_PIECE_STYLE} ${
+        className={`bottom-[9px] right-[9px] sm:bottom-[7px] sm:right-[7px] ${SERIES_CARD_PIECE_STYLE} ${
           {
             white: 'bg-soma-white',
             yellow: 'bg-memo-yellow',

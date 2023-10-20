@@ -7,6 +7,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      width: {
+        '19/20': '95%',
+      },
+      height: {
+        '19/20': '95%',
+      },
       scale: {
         102: '1.02',
       },
