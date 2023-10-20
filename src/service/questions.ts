@@ -3,10 +3,16 @@ import { PostImageResponse } from '@/types/image';
 import { PostQuestionData, Question, QuestionOrderBy } from '@/types/question';
 
 export async function getQuestions(
-  orderBy: QuestionOrderBy = 'NEW'
+  orderBy: QuestionOrderBy = 'NEW',
+  pageNum: number,
+  resultCntPerPage: number
 ): Promise<Question[]> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions`);
-  const params = { orderBy: orderBy };
+  const params = {
+    orderBy: orderBy,
+    pageNum: pageNum.toString(),
+    memoCnt: resultCntPerPage.toString(),
+  };
   url.search = new URLSearchParams(params).toString();
   return fetch(url, { next: { revalidate: 0 } })
     .then((res) => {
