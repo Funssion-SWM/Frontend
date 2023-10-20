@@ -34,7 +34,7 @@ export default function PieChart({
     ],
     datasets: [
       {
-        label: 'of Percentage',
+        label: '(%)',
         data: [
           memoPercent * 100,
           questionPercent * 100,
@@ -53,7 +53,7 @@ export default function PieChart({
           'rgba(255, 235, 224, 1)',
           'rgba(228, 237, 253, 1)',
         ],
-        borderColor: ['rgba(0, 0, 0, 0.7)'],
+        borderColor: ['rgba(0, 0, 0, 1)'],
         borderWidth: 1.5,
       },
     ],
@@ -62,6 +62,7 @@ export default function PieChart({
   return (
     <Pie
       data={data}
+      height={300}
       options={{
         responsive: false,
         plugins: { legend: { position: 'right' } },

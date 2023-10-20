@@ -22,7 +22,7 @@ export default function StatsInfo({ userStats }: Props) {
   return (
     <div className="flex flex-col sm:flex-row justify-center items-center w-full gap-8">
       <PieChart userStats={userStats} />
-      <ul className="text-soma-grey-70">
+      <ul className="text-soma-grey-70 font-medium">
         <li>
           메모를 총{' '}
           <span className={countStyle}>{memoScoreAndCount.count}개</span>{' '}

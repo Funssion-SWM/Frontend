@@ -15,7 +15,7 @@ export default function MeTagsContainer({
   isLogin,
 }: Props) {
   return (
-    <div className="my-10">
+    <div className="mt-10">
       <div className="flex flex-wrap justify-center items-center mx-10 sm:text-2xl font-bold">
         <span>{userInfo.nickname}님은</span>
         <TagView
