@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { deleteAnswer, selectAnswer } from '@/service/answers';
 import { ModalContext } from '@/context/ModalProvider';
 import BlueBtn from '../shared/btn/BlueBtn';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import RelativeDate from '../shared/RelativeDate';
 import { Rank } from '@/types/rank';
 import { getImageSrcFromRank } from '@/service/rank';

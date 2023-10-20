@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { ModalContext } from '@/context/ModalProvider';
 import LikeBox from '../shared/LikeBox';
 import { extractYMDHM } from '@/service/time';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import Link from 'next/link';
 
 type Props = {

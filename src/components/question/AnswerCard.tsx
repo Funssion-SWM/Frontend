@@ -6,7 +6,7 @@ import AnswerCardHeader from './AnswerCardHeader';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateAnswer } from '@/service/answers';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import AnswerCardFooter from './AnswerCardFooter';
 
 type Props = {

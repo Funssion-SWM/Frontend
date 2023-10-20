@@ -1,7 +1,7 @@
 import BlueBtn from '@/components/shared/btn/BlueBtn';
 import { useDebounce } from '@/hooks/useDebounce';
 import { searchMemos } from '@/service/memos';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import { Memo } from '@/types/memo';
 import { SEARCH_RESULT_TIME } from '@/utils/const';
 import { useEffect, useState } from 'react';

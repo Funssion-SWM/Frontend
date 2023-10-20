@@ -14,7 +14,7 @@ import {
 import AddMemoContainer from './AddMemoContainer';
 import MemoOrderContainer from './MemoOrderContainer';
 import { MAX_IMAGE_BYTE } from '@/utils/const';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import Image from 'next/image';
 import { createSeries, getSeriesById, updateSeries } from '@/service/series';
 import { useRouter, useSearchParams } from 'next/navigation';

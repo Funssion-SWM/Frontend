@@ -24,7 +24,7 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { DraftsInModalContext } from '@/context/DraftsInModalProvider';
 import { TEMPORARY_SAVE_INTERVAL_TIME } from '@/utils/const';
 import Tag from '@/components/shared/Tag';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import { hasSpecialChar } from '@/service/validation';
 
 export default function EditorForm() {

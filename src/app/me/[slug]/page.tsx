@@ -16,6 +16,8 @@ import MeTagsContainer from '@/components/me/MeTagsContainer';
 import { getFollowers, getFollowings } from '@/service/follow';
 import FollowListModalProvider from '@/context/FollowListModalProvider';
 import FollowListModal from '@/components/me/FollowListModal';
+import PieChart from '@/components/shared/PieChart';
+import { getNotificationsTop30 } from '@/service/notification';
 import StatsInfo from '@/components/me/StatsInfo';
 
 type Props = {
@@ -69,10 +71,15 @@ export default async function MePage({ params: { slug } }: Props) {
 
   const myUserInfo = await getUserInfo(id);
 
+  const notifications = isLogin
+    ? await getNotificationsTop30(cookie)
+    : [];
+
   return (
     <section>
       <Header
         isLogin={isLogin}
+        notifications={notifications}
         profileImageFilePath={myUserInfo?.profileImageFilePath}
       />
       <LayoutWrapper paddingY="py-0">

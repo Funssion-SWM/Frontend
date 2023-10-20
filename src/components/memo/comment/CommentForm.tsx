@@ -1,5 +1,5 @@
 import { createComment } from '@/service/comments';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 

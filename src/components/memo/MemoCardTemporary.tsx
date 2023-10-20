@@ -4,7 +4,7 @@ import { deleteMemo } from '@/service/memos';
 import { useContext } from 'react';
 import { ModalContext } from '@/context/ModalProvider';
 import { useRouter } from 'next/navigation';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 
 type Props = {
   memo: Memo;
