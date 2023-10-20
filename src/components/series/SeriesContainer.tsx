@@ -7,6 +7,7 @@ import SeriesGrid from './SeriesGrid';
 import { Series } from '@/types/series';
 import { getSeriesArray } from '@/service/series';
 import useObserver from '@/hooks/useObserver';
+import { SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/utils/const';
 
 type Props = {
   seriesArray: Series[];
@@ -23,7 +24,12 @@ export default function SeriesContainer({ seriesArray }: Props) {
   const handleClick = async (orderBy: Orderby) => {
     setPageNum(1);
     setIsEnd(false);
-    const series = await getSeriesArray('month', orderBy, 0, 12);
+    const series = await getSeriesArray(
+      'month',
+      orderBy,
+      0,
+      SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
+    );
     if (!('code' in series)) setCurrentSeriesArray(series);
     setSelectedOrderType(orderBy);
   };
@@ -31,7 +37,12 @@ export default function SeriesContainer({ seriesArray }: Props) {
   const fetchSeries = () => {
     if (isLoading || isEnd) return;
     setIsLoading(true);
-    getSeriesArray('month', selectedOrderType, pageNum, 12)
+    getSeriesArray(
+      'month',
+      selectedOrderType,
+      pageNum,
+      SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
+    )
       .then((data) => {
         if ('code' in data) {
           return;

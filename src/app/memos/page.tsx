@@ -5,7 +5,11 @@ import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { getMemos } from '@/service/memos';
 import { getNotificationsTop30 } from '@/service/notification';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
+import {
+  ACCESS_TOKEN,
+  MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL,
+  REFRESH_TOKEN,
+} from '@/utils/const';
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 
@@ -20,7 +24,12 @@ export default async function MemosPage() {
   const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
   const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
 
-  const memosData = getMemos('month', 'new', 0, 12);
+  const memosData = getMemos(
+    'month',
+    'new',
+    0,
+    MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
+  );
   const myData = checkUser(cookie);
   const [memos, { id, isLogin }] = await Promise.all([memosData, myData]);
 
@@ -28,10 +37,7 @@ export default async function MemosPage() {
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
 
-  const notifications = isLogin
-    ? await getNotificationsTop30(cookie)
-    : [];
-
+  const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
 
   return (
     <section>

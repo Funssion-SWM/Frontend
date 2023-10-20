@@ -30,14 +30,14 @@ export async function getMemos(
   period: Period = 'month',
   orderBy: Orderby = 'new',
   pageNum: number = 0,
-  memoCnt: number = 20
+  resultCntPerPage: number = 12
 ): Promise<Memo[]> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`);
   const params = {
     period: period,
     orderBy: orderBy,
     pageNum: pageNum.toString(),
-    memoCnt: memoCnt.toString(),
+    resultCntPerPage: resultCntPerPage.toString(),
   };
   url.search = new URLSearchParams(params).toString();
 

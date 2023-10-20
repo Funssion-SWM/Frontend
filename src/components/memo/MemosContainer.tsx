@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import { getMemos } from '@/service/memos';
 import CategoryBtn from '@/components/shared/btn/CategoryBtn';
 import useObserver from '@/hooks/useObserver';
+import { MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/utils/const';
 
 type Props = {
   memos: Memo[];
@@ -22,7 +23,12 @@ export default function MemosContainer({ memos }: Props) {
   const handleClick = async (orderBy: Orderby) => {
     setPageNum(1);
     setIsEnd(false);
-    const memos = await getMemos('month', orderBy, 0, 12);
+    const memos = await getMemos(
+      'month',
+      orderBy,
+      0,
+      MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
+    );
     setMemodata(memos);
     setSelectedOrderType(orderBy);
   };
@@ -30,7 +36,12 @@ export default function MemosContainer({ memos }: Props) {
   const fetchMemos = () => {
     if (isLoading || isEnd) return;
     setIsLoading(true);
-    getMemos('month', selectedOrderType, pageNum, 12)
+    getMemos(
+      'month',
+      selectedOrderType,
+      pageNum,
+      MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
+    )
       .then((data) => {
         setIsLoading(false);
         if (!data.length) setIsEnd(true);
