@@ -17,7 +17,7 @@ import {
   validatePassword,
 } from '@/service/validation';
 import { BASIC_INPUT_STYLE } from '@/utils/tailwindcss';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import Link from 'next/link';
 
 export default function SignupForm() {

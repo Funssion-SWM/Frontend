@@ -5,7 +5,7 @@ import basicProfileImg from '@/assets/profile.svg';
 import BarBtn from '../shared/btn/BarBtn';
 import { useState } from 'react';
 import { follow, unfollow } from '@/service/follow';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import { useRouter } from 'next/navigation';
 import { Rank } from '@/types/rank';
 import { getImageSrcFromRank } from '@/service/rank';

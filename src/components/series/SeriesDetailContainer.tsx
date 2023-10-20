@@ -17,7 +17,7 @@ import more from '@/assets/icons/more.svg';
 import { useRouter } from 'next/navigation';
 import { ModalContext } from '@/context/ModalProvider';
 import { deleteSeries } from '@/service/series';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import arrowIcon from '@/assets/icons/arrow_icon.svg';
 
 type Props = {

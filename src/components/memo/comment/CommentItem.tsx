@@ -7,7 +7,7 @@ import WhiteBtn from '@/components/shared/btn/WhiteBtn';
 import { ModalContext } from '@/context/ModalProvider';
 import RecommentContainer from '@/components/memo/recomment/RecommentContainer';
 import CommentHeader from './CommentHeader';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 
 type Props = {
   commentProperty: Comment;

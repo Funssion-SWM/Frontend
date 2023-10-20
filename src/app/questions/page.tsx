@@ -3,6 +3,7 @@ import Footer from '@/components/shared/Footer';
 import Header from '@/components/shared/Header';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
+import { getNotificationsTop30 } from '@/service/notification';
 import { getQuestions } from '@/service/questions';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { Metadata } from 'next';
@@ -30,10 +31,15 @@ export default async function QuestionsPage() {
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
 
+  const notifications = isLogin
+    ? await getNotificationsTop30(cookie)
+    : [];
+
   return (
     <section>
       <Header
         isLogin={isLogin}
+        notifications={notifications}
         profileImageFilePath={profileImageFilePath}
         currentPage="questions"
       />

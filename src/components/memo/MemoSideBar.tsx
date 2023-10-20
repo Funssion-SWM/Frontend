@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { Question } from '@/types/question';
 import QuestionsList from '../question/QuestionsList';
 import { useRouter } from 'next/navigation';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import { Rank } from '@/types/rank';
 
 type Props = {

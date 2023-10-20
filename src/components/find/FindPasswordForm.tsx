@@ -12,7 +12,7 @@ import {
   confirmCode,
 } from '@/service/auth';
 import { useRouter } from 'next/navigation';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 
 export default function FindPasswordForm() {
   const router = useRouter();

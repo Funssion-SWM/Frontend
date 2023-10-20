@@ -12,7 +12,7 @@ import BarBtn from '../shared/btn/BarBtn';
 import QuestionsList from '../question/QuestionsList';
 import { Question } from '@/types/question';
 import { searchQuestions, searchSeries } from '@/service/search';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import { Series } from '@/types/series';
 import SeriesGrid from '../series/SeriesGrid';
 

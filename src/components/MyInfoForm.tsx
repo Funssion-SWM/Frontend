@@ -18,7 +18,7 @@ import Link from 'next/link';
 import { checkUser, registerUserInfo, updateUserInfo } from '@/service/auth';
 import { UserInfo } from '@/types';
 import Tag from './shared/Tag';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import { MAX_PROFILE_IMAGE_BYTE } from '@/utils/const';
 
 type Props = {

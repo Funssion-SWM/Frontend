@@ -5,6 +5,7 @@ import { checkUser, getUserInfo } from '@/service/auth';
 import { getCommentsByPostTypeAndPostId } from '@/service/comments';
 import { getIsLike } from '@/service/like';
 import { getMemoById } from '@/service/memos';
+import { getNotificationsTop30 } from '@/service/notification';
 import { getQuestionsByMemoId } from '@/service/questions';
 import { getSeriesById } from '@/service/series';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
@@ -32,7 +33,7 @@ export default async function SeriesDetailPage({ params: { slug } }: Props) {
     cookie
   );
   const myData = checkUser(cookie);
-  const questionsData = getQuestionsByMemoId(memoInfoList[0].id);
+  const questionsData = getQuestionsByMemoId(memoInfoList[0].id);  
 
   const [memo, { isLike }, comments, { id, isLogin }, questions] =
     await Promise.all([memoData, likeData, commentData, myData, questionsData]);
@@ -46,10 +47,15 @@ export default async function SeriesDetailPage({ params: { slug } }: Props) {
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
 
+  const notifications = isLogin
+    ? await getNotificationsTop30(cookie)
+    : [];
+
   return (
     <section>
       <Header
         isLogin={isLogin}
+        notifications={notifications}
         profileImageFilePath={profileImageFilePath}
         currentPage="series"
       />

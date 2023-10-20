@@ -2,7 +2,7 @@
 
 import { ModalContext } from '@/context/ModalProvider';
 import { withdraw } from '@/service/auth';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';

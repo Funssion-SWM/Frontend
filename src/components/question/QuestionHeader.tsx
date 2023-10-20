@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { ModalContext } from '@/context/ModalProvider';
 import { deleteQuestion } from '@/service/questions';
 import { extractYMDHM } from '@/service/time';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 type Props = {
   questionId: number;
   likeNum: number;

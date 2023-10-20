@@ -5,6 +5,7 @@ import { getAnswersByQuestionId } from '@/service/answers';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { getIsLike } from '@/service/like';
 import { getMemoById } from '@/service/memos';
+import { getNotificationsTop30 } from '@/service/notification';
 import { getQuestionById } from '@/service/questions';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { cookies } from 'next/headers';
@@ -37,6 +38,10 @@ export default async function QuestionPage({ params: { slug } }: Props) {
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
 
+  const notifications = isLogin
+    ? await getNotificationsTop30(cookie)
+    : [];
+
   const { memoTitle } = question.memoId
     ? await getMemoById(question.memoId)
     : {
@@ -47,6 +52,7 @@ export default async function QuestionPage({ params: { slug } }: Props) {
     <section>
       <Header
         isLogin={isLogin}
+        notifications={notifications}
         profileImageFilePath={profileImageFilePath}
         currentPage="questions"
       />

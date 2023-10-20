@@ -9,6 +9,7 @@ import { getIsLike } from '@/service/like';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { getQuestionsByMemoId } from '@/service/questions';
+import { getNotificationsTop30 } from '@/service/notification';
 
 type Props = {
   params: {
@@ -65,10 +66,15 @@ export default async function MemoPage({ params: { slug } }: Props) {
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
 
+    const notifications = isLogin
+    ? await getNotificationsTop30(cookie)
+    : [];
+
   return (
     <section>
       <Header
         isLogin={isLogin}
+        notifications={notifications}
         profileImageFilePath={profileImageFilePath}
         currentPage="memos"
       />

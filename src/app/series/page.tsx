@@ -2,6 +2,7 @@ import SeriesContainer from '@/components/series/SeriesContainer';
 import Header from '@/components/shared/Header';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
+import { getNotificationsTop30 } from '@/service/notification';
 import { getSeriesArray } from '@/service/series';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { Metadata } from 'next';
@@ -20,6 +21,7 @@ export default async function SeriesPage() {
 
   const seriesData = getSeriesArray('month', 'new');
   const myData = checkUser(cookie);
+  
   let [seriesArray, { id, isLogin }] = await Promise.all([seriesData, myData]);
 
   if ('code' in seriesArray) {
@@ -31,10 +33,15 @@ export default async function SeriesPage() {
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
 
+  const notifications = isLogin
+    ? await getNotificationsTop30(cookie)
+    : [];
+
   return (
     <section>
       <Header
         isLogin={isLogin}
+        notifications={notifications}
         profileImageFilePath={profileImageFilePath}
         currentPage="series"
       />
