@@ -11,7 +11,7 @@ export default function CountInfo({ isMine }: Props) {
   );
 
   return (
-    <div className="flex text-center w-full border-y">
+    <div className="flex text-center w-full border-y my-2">
       <div
         className="flex-1 cursor-pointer transition-all hover:bg-soma-grey-30 py-4"
         onClick={() => open('follower')}

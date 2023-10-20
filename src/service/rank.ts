@@ -1,4 +1,4 @@
-import { Rank } from '@/types/rank';
+import { Rank, RankingInfo } from '@/types/rank';
 import bronze5 from '@/assets/icons/rank/bronze_5.svg';
 import bronze4 from '@/assets/icons/rank/bronze_4.svg';
 import bronze3 from '@/assets/icons/rank/bronze_3.svg';
@@ -101,4 +101,12 @@ export function calcRankPercentage(numerator: number, denominator: number) {
   const divided = numerator / (denominator === 0 ? 100 : denominator);
   if (divided === 1) return 0;
   return Math.round(divided * 1000) / 10;
+}
+
+export async function getTop10Ranking(): Promise<RankingInfo[]> {
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/score/rank`, {
+    next: { revalidate: 0 },
+  })
+    .then((res) => res.json())
+    .catch(console.error);
 }

@@ -58,3 +58,21 @@ export type Stats = {
   likePercent: number;
   bestAnswerPercent: number;
 };
+
+export type RankingInfo = {
+  memberProfileEntity: {
+    userId: number;
+    profileImageFilePath: string;
+    nickname: string;
+    introduce: string;
+    userTags: string[];
+    followCnt: number;
+    followerCnt: number;
+    rank: string;
+  };
+  scoreRank: {
+    score: number;
+    rank: Rank;
+    dailyScore: number;
+  };
+};

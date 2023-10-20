@@ -12,6 +12,7 @@ import { calcRankPercentage } from '@/service/rank';
 import { AiFillPlusSquare } from 'react-icons/ai';
 import { useContext } from 'react';
 import { ScoreDetailContext } from '@/context/ScoreDetailProvider';
+import Link from 'next/link';
 
 type Props = {
   userInfo: UserInfo;
@@ -60,8 +61,15 @@ export default function Profile({
           rankInterval
         )}
       />
+      <Link
+        href="/ranking"
+        className="text-xs self-end text-soma-grey-49"
+        prefetch={false}
+      >
+        순위표
+      </Link>
       <CountInfo isMine={isMine} />
-      <p className="p-3 rounded-md mt-1 w-full break-all text-sm overflow-y-auto text-soma-grey-60">
+      <p className="px-3 py-2 rounded-md w-full break-all text-sm overflow-y-auto text-soma-grey-60">
         {userInfo.introduce}
       </p>
       {userInfo.userTags.length !== 0 && (
