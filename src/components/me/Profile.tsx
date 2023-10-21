@@ -9,10 +9,8 @@ import MyProgressBar from '../shared/MyProgressBar';
 import { RankInfo } from '@/types/rank';
 import RankWithBadge from '../shared/RankWithBadge';
 import { calcRankPercentage } from '@/service/rank';
-import { AiFillPlusSquare } from 'react-icons/ai';
 import { useContext } from 'react';
 import { ScoreDetailContext } from '@/context/ScoreDetailProvider';
-import Link from 'next/link';
 
 type Props = {
   userInfo: UserInfo;
@@ -45,11 +43,6 @@ export default function Profile({
         <RankWithBadge rank={myRank} />
         <div className="flex items-center text-soma-grey-60 ">
           <div className="text-sm">{myScore}점</div>
-          {myScore !== 0 && (
-            <button className="mx-[2px]" onClick={() => openScoreDetail()}>
-              <AiFillPlusSquare />
-            </button>
-          )}
         </div>
       </div>
       <MyProgressBar
@@ -61,13 +54,14 @@ export default function Profile({
           rankInterval
         )}
       />
-      <Link
-        href="/ranking"
-        className="text-xs self-end text-soma-grey-49"
-        prefetch={false}
-      >
-        순위표
-      </Link>
+      {myScore !== 0 && (
+        <button
+          className="text-xs self-end text-soma-grey-49"
+          onClick={() => openScoreDetail()}
+        >
+          자세히 보기
+        </button>
+      )}
       <CountInfo isMine={isMine} />
       <p className="px-3 py-2 rounded-md w-full break-all text-sm overflow-y-auto text-soma-grey-60">
         {userInfo.introduce}

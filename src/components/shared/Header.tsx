@@ -17,6 +17,7 @@ import { CreationModalContext } from '@/context/CreationModalProvider';
 import { Notification } from '@/types/notification';
 import RelativeDate from './RelativeDate';
 import { checkNotifications } from '@/service/notification';
+import { FaRankingStar } from 'react-icons/fa6';
 
 type Props = {
   isLogin: boolean;
@@ -35,19 +36,22 @@ export default function Header({
   const dropdownRef = useRef<HTMLElement>(null);
   const notificationRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
-  const [isNotificationActive, setIsNotificationActive] = useDetectOutsideClick(notificationRef, false);
-  const [isChecked, setIsChecked] = useState<Boolean|null>(null);
+  const [isNotificationActive, setIsNotificationActive] = useDetectOutsideClick(
+    notificationRef,
+    false
+  );
+  const [isChecked, setIsChecked] = useState<Boolean | null>(null);
   const { open } = useContext(ModalContext);
   const { openCreationModal } = useContext(CreationModalContext);
   const scrollDirection = useScrollDirection();
 
   const handleClick = () => {
-    setIsNotificationActive(pre=>!pre);
+    setIsNotificationActive((pre) => !pre);
     if (!isChecked) {
       setIsChecked(true);
       checkNotifications();
     }
-  }
+  };
 
   return (
     <header
@@ -96,9 +100,7 @@ export default function Header({
           </Link>
         </div>
         {isLogin ? (
-          <nav
-            className="flex items-center gap-2 sm:gap-3 absolute right-1 sm:right-3"
-          >
+          <nav className="flex items-center gap-2 sm:gap-3 absolute right-1 sm:right-3">
             <a
               href="https://docs.google.com/forms/d/e/1FAIpQLSfnkPn7J4uwSP-g3nclOVsx1m4ePUbf_GEpYG1Cpsh2aWgtMQ/viewform?usp=sf_link"
               target="_blank"
@@ -116,75 +118,92 @@ export default function Header({
               />
             </button>
 
-            <nav
-              className='flex items-center relative'
-              ref={notificationRef}
-            >
+            <button onClick={() => router.push('/ranking')}>
+              <FaRankingStar className="text-soma-grey-60 w-5 h-5" />
+            </button>
 
-              <button onClick={handleClick} className='relative'>
+            <nav className="flex items-center relative" ref={notificationRef}>
+              <button onClick={handleClick} className="relative">
                 <Image
-                  className='cursor-pointer'
+                  className="cursor-pointer"
                   src={bellIcon}
-                  alt='bell_icon'
+                  alt="bell_icon"
                 />
-                <div className={`${isChecked === null || isChecked ? 'invisible' : 'visible'} p-[5px] -top-0.5 -right-0.5 absolute bg-red-400 rounded-full`}/>
+                <div
+                  className={`${
+                    isChecked === null || isChecked ? 'invisible' : 'visible'
+                  } p-[5px] -top-0.5 -right-0.5 absolute bg-red-400 rounded-full`}
+                />
               </button>
-                <ul className={`absolute top-8 max-h-[300px] overflow-y-scroll min-w-[300px] bg-white rounded-xl shadow-xl  -translate-x-1/2 ${
+              <ul
+                className={`absolute top-8 max-h-[300px] overflow-y-scroll min-w-[300px] bg-white rounded-xl shadow-xl  -translate-x-1/2 ${
                   scrollDirection === 'down' && 'opacity-0 invisible'
-                } ${
-                  isNotificationActive ? "visible" : "hidden"
-                }`}>
-                  <div className='py-2 px-4 bg-gray-100 rounded-t-xl'>
-                    알림
-                  </div>
-                  {
-                    notifications?.map(notification => {
-                      if (!notification.isChecked && isChecked === null) setIsChecked(false);
+                } ${isNotificationActive ? 'visible' : 'hidden'}`}
+              >
+                <div className="py-2 px-4 bg-gray-100 rounded-t-xl">알림</div>
+                {notifications?.map((notification) => {
+                  if (!notification.isChecked && isChecked === null)
+                    setIsChecked(false);
 
-                      return (
-                        <li key={notification.id.toString()} >
-                          <div className='flex justify-between p-2 text-xs border-t border-gray-300'>
-                            <span className='inline-flex items-center gap-2 cursor-pointer hover:text-soma-blue-40' onClick={() => router.push("me/"+notification.senderId)}>
-                              <span className='w-7 h-7 inline-flex items-center'>
-                                <Image
-                                  className='cursor-pointer rounded-full inline-block'
-                                  src={notification.senderImagePath ?? basicProfileImg}
-                                  alt={notification.senderName}
-                                  width={28}
-                                  height={28}
-                                />
-                              </span>
-                              {notification.senderName}
-                            </span>
+                  return (
+                    <li key={notification.id.toString()}>
+                      <div className="flex justify-between p-2 text-xs border-t border-gray-300">
+                        <span
+                          className="inline-flex items-center gap-2 cursor-pointer hover:text-soma-blue-40"
+                          onClick={() =>
+                            router.push('me/' + notification.senderId)
+                          }
+                        >
+                          <span className="w-7 h-7 inline-flex items-center">
+                            <Image
+                              className="cursor-pointer rounded-full inline-block"
+                              src={
+                                notification.senderImagePath ?? basicProfileImg
+                              }
+                              alt={notification.senderName}
+                              width={28}
+                              height={28}
+                            />
+                          </span>
+                          {notification.senderName}
+                        </span>
 
-                            <span className='inline-flex items-center'>
-                              <RelativeDate date={notification.created} type="YMD" />
-                            </span>
-                          </div>
-                          <div 
-                            onClick={() => notification.postTypeToShow ? 
-                              router.push("/"+notification.postTypeToShow.toLocaleLowerCase()+"s/"+notification.postIdToShow) : 
-                              router.push("/me/"+notification.senderId)
-                            }
-                            className='px-3 pb-2 text-sm flex justify-between items-center'  
-                          >
-                            <span className='hover:text-soma-blue-40 cursor-pointer'>
-                              {notification.message}
-                            </span>
-                            {notification.isChecked ? <></> : <span className='bg-red-400 rounded-full inline-block w-2 h-2' />}
-                          </div>
-                        </li>
-                    )}
-                    )
-                  }
-                </ul>
-
+                        <span className="inline-flex items-center">
+                          <RelativeDate
+                            date={notification.created}
+                            type="YMD"
+                          />
+                        </span>
+                      </div>
+                      <div
+                        onClick={() =>
+                          notification.postTypeToShow
+                            ? router.push(
+                                '/' +
+                                  notification.postTypeToShow.toLocaleLowerCase() +
+                                  's/' +
+                                  notification.postIdToShow
+                              )
+                            : router.push('/me/' + notification.senderId)
+                        }
+                        className="px-3 pb-2 text-sm flex justify-between items-center"
+                      >
+                        <span className="hover:text-soma-blue-40 cursor-pointer">
+                          {notification.message}
+                        </span>
+                        {notification.isChecked ? (
+                          <></>
+                        ) : (
+                          <span className="bg-red-400 rounded-full inline-block w-2 h-2" />
+                        )}
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
             </nav>
 
-            <nav
-              className='flex items-center'
-              ref={dropdownRef}
-            >
+            <nav className="flex items-center" ref={dropdownRef}>
               <button onClick={() => setIsActive((pre) => !pre)}>
                 <Image
                   src={profileImageFilePath ?? basicProfileImg}
@@ -198,9 +217,7 @@ export default function Header({
               <div
                 className={`absolute top-9 right-[36px] sm:top-10 sm:right-[44px] bg-white flex flex-col gap-1 rounded-lg shadow-inner z-10${
                   scrollDirection === 'down' && 'opacity-0 invisible'
-                } ${
-                  isActive ? 'visible' : 'invisible'
-                }`}
+                } ${isActive ? 'visible' : 'invisible'}`}
               >
                 <button
                   className="hover:bg-gray-200 p-2 rounded-t-lg tracking-wider px-3"
@@ -257,6 +274,9 @@ export default function Header({
                 src={searchIcon}
                 alt="search_icon"
               />
+            </button>
+            <button onClick={() => router.push('/ranking')}>
+              <FaRankingStar className="text-soma-grey-60 w-5 h-5" />
             </button>
             <Link href="/login">
               <BlueBtn text="로그인" onClick={() => {}} />
