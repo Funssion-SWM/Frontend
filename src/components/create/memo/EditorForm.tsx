@@ -51,7 +51,7 @@ export default function EditorForm() {
       });
     },
     onError: (err) => {
-      console.log(err);
+      notifyToast(err.message, "error");
     },
   });
 
