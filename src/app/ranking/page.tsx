@@ -3,7 +3,7 @@ import Header from '@/components/shared/Header';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { getNotificationsTop30 } from '@/service/notification';
-import { getTop10Ranking } from '@/service/rank';
+import { getRankingByUserId, getTop10Ranking } from '@/service/rank';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { cookies } from 'next/headers';
 
@@ -19,6 +19,8 @@ export default async function RankingPage() {
     myData,
   ]);
 
+  const myRanking = id === -1 ? null : await getRankingByUserId(id);
+
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
@@ -33,7 +35,11 @@ export default async function RankingPage() {
         profileImageFilePath={profileImageFilePath}
       />
       <LayoutWrapper paddingY="sm:py-5">
-        <RankingContainer top10Ranking={top10Ranking} myId={id} />
+        <RankingContainer
+          top10Ranking={top10Ranking}
+          myId={id}
+          myRanking={myRanking}
+        />
       </LayoutWrapper>
     </section>
   );
