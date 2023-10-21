@@ -45,7 +45,6 @@ export async function createSeries(
   thumbnailImage: File | null
 ): Promise<PostSeriesResponse | ErrorResponse> {
   const formdata = new FormData();
-  console.log(thumbnailImage);
   formdata.append('title', title);
   formdata.append('description', description);
   formdata.append('memoIdList', JSON.stringify(memoIdList));
