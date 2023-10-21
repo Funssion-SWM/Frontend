@@ -23,10 +23,9 @@ import FakeEditor from '@/components/editor/components/FakeEditor';
 import { useDebounce } from '@/hooks/useDebounce';
 import { DraftsInModalContext } from '@/context/DraftsInModalProvider';
 import { TEMPORARY_SAVE_INTERVAL_TIME } from '@/utils/const';
-import Tag from '@/components/shared/Tag';
 import { notifyToast } from '@/service/notify';
-import { hasSpecialChar } from '@/service/validation';
 import CreateMemoModal from './CreateMemoModal';
+import { RingLoader } from 'react-spinners';
 
 type Props = {
   userId: number;
@@ -40,7 +39,7 @@ export default function EditorForm({ userId }: Props) {
   const memoId = Number(useSearchParams()?.get('id'));
   const isFromDraftModal = useSearchParams()?.get('temp');
 
-  const { complete, completion, isLoading, stop } = useCompletion({
+  const generateAI = useCompletion({
     id: 'inforum',
     api: '/api/generate',
     onFinish: (_prompt, completion) => {
@@ -60,10 +59,26 @@ export default function EditorForm({ userId }: Props) {
     },
   });
 
+  const descriptionAI = useCompletion({
+    id: 'inforum2',
+    api: '/api/generate/description',
+    onError: (err) => {
+      notifyToast(err.message, 'error');
+    },
+  });
+
+  const tagsAI = useCompletion({
+    id: 'inforum3',
+    api: '/api/generate/tags',
+    onError: (err) => {
+      notifyToast(err.message, 'error');
+    },
+  });
+
   const [title, setTitle] = useState<string>('');
   const [selectedColor, setSelectedColor] = useState<MemoColor>('yellow');
-  const [inputTag, setInputTag] = useState<string>('');
-  const [tags, setTags] = useState<string[]>([]);
+  // const [inputTag, setInputTag] = useState<string>('');
+  // const [tags, setTags] = useState<string[]>([]);
   const [contents, setContents] = useState('');
   const [isMemoLoading, setIsMemoLoading] = useState(false);
   const [isCreated, setIsCreated] = useState(false);
@@ -78,7 +93,7 @@ export default function EditorForm({ userId }: Props) {
         memoText:
           '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"temp"}]}]}',
         memoColor: selectedColor,
-        memoTags: tags,
+        memoTags: [],
         isTemporary: true,
       }
     ).then((data) => data.memoId);
@@ -99,7 +114,7 @@ export default function EditorForm({ userId }: Props) {
           getMemoById(memoId).then((data) => {
             setTitle(data.memoTitle);
             setSelectedColor(data.memoColor);
-            setTags(data.memoTags);
+            // setTags(data.memoTags);
             editor?.commands.setContent(JSON.parse(data.memoText));
           });
           return;
@@ -112,7 +127,7 @@ export default function EditorForm({ userId }: Props) {
             memoDescription: memoDescription || 'temp',
             memoText: contents,
             memoColor: selectedColor,
-            memoTags: tags,
+            memoTags: [],
             isTemporary: true,
           }
         );
@@ -140,7 +155,7 @@ export default function EditorForm({ userId }: Props) {
           ({ memoTitle, memoColor, memoTags, memoText, isCreated }) => {
             setTitle(memoTitle);
             setSelectedColor(memoColor);
-            setTags(memoTags);
+            // setTags(memoTags);
             e.editor.commands.setContent(JSON.parse(memoText));
             setIsCreated(isCreated);
           }
@@ -153,12 +168,12 @@ export default function EditorForm({ userId }: Props) {
       const lastTwo = getPrevText(e.editor, {
         chars: 2,
       });
-      if (lastTwo === '++' && !isLoading) {
+      if (lastTwo === '++' && !generateAI.isLoading) {
         e.editor.commands.deleteRange({
           from: selection.from - 2,
           to: selection.from,
         });
-        complete(
+        generateAI.complete(
           getPrevText(e.editor, {
             chars: 5000,
           })
@@ -174,18 +189,18 @@ export default function EditorForm({ userId }: Props) {
   });
 
   useEffect(() => {
-    fakeEditor?.commands.setContent(completion);
-  }, [isLoading, fakeEditor, completion]);
+    fakeEditor?.commands.setContent(generateAI.completion);
+  }, [generateAI.isLoading, fakeEditor, generateAI.completion]);
 
   useEffect(() => {
     // if user presses escape or cmd + z and it's loading,
     // stop the request, delete the completion, and insert back the "++"
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' || (e.metaKey && e.key === 'z')) {
-        stop();
+        generateAI.stop();
         if (e.key === 'Escape') {
           editor?.commands.deleteRange({
-            from: editor.state.selection.from - completion.length,
+            from: editor.state.selection.from - generateAI.completion.length,
             to: editor.state.selection.from,
           });
         }
@@ -195,12 +210,12 @@ export default function EditorForm({ userId }: Props) {
     const mousedownHandler = (e: MouseEvent) => {
       e.preventDefault();
       e.stopPropagation();
-      stop();
+      generateAI.stop();
       if (window.confirm('AI writing paused. Continue?')) {
-        complete(editor?.getText() || '');
+        generateAI.complete(editor?.getText() || '');
       }
     };
-    if (isLoading) {
+    if (generateAI.isLoading) {
       document.addEventListener('keydown', onKeyDown);
       window.addEventListener('mousedown', mousedownHandler);
     } else {
@@ -211,33 +226,45 @@ export default function EditorForm({ userId }: Props) {
       document.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('mousedown', mousedownHandler);
     };
-  }, [stop, isLoading, editor, complete, completion.length]);
+  }, [
+    generateAI.stop,
+    generateAI.isLoading,
+    editor,
+    generateAI.complete,
+    generateAI.completion.length,
+  ]);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.nativeEvent.isComposing) return;
-    if (inputTag === '' && e.key === 'Backspace') {
-      setTags((preTags) => preTags.slice(0, -1));
-      return;
-    }
-    if ((inputTag !== '' && e.key === 'Enter') || e.key === ',') {
-      if (hasSpecialChar(inputTag)) {
-        notifyToast('특수문자는 사용할 수 없습니다.', 'warning');
-        return;
-      }
-      if (tags.includes(inputTag)) {
-        notifyToast('중복된 태그는 사용할 수 없습니다.', 'warning');
-        return;
-      }
-      setTags([...tags, inputTag]);
-      setInputTag('');
-    }
-  };
+  // const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.nativeEvent.isComposing) return;
+  //   if (inputTag === '' && e.key === 'Backspace') {
+  //     setTags((preTags) => preTags.slice(0, -1));
+  //     return;
+  //   }
+  //   if ((inputTag !== '' && e.key === 'Enter') || e.key === ',') {
+  //     if (hasSpecialChar(inputTag)) {
+  //       notifyToast('특수문자는 사용할 수 없습니다.', 'warning');
+  //       return;
+  //     }
+  //     if (tags.includes(inputTag)) {
+  //       notifyToast('중복된 태그는 사용할 수 없습니다.', 'warning');
+  //       return;
+  //     }
+  //     setTags([...tags, inputTag]);
+  //     setInputTag('');
+  //   }
+  // };
 
   const temporaryContents = useDebounce(contents, TEMPORARY_SAVE_INTERVAL_TIME);
 
   // 자동 임시 저장
   useEffect(() => {
-    if (!title || !temporaryContents || !contents || isLoading || isCreated)
+    if (
+      !title ||
+      !temporaryContents ||
+      !contents ||
+      generateAI.isLoading ||
+      isCreated
+    )
       return;
 
     const memoDescription = getDescription(contents);
@@ -250,7 +277,7 @@ export default function EditorForm({ userId }: Props) {
         memoDescription,
         memoText: temporaryContents,
         memoColor: selectedColor,
-        memoTags: tags,
+        memoTags: [],
         isTemporary: true,
       }
     ).then((data) => {
@@ -276,7 +303,8 @@ export default function EditorForm({ userId }: Props) {
   const savePost = (
     saveMode: 'permanent' | 'temporary',
     description?: string,
-    seriesId?: number | null
+    seriesId?: number | null,
+    tags?: string[]
   ) => {
     if (title === '') {
       notifyToast('제목을 작성해주세요!', 'warning');
@@ -309,7 +337,7 @@ export default function EditorForm({ userId }: Props) {
         memoDescription,
         memoText,
         memoColor: selectedColor,
-        memoTags: tags,
+        memoTags: tags ?? [],
         isTemporary: saveMode === 'temporary',
         seriesId: seriesId || null,
       }
@@ -345,9 +373,50 @@ export default function EditorForm({ userId }: Props) {
     }
   }, [editor?.state.selection, preScrollHeight]);
 
-  const handleCreate = (description: string, seriesId: number | null) => {
-    savePost('permanent', description, seriesId);
+  const handleCreate = (
+    description: string,
+    seriesId: number | null,
+    tags: string[]
+  ) => {
+    savePost('permanent', description, seriesId, tags);
   };
+
+  const handleDescriptionAndTagsAI = async () => {
+    if (title === '') {
+      notifyToast('제목을 작성해주세요!', 'warning');
+      return;
+    }
+
+    if (title.length > 120) {
+      notifyToast('제목 수 제한 120자를 초과하였습니다!', 'warning');
+      return;
+    }
+
+    const memoText = JSON.stringify(editor?.getJSON());
+
+    if (!memoText.includes('text')) {
+      notifyToast('내용을 작성해주세요!', 'warning');
+      return;
+    }
+
+    const text = JSON.stringify(editor?.getJSON());
+    await descriptionAI.complete(text);
+    await tagsAI.complete(text);
+    setIsModalOpen(true);
+  };
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      return (e.returnValue = '');
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  });
 
   return (
     isMemoLoading && (
@@ -375,7 +444,7 @@ export default function EditorForm({ userId }: Props) {
                 onClickCount={() => openDrafts(drafts)}
               />
             )}
-            <BlueBtn text="등록" onClick={() => setIsModalOpen(true)} />
+            <BlueBtn text="등록" onClick={handleDescriptionAndTagsAI} />
           </div>
           <input
             type="text"
@@ -386,7 +455,7 @@ export default function EditorForm({ userId }: Props) {
             className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-[0.5px] border-soma-grey-49"
             autoFocus={memoId ? false : true}
           />
-          <div className="flex flex-wrap gap-1 mx-3 mb-1">
+          {/* <div className="flex flex-wrap gap-1 mx-3 mb-1">
             {tags.map((tag, idx) => (
               <Tag
                 key={idx}
@@ -405,7 +474,7 @@ export default function EditorForm({ userId }: Props) {
               onKeyDown={handleKeyDown}
               className="grow outline-none p-1 text-sm sm:text-base bg-transparent"
             />
-          </div>
+          </div> */}
           <SelectColorBar
             selected={selectedColor}
             onClick={(color: MemoColor) => setSelectedColor(color)}
@@ -422,12 +491,22 @@ export default function EditorForm({ userId }: Props) {
             나가기
           </button>
         </div>
-        {isLoading && <FakeEditor editor={fakeEditor} />}
+        {generateAI.isLoading && <FakeEditor editor={fakeEditor} />}
+        {(descriptionAI.isLoading || tagsAI.isLoading) && (
+          <div className="absolute f top-0 left-0 w-screen h-screen flex flex-col justify-center items-center bg-white opacity-90">
+            <RingLoader className="self-center" color="#4992FF" />
+            <div className="text-center font-medium text-soma-grey-60 text-sm my-5">
+              AI가 description, tags를 자동생성중입니다...
+            </div>
+          </div>
+        )}
         {isModalOpen && (
           <CreateMemoModal
             onClose={() => setIsModalOpen(false)}
             onCreateBtnClick={handleCreate}
             userId={userId}
+            description={descriptionAI.completion}
+            tags={tagsAI.completion}
           />
         )}
       </div>
