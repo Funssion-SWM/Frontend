@@ -8,6 +8,8 @@ import {
   SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL,
 } from '@/utils/const';
 
+const SEARCH_NUMBER_PER_PAGE_TEMPORARY = 100;
+
 export async function addSearchHistory(
   searchString: string,
   isTag: boolean
@@ -71,7 +73,7 @@ export async function searchMemos(
   isTag: Boolean,
   userId: string,
   pageNum: number = 0,
-  resultCntPerPage: number = MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
+  resultCntPerPage: number = SEARCH_NUMBER_PER_PAGE_TEMPORARY
 ): Promise<Memo[] | ErrorResponse> {
   const url = new URL(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/search`
@@ -99,7 +101,7 @@ export async function searchQuestions(
   isTag: Boolean,
   userId: string,
   pageNum: number = 0,
-  resultCntPerPage: number = QUESTION_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
+  resultCntPerPage: number = SEARCH_NUMBER_PER_PAGE_TEMPORARY
 ): Promise<Question[] | ErrorResponse> {
   const url = new URL(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions/search`
@@ -126,7 +128,7 @@ export async function searchSeries(
   searchString: string,
   orderBy: Orderby,
   pageNum: number = 0,
-  resultCntPerPage: number = SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
+  resultCntPerPage: number = SEARCH_NUMBER_PER_PAGE_TEMPORARY
 ): Promise<Series[] | ErrorResponse> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/series`);
   const params = {
