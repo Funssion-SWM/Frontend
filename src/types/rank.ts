@@ -77,3 +77,9 @@ export type RankingInfo = {
   };
   ranking: number;
 };
+
+export type ScoreInfo = {
+  score: number;
+  rank: Rank;
+  dailyScore: number;
+};

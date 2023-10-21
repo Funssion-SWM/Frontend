@@ -17,6 +17,7 @@ import { getFollowers, getFollowings } from '@/service/follow';
 import FollowListModalProvider from '@/context/FollowListModalProvider';
 import FollowListModal from '@/components/me/FollowListModal';
 import { getNotificationsTop30 } from '@/service/notification';
+import { getScoreInfoByUserId } from '@/service/rank';
 
 type Props = {
   params: {
@@ -44,6 +45,7 @@ export default async function MePage({ params: { slug } }: Props) {
   const followerData = getFollowers(slug);
   const userRankData = getRankInfoByUserId(userId);
   const userStatsData = getStatsByUserId(userId);
+  const userScoreData = getScoreInfoByUserId(userId);
 
   const [
     memos,
@@ -55,6 +57,7 @@ export default async function MePage({ params: { slug } }: Props) {
     followers,
     userRankInfo,
     userStats,
+    { dailyScore },
   ] = await Promise.all([
     memosData,
     userData,
@@ -65,6 +68,7 @@ export default async function MePage({ params: { slug } }: Props) {
     followerData,
     userRankData,
     userStatsData,
+    userScoreData,
   ]);
 
   const myUserInfo = await getUserInfo(id);
@@ -92,6 +96,7 @@ export default async function MePage({ params: { slug } }: Props) {
               myUserInfo={myUserInfo}
               userRankInfo={userRankInfo}
               userStats={userStats}
+              dailyScore={dailyScore}
             />
             <FollowListModal isMine={id === userId} />
           </FollowListModalProvider>

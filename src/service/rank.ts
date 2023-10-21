@@ -1,4 +1,4 @@
-import { Rank, RankingInfo } from '@/types/rank';
+import { Rank, RankingInfo, ScoreInfo } from '@/types/rank';
 import bronze5 from '@/assets/icons/rank/bronze_5.svg';
 import bronze4 from '@/assets/icons/rank/bronze_4.svg';
 import bronze3 from '@/assets/icons/rank/bronze_3.svg';
@@ -118,6 +118,14 @@ export async function getRankingByUserId(id: number): Promise<RankingInfo> {
       next: { revalidate: 0 },
     }
   )
+    .then((res) => res.json())
+    .catch(console.error);
+}
+
+export async function getScoreInfoByUserId(id: number): Promise<ScoreInfo> {
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/score/${id}`, {
+    next: { revalidate: 0 },
+  })
     .then((res) => res.json())
     .catch(console.error);
 }

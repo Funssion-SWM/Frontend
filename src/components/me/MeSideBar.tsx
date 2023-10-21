@@ -14,6 +14,7 @@ type Props = {
   myUserInfo: UserInfo;
   userRankInfo: RankInfo;
   userStats: Stats;
+  dailyScore: number;
 };
 
 export default function MeSideBar({
@@ -24,6 +25,7 @@ export default function MeSideBar({
   myUserInfo,
   userRankInfo,
   userStats,
+  dailyScore,
 }: Props) {
   return (
     <section className="flex flex-col items-center w-full sm:w-[350px] sm:min-h-screen p-6 bg-soma-grey-20">
@@ -34,6 +36,7 @@ export default function MeSideBar({
           isMine={myId === Number(userId)}
           myUserInfo={myUserInfo}
           userRankInfo={userRankInfo}
+          dailyScore={dailyScore}
         />
         <ScoreDetailModal userStats={userStats} />
       </ScoreDetailProvider>

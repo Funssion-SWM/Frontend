@@ -18,6 +18,7 @@ type Props = {
   isMine: boolean;
   myUserInfo: UserInfo;
   userRankInfo: RankInfo;
+  dailyScore: number;
 };
 
 export default function Profile({
@@ -26,6 +27,7 @@ export default function Profile({
   isMine,
   myUserInfo,
   userRankInfo: { myRank, myScore, rankInterval, rankMaxScore },
+  dailyScore,
 }: Props) {
   const { openScoreDetail } = useContext(ScoreDetailContext);
 
@@ -54,14 +56,15 @@ export default function Profile({
           rankInterval
         )}
       />
-      {myScore !== 0 && (
-        <button
-          className="text-xs self-end text-soma-grey-49"
-          onClick={() => openScoreDetail()}
-        >
-          자세히 보기
-        </button>
-      )}
+      <div className="flex justify-between self-stretch text-xs text-soma-grey-49">
+        <div>{dailyScore}/200</div>
+        {myScore !== 0 && (
+          <button className="" onClick={() => openScoreDetail()}>
+            자세히 보기
+          </button>
+        )}
+      </div>
+
       <CountInfo isMine={isMine} />
       <p className="px-3 py-2 rounded-md w-full break-all text-sm overflow-y-auto text-soma-grey-60">
         {userInfo.introduce}
