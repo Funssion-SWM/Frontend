@@ -11,28 +11,27 @@ export default async function SearchPage() {
   const accessToken = cookies().get(ACCESS_TOKEN)?.value;
   const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
   const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
-  
+
   const myData = checkUser(cookie);
 
-  const [{ id, isLogin }] = await Promise.all([
-    myData
-  ])
+  const [{ id, isLogin }] = await Promise.all([myData]);
 
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
 
-  const notifications = isLogin
-    ? await getNotificationsTop30(cookie)
-    : [];
+  const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
 
   return (
     <section>
-      <Header isLogin={isLogin} notifications={notifications} profileImageFilePath={profileImageFilePath} />
+      <Header
+        isLogin={isLogin}
+        notifications={notifications}
+        profileImageFilePath={profileImageFilePath}
+      />
       <LayoutWrapper paddingY="sm:py-5">
         <SearchContainer isLogin={isLogin} />
       </LayoutWrapper>
-      <Footer />
     </section>
   );
 }

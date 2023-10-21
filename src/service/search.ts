@@ -2,7 +2,11 @@ import { ErrorResponse, Orderby, SearchHistory } from '@/types';
 import { Memo } from '@/types/memo';
 import { Question } from '@/types/question';
 import { Series } from '@/types/series';
-import { ACCESS_TOKEN } from '@/utils/const';
+import {
+  MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL,
+  QUESTION_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL,
+  SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL,
+} from '@/utils/const';
 
 export async function addSearchHistory(
   searchString: string,
@@ -65,7 +69,9 @@ export async function searchMemos(
   searchString: string,
   orderBy: Orderby,
   isTag: Boolean,
-  userId: string
+  userId: string,
+  pageNum: number = 0,
+  resultCntPerPage: number = MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
 ): Promise<Memo[] | ErrorResponse> {
   const url = new URL(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/search`
@@ -75,12 +81,13 @@ export async function searchMemos(
     orderBy: orderBy,
     isTag: isTag.toString(),
     userId: userId,
+    pageNum: pageNum.toString(),
+    resultCntPerPage: resultCntPerPage.toString(),
   };
   url.search = new URLSearchParams(params).toString();
 
   return fetch(url, { next: { revalidate: 0 } })
     .then((res) => {
-      if (!res.ok) throw new Error('error 발생!');
       return res.json();
     })
     .catch(console.error);
@@ -90,7 +97,9 @@ export async function searchQuestions(
   searchString: string,
   orderBy: Orderby,
   isTag: Boolean,
-  userId: string
+  userId: string,
+  pageNum: number = 0,
+  resultCntPerPage: number = QUESTION_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
 ): Promise<Question[] | ErrorResponse> {
   const url = new URL(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions/search`
@@ -100,6 +109,8 @@ export async function searchQuestions(
     orderBy: orderBy,
     isTag: isTag.toString(),
     userId: userId,
+    pageNum: pageNum.toString(),
+    resultCntPerPage: resultCntPerPage.toString(),
   };
   url.search = new URLSearchParams(params).toString();
 
@@ -113,12 +124,16 @@ export async function searchQuestions(
 
 export async function searchSeries(
   searchString: string,
-  orderBy: Orderby
+  orderBy: Orderby,
+  pageNum: number = 0,
+  resultCntPerPage: number = SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
 ): Promise<Series[] | ErrorResponse> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/series`);
   const params = {
     searchString: searchString,
     orderBy: orderBy,
+    pageNum: pageNum.toString(),
+    resultCntPerPage: resultCntPerPage.toString(),
   };
   url.search = new URLSearchParams(params).toString();
 

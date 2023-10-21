@@ -1,11 +1,12 @@
 import BlueBtn from '@/components/shared/btn/BlueBtn';
 import { useDebounce } from '@/hooks/useDebounce';
-import { searchMemos } from '@/service/memos';
+import { searchMemos } from '@/service/search';
 import { notifyToast } from '@/service/notify';
 import { Memo } from '@/types/memo';
 import { SEARCH_RESULT_TIME } from '@/utils/const';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SelectCard from './SelectCard';
+import useObserver from '@/hooks/useObserver';
 
 type Props = {
   memoIdsInSeries: number[];
@@ -21,21 +22,64 @@ export default function AddMemoContainer({
   const [searchString, setSearchString] = useState('');
   const [memos, setMemos] = useState<Memo[]>([]);
   const [selectedMemos, setSelectedMemos] = useState<Memo[]>([]);
+  const [pageNum, setPageNum] = useState(0);
+  const [isEnd, setIsEnd] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const isInitialMount = useRef(true);
 
   const realSearchString = useDebounce(searchString, SEARCH_RESULT_TIME);
 
   useEffect(() => {
-    searchMemos(realSearchString, 'new', false, userId.toString()).then(
-      (res) => {
+    setIsLoading(true);
+    setPageNum(0);
+    setIsEnd(false);
+    searchMemos(
+      realSearchString,
+      'new',
+      false,
+      userId.toString(),
+      pageNum
+    ).then((res) => {
+      if ('code' in res) {
+        // notifyToast(res.message, 'error');
+        return;
+      }
+      setMemos(res);
+      setSelectedMemos([]);
+      setIsLoading(false);
+    });
+  }, [realSearchString]);
+
+  const fetchMemos = () => {
+    if (isLoading || isEnd) return;
+    setIsLoading(true);
+    searchMemos(realSearchString, 'new', false, userId.toString(), pageNum)
+      .then((res) => {
         if ('code' in res) {
-          // notifyToast(res.message, 'error');
+          notifyToast(res.message, 'error');
           return;
         }
-        setMemos(res);
-        setSelectedMemos([]);
-      }
-    );
-  }, [realSearchString]);
+        setIsLoading(false);
+        if (!res.length) setIsEnd(true);
+        else setMemos([...memos, ...res]);
+      })
+      .catch(() => setIsLoading(false));
+  };
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      fetchMemos();
+    }
+  }, [pageNum]);
+
+  const onIntersect: IntersectionObserverCallback = ([entry]) => {
+    if (isEnd || isLoading) return;
+    entry.isIntersecting && setPageNum(pageNum + 1);
+  };
+
+  const { setTarget } = useObserver({ onIntersect });
 
   const handleClickCard = (selected: boolean, memo: Memo) => {
     selected
@@ -73,6 +117,7 @@ export default function AddMemoContainer({
             </li>
           ))}
       </ul>
+      {isEnd ? <></> : <div ref={setTarget} />}
     </div>
   );
 }

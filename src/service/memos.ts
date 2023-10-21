@@ -2,30 +2,6 @@ import { ErrorResponse, Orderby, Period } from '@/types';
 import { PostImageResponse } from '@/types/image';
 import { Memo, PostMemoData } from '@/types/memo';
 
-export async function searchMemos(
-  searchString: string,
-  orderBy: Orderby,
-  isTag: Boolean,
-  userId: string
-): Promise<Memo[] | ErrorResponse> {
-  const url = new URL(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/search`
-  );
-  const params = {
-    searchString: searchString,
-    orderBy: orderBy,
-    isTag: isTag.toString(),
-    userId: userId,
-  };
-  url.search = new URLSearchParams(params).toString();
-
-  return fetch(url, { next: { revalidate: 0 } })
-    .then((res) => {
-      return res.json();
-    })
-    .catch(console.error);
-}
-
 export async function getMemos(
   period: Period = 'month',
   orderBy: Orderby = 'new',
