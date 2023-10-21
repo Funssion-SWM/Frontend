@@ -26,8 +26,13 @@ import { TEMPORARY_SAVE_INTERVAL_TIME } from '@/utils/const';
 import Tag from '@/components/shared/Tag';
 import { notifyToast } from '@/service/notify';
 import { hasSpecialChar } from '@/service/validation';
+import CreateMemoModal from './CreateMemoModal';
 
-export default function EditorForm() {
+type Props = {
+  userId: number;
+};
+
+export default function EditorForm({ userId }: Props) {
   const router = useRouter();
   const { open } = useContext(ModalContext);
   const { openDrafts } = useContext(DraftsInModalContext);
@@ -51,7 +56,7 @@ export default function EditorForm() {
       });
     },
     onError: (err) => {
-      notifyToast(err.message, "error");
+      notifyToast(err.message, 'error');
     },
   });
 
@@ -62,6 +67,7 @@ export default function EditorForm() {
   const [contents, setContents] = useState('');
   const [isMemoLoading, setIsMemoLoading] = useState(false);
   const [isCreated, setIsCreated] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const temporarySaveCallbackForSavingImage = async () => {
     return createOrUpdateMemo(
@@ -267,7 +273,11 @@ export default function EditorForm() {
     first();
   }, []);
 
-  const savePost = (saveMode: 'permanent' | 'temporary') => {
+  const savePost = (
+    saveMode: 'permanent' | 'temporary',
+    description?: string,
+    seriesId?: number | null
+  ) => {
     if (title === '') {
       notifyToast('제목을 작성해주세요!', 'warning');
       return;
@@ -285,7 +295,11 @@ export default function EditorForm() {
       return;
     }
 
-    const memoDescription = getDescription(memoText);
+    const memoDescription =
+      saveMode === 'permanent'
+        ? description || getDescription(memoText)
+        : getDescription(memoText);
+
     createOrUpdateMemo(
       `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos${
         memoId ? `/${memoId}` : ''
@@ -297,6 +311,7 @@ export default function EditorForm() {
         memoColor: selectedColor,
         memoTags: tags,
         isTemporary: saveMode === 'temporary',
+        seriesId: seriesId || null,
       }
     ).then((data) => {
       if (data.code) {
@@ -330,6 +345,10 @@ export default function EditorForm() {
     }
   }, [editor?.state.selection, preScrollHeight]);
 
+  const handleCreate = (description: string, seriesId: number | null) => {
+    savePost('permanent', description, seriesId);
+  };
+
   return (
     isMemoLoading && (
       <div className="flex w-full" ref={edirotRef}>
@@ -356,7 +375,7 @@ export default function EditorForm() {
                 onClickCount={() => openDrafts(drafts)}
               />
             )}
-            <BlueBtn text="등록" onClick={() => savePost('permanent')} />
+            <BlueBtn text="등록" onClick={() => setIsModalOpen(true)} />
           </div>
           <input
             type="text"
@@ -404,6 +423,13 @@ export default function EditorForm() {
           </button>
         </div>
         {isLoading && <FakeEditor editor={fakeEditor} />}
+        {isModalOpen && (
+          <CreateMemoModal
+            onClose={() => setIsModalOpen(false)}
+            onCreateBtnClick={handleCreate}
+            userId={userId}
+          />
+        )}
       </div>
     )
   );
