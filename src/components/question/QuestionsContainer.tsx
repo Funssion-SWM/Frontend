@@ -3,7 +3,7 @@
 import { Question, QuestionOrderBy } from '@/types/question';
 import CategoryBtn from '../shared/btn/CategoryBtn';
 import QuestionsList from './QuestionsList';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getQuestions } from '@/service/questions';
 import useObserver from '@/hooks/useObserver';
 import { QUESTION_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/utils/const';
@@ -16,27 +16,22 @@ export default function QuestionsContainer({ questions }: Props) {
   const [questionData, setQuestionData] = useState<Question[]>(questions);
   const [selectedOrderType, setSelectedOrderType] =
     useState<QuestionOrderBy>('NEW');
-  const [pageNum, setPageNum] = useState(1);
+  const [pageNum, setPageNum] = useState(0);
   const [isEnd, setIsEnd] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const isInitialMount = useRef(true);
 
   const handleClick = async (orderBy: QuestionOrderBy) => {
-    // if (orderBy === 'EVENT') {
-    //   const questions = (await getQuestions('NEW', 0, 10)).filter(
-    //     (question) =>
-    //       question.authorId === 1 ||
-    //       question.authorId === 31 ||
-    //       question.authorId === 32
-    //   );
-    //   setQuestionData(questions);
-    // } else {
+    setIsLoading(true);
+    setIsEnd(false);
+    setPageNum(0);
     const questions = await getQuestions(
       orderBy,
       0,
       QUESTION_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
     );
+    setIsLoading(false);
     setQuestionData(questions);
-    // }
     setSelectedOrderType(orderBy);
   };
 
@@ -61,7 +56,11 @@ export default function QuestionsContainer({ questions }: Props) {
   };
 
   useEffect(() => {
-    fetchQuestions();
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      fetchQuestions();
+    }
   }, [pageNum]);
 
   const onIntersect: IntersectionObserverCallback = ([entry]) => {

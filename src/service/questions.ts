@@ -11,7 +11,7 @@ export async function getQuestions(
   const params = {
     orderBy: orderBy,
     pageNum: pageNum.toString(),
-    memoCnt: resultCntPerPage.toString(),
+    resultCntPerPage: resultCntPerPage.toString(),
   };
   url.search = new URLSearchParams(params).toString();
   return fetch(url, { next: { revalidate: 0 } })
