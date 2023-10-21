@@ -1,5 +1,5 @@
 import { createRecomment, getRecommentsByCommentId } from '@/service/comments';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import { Comment } from '@/types/comment';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useRef, useState } from 'react';
@@ -39,7 +39,7 @@ export default function RecommentForm({
       authorId,
       commentText: recommentText,
     }).then(async (res) => {
-      if (res.code) {
+      if ('code' in res) {
         if (res.code === 401) router.push('/login');
         notifyToast(res.message, 'error');
         setIsCreating(false);

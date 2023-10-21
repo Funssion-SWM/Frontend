@@ -1,3 +1,5 @@
+import { Rank } from './rank';
+
 export type Answer = {
   id: number;
   authorId: number;
@@ -14,4 +16,5 @@ export type Answer = {
   selected: boolean;
   like: boolean;
   disLike: boolean;
+  rank: Rank;
 };

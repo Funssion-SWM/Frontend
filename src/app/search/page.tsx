@@ -3,6 +3,7 @@ import Footer from '@/components/shared/Footer';
 import Header from '@/components/shared/Header';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
+import { getNotificationsTop30 } from '@/service/notification';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { cookies } from 'next/headers';
 
@@ -11,18 +12,26 @@ export default async function SearchPage() {
   const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
   const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
 
-  const { id, isLogin } = await checkUser(cookie);
+  const myData = checkUser(cookie);
+
+  const [{ id, isLogin }] = await Promise.all([myData]);
+
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
 
+  const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
+
   return (
     <section>
-      <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
+      <Header
+        isLogin={isLogin}
+        notifications={notifications}
+        profileImageFilePath={profileImageFilePath}
+      />
       <LayoutWrapper paddingY="sm:py-5">
         <SearchContainer isLogin={isLogin} />
       </LayoutWrapper>
-      <Footer />
     </section>
   );
 }

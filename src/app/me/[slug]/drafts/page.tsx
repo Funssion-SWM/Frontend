@@ -7,6 +7,7 @@ import { cookies } from 'next/headers';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
+import { getNotificationsTop30 } from '@/service/notification';
 
 type Props = {
   params: {
@@ -28,11 +29,15 @@ export default async function MeDraftPage({ params: { slug } }: Props) {
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
 
+  const notifications = isLogin
+    ? await getNotificationsTop30(cookie)
+    : [];
+
   id !== Number(slug) && redirect('/memos');
 
   return (
     <section>
-      <Header isLogin={isLogin} profileImageFilePath={profileImageFilePath} />
+      <Header isLogin={isLogin} notifications={notifications} profileImageFilePath={profileImageFilePath} />
       <LayoutWrapper paddingY="sm:py-5">
         <MeDraftContainer memos={memos} isMine={id === Number(slug)} />
       </LayoutWrapper>

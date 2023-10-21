@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import logo from '@/assets/inforum_logo.png';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 
 type Props = {
   userId: number;

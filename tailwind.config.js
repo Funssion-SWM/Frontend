@@ -7,6 +7,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      width: {
+        '19/20': '95%',
+      },
+      height: {
+        '19/20': '95%',
+      },
+      scale: {
+        102: '1.02',
+      },
       fontFamily: {
         display: ['var(--font-display)', 'system-ui', 'sans-serif'],
         default: ['var(--font-default)', 'system-ui', 'sans-serif'],
@@ -38,6 +47,14 @@ module.exports = {
           pink: 'var(--memo-bgcolor-pink)',
           skyblue: 'var(--memo-bgcolor-skyblue)',
           orange: 'var(--memo-bgcolor-orange)',
+        },
+        rank: {
+          bronze: 'var(--rank-bronze)',
+          silver: 'var(--rank-silver)',
+          gold: 'var(--rank-gold)',
+          platinum: 'var(--rank-platinum)',
+          diamond: 'var(--rank-diamond)',
+          infinity: 'var(--rank-infinity)',
         },
         soma: {
           black: 'var(--soma-black)',

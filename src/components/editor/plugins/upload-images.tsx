@@ -4,7 +4,7 @@ import { Decoration, DecorationSet, EditorView } from '@tiptap/pm/view';
 import { postImageInMemo } from '@/service/memos';
 import { postImageInQuestion } from '@/service/questions';
 import { postImageInAnswer } from '@/service/answers';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import { MAX_IMAGE_BYTE } from '@/utils/const';
 
 const uploadKey = new PluginKey('upload-image');
@@ -142,8 +142,9 @@ export const handleImageUpload = (
     switch (type) {
       case 'memo':
         postImageInMemo(postId, file).then((res) => {
-          if (res?.code) {
+          if ('code' in res) {
             reject(res.message);
+            return;
           }
           let image = new Image();
           image.src = res.imagePath;
@@ -154,8 +155,9 @@ export const handleImageUpload = (
         break;
       case 'question':
         postImageInQuestion(file).then((res) => {
-          if (res?.code) {
+          if ('code' in res) {
             reject(res.message);
+            return;
           }
           let image = new Image();
           image.src = res.imagePath;
@@ -166,8 +168,9 @@ export const handleImageUpload = (
         break;
       case 'answer':
         postImageInAnswer(file).then((res) => {
-          if (res?.code) {
+          if ('code' in res) {
             reject(res.message);
+            return;
           }
           let image = new Image();
           image.src = res.imagePath;

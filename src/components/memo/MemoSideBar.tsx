@@ -10,7 +10,8 @@ import { useState } from 'react';
 import { Question } from '@/types/question';
 import QuestionsList from '../question/QuestionsList';
 import { useRouter } from 'next/navigation';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
+import { Rank } from '@/types/rank';
 
 type Props = {
   authorName: string;
@@ -25,6 +26,7 @@ type Props = {
   isLogin: boolean;
   authorFollowingNum: number;
   authorFollowerNum: number;
+  authorRank: Rank;
 };
 
 export default function MemoSideBar({
@@ -40,6 +42,7 @@ export default function MemoSideBar({
   isLogin,
   authorFollowingNum,
   authorFollowerNum,
+  authorRank,
 }: Props) {
   const [isVisible, setIsVisible] = useState(true);
   const [currnetCategory, setCurrnetCategory] = useState<
@@ -72,6 +75,7 @@ export default function MemoSideBar({
             isLogin={isLogin}
             authorFollowingNum={authorFollowingNum}
             authorFollowerNum={authorFollowerNum}
+            authorRank={authorRank}
           />
           {currnetCategory === 'comment' &&
             (comments.length === 0 ? (

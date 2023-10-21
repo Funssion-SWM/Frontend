@@ -7,7 +7,7 @@ import WhiteBtn from '@/components/shared/btn/WhiteBtn';
 import { ModalContext } from '@/context/ModalProvider';
 import RecommentContainer from '@/components/memo/recomment/RecommentContainer';
 import CommentHeader from './CommentHeader';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 
 type Props = {
   commentProperty: Comment;
@@ -32,6 +32,7 @@ export default function CommentItem({
     isLike,
     likes,
     reCommentsNumber,
+    authorRank,
   } = commentProperty;
 
   const [updatedText, setUpdatedText] = useState<string>(commentText);
@@ -52,6 +53,7 @@ export default function CommentItem({
         isLike={isLike}
         likeNum={likes}
         isRecomment={false}
+        authorRank={authorRank}
       />
       {isEditMode ? (
         <textarea
@@ -93,7 +95,7 @@ export default function CommentItem({
                 onClick={() => {
                   open('댓글을 삭제하시겠습니까?', () => {
                     deleteComeent(id).then((res) => {
-                      if (res.code) {
+                      if ('code' in res) {
                         notifyToast(res.message, 'error');
                         return;
                       }
@@ -126,7 +128,7 @@ export default function CommentItem({
                     return;
                   }
                   updateComment(id, updatedText).then((res) => {
-                    if (res.code) {
+                    if ('code' in res) {
                       notifyToast(res.message, 'error');
                       return;
                     }

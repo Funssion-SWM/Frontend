@@ -29,7 +29,7 @@ export async function getCommentsByPostTypeAndPostId(
 
 export async function createComment(
   bodyData: PostCommentData
-): Promise<IsSuccessResponse & ErrorResponse> {
+): Promise<IsSuccessResponse | ErrorResponse> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/comments`, {
     method: 'POST',
     headers: {
@@ -45,7 +45,7 @@ export async function createComment(
 export async function updateComment(
   id: number,
   commentText: string
-): Promise<IsSuccessResponse & ErrorResponse> {
+): Promise<IsSuccessResponse | ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/${id}`,
     {
@@ -63,7 +63,7 @@ export async function updateComment(
 
 export async function deleteComeent(
   id: number
-): Promise<IsSuccessResponse & ErrorResponse> {
+): Promise<IsSuccessResponse | ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/${id}`,
     {
@@ -94,7 +94,7 @@ export async function getRecommentsByCommentId(
 
 export async function createRecomment(
   bodyData: PostRecoomentData
-): Promise<IsSuccessResponse & ErrorResponse> {
+): Promise<IsSuccessResponse | ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/comments/recomments`,
     {
@@ -113,7 +113,7 @@ export async function createRecomment(
 export async function updateRecomment(
   id: number,
   commentText: string
-): Promise<IsSuccessResponse & ErrorResponse> {
+): Promise<IsSuccessResponse | ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/recomments/${id}`,
     {
@@ -131,7 +131,7 @@ export async function updateRecomment(
 
 export async function deleteRecomeent(
   id: number
-): Promise<IsSuccessResponse & ErrorResponse> {
+): Promise<IsSuccessResponse | ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/recomments/${id}`,
     {

@@ -1,3 +1,5 @@
+import { Rank } from './rank';
+
 export type Memo = {
   memoId: number;
   memoTitle: string;
@@ -15,6 +17,10 @@ export type Memo = {
   memoTags: string[];
   isTemporary: boolean;
   isMine: boolean;
+  seriesId: number;
+  isCreated: boolean;
+  authorRank: Rank;
+  seriesTitle: string;
 };
 
 export type PostMemoData = {
@@ -24,6 +30,7 @@ export type PostMemoData = {
   memoColor: string;
   memoTags: string[];
   isTemporary?: boolean;
+  seriesId?: number | null;
 };
 
 export type MemoColor =

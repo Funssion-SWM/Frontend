@@ -1,8 +1,11 @@
+import { Rank } from './rank';
+
 export type Comment = {
   id: number;
   authorId: number;
   authorName: string;
   authorImagePath: string;
+  authorRank: Rank;
   commentText: string;
   createdDate: string;
   updatedDate: string;

@@ -1,3 +1,5 @@
+import { Rank } from './rank';
+
 export type Question = {
   id: number;
   authorId: number;
@@ -14,6 +16,7 @@ export type Question = {
   answersCount: number;
   solved: boolean;
   mine: boolean;
+  rank: Rank;
 };
 
 export type QuestionOrderBy = 'HOT' | 'NEW' | 'ANSWERS' | 'SOLVED';

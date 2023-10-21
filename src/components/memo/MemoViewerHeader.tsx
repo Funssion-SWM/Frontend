@@ -7,7 +7,8 @@ import Image from 'next/image';
 import { ModalContext } from '@/context/ModalProvider';
 import LikeBox from '../shared/LikeBox';
 import { extractYMDHM } from '@/service/time';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
+import Link from 'next/link';
 
 type Props = {
   memoId: number;
@@ -15,6 +16,8 @@ type Props = {
   isLike: boolean;
   isMyMemo: boolean;
   createdDate: string;
+  seriesId: number;
+  seriesTitle: string;
 };
 
 export default function MemoViewerHeader({
@@ -23,6 +26,8 @@ export default function MemoViewerHeader({
   isLike,
   isMyMemo,
   createdDate,
+  seriesId,
+  seriesTitle,
 }: Props) {
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -46,6 +51,18 @@ export default function MemoViewerHeader({
         {extractYMDHM(createdDate)}
       </div>
       <nav className="relative flex items-center pl-5" ref={dropdownRef}>
+        {seriesId && (
+          <div className="text-xs mx-4 text-soma-grey-70">
+            {`🔗 Series `}
+            <Link
+              href={`/series/${seriesId}`}
+              className="text-soma-blue-40 font-extrabold underline "
+            >
+              {seriesTitle}
+            </Link>
+            에 속한 메모
+          </div>
+        )}
         <LikeBox
           likeNum={likes}
           postId={memoId}
@@ -77,9 +94,14 @@ export default function MemoViewerHeader({
                 className="hover:bg-gray-200 p-2 rounded-b-lg"
                 onClick={() => {
                   setIsActive(false);
-                  open('메모를 삭제하시겠습니까?', () => {
-                    handleDelete();
-                  });
+                  open(
+                    seriesId
+                      ? '시리즈에 속한 메모입니다. 메모를 삭제하시겠습니까?'
+                      : '메모를 삭제하시겠습니까?',
+                    () => {
+                      handleDelete();
+                    }
+                  );
                 }}
               >
                 삭제하기

@@ -6,14 +6,14 @@ import Image from 'next/image';
 import fillHeart from '@/assets/icons/heart_fill.svg';
 import emptyHeart from '@/assets/icons/heart_empty.svg';
 import { useRouter } from 'next/navigation';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import { azertMono } from '@/styles/fonts';
 
 type Props = {
   likeNum: number;
   postId: number;
   isLike: boolean;
-  postType: 'memo' | 'question' | 'comment' | 'recomment';
+  postType: 'memo' | 'question' | 'comment' | 'recomment' | 'series';
   iconSize: number;
 };
 export default function LikeBox({
@@ -42,8 +42,11 @@ export default function LikeBox({
       case 'question':
         fn = unlike('questions', postId);
         break;
+      case 'series':
+        fn = unlike('series', postId);
+        break;
       default:
-        throw new Error('해당하는 like item type이 없음');
+        throw new Error('해당하는 unlike item type이 없음');
     }
     fn?.then((res) => {
       if (res?.code) {
@@ -70,6 +73,9 @@ export default function LikeBox({
         break;
       case 'question':
         fn = like('questions', postId);
+        break;
+      case 'series':
+        fn = like('series', postId);
         break;
       default:
         throw new Error('해당하는 like item type이 없음');

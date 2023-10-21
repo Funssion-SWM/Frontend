@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+}
+
 :root {
   --novel-black: rgb(0 0 0);
   --novel-white: rgb(255 255 255);
@@ -64,6 +70,13 @@
   --memo-bgcolor-pink: #FFEDF6;
   --memo-bgcolor-skyblue: #E4F7FD;
   --memo-bgcolor-orange: #FFEBE0;
+
+  --rank-bronze:#9F6027;
+  --rank-silver:#A8ADAE;
+  --rank-gold:#E8B647;
+  --rank-platinum:#68D6B7;
+  --rank-diamond:#6EA3EE;
+  --rank-infinity:#D75B9F;
 }
 
 body {

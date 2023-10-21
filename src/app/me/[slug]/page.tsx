@@ -1,5 +1,10 @@
 import Header from '@/components/shared/Header';
-import { getHistory, getMemosByUserId } from '@/service/me';
+import {
+  getHistory,
+  getMemosByUserId,
+  getRankInfoByUserId,
+  getStatsByUserId,
+} from '@/service/me';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
 import MeMainContainer from '@/components/me/MeMainContainer';
@@ -11,6 +16,8 @@ import MeTagsContainer from '@/components/me/MeTagsContainer';
 import { getFollowers, getFollowings } from '@/service/follow';
 import FollowListModalProvider from '@/context/FollowListModalProvider';
 import FollowListModal from '@/components/me/FollowListModal';
+import { getNotificationsTop30 } from '@/service/notification';
+import { getScoreInfoByUserId } from '@/service/rank';
 
 type Props = {
   params: {
@@ -36,6 +43,9 @@ export default async function MePage({ params: { slug } }: Props) {
   const tagData = getUserTags(slug, MY_TAG_MAX_COUNT);
   const followingData = getFollowings(slug);
   const followerData = getFollowers(slug);
+  const userRankData = getRankInfoByUserId(userId);
+  const userStatsData = getStatsByUserId(userId);
+  const userScoreData = getScoreInfoByUserId(userId);
 
   const [
     memos,
@@ -45,6 +55,9 @@ export default async function MePage({ params: { slug } }: Props) {
     tags,
     followings,
     followers,
+    userRankInfo,
+    userStats,
+    { dailyScore },
   ] = await Promise.all([
     memosData,
     userData,
@@ -53,14 +66,20 @@ export default async function MePage({ params: { slug } }: Props) {
     tagData,
     followingData,
     followerData,
+    userRankData,
+    userStatsData,
+    userScoreData,
   ]);
 
   const myUserInfo = await getUserInfo(id);
+
+  const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
 
   return (
     <section>
       <Header
         isLogin={isLogin}
+        notifications={notifications}
         profileImageFilePath={myUserInfo?.profileImageFilePath}
       />
       <LayoutWrapper paddingY="py-0">
@@ -75,6 +94,9 @@ export default async function MePage({ params: { slug } }: Props) {
               userId={userId}
               myId={id}
               myUserInfo={myUserInfo}
+              userRankInfo={userRankInfo}
+              userStats={userStats}
+              dailyScore={dailyScore}
             />
             <FollowListModal isMine={id === userId} />
           </FollowListModalProvider>

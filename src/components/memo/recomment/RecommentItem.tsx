@@ -9,7 +9,7 @@ import {
   updateRecomment,
 } from '@/service/comments';
 import CommentHeader from '../comment/CommentHeader';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 
 type Props = {
   commentProperty: Comment;
@@ -33,6 +33,7 @@ export default function RecommentItem({
     isLike,
     likes,
     createdDate,
+    authorRank,
   } = commentProperty;
 
   const [updatedText, setUpdatedText] = useState(commentText);
@@ -50,6 +51,7 @@ export default function RecommentItem({
         isLike={isLike}
         likeNum={likes}
         isRecomment={true}
+        authorRank={authorRank}
       />
       {isEditMode ? (
         <textarea
@@ -79,7 +81,7 @@ export default function RecommentItem({
                 onClick={() => {
                   open('답글을 삭제하시겠습니까?', () => {
                     deleteRecomeent(id).then(async (res) => {
-                      if (res.code) {
+                      if ('code' in res) {
                         notifyToast(res.message, 'error');
                         return;
                       }
@@ -114,7 +116,7 @@ export default function RecommentItem({
                     return;
                   }
                   updateRecomment(id, updatedText).then(async (res) => {
-                    if (res.code) {
+                    if ('code' in res) {
                       notifyToast(res.message, 'error');
                       return;
                     }

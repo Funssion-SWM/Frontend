@@ -4,6 +4,8 @@ import fillHeart from '../../assets/icons/heart_fill.svg';
 import Link from 'next/link';
 import RelativeDate from '../shared/RelativeDate';
 import { azertMono } from '@/styles/fonts';
+import { getImageSrcFromRank } from '@/service/rank';
+import { Rank } from '@/types/rank';
 
 type Props = {
   createDate: string;
@@ -11,6 +13,7 @@ type Props = {
   likes: number;
   imagePath: string;
   authorId: number;
+  authorRank: Rank;
 };
 
 export default function MemoCardHeader({
@@ -19,28 +22,41 @@ export default function MemoCardHeader({
   likes,
   imagePath,
   authorId,
+  authorRank,
 }: Props) {
   return (
     <div className="flex justify-between h-10 items-center">
       <div className="flex items-center">
-        <Link href={`/me/${authorId}`} prefetch={false}>
+        <div className="relative">
+          <Link href={`/me/${authorId}`} prefetch={false}>
+            <Image
+              src={imagePath ?? basicProfileImg}
+              alt="profileImg"
+              width={40}
+              height={40}
+              className="rounded-full w-10 h-10 object-cover"
+            />
+          </Link>
           <Image
-            src={imagePath ?? basicProfileImg}
-            alt="profileImg"
-            width={40}
-            height={40}
-            className="rounded-full w-10 h-10 object-cover"
+            src={getImageSrcFromRank(authorRank)}
+            alt="rank"
+            width={35}
+            height={35}
+            className="absolute top-0 -translate-x-1/2 -translate-y-1/2"
           />
-        </Link>
+        </div>
+
         <div className="ml-2">
-          <h4 className="text-soma-grey-60 font-medium">{authorName}</h4>
+          <h4 className="text-soma-grey-60 font-medium text-sm line-clamp-1">
+            {authorName}
+          </h4>
           <RelativeDate date={createDate} type="YMD" />
         </div>
       </div>
       <div className="flex items-center">
         <Image src={fillHeart} alt="fill_heart" width={16} height={16} />
         <p
-          className={`text-soma-grey-49 text-xs w-5 text-center ml-0.5 ${azertMono.className} `}
+          className={`text-soma-grey-49 text-sm text-center ml-1 ${azertMono.className} `}
         >
           {likes}
         </p>

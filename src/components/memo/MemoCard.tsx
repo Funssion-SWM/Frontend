@@ -22,6 +22,7 @@ export default function MemoCard({
     memoTags,
     repliesCount,
     questionCount,
+    authorRank,
   },
 }: Props) {
   return (
@@ -45,6 +46,7 @@ export default function MemoCard({
         likes={likes}
         imagePath={authorProfileImagePath}
         authorId={authorId}
+        authorRank={authorRank}
       />
       <MemoCardMain
         memoId={memoId}

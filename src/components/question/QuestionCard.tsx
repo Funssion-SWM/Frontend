@@ -21,6 +21,7 @@ export default function QuestionCard({
     authorImagePath,
     answersCount,
     solved,
+    rank,
   },
   size,
 }: Props) {
@@ -56,6 +57,7 @@ export default function QuestionCard({
           imagePath={authorImagePath}
           authorId={authorId}
           size={size}
+          authorRank={rank}
         />
         <QuestionCardMain
           questionId={id}

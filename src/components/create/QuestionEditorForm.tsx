@@ -9,7 +9,7 @@ import { ModalContext } from '@/context/ModalProvider';
 import { handleTiptapExtensions } from '@/components/editor/extensions';
 import { handleTiptapEditorProps } from '@/components/editor/props';
 import Tag from '@/components/shared/Tag';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import BlueBtn from '../shared/btn/BlueBtn';
 import {
   createQuestion,
@@ -99,7 +99,7 @@ export default function QuestionEditorForm() {
           { title, text: contents, description, tags },
           questionId
         ).then((res) => {
-          if (res.code) {
+          if ('code' in res) {
             notifyToast(res.message, 'error');
             return;
           }
@@ -111,7 +111,7 @@ export default function QuestionEditorForm() {
           { title, text: contents, description, tags },
           memoId
         ).then((res) => {
-          if (res.code) {
+          if ('code' in res) {
             notifyToast(res.message, 'error');
             return;
           }

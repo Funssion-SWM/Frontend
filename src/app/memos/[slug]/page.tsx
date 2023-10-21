@@ -9,7 +9,7 @@ import { getIsLike } from '@/service/like';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { getQuestionsByMemoId } from '@/service/questions';
-import { getFollowers, getFollowings } from '@/service/follow';
+import { getNotificationsTop30 } from '@/service/notification';
 
 type Props = {
   params: {
@@ -41,6 +41,9 @@ export default async function MemoPage({ params: { slug } }: Props) {
       memoTags,
       isMine,
       createdDate,
+      seriesId,
+      seriesTitle,
+      authorRank,
     },
     { isLike },
     comments,
@@ -63,10 +66,15 @@ export default async function MemoPage({ params: { slug } }: Props) {
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
 
+    const notifications = isLogin
+    ? await getNotificationsTop30(cookie)
+    : [];
+
   return (
     <section>
       <Header
         isLogin={isLogin}
+        notifications={notifications}
         profileImageFilePath={profileImageFilePath}
         currentPage="memos"
       />
@@ -82,6 +90,8 @@ export default async function MemoPage({ params: { slug } }: Props) {
             isLike={isLike}
             isMyMemo={isMine}
             createdDate={createdDate}
+            seriesId={seriesId}
+            seriesTitle={seriesTitle}
           />
           <MemoSideBar
             authorName={authorName}
@@ -96,6 +106,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
             isLogin={isLogin}
             authorFollowingNum={followCnt}
             authorFollowerNum={followerCnt}
+            authorRank={authorRank}
           />
         </div>
       </LayoutWrapper>

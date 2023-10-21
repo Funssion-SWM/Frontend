@@ -15,7 +15,7 @@ export default function QuestionCardMain({
   size,
 }: Props) {
   return (
-    <Link href={`/questions/${questionId}`} className="my-3">
+    <Link href={`/questions/${questionId}`} className="my-3" prefetch={false}>
       <h2
         className={`${
           size === 'big' && 'sm:text-2xl'

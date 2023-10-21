@@ -27,7 +27,7 @@ export async function getAnswersByQuestionId(
 export async function createAnswer(
   questionId: number,
   text: string
-): Promise<IsSuccessResponse & ErrorResponse> {
+): Promise<IsSuccessResponse | ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/answers?questionId=${questionId}`,
     {
@@ -46,7 +46,7 @@ export async function createAnswer(
 export async function updateAnswer(
   answerId: number,
   text: string
-): Promise<IsSuccessResponse & ErrorResponse> {
+): Promise<IsSuccessResponse | ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/answers/${answerId}`,
     {
@@ -64,7 +64,7 @@ export async function updateAnswer(
 
 export async function deleteAnswer(
   answerId: number
-): Promise<IsSuccessResponse & ErrorResponse> {
+): Promise<IsSuccessResponse | ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/answers/${answerId}`,
     {
@@ -78,7 +78,7 @@ export async function deleteAnswer(
 
 export async function postImageInAnswer(
   image: File
-): Promise<PostImageResponse & ErrorResponse> {
+): Promise<PostImageResponse | ErrorResponse> {
   const formdata = new FormData();
   formdata.append('image', image);
   return fetch(
@@ -101,7 +101,7 @@ export async function postImageInAnswer(
 export async function selectAnswer(
   questionId: number,
   answerId: number
-): Promise<IsSuccessResponse & ErrorResponse> {
+): Promise<IsSuccessResponse | ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/answers/select/${questionId}?answerId=${answerId}`,
     {

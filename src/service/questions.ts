@@ -3,10 +3,16 @@ import { PostImageResponse } from '@/types/image';
 import { PostQuestionData, Question, QuestionOrderBy } from '@/types/question';
 
 export async function getQuestions(
-  orderBy: QuestionOrderBy = 'NEW'
+  orderBy: QuestionOrderBy = 'NEW',
+  pageNum: number,
+  resultCntPerPage: number
 ): Promise<Question[]> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions`);
-  const params = { orderBy: orderBy };
+  const params = {
+    orderBy: orderBy,
+    pageNum: pageNum.toString(),
+    resultCntPerPage: resultCntPerPage.toString(),
+  };
   url.search = new URLSearchParams(params).toString();
   return fetch(url, { next: { revalidate: 0 } })
     .then((res) => {
@@ -54,7 +60,7 @@ export async function getQuestionsByMemoId(
 export async function createQuestion(
   bodyData: PostQuestionData,
   memoId: number
-): Promise<Question & ErrorResponse> {
+): Promise<Question | ErrorResponse> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions`);
   if (memoId) {
     const params = { memoId: memoId.toString() };
@@ -76,7 +82,7 @@ export async function createQuestion(
 export async function updateQuestion(
   bodyData: PostQuestionData,
   id: number
-): Promise<Question & ErrorResponse> {
+): Promise<Question | ErrorResponse> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions/${id}`, {
     method: 'PUT',
     headers: {
@@ -91,7 +97,7 @@ export async function updateQuestion(
 
 export async function deleteQuestion(
   id: number
-): Promise<IsSuccessResponse & ErrorResponse> {
+): Promise<IsSuccessResponse | ErrorResponse> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions/${id}`, {
     method: 'DELETE',
     credentials: 'include',
@@ -102,7 +108,7 @@ export async function deleteQuestion(
 
 export async function postImageInQuestion(
   image: File
-): Promise<PostImageResponse & ErrorResponse> {
+): Promise<PostImageResponse | ErrorResponse> {
   const formdata = new FormData();
   formdata.append('image', image);
   return fetch(

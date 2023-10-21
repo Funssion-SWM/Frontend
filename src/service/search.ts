@@ -1,7 +1,14 @@
-import { Orderby, SearchHistory } from '@/types';
+import { ErrorResponse, Orderby, SearchHistory } from '@/types';
 import { Memo } from '@/types/memo';
 import { Question } from '@/types/question';
-import { ACCESS_TOKEN } from '@/utils/const';
+import { Series } from '@/types/series';
+import {
+  MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL,
+  QUESTION_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL,
+  SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL,
+} from '@/utils/const';
+
+const SEARCH_NUMBER_PER_PAGE_TEMPORARY = 100;
 
 export async function addSearchHistory(
   searchString: string,
@@ -64,8 +71,10 @@ export async function searchMemos(
   searchString: string,
   orderBy: Orderby,
   isTag: Boolean,
-  userId: string
-): Promise<Memo[]> {
+  userId: string,
+  pageNum: number = 0,
+  resultCntPerPage: number = SEARCH_NUMBER_PER_PAGE_TEMPORARY
+): Promise<Memo[] | ErrorResponse> {
   const url = new URL(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos/search`
   );
@@ -74,6 +83,36 @@ export async function searchMemos(
     orderBy: orderBy,
     isTag: isTag.toString(),
     userId: userId,
+    pageNum: pageNum.toString(),
+    resultCntPerPage: resultCntPerPage.toString(),
+  };
+  url.search = new URLSearchParams(params).toString();
+
+  return fetch(url, { next: { revalidate: 0 } })
+    .then((res) => {
+      return res.json();
+    })
+    .catch(console.error);
+}
+
+export async function searchQuestions(
+  searchString: string,
+  orderBy: Orderby,
+  isTag: Boolean,
+  userId: string,
+  pageNum: number = 0,
+  resultCntPerPage: number = SEARCH_NUMBER_PER_PAGE_TEMPORARY
+): Promise<Question[] | ErrorResponse> {
+  const url = new URL(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions/search`
+  );
+  const params = {
+    searchString: searchString,
+    orderBy: orderBy,
+    isTag: isTag.toString(),
+    userId: userId,
+    pageNum: pageNum.toString(),
+    resultCntPerPage: resultCntPerPage.toString(),
   };
   url.search = new URLSearchParams(params).toString();
 
@@ -85,20 +124,18 @@ export async function searchMemos(
     .catch(console.error);
 }
 
-export async function searchQuestions(
+export async function searchSeries(
   searchString: string,
   orderBy: Orderby,
-  isTag: Boolean,
-  userId: string
-): Promise<Question[]> {
-  const url = new URL(
-    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions/search`
-  );
+  pageNum: number = 0,
+  resultCntPerPage: number = SEARCH_NUMBER_PER_PAGE_TEMPORARY
+): Promise<Series[] | ErrorResponse> {
+  const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/series`);
   const params = {
     searchString: searchString,
     orderBy: orderBy,
-    isTag: isTag.toString(),
-    userId: userId,
+    pageNum: pageNum.toString(),
+    resultCntPerPage: resultCntPerPage.toString(),
   };
   url.search = new URLSearchParams(params).toString();
 

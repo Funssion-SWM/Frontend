@@ -6,7 +6,7 @@ import AnswerCardHeader from './AnswerCardHeader';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateAnswer } from '@/service/answers';
-import { notifyToast } from '@/service/notification';
+import { notifyToast } from '@/service/notify';
 import AnswerCardFooter from './AnswerCardFooter';
 
 type Props = {
@@ -32,6 +32,7 @@ export default function AnswerCard({
     disLike,
     questionId,
     selected,
+    rank,
   },
   userId,
   isMyQuestion,
@@ -55,7 +56,7 @@ export default function AnswerCard({
 
   const handleUpdate = () => {
     updateAnswer(id, JSON.stringify(editor?.getJSON())).then((res) => {
-      if (res.code) {
+      if ('code' in res) {
         notifyToast(res.message, 'error');
         return;
       }
@@ -85,6 +86,7 @@ export default function AnswerCard({
         isMyQuestion={isMyQuestion}
         isSolved={isSolved}
         questionId={questionId}
+        authorRank={rank}
       />
       <div className="break-all my-3">
         <EditorContent editor={editor} />

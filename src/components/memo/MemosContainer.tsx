@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import { getMemos } from '@/service/memos';
 import CategoryBtn from '@/components/shared/btn/CategoryBtn';
 import useObserver from '@/hooks/useObserver';
+import { MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/utils/const';
 
 type Props = {
   memos: Memo[];
@@ -15,14 +16,22 @@ type Props = {
 export default function MemosContainer({ memos }: Props) {
   const [memoData, setMemodata] = useState<Memo[]>(memos);
   const [selectedOrderType, setSelectedOrderType] = useState<Orderby>('new');
-  const [pageNum, setPageNum] = useState(1);
+  const [pageNum, setPageNum] = useState(0);
   const [isEnd, setIsEnd] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const isInitialMount = useRef(true);
 
   const handleClick = async (orderBy: Orderby) => {
-    setPageNum(1);
+    setIsLoading(true);
     setIsEnd(false);
-    const memos = await getMemos('month', orderBy, 0, 12);
+    setPageNum(0);
+    const memos = await getMemos(
+      'month',
+      orderBy,
+      0,
+      MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
+    );
+    setIsLoading(false);
     setMemodata(memos);
     setSelectedOrderType(orderBy);
   };
@@ -30,7 +39,12 @@ export default function MemosContainer({ memos }: Props) {
   const fetchMemos = () => {
     if (isLoading || isEnd) return;
     setIsLoading(true);
-    getMemos('month', selectedOrderType, pageNum, 12)
+    getMemos(
+      'month',
+      selectedOrderType,
+      pageNum,
+      MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
+    )
       .then((data) => {
         setIsLoading(false);
         if (!data.length) setIsEnd(true);
@@ -44,7 +58,11 @@ export default function MemosContainer({ memos }: Props) {
   };
 
   useEffect(() => {
-    fetchMemos();
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      fetchMemos();
+    }
   }, [pageNum]);
 
   const onIntersect: IntersectionObserverCallback = ([entry]) => {

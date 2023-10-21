@@ -132,7 +132,7 @@ export async function registerUserInfo(
   introduce: string,
   tags: string[],
   isEmptyProfileImage: string
-): Promise<IsSuccessResponse & ErrorResponse> {
+): Promise<IsSuccessResponse | ErrorResponse> {
   const formdata = new FormData();
   formdata.append('isEmptyProfileImage', isEmptyProfileImage);
   if (image !== null) formdata.append('image', image);
@@ -157,7 +157,7 @@ export async function updateUserInfo(
   introduce: string,
   tags: string[],
   isEmptyProfileImage: string
-): Promise<IsSuccessResponse & ErrorResponse> {
+): Promise<IsSuccessResponse | ErrorResponse> {
   const formdata = new FormData();
   formdata.append('isEmptyProfileImage', isEmptyProfileImage);
   if (image !== null) formdata.append('image', image);

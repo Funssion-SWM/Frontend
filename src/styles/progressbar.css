@@ -1,0 +1,8 @@
+.label{
+  font-size: 12px;
+  color: grey;
+  font-weight: 700;
+  display: block !important;
+  margin-top: 4px;
+  text-align: center;
+}
