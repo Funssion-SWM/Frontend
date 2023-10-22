@@ -85,6 +85,7 @@ export default function AnswerCard({
         isMyAnswer={mine}
         isMyQuestion={isMyQuestion}
         isSolved={isSolved}
+        isSelected={selected}
         questionId={questionId}
         authorRank={rank}
       />
