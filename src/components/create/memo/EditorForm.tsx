@@ -341,7 +341,7 @@ export default function EditorForm({ userId }: Props) {
         memoTags: tags ?? [],
         isTemporary: saveMode === 'temporary',
         seriesId: seriesId || null,
-        seriesTitle: 
+        seriesTitle: seriesTitle,
       }
     ).then((data) => {
       if (data.code) {
