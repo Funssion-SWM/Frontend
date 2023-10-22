@@ -12,6 +12,7 @@ export type Comment = {
   likes: number;
   reCommentsNumber?: number;
   isLike: boolean;
+  isUserDelete: boolean;
 };
 
 export type PostCommentData = {

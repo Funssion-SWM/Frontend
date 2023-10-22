@@ -33,6 +33,7 @@ export default function CommentItem({
     likes,
     reCommentsNumber,
     authorRank,
+    isUserDelete,
   } = commentProperty;
 
   const [updatedText, setUpdatedText] = useState<string>(commentText);
@@ -82,6 +83,7 @@ export default function CommentItem({
             : `${reCommentsNumber}개의 답글`}
         </button>
         {isMyComment &&
+          !isUserDelete &&
           (!isEditMode ? (
             <div className="flex gap-2 r-3 text-soma-grey-49">
               <button

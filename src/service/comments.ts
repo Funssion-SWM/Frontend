@@ -5,7 +5,7 @@ export async function getCommentsByPostTypeAndPostId(
   postType: PostType,
   postId: number,
   cookie?: string | undefined
-) {
+): Promise<Comment[]> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/comments/${postType}/${postId}`,
     cookie

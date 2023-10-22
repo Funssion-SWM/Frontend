@@ -34,6 +34,7 @@ export default function RecommentItem({
     likes,
     createdDate,
     authorRank,
+    isUserDelete,
   } = commentProperty;
 
   const [updatedText, setUpdatedText] = useState(commentText);
@@ -68,6 +69,7 @@ export default function RecommentItem({
       )}
       <div className="flex justify-end items-center text-[10px]">
         {isMyComment &&
+          !isUserDelete &&
           (!isEditMode ? (
             <div className="flex gap-2 ">
               <button
