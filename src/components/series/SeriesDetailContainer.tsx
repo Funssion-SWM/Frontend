@@ -167,7 +167,7 @@ export default function SeriesDetailContainer({
                 : 'text-soma-grey-60 border-soma-grey-40'
             }`}
           >
-            <p className="line-clamp-1">{title}</p>
+            <p className="line-clamp-1 break-all">{title}</p>
           </button>
         ))}
       </ul>
