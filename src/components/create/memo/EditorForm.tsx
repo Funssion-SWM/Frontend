@@ -77,8 +77,6 @@ export default function EditorForm({ userId }: Props) {
 
   const [title, setTitle] = useState<string>('');
   const [selectedColor, setSelectedColor] = useState<MemoColor>('yellow');
-  // const [inputTag, setInputTag] = useState<string>('');
-  // const [tags, setTags] = useState<string[]>([]);
   const [contents, setContents] = useState('');
   const [isMemoLoading, setIsMemoLoading] = useState(false);
   const [isCreated, setIsCreated] = useState(false);
@@ -234,26 +232,6 @@ export default function EditorForm({ userId }: Props) {
     generateAI.completion.length,
   ]);
 
-  // const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-  //   if (e.nativeEvent.isComposing) return;
-  //   if (inputTag === '' && e.key === 'Backspace') {
-  //     setTags((preTags) => preTags.slice(0, -1));
-  //     return;
-  //   }
-  //   if ((inputTag !== '' && e.key === 'Enter') || e.key === ',') {
-  //     if (hasSpecialChar(inputTag)) {
-  //       notifyToast('특수문자는 사용할 수 없습니다.', 'warning');
-  //       return;
-  //     }
-  //     if (tags.includes(inputTag)) {
-  //       notifyToast('중복된 태그는 사용할 수 없습니다.', 'warning');
-  //       return;
-  //     }
-  //     setTags([...tags, inputTag]);
-  //     setInputTag('');
-  //   }
-  // };
-
   const temporaryContents = useDebounce(contents, TEMPORARY_SAVE_INTERVAL_TIME);
 
   // 자동 임시 저장
@@ -405,6 +383,7 @@ export default function EditorForm({ userId }: Props) {
     const text = JSON.stringify(editor?.getJSON());
     await descriptionAI.complete(text);
     await tagsAI.complete(text);
+    editor?.setOptions({ editable: false });
     setIsModalOpen(true);
   };
 
@@ -458,26 +437,6 @@ export default function EditorForm({ userId }: Props) {
             className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-[0.5px] border-soma-grey-49"
             autoFocus={memoId ? false : true}
           />
-          {/* <div className="flex flex-wrap gap-1 mx-3 mb-1">
-            {tags.map((tag, idx) => (
-              <Tag
-                key={idx}
-                tagText={tag}
-                onClick={() =>
-                  setTags((preTags) => preTags.filter((item) => item !== tag))
-                }
-              />
-            ))}
-            <input
-              type="text"
-              placeholder="태그를 입력 후 엔터를 눌러주세요."
-              name="tag"
-              value={inputTag}
-              onChange={(e) => setInputTag(e.target.value)}
-              onKeyDown={handleKeyDown}
-              className="grow outline-none p-1 text-sm sm:text-base bg-transparent"
-            />
-          </div> */}
           <SelectColorBar
             selected={selectedColor}
             onClick={(color: MemoColor) => setSelectedColor(color)}
@@ -505,7 +464,10 @@ export default function EditorForm({ userId }: Props) {
         )}
         {isModalOpen && (
           <CreateMemoModal
-            onClose={() => setIsModalOpen(false)}
+            onClose={() => {
+              setIsModalOpen(false);
+              editor?.setOptions({ editable: true });
+            }}
             onCreateBtnClick={handleCreate}
             userId={userId}
             description={descriptionAI.completion}
