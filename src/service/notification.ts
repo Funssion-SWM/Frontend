@@ -8,8 +8,7 @@ export async function getNotificationsTop30(
       {
           next: { revalidate: 0 },
           headers: {
-            // Cookie: `${cookie}`,
-            Cookie: 'accessToken=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2OTgiLCJhdXRoIjoiIiwiZXhwIjoxNjk3OTY1NzQ2fQ.YprOQA6U0ppQKv7hCYlDW8kR6KpX0kmREQX24DgaDYfhFT6UoRWvZ_hsH8Ki_LZG4VkrdODar_NohDr09kP6Ig'
+            Cookie: `${cookie}`,
           },
         }
     )
