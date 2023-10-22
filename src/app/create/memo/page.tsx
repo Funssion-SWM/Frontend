@@ -12,9 +12,9 @@ export const metadata: Metadata = {
 };
 
 export default async function CreateMemoPage() {
-  const headersList = headers();
-  const referer = headersList.get('referer');
-  referer === null && redirect('/memos');
+  // const headersList = headers();
+  // const referer = headersList.get('referer');
+  // referer === null && redirect('/memos');
 
   const accessToken = cookies().get(ACCESS_TOKEN)?.value;
   const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
