@@ -57,7 +57,7 @@ export default function CommentItem({
       />
       {isEditMode ? (
         <textarea
-          className="px-3 text-sm my-2 text-soma-grey-60 outline-none w-full resize-none"
+          className="text-sm my-2 text-soma-grey-60 outline-none w-full resize-none rounded-lg px-3 py-1"
           value={updatedText}
           onChange={(e) => setUpdatedText(e.target.value)}
           onFocus={(e) => {
