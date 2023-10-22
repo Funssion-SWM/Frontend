@@ -5,6 +5,7 @@ import MemoViewerHeader from './MemoViewerHeader';
 import { handleTiptapExtensions } from '@/components/editor/extensions';
 import TagView from '../shared/TagView';
 import { handleTiptapEditorProps } from '../editor/props';
+import { useEffect } from 'react';
 
 type Props = {
   title: string;
@@ -35,6 +36,17 @@ export default function MemoViewer({
   seriesId,
   seriesTitle,
 }: Props) {
+  const editor = useEditor({
+    extensions: handleTiptapExtensions('memo', memoId),
+    editorProps: handleTiptapEditorProps('memo', memoId),
+    editable: false,
+    content: content,
+  });
+
+  useEffect(() => {
+    editor?.commands.setContent(content);
+  }, [content]);
+
   return (
     <section
       className={`flex flex-col sm:rounded-2xl sm:shadow-lg px-2 min-h-screen sm:min-h-for-fit-screen w-full pb-4 ${
@@ -70,14 +82,7 @@ export default function MemoViewer({
       </h1>
       <div className="h-[0.5px] mx-3 my-4 bg-soma-grey-49"></div>
       <div className="px-4 flex-grow break-all">
-        <EditorContent
-          editor={useEditor({
-            extensions: handleTiptapExtensions('memo', memoId),
-            editorProps: handleTiptapEditorProps('memo', memoId),
-            editable: false,
-            content: content,
-          })}
-        />
+        <EditorContent editor={editor} />
       </div>
       <div className="flex flex-wrap gap-1 mx-2 mt-10 mb-1">
         {memoTags.map((tag, idx) => (
