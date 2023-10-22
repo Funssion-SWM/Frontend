@@ -5,7 +5,23 @@ import { checkUser, getUserInfo } from '@/service/auth';
 import { getNotificationsTop30 } from '@/service/notification';
 import { getRankingByUserId, getTop10Ranking } from '@/service/rank';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
+import { Metadata } from 'next';
 import { cookies } from 'next/headers';
+
+export const metadata: Metadata = {
+  title: 'Inforum - Ranking',
+  description: 'Inforum Ranking 페이지입니다.',
+  keywords: [
+    'inforum',
+    '인포럼',
+    'ranking',
+    '랭킹',
+    '순위',
+    '1등',
+    '2등',
+    '3등',
+  ],
+};
 
 export default async function RankingPage() {
   const accessToken = cookies().get(ACCESS_TOKEN)?.value;
