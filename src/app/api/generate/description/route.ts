@@ -11,10 +11,7 @@ const openai = new OpenAIApi(config);
 export const runtime = 'edge';
 
 export async function POST(req: Request): Promise<Response> {
-  if (
-    process.env.KV_REST_API_URL &&
-    process.env.KV_REST_API_TOKEN
-  ) {
+  if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
     const ip = req.headers.get('x-forwarded-for');
     console.log(ip);
     const ratelimit = new Ratelimit({
@@ -43,10 +40,10 @@ export async function POST(req: Request): Promise<Response> {
     messages: [
       {
         role: 'system',
-        content:
-        `You are a summary helper who summarizes the text. 
-        The input value is a complex form of JSON, and you summarize the value of the "text" key. 
+        content: `You are a summary helper who summarizes the text. 
+        The input value inclues title and contents. 
         The output format follows the tone of the text and outputs it in two sentences in Korean. 
+        If the input value contains the newline letter \n, don't bring it to the output value
         You don't answer except for two sentences that are summarized.`,
       },
       {

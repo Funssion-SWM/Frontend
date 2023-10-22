@@ -62,7 +62,7 @@ export default function CreateMemoModal({
   };
 
   return (
-    <div className="absolute top-0 left-0 w-screen h-screen bg-white">
+    <div className="fixed top-0 left-0 w-screen h-screen bg-white">
       <div
         className="fixed flex flex-col sm:shadow-lg bg-white rounded-2xl p-4 sm:p-10 
 sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 mt-10 sm:mt-0 sm:-translate-y-1/2 w-full sm:w-[750px] sm:min-h-[400px] h-full sm:h-auto overflow-y-auto"

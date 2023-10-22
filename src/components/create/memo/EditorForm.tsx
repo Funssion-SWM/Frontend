@@ -380,7 +380,8 @@ export default function EditorForm({ userId }: Props) {
       return;
     }
 
-    const text = JSON.stringify(editor?.getJSON());
+    const text = `title : ${title}, contents : ${getDescription(memoText)}`;
+
     await descriptionAI.complete(text);
     await tagsAI.complete(text);
     editor?.setOptions({ editable: false });
@@ -455,7 +456,7 @@ export default function EditorForm({ userId }: Props) {
         </div>
         {generateAI.isLoading && <FakeEditor editor={fakeEditor} />}
         {(descriptionAI.isLoading || tagsAI.isLoading) && (
-          <div className="absolute f top-0 left-0 w-screen h-screen flex flex-col justify-center items-center bg-white opacity-90">
+          <div className="fixed top-0 left-0 w-screen h-screen flex flex-col justify-center items-center bg-white opacity-90">
             <RingLoader className="self-center" color="#4992FF" />
             <div className="text-center font-medium text-soma-grey-60 text-sm my-5">
               AI가 description, tags를 자동생성중입니다...
