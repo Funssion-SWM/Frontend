@@ -18,6 +18,7 @@ import { Notification } from '@/types/notification';
 import RelativeDate from './RelativeDate';
 import { checkNotifications } from '@/service/notification';
 import { FaRankingStar } from 'react-icons/fa6';
+import '@/styles/headerScrollbar.css';
 
 type Props = {
   isLogin: boolean;
@@ -136,7 +137,7 @@ export default function Header({
                 />
               </button>
               <ul
-                className={`absolute top-8 max-h-[300px] overflow-y-scroll min-w-[300px] bg-white rounded-xl shadow-xl  -translate-x-1/2 ${
+                className={`absolute top-8 max-h-[300px] overflow-auto scroll-p-0 min-w-[300px] bg-white rounded-xl shadow-xl -translate-x-1/2 scroll-remove ${
                   scrollDirection === 'down' && 'opacity-0 invisible'
                 } ${isNotificationActive ? 'visible' : 'hidden'}`}
               >
@@ -147,7 +148,7 @@ export default function Header({
 
                   return (
                     <li key={notification.id.toString()}>
-                      <div className="flex justify-between p-2 text-xs border-t border-gray-300">
+                      <div className="flex justify-between px-2 py-1 text-xs border-t border-gray-300">
                         <span
                           className="inline-flex items-center gap-2 cursor-pointer hover:text-soma-blue-40"
                           onClick={() =>
