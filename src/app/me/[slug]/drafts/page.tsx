@@ -4,7 +4,7 @@ import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import MeDraftContainer from '@/components/me/MeDraftContainer';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { cookies } from 'next/headers';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, MAIN_PATH, REFRESH_TOKEN } from '@/utils/const';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { getNotificationsTop30 } from '@/service/notification';
@@ -29,15 +29,17 @@ export default async function MeDraftPage({ params: { slug } }: Props) {
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
 
-  const notifications = isLogin
-    ? await getNotificationsTop30(cookie)
-    : [];
+  const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
 
-  id !== Number(slug) && redirect('/memos');
+  id !== Number(slug) && redirect(MAIN_PATH);
 
   return (
     <section>
-      <Header isLogin={isLogin} notifications={notifications} profileImageFilePath={profileImageFilePath} />
+      <Header
+        isLogin={isLogin}
+        notifications={notifications}
+        profileImageFilePath={profileImageFilePath}
+      />
       <LayoutWrapper paddingY="sm:py-5">
         <MeDraftContainer memos={memos} isMine={id === Number(slug)} />
       </LayoutWrapper>

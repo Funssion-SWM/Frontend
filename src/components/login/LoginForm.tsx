@@ -7,6 +7,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import BlueBtn from '../shared/btn/BlueBtn';
 import { BASIC_INPUT_STYLE } from '@/utils/tailwindcss';
 import { notifyToast } from '@/service/notify';
+import { MAIN_PATH } from '@/utils/const';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -28,7 +29,7 @@ export default function LoginForm() {
     login(formdata).then((data) => {
       notifyToast(data.message, data.isSuccess ? 'success' : 'error');
       if (data.isSuccess) {
-        router.push('/memos');
+        router.push(MAIN_PATH);
         router.refresh();
       }
     });

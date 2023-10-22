@@ -19,6 +19,7 @@ import RelativeDate from './RelativeDate';
 import { checkNotifications } from '@/service/notification';
 import { FaRankingStar } from 'react-icons/fa6';
 import '@/styles/headerScrollbar.css';
+import { MAIN_PATH } from '@/utils/const';
 
 type Props = {
   isLogin: boolean;
@@ -66,12 +67,21 @@ export default function Header({
           alt="logo"
           width={120}
           onClick={() => {
-            router.push('/memos');
+            router.push(MAIN_PATH);
             router.refresh();
           }}
           className="cursor-pointer absolute left-1 sm:left-3"
         />
         <div className="sm:flex gap-4 font-semibold text-soma-grey-50 sm:text-lg hidden">
+          <Link
+            href="/series"
+            className={`${
+              currentPage === 'series' && 'text-soma-blue-40'
+            } hover:text-soma-blue-40 transition-all`}
+            prefetch={false}
+          >
+            Series
+          </Link>
           <Link
             href="/memos"
             className={`${
@@ -89,15 +99,6 @@ export default function Header({
             prefetch={false}
           >
             Q&A
-          </Link>
-          <Link
-            href="/series"
-            className={`${
-              currentPage === 'series' && 'text-soma-blue-40'
-            } hover:text-soma-blue-40 transition-all`}
-            prefetch={false}
-          >
-            Series
           </Link>
         </div>
         {isLogin ? (
@@ -249,7 +250,7 @@ export default function Header({
                     setIsActive(false);
                     open('로그아웃 하시겠습니까?', () => {
                       logout().then(() => {
-                        router.push('/memos');
+                        router.push(MAIN_PATH);
                         router.refresh();
                       });
                     });
@@ -287,6 +288,15 @@ export default function Header({
       </div>
       <div className="sm:hidden gap-4 font-semibold text-soma-grey-50 sm:text-lg flex justify-center my-2">
         <Link
+          href="/series"
+          className={`${
+            currentPage === 'series' && 'text-soma-blue-40'
+          } hover:text-soma-blue-40 transition-all`}
+          prefetch={false}
+        >
+          Series
+        </Link>
+        <Link
           href="/memos"
           className={`${
             currentPage === 'memos' && 'text-soma-blue-40'
@@ -303,15 +313,6 @@ export default function Header({
           prefetch={false}
         >
           Questions
-        </Link>
-        <Link
-          href="/series"
-          className={`${
-            currentPage === 'series' && 'text-soma-blue-40'
-          } hover:text-soma-blue-40 transition-all`}
-          prefetch={false}
-        >
-          Series
         </Link>
       </div>
     </header>

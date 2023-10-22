@@ -4,6 +4,7 @@ import { headers } from 'next/headers';
 import { getDefaultTags } from '@/service/tag';
 import logo from '@/assets/inforum_logo.png';
 import Image from 'next/image';
+import { MAIN_PATH } from '@/utils/const';
 
 type Props = {
   params: {
@@ -12,10 +13,10 @@ type Props = {
 };
 
 export default async function SignupSettingPage({ params: { slug } }: Props) {
-  // const headersList = headers();
-  // const referer = headersList.get('referer');
+  const headersList = headers();
+  const referer = headersList.get('referer');
 
-  // if (referer === null) redirect('/memos');
+  if (referer === null) redirect(MAIN_PATH);
 
   const defaultTags = await getDefaultTags();
 

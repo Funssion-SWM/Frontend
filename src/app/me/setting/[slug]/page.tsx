@@ -1,6 +1,7 @@
 import MyInfoForm from '@/components/MyInfoForm';
 import { getUserInfo } from '@/service/auth';
 import { getDefaultTags } from '@/service/tag';
+import { MAIN_PATH } from '@/utils/const';
 import { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -14,7 +15,7 @@ type Props = {
 export default async function MySettingPage({ params: { slug } }: Props) {
   const headersList = headers();
   const referer = headersList.get('referer');
-  if (referer === null) redirect('/memos');
+  if (referer === null) redirect(MAIN_PATH);
 
   const userData = getUserInfo(slug);
   const defaultTagsData = getDefaultTags();

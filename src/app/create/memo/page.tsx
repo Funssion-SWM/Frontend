@@ -1,7 +1,7 @@
 import EditorForm from '@/components/create/memo/EditorForm';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser } from '@/service/auth';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, MAIN_PATH, REFRESH_TOKEN } from '@/utils/const';
 import { Metadata } from 'next';
 import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -12,9 +12,9 @@ export const metadata: Metadata = {
 };
 
 export default async function CreateMemoPage() {
-  // const headersList = headers();
-  // const referer = headersList.get('referer');
-  // referer === null && redirect('/memos');
+  const headersList = headers();
+  const referer = headersList.get('referer');
+  referer === null && redirect(MAIN_PATH);
 
   const accessToken = cookies().get(ACCESS_TOKEN)?.value;
   const refreshToken = cookies().get(REFRESH_TOKEN)?.value;

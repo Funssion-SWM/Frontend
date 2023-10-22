@@ -5,6 +5,7 @@ import logo from '@/assets/inforum_logo.png';
 import { join } from 'path';
 import fs from 'fs';
 import SignupBox from '@/components/signup/SignupBox';
+import { MAIN_PATH } from '@/utils/const';
 
 export const metadata: Metadata = {
   title: '회원가입',
@@ -32,7 +33,7 @@ export default function SignupPage() {
   return (
     <section className="relative flex flex-col w-full items-center max-w-screen-sm mx-auto mt-12 py-5 px-10 sm:px-32">
       <Link
-        href="/memos"
+        href={MAIN_PATH}
         className="absolute top-2 right-4 text-soma-grey-50 text-sm sm:text-base"
       >
         메인으로
