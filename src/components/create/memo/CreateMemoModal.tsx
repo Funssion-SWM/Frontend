@@ -12,6 +12,7 @@ type Props = {
   onCreateBtnClick: (
     description: string,
     seriesId: number | null,
+    seriesTitle: string | null,
     tags: string[]
   ) => void;
   userId: number;
@@ -32,6 +33,7 @@ export default function CreateMemoModal({
     useState<string>(description);
   const [seriesArr, setSeriesArr] = useState<Series[]>([]);
   const [selectedSeriesId, setSelectedSeriesId] = useState<number | null>(null);
+  const [selectedSeriesTitle, setSelectedSeriesTitle] = useState<string | null>(null);
 
   useEffect(() => {
     getSeriesByUserId(userId, 0, 20).then((seriesArr) =>
@@ -89,8 +91,10 @@ sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 mt-10 sm:mt-0 sm:-transl
                   onClick={() => {
                     if (item.id === selectedSeriesId) {
                       setSelectedSeriesId(null);
+                      setSelectedSeriesTitle(null);
                     } else {
                       setSelectedSeriesId(item.id);
+                      setSelectedSeriesTitle(item.title);
                     }
                   }}
                 >
@@ -128,7 +132,7 @@ sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 mt-10 sm:mt-0 sm:-transl
         <BlueBtn
           text="등록"
           onClick={() => {
-            onCreateBtnClick(description, selectedSeriesId, currentTags);
+            onCreateBtnClick(description, selectedSeriesId, selectedSeriesTitle, currentTags);
           }}
           extraStyle="absolute top-2 right-3"
         />

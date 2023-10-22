@@ -31,6 +31,7 @@ export type PostMemoData = {
   memoTags: string[];
   isTemporary?: boolean;
   seriesId?: number | null;
+  seriesTitle?: string | null;
 };
 
 export type MemoColor =

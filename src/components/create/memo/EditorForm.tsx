@@ -304,6 +304,7 @@ export default function EditorForm({ userId }: Props) {
     saveMode: 'permanent' | 'temporary',
     description?: string,
     seriesId?: number | null,
+    seriesTitle?: string | null,
     tags?: string[]
   ) => {
     if (title === '') {
@@ -340,6 +341,7 @@ export default function EditorForm({ userId }: Props) {
         memoTags: tags ?? [],
         isTemporary: saveMode === 'temporary',
         seriesId: seriesId || null,
+        seriesTitle: 
       }
     ).then((data) => {
       if (data.code) {
@@ -376,9 +378,10 @@ export default function EditorForm({ userId }: Props) {
   const handleCreate = (
     description: string,
     seriesId: number | null,
+    seriesTitle: string | null,
     tags: string[]
   ) => {
-    savePost('permanent', description, seriesId, tags);
+    savePost('permanent', description, seriesId, seriesTitle, tags);
   };
 
   const handleDescriptionAndTagsAI = async () => {
