@@ -34,6 +34,7 @@ export default function RecommentItem({
     likes,
     createdDate,
     authorRank,
+    isUserDelete,
   } = commentProperty;
 
   const [updatedText, setUpdatedText] = useState(commentText);
@@ -55,7 +56,7 @@ export default function RecommentItem({
       />
       {isEditMode ? (
         <textarea
-          className="text-sm my-2 text-soma-grey-60 outline-none w-full resize-none"
+          className="text-sm my-2 text-soma-grey-60 outline-none w-full resize-none rounded-lg px-3 py-1"
           value={updatedText}
           onChange={(e) => setUpdatedText(e.target.value)}
           onFocus={(e) => {
@@ -68,6 +69,7 @@ export default function RecommentItem({
       )}
       <div className="flex justify-end items-center text-[10px]">
         {isMyComment &&
+          !isUserDelete &&
           (!isEditMode ? (
             <div className="flex gap-2 ">
               <button

@@ -53,9 +53,9 @@ export default function MemoSidebarHeader({
               <Image
                 src={authorProfileImagePath ?? basicProfileImg}
                 alt="profileImg"
-                width={35}
-                height={35}
-                className="w-9 h-9 rounded-full border-2 border-soma-grey-30"
+                width={36}
+                height={36}
+                className="w-9 h-9 rounded-full border-2 border-soma-grey-30 object-cover"
               />
             </Link>
             <Image

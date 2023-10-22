@@ -194,11 +194,13 @@ export default function SearchResultContainer({
           text="Questions"
           onClick={() => handlePostCategotyClick('question')}
         />
-        <BarBtn
-          isSelected={postType === 'series'}
-          text="Series"
-          onClick={() => handlePostCategotyClick('series')}
-        />
+        {!isTag && (
+          <BarBtn
+            isSelected={postType === 'series'}
+            text="Series"
+            onClick={() => handlePostCategotyClick('series')}
+          />
+        )}
       </div>
       <div className="flex gap-2 ml-1">
         <CategoryBtn

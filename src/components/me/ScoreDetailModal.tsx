@@ -40,8 +40,11 @@ top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:w-[750px]"
               </div>
             </div>
           </div>
-
           <StatsInfo userStats={userStats} />
+          <div className="text-xs text-soma-grey-49">
+            해당 기록은 점수가 기록된 경우에만 측정됩니다. 일일 최대 점수를 넘어
+            기록되지 않은 로그는 보이지 않습니다.
+          </div>
           <CloseIcon
             size={24}
             onClick={() => closeScoreDetail()}

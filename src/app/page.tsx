@@ -1,6 +1,6 @@
 import LandingContainer from '@/components/landing/LandingContainer';
 import { checkUser } from '@/service/auth';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, MAIN_PATH, REFRESH_TOKEN } from '@/utils/const';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -11,7 +11,7 @@ export default async function LandingPage() {
 
   const { isLogin } = await checkUser(cookie);
 
-  isLogin && redirect('/memos');
+  isLogin && redirect(MAIN_PATH);
 
   return <LandingContainer />;
 }

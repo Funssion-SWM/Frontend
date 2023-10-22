@@ -19,7 +19,7 @@ import { checkUser, registerUserInfo, updateUserInfo } from '@/service/auth';
 import { UserInfo } from '@/types';
 import Tag from './shared/Tag';
 import { notifyToast } from '@/service/notify';
-import { MAX_PROFILE_IMAGE_BYTE } from '@/utils/const';
+import { MAIN_PATH, MAX_PROFILE_IMAGE_BYTE } from '@/utils/const';
 
 type Props = {
   userId: number;
@@ -76,7 +76,7 @@ export default function MyInfoForm({
           }
           checkUser().then((data) => {
             notifyToast(res.message, 'success');
-            router.push(data.isLogin ? '/memos' : '/login');
+            router.push(data.isLogin ? MAIN_PATH : '/login');
             router.refresh();
           });
         })
@@ -185,7 +185,7 @@ export default function MyInfoForm({
       <div className="flex flex-col gap-2 my-3">
         <BlueBtn text={isSignup ? '등록' : '수정'} onClick={() => {}} />
         {isSignup && (
-          <Link href="/memos">
+          <Link href={MAIN_PATH}>
             <WhiteBtn text="나중에" onClick={() => {}} extraStyle="w-full" />
           </Link>
         )}

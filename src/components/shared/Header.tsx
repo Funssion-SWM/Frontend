@@ -18,6 +18,8 @@ import { Notification } from '@/types/notification';
 import RelativeDate from './RelativeDate';
 import { checkNotifications } from '@/service/notification';
 import { FaRankingStar } from 'react-icons/fa6';
+import '@/styles/headerScrollbar.css';
+import { MAIN_PATH } from '@/utils/const';
 
 type Props = {
   isLogin: boolean;
@@ -65,12 +67,21 @@ export default function Header({
           alt="logo"
           width={120}
           onClick={() => {
-            router.push('/memos');
+            router.push(MAIN_PATH);
             router.refresh();
           }}
           className="cursor-pointer absolute left-1 sm:left-3"
         />
         <div className="sm:flex gap-4 font-semibold text-soma-grey-50 sm:text-lg hidden">
+          <Link
+            href="/series"
+            className={`${
+              currentPage === 'series' && 'text-soma-blue-40'
+            } hover:text-soma-blue-40 transition-all`}
+            prefetch={false}
+          >
+            Series
+          </Link>
           <Link
             href="/memos"
             className={`${
@@ -88,15 +99,6 @@ export default function Header({
             prefetch={false}
           >
             Q&A
-          </Link>
-          <Link
-            href="/series"
-            className={`${
-              currentPage === 'series' && 'text-soma-blue-40'
-            } hover:text-soma-blue-40 transition-all`}
-            prefetch={false}
-          >
-            Series
           </Link>
         </div>
         {isLogin ? (
@@ -136,7 +138,7 @@ export default function Header({
                 />
               </button>
               <ul
-                className={`absolute top-8 max-h-[300px] overflow-y-scroll min-w-[300px] bg-white rounded-xl shadow-xl  -translate-x-1/2 ${
+                className={`absolute top-8 max-h-[300px] overflow-auto scroll-p-0 min-w-[300px] bg-white rounded-xl shadow-xl -translate-x-1/2 scroll-remove ${
                   scrollDirection === 'down' && 'opacity-0 invisible'
                 } ${isNotificationActive ? 'visible' : 'hidden'}`}
               >
@@ -147,7 +149,7 @@ export default function Header({
 
                   return (
                     <li key={notification.id.toString()}>
-                      <div className="flex justify-between p-2 text-xs border-t border-gray-300">
+                      <div className="flex justify-between px-2 py-1 text-xs border-t border-gray-300">
                         <span
                           className="inline-flex items-center gap-2 cursor-pointer hover:text-soma-blue-40"
                           onClick={() =>
@@ -248,7 +250,7 @@ export default function Header({
                     setIsActive(false);
                     open('로그아웃 하시겠습니까?', () => {
                       logout().then(() => {
-                        router.push('/memos');
+                        router.push(MAIN_PATH);
                         router.refresh();
                       });
                     });
@@ -286,6 +288,15 @@ export default function Header({
       </div>
       <div className="sm:hidden gap-4 font-semibold text-soma-grey-50 sm:text-lg flex justify-center my-2">
         <Link
+          href="/series"
+          className={`${
+            currentPage === 'series' && 'text-soma-blue-40'
+          } hover:text-soma-blue-40 transition-all`}
+          prefetch={false}
+        >
+          Series
+        </Link>
+        <Link
           href="/memos"
           className={`${
             currentPage === 'memos' && 'text-soma-blue-40'
@@ -302,15 +313,6 @@ export default function Header({
           prefetch={false}
         >
           Questions
-        </Link>
-        <Link
-          href="/series"
-          className={`${
-            currentPage === 'series' && 'text-soma-blue-40'
-          } hover:text-soma-blue-40 transition-all`}
-          prefetch={false}
-        >
-          Series
         </Link>
       </div>
     </header>

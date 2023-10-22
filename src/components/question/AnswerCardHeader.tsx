@@ -25,6 +25,7 @@ type Props = {
   isMyAnswer: boolean;
   isMyQuestion: boolean;
   isSolved: boolean;
+  isSelected: boolean;
   questionId: number;
   authorRank: Rank;
 };
@@ -41,6 +42,7 @@ export default function AnswerCardHeader({
   isMyAnswer,
   isMyQuestion,
   isSolved,
+  isSelected,
   questionId,
   authorRank,
 }: Props) {
@@ -108,7 +110,7 @@ export default function AnswerCardHeader({
               }}
             />
           )}
-          {isMyAnswer && !isSolved && (
+          {isMyAnswer && !isSelected && (
             <div className="flex ml-2">
               <button onClick={() => setIsActive((pre) => !pre)}>
                 <Image src={more} alt="more" />

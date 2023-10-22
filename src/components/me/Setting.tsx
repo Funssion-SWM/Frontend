@@ -3,6 +3,7 @@
 import { ModalContext } from '@/context/ModalProvider';
 import { withdraw } from '@/service/auth';
 import { notifyToast } from '@/service/notify';
+import { MAIN_PATH } from '@/utils/const';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
@@ -31,7 +32,7 @@ export default function Setting({ myId }: Props) {
                   return;
                 }
                 notifyToast('성공적으로 탈퇴되었습니다.', 'success');
-                router.push('/memos');
+                router.push(MAIN_PATH);
                 router.refresh();
               });
             }
