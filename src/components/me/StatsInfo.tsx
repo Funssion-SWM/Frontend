@@ -24,21 +24,20 @@ export default function StatsInfo({ userStats }: Props) {
       <PieChart userStats={userStats} />
       <ul className="text-soma-grey-70 font-medium">
         <li>
-          메모를 총{' '}
-          <span className={countStyle}>{memoScoreAndCount.count}개</span>{' '}
+          메모를 <span className={countStyle}>{memoScoreAndCount.count}개</span>{' '}
           작성했고{' '}
           <span className={scoreStyle}>{memoScoreAndCount.score}점</span>을
           얻었습니다.
         </li>
         <li>
-          질문을 총{' '}
+          질문을{' '}
           <span className={countStyle}>{questionScoreAndCount.count}개</span>{' '}
           작성했고{' '}
           <span className={scoreStyle}>{questionScoreAndCount.score}점</span>을
           얻었습니다.
         </li>
         <li>
-          답변을 총{' '}
+          답변을{' '}
           <span className={countStyle}>{answerScoreAndCount.count}개</span>{' '}
           작성했고{' '}
           <span className={scoreStyle}>{answerScoreAndCount.score}점</span>을
@@ -46,7 +45,7 @@ export default function StatsInfo({ userStats }: Props) {
         </li>
 
         <li>
-          답변을 총{' '}
+          답변을{' '}
           <span className={countStyle}>
             {selectingAnswerScoreAndCount.count}번
           </span>{' '}
@@ -57,21 +56,21 @@ export default function StatsInfo({ userStats }: Props) {
           을 얻었습니다.
         </li>
         <li>
-          답변이 총{' '}
+          답변이{' '}
           <span className={countStyle}>{bestAnswerScoreAndCount.count}번</span>{' '}
           채택되었고{' '}
           <span className={scoreStyle}>{bestAnswerScoreAndCount.score}점</span>
           을 얻었습니다.
         </li>
         <li>
-          댓글을 총{' '}
+          댓글을{' '}
           <span className={countStyle}>{commentScoreAndCount.count}개</span>{' '}
           작성했고{' '}
           <span className={scoreStyle}>{commentScoreAndCount.score}점</span>을
           얻었습니다.
         </li>
         <li>
-          좋아요를 총{' '}
+          좋아요를{' '}
           <span className={countStyle}>{likeScoreAndCount.count}번</span> 받았고{' '}
           <span className={scoreStyle}>{likeScoreAndCount.score}점</span>을
           얻었습니다.
