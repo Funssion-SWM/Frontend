@@ -38,7 +38,7 @@ export default function QuestionDetail({
 }: Props) {
   return (
     <div className="flex flex-col">
-      <div className="bg-soma-grey-20 rounded-2xl p-5">
+      <div className="bg-soma-grey-25 rounded-2xl p-5">
         <QuestionHeader
           questionId={id}
           likeNum={likes}
