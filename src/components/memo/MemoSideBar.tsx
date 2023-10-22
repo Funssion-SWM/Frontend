@@ -6,7 +6,7 @@ import MemoSidebarHeader from './MemoSidebarHeader';
 import CommentForm from '@/components/memo/comment/CommentForm';
 import arrowRight from '@/assets/icons/arrow_right.svg';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Question } from '@/types/question';
 import QuestionsList from '../question/QuestionsList';
 import { useRouter } from 'next/navigation';
@@ -49,6 +49,12 @@ export default function MemoSideBar({
     'comment' | 'question' | 'recommendation'
   >('comment');
   const router = useRouter();
+
+  useEffect(() => {
+    if (window.innerWidth < 640) {
+      setIsVisible(false);
+    }
+  }, []);
 
   return (
     <div className="sticky top-24 flex max-h-for-fit-screen ">
