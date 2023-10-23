@@ -38,7 +38,9 @@ export default function CreateMemoModal({
   );
 
   useEffect(() => {
-    getSeriesByUserId(697, 0, 20).then((seriesArr) => setSeriesArr(seriesArr));
+    getSeriesByUserId(userId, 0, 20).then((seriesArr) =>
+      setSeriesArr(seriesArr)
+    );
   }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
