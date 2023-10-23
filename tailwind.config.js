@@ -89,6 +89,7 @@ module.exports = {
             80: 'var(--soma-grey-80)',
           },
           green: 'var(--soma-green)',
+          codeblock: 'var(--soma-codeblock)',
         },
       },
       minHeight: {

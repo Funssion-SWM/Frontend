@@ -121,7 +121,7 @@ export const handleTiptapExtensions = (
     }).configure({
       HTMLAttributes: {
         class:
-          'rounded-lg bg-soma-grey-70 p-5 font-mono font-medium text-white my-3',
+          'rounded-lg bg-soma-codeblock p-5 font-mono font-medium text-white my-3',
       },
       lowlight,
     }),
