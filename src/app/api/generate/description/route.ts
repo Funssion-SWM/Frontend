@@ -11,28 +11,6 @@ const openai = new OpenAIApi(config);
 export const runtime = 'edge';
 
 export async function POST(req: Request): Promise<Response> {
-  const ip = req.headers.get('x-forwarded-for');
-  console.log(ip);
-  const ratelimit = new Ratelimit({
-    redis: kv,
-    limiter: Ratelimit.slidingWindow(100, '1 d'),
-  });
-
-  const { success, limit, reset, remaining } = await ratelimit.limit(
-    `novel_ratelimit_${ip}`
-  );
-
-  if (!success) {
-    return new Response('일일 자동완성 최대 사용량 50회를 초과하였습니다', {
-      status: 429,
-      headers: {
-        'X-RateLimit-Limit': limit.toString(),
-        'X-RateLimit-Remaining': remaining.toString(),
-        'X-RateLimit-Reset': reset.toString(),
-      },
-    });
-  }
-  
   let { prompt } = await req.json();
   const response = await openai.createChatCompletion({
     model: 'gpt-3.5-turbo',
