@@ -23,7 +23,7 @@ export default function RankingCard({
 }: Props) {
   return (
     <div
-      className={`flex justify-between items-center p-2 rounded-lg  ${
+      className={`flex justify-between items-center p-2 rounded-lg hover:brightness-90 transition-all ${
         {
           1: 'bg-soma-blue-40 text-white font-bold',
           2: 'bg-soma-blue-30 font-semibold',

@@ -11,9 +11,8 @@ const openai = new OpenAIApi(config);
 export const runtime = 'edge';
 
 export async function POST(req: Request): Promise<Response> {
-  if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
+  if (process.env.NEXT_PUBLIC_KV_REST_API_URL && process.env.NEXT_PUBLIC_KV_REST_API_TOKEN) {
     const ip = req.headers.get('x-forwarded-for');
-    console.log(ip);
     const ratelimit = new Ratelimit({
       redis: kv,
       limiter: Ratelimit.slidingWindow(5, '1 d'),
