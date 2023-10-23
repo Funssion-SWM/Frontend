@@ -35,16 +35,18 @@ export default function RankingContainer({
       {myRanking !== null && (
         <div className="flex flex-col w-full sm:w-[600px]">
           <h4 className="self-center font-semibold text-lg my-2">My Ranking</h4>
-          <RankingCard
-            rankNum={myRanking.ranking}
-            nickname={myRanking.memberProfileEntity.nickname}
-            tier={myRanking.scoreRank.rank}
-            score={myRanking.scoreRank.score}
-            isMine={myId === myRanking.memberProfileEntity.userId}
-            profileImagePath={
-              myRanking.memberProfileEntity.profileImageFilePath
-            }
-          />
+          <Link href={`/me/${myRanking.memberProfileEntity.userId}`}>
+            <RankingCard
+              rankNum={myRanking.ranking}
+              nickname={myRanking.memberProfileEntity.nickname}
+              tier={myRanking.scoreRank.rank}
+              score={myRanking.scoreRank.score}
+              isMine={myId === myRanking.memberProfileEntity.userId}
+              profileImagePath={
+                myRanking.memberProfileEntity.profileImageFilePath
+              }
+            />
+          </Link>
         </div>
       )}
     </div>
