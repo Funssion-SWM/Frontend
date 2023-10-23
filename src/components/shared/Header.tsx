@@ -65,12 +65,11 @@ export default function Header({
         <Image
           src={logo}
           alt="logo"
-          width={120}
           onClick={() => {
             router.push(MAIN_PATH);
             router.refresh();
           }}
-          className="cursor-pointer absolute left-1 sm:left-3"
+          className="cursor-pointer absolute left-1 sm:left-3 w-[90px] sm:w-[120px]"
         />
         <div className="sm:flex gap-4 font-semibold text-soma-grey-50 sm:text-lg hidden">
           <Link
@@ -109,7 +108,7 @@ export default function Header({
               rel="noopener noreferrer"
               className="font-semibold text-soma-grey-50 hover:text-soma-blue-40 text-sm"
             >
-              이벤트참여
+              이벤트
             </a>
 
             <button onClick={() => router.push('/search/form')}>
@@ -156,9 +155,9 @@ export default function Header({
                             router.push('me/' + notification.senderId)
                           }
                         >
-                          <span className="w-7 h-7 inline-flex items-center">
+                          <span className="inline-flex items-center">
                             <Image
-                              className="cursor-pointer rounded-full inline-block"
+                              className="cursor-pointer rounded-full inline-block w-7 h-7 object-cover"
                               src={
                                 notification.senderImagePath ?? basicProfileImg
                               }

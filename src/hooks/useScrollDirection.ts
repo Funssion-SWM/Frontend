@@ -11,7 +11,7 @@ export const useScrollDirection = () => {
       const direction = currentScrollY > lastScrollY ? 'down' : 'up';
 
       direction !== scrollDirection &&
-        Math.abs(currentScrollY - lastScrollY) > 10 &&
+        Math.abs(currentScrollY - lastScrollY) > 5 &&
         setScrollDirection(direction);
 
       lastScrollY = currentScrollY;

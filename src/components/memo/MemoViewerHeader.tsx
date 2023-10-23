@@ -52,7 +52,7 @@ export default function MemoViewerHeader({
       </div>
       <nav className="relative flex items-center pl-5" ref={dropdownRef}>
         {seriesId && (
-          <div className="text-xs mx-4 text-soma-grey-70">
+          <div className="text-xs mx-4 text-soma-grey-70 hidden sm:block">
             {`🔗 Series `}
             <Link
               href={`/series/${seriesId}`}

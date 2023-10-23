@@ -226,7 +226,7 @@ export default function SeriesForm({ userId }: Props) {
             value={title}
           ></input>
           <textarea
-            className="bg-soma-grey-25 p-3 resize-none outline-none rounded-lg h-72"
+            className="bg-soma-grey-25 p-3 resize-none outline-none rounded-lg h-72 break-all"
             placeholder="시리즈를 짧게 소개해보세요..."
             onChange={(e) => setDescription(e.target.value)}
             value={description}
