@@ -156,9 +156,9 @@ export default function Header({
                             router.push('me/' + notification.senderId)
                           }
                         >
-                          <span className="w-7 h-7 inline-flex items-center">
+                          <span className="inline-flex items-center">
                             <Image
-                              className="cursor-pointer rounded-full inline-block"
+                              className="cursor-pointer rounded-full inline-block w-7 h-7 object-cover"
                               src={
                                 notification.senderImagePath ?? basicProfileImg
                               }
