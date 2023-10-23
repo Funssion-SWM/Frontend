@@ -11,27 +11,25 @@ const openai = new OpenAIApi(config);
 export const runtime = 'edge';
 
 export async function POST(req: Request): Promise<Response> {
-  if (process.env.NEXT_PUBLIC_KV_REST_API_URL && process.env.NEXT_PUBLIC_KV_REST_API_TOKEN) {
-    const ip = req.headers.get('x-forwarded-for');
-    const ratelimit = new Ratelimit({
-      redis: kv,
-      limiter: Ratelimit.slidingWindow(5, '1 d'),
+  const ip = req.headers.get('x-forwarded-for');
+  const ratelimit = new Ratelimit({
+    redis: kv,
+    limiter: Ratelimit.slidingWindow(5, '1 d'),
+  });
+
+  const { success, limit, reset, remaining } = await ratelimit.limit(
+    `novel_ratelimit_${ip}`
+  );
+
+  if (!success) {
+    return new Response('일일 자동완성 최대 사용량 50회를 초과하였습니다', {
+      status: 429,
+      headers: {
+        'X-RateLimit-Limit': limit.toString(),
+        'X-RateLimit-Remaining': remaining.toString(),
+        'X-RateLimit-Reset': reset.toString(),
+      },
     });
-
-    const { success, limit, reset, remaining } = await ratelimit.limit(
-      `novel_ratelimit_${ip}`
-    );
-
-    if (!success) {
-      return new Response('일일 자동완성 최대 사용량 50회를 초과하였습니다', {
-        status: 429,
-        headers: {
-          'X-RateLimit-Limit': limit.toString(),
-          'X-RateLimit-Remaining': remaining.toString(),
-          'X-RateLimit-Reset': reset.toString(),
-        },
-      });
-    }
   }
   let { prompt } = await req.json();
   const response = await openai.createChatCompletion({
