@@ -42,7 +42,7 @@ export async function POST(req: Request): Promise<Response> {
         role: 'system',
         content: `You are a summary helper who summarizes the text. 
         The input value inclues title and contents. 
-        The output format follows the tone of the text and outputs it in two sentences in Korean. 
+        The output format follows the tone of the text and outputs it in maximum two sentences in Korean. 
         If the input value contains the newline letter \n, don't bring it to the output value
         You don't answer except for two sentences that are summarized.`,
       },

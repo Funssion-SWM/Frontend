@@ -11,15 +11,12 @@ const openai = new OpenAIApi(config);
 export const runtime = 'edge';
 
 export async function POST(req: Request): Promise<Response> {
-  if (
-    process.env.KV_REST_API_URL &&
-    process.env.KV_REST_API_TOKEN
-  ) {
+  if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
     const ip = req.headers.get('x-forwarded-for');
     console.log(ip);
     const ratelimit = new Ratelimit({
       redis: kv,
-      limiter: Ratelimit.slidingWindow(50, '1 d'),
+      limiter: Ratelimit.slidingWindow(5, '1 d'),
     });
 
     const { success, limit, reset, remaining } = await ratelimit.limit(
