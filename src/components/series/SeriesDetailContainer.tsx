@@ -64,6 +64,8 @@ export default function SeriesDetailContainer({
   const router = useRouter();
   const { open } = useContext(ModalContext);
 
+  const horizontalNavRef = useRef<HTMLUListElement>(null);
+
   useEffect(() => {
     getMemoById(memoInfoList[currentIdx].id).then((memo) => {
       setCurrentMemo(memo);
@@ -154,12 +156,23 @@ export default function SeriesDetailContainer({
           )}
         </nav>
       </div>
-      <ul className="flex gap-2 w-full overflow-x-auto my-2 py-2">
+      <ul
+        className="flex gap-2 overflow-x-auto my-2 py-2 scroll-smooth"
+        ref={horizontalNavRef}
+      >
         {memoInfoList.map(({ title }, idx) => (
           <button
             key={idx}
-            onClick={() => setCurrentIdx(idx)}
-            className={`px-4 py-2 border-[1px] min-w-[128px] w-32
+            onClick={(e) => {
+              setCurrentIdx(idx);
+              if (horizontalNavRef.current) {
+                horizontalNavRef.current.scrollLeft =
+                  e.currentTarget.offsetLeft -
+                  horizontalNavRef.current?.clientWidth / 2 +
+                  e.currentTarget.clientWidth / 2;
+              }
+            }}
+            className={`px-4 py-2 border-[1px] min-w-[130px] w-32
             rounded-3xl text-sm font-semibold hover:text-soma-blue-50 hover:border-soma-blue-50
             transition-all ${
               idx === currentIdx
