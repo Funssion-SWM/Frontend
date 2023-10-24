@@ -178,7 +178,8 @@ export const handleTiptapExtensions = (
     }),
     Markdown.configure({
       html: false,
-      transformCopiedText: true,
+      transformCopiedText: false,
+      transformPastedText: true,
     }),
   ];
 };
