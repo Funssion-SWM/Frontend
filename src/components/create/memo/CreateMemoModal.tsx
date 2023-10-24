@@ -28,7 +28,9 @@ export default function CreateMemoModal({
   tags,
 }: Props) {
   const [inputTag, setInputTag] = useState<string>('');
-  const [currentTags, setCurrentTags] = useState<string[]>(JSON.parse(tags));
+  const [currentTags, setCurrentTags] = useState<string[]>(
+    JSON.parse(tags || '[]')
+  );
   const [currentDescription, setCurrentDescription] =
     useState<string>(description);
   const [seriesArr, setSeriesArr] = useState<Series[]>([]);
