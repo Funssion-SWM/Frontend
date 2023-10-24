@@ -52,8 +52,8 @@ export default function Profile({
         rankMinScore={rankMaxScore - rankInterval}
         rankMaxScore={rankMaxScore}
         currentRankPercentage={calcRankPercentage(
-          rankInterval - (rankMaxScore - myScore),
-          rankInterval
+          /*numerator = */ rankInterval - (rankMaxScore - myScore),
+          /*denominator = */ rankInterval
         )}
       />
       <div className="flex justify-between self-stretch text-xs text-soma-grey-49">

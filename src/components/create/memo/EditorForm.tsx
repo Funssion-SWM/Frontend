@@ -380,10 +380,13 @@ export default function EditorForm({ userId }: Props) {
       return;
     }
 
-    const text = `title : ${title}, contents : ${getDescription(memoText)}`;
+    const textForPrompt = `title : ${title}, contents : ${getDescription(
+      memoText
+    )}`;
 
-    await descriptionAI.complete(text);
-    await tagsAI.complete(text);
+    await descriptionAI.complete(textForPrompt);
+    await tagsAI.complete(textForPrompt);
+
     editor?.setOptions({ editable: false });
     setIsModalOpen(true);
   };

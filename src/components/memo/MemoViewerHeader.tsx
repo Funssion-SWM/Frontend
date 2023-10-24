@@ -57,6 +57,7 @@ export default function MemoViewerHeader({
             <Link
               href={`/series/${seriesId}`}
               className="text-soma-blue-40 font-extrabold underline "
+              prefetch={false}
             >
               {seriesTitle}
             </Link>
