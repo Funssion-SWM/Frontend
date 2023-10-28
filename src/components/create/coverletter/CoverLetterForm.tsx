@@ -2,8 +2,9 @@
 
 import BlueBtn from '@/components/shared/btn/BlueBtn';
 import { notifyToast } from '@/service/notify';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
+import CoverLetterPage2 from './CoverLetterPage2';
 
 const TITLE_STYLE = 'sm:text-lg font-semibold';
 
@@ -27,6 +28,8 @@ export default function CoverLetterForm() {
   const [answer1, setAnswer1] = useState('');
   const [answer2, setAnswer2] = useState('');
   const [answer3, setAnswer3] = useState('');
+
+  const [page, setPage] = useState(1);
 
   const handleOptionsChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const { value, name } = e.target;
@@ -53,7 +56,20 @@ export default function CoverLetterForm() {
     setStackInfos(stackInfos.filter((stackInfo) => stackInfo.stack !== stack));
   };
 
-  return (
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      return (e.returnValue = '');
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  });
+
+  return page === 1 ? (
     <div>
       <div className="flex flex-col gap-1 mb-5">
         <div className="flex items-center">
@@ -203,9 +219,17 @@ export default function CoverLetterForm() {
         </div>
       </div>
 
-      <div className="flex justify-end mt-5">
-        <BlueBtn text="등록" onClick={() => {}} />
+      <div className="flex justify-end mt-5 gap-2">
+        <BlueBtn text="저장" onClick={() => {}} />
+        <BlueBtn
+          text="다음"
+          onClick={() => {
+            setPage(2);
+          }}
+        />
       </div>
     </div>
+  ) : (
+    <CoverLetterPage2 onPrevBtnClick={() => setPage(1)} />
   );
 }
