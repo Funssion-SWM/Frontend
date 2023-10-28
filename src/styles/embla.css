@@ -7,8 +7,8 @@
   .embla__slide {
     flex: 0 0 100%;
     min-width: 0;
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding-top: 14px;
+    padding-bottom: 14px;
     align-items: center;
-    font-weight: 800;
+    font-weight: 600;
   }

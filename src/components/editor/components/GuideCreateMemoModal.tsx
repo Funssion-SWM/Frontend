@@ -1,8 +1,8 @@
-import CloseIcon from "@/components/search/CloseIcon";
-import Tag from "@/components/shared/Tag";
-import BlueBtn from "@/components/shared/btn/BlueBtn";
-import { hasSpecialChar } from "@/service/validation";
-import { useState } from "react";
+import CloseIcon from '@/components/search/CloseIcon';
+import Tag from '@/components/shared/Tag';
+import BlueBtn from '@/components/shared/btn/BlueBtn';
+import { hasSpecialChar } from '@/service/validation';
+import { useState } from 'react';
 
 type Props = {
   onClose: () => void;
@@ -23,7 +23,6 @@ export default function GuideCreateMemoModal({
   );
   const [currentDescription, setCurrentDescription] =
     useState<string>(description);
-
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.nativeEvent.isComposing) return;
@@ -64,9 +63,7 @@ sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 mt-10 sm:mt-0 sm:-transl
           <div className=" flex flex-col w-full">
             <p className="font-semibold text-xl my-2">Series에 추가</p>
             <div className="flex justify-center items-center h-60">
-              <p className="text-soma-grey-49 text-sm">
-                series가 없습니다...
-              </p>
+              <p className="text-soma-grey-49 text-sm">series가 없습니다...</p>
             </div>
           </div>
         </div>
@@ -96,8 +93,8 @@ sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 mt-10 sm:mt-0 sm:-transl
           </div>
         </div>
         <BlueBtn
-          text="실제 메모 쓰러 가기"
-          onClick={() => onCreateBtnClick}
+          text="메모 작성하러 가기"
+          onClick={() => onCreateBtnClick()}
           extraStyle="absolute top-2 right-3"
         />
       </div>
@@ -110,6 +107,5 @@ sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 mt-10 sm:mt-0 sm:-transl
   );
 }
 function notifyToast(arg0: string, arg1: string) {
-    throw new Error("Function not implemented.");
+  throw new Error('Function not implemented.');
 }
-

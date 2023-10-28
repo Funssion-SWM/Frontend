@@ -66,7 +66,7 @@ function findPlaceholder(state: EditorState, id: {}) {
 export function startImageUpload(
   file: File,
   postId: number,
-  type: 'memo' | 'question' | 'answer',
+  type: 'memo' | 'question' | 'answer' | 'guide',
   view: EditorView,
   pos: number,
   routingCallback?: (postId: number) => void
@@ -134,7 +134,7 @@ export function startImageUpload(
 
 export const handleImageUpload = (
   file: File,
-  type: 'memo' | 'question' | 'answer',
+  type: 'memo' | 'question' | 'answer' | 'guide',
   postId: number
 ) => {
   // upload to Vercel Blob
@@ -178,6 +178,15 @@ export const handleImageUpload = (
             resolve(res.imagePath);
           };
         });
+        break;
+      case 'guide':
+        const url = window.URL.createObjectURL(file);
+        let image = new Image();
+        image.src = url;
+        image.onload = () => {
+          resolve(url);
+          console.log(url);
+        };
         break;
       default:
         throw new Error('알맞은 postType이 아님');

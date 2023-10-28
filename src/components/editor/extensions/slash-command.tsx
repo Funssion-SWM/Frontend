@@ -74,7 +74,7 @@ const Command = Extension.create({
 
 const getSuggestionItems = (
   { query }: { query: string },
-  type: 'memo' | 'question' | 'answer',
+  type: 'memo' | 'question' | 'answer' | 'guide',
   postId: number | undefined,
   callback?: () => Promise<number>,
   routingCallback?: (id: number) => void
@@ -444,7 +444,7 @@ const renderItems = () => {
 };
 
 export const handleSlashCommand = (
-  type: 'memo' | 'question' | 'answer',
+  type: 'memo' | 'question' | 'answer' | 'guide',
   postId: number | undefined,
   callback?: () => Promise<number>,
   routingCallback?: (id: number) => void

@@ -28,7 +28,7 @@ lowlight.registerLanguage('js', js);
 lowlight.registerLanguage('ts', ts);
 
 export const handleTiptapExtensions = (
-  type: 'memo' | 'question' | 'answer',
+  type: 'memo' | 'question' | 'answer' | 'guide',
   postId: number | undefined,
   callback?: () => Promise<number>,
   routingCallback?: (id: number) => void
@@ -151,7 +151,7 @@ export const handleTiptapExtensions = (
         if (node.type.name === 'heading') {
           return `Heading ${node.attrs.level}`;
         }
-        if (type === 'memo')
+        if (type === 'memo' || type === 'guide')
           return "명령어는 '/' , 텍스트 자동 생성은 질문 작성 후 '++' 입력하세요.";
         else return "명령어는 '/' 입니다.";
       },

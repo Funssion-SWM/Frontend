@@ -6,10 +6,7 @@ import { useEditor } from '@tiptap/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import BlueBtn from '../../shared/btn/BlueBtn';
-import {
-  createOrUpdateMemo,
-  getMemoById,
-} from '@/service/memos';
+import { createOrUpdateMemo, getMemoById } from '@/service/memos';
 import { getPrevText } from '@/lib/editor';
 import { useCompletion } from 'ai/react';
 import { getDescription } from '@/service/description';
@@ -24,7 +21,6 @@ import GuideCreateMemoModal from './GuideCreateMemoModal';
 export default function GuideEditor() {
   const router = useRouter();
 
-  const memoId = Number(useSearchParams()?.get('id'));
   const isFromDraftModal = useSearchParams()?.get('temp');
 
   const generateAI = useCompletion({
@@ -65,91 +61,13 @@ export default function GuideEditor() {
 
   const [title, setTitle] = useState<string>('');
   const [selectedColor, setSelectedColor] = useState<MemoColor>('yellow');
-  const [contents, setContents] = useState('');
-  const [isMemoLoading, setIsMemoLoading] = useState(false);
-  const [isCreated, setIsCreated] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const temporarySaveCallbackForSavingImage = async () => {
-    return createOrUpdateMemo(
-      `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos`,
-      {
-        memoTitle: 'temp',
-        memoDescription: 'temp',
-        memoText:
-          '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"temp"}]}]}',
-        memoColor: selectedColor,
-        memoTags: [],
-        isTemporary: true,
-      }
-    ).then((data) => data.memoId);
-  };
-
-  const routingAfterUploadImage = (memoId: number) => {
-    router.push(`/create/memo?id=${memoId}`);
-  };
-
-  const isInitialMount = useRef(true);
-  // memoId가 변경되면 실행 for 이미지 임시저장
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      if (memoId) {
-        if (isFromDraftModal === 'true') {
-          getMemoById(memoId).then((data) => {
-            setTitle(data.memoTitle);
-            setSelectedColor(data.memoColor);
-            // setTags(data.memoTags);
-            editor?.commands.setContent(JSON.parse(data.memoText));
-          });
-          return;
-        }
-        const memoDescription = getDescription(contents);
-        createOrUpdateMemo(
-          `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/memos/${memoId}`,
-          {
-            memoTitle: title || 'temp',
-            memoDescription: memoDescription || 'temp',
-            memoText: contents,
-            memoColor: selectedColor,
-            memoTags: [],
-            isTemporary: true,
-          }
-        );
-      }
-    }
-  }, [memoId]);
-
   const editor = useEditor({
-    extensions: handleTiptapExtensions(
-      'memo',
-      memoId,
-      temporarySaveCallbackForSavingImage,
-      (memoId: number) => routingAfterUploadImage(memoId)
-    ),
-    editorProps: handleTiptapEditorProps(
-      'memo',
-      memoId,
-      temporarySaveCallbackForSavingImage,
-      (memoId: number) => routingAfterUploadImage(memoId)
-    ),
-    autofocus: memoId ? 'end' : false,
-    onCreate: async (e) => {
-      if (memoId)
-        await getMemoById(memoId).then(
-          ({ memoTitle, memoColor, memoTags, memoText, isCreated }) => {
-            setTitle(memoTitle);
-            setSelectedColor(memoColor);
-            // setTags(memoTags);
-            e.editor.commands.setContent(JSON.parse(memoText));
-            setIsCreated(isCreated);
-          }
-        );
-      setIsMemoLoading(true);
-    },
+    extensions: handleTiptapExtensions('guide', 0),
+    editorProps: handleTiptapEditorProps('guide', 0),
+    autofocus: 'end',
     onUpdate: (e) => {
-      setContents(JSON.stringify(e.editor.getJSON()));
       const selection = e.editor.state.selection;
       const lastTwo = getPrevText(e.editor, {
         chars: 2,
@@ -169,8 +87,8 @@ export default function GuideEditor() {
   });
 
   const fakeEditor = useEditor({
-    extensions: handleTiptapExtensions('memo', memoId),
-    editorProps: handleTiptapEditorProps('memo', memoId),
+    extensions: handleTiptapExtensions('guide', 0),
+    editorProps: handleTiptapEditorProps('guide', 0),
     editable: false,
   });
 
@@ -264,76 +182,64 @@ export default function GuideEditor() {
     setIsModalOpen(true);
   };
 
-  useEffect(() => {
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      e.preventDefault();
-      return (e.returnValue = '');
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  });
-
   return (
-    isMemoLoading && (
-      <div className="flex w-full" ref={edirotRef}>
-        <div
-          className={`relative flex flex-col rounded-lg shadow-lg px-2 pt-2 pb-4 min-h-screen sm:min-h-for-fit-screen w-full ${
-            {
-              white: 'bg-soma-white',
-              yellow: 'bg-memo-yellow',
-              green: 'bg-memo-green',
-              skyblue: 'bg-memo-skyblue',
-              orange: 'bg-memo-orange',
-              pink: 'bg-memo-pink',
-              navy: 'bg-memo-navy',
-              purple: 'bg-memo-purple',
-            }[selectedColor]
-          }`}
-        >
-          <div className="flex justify-end gap-2 mr-1 my-1">
-            <BlueBtn text="메인 페이지로 이동하기" onClick={() => router.push("/series")} />
-            <BlueBtn text="요약하기" onClick={handleDescriptionAndTagsAI} />
-          </div>
-          <input
-            type="text"
-            placeholder="제목을 입력해주세요."
-            name="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-[0.5px] border-soma-grey-49"
-            autoFocus={memoId ? false : true}
+    <div className="flex w-full" ref={edirotRef}>
+      <div
+        className={`relative flex flex-col rounded-lg shadow-lg px-2 pt-2 pb-4 min-h-screen sm:min-h-for-fit-screen w-full ${
+          {
+            white: 'bg-soma-white',
+            yellow: 'bg-memo-yellow',
+            green: 'bg-memo-green',
+            skyblue: 'bg-memo-skyblue',
+            orange: 'bg-memo-orange',
+            pink: 'bg-memo-pink',
+            navy: 'bg-memo-navy',
+            purple: 'bg-memo-purple',
+          }[selectedColor]
+        }`}
+      >
+        <div className="flex justify-end gap-2 mr-1 my-1">
+          <BlueBtn
+            text="메인 페이지로 이동하기"
+            onClick={() => router.push('/series')}
           />
-          <SelectColorBar
-            selected={selectedColor}
-            onClick={(color: MemoColor) => setSelectedColor(color)}
-          />
-          <MyEditor editor={editor} />
+          <BlueBtn text="요약하기" onClick={handleDescriptionAndTagsAI} />
         </div>
-        {generateAI.isLoading && <FakeEditor editor={fakeEditor} />}
-        {(descriptionAI.isLoading || tagsAI.isLoading) && (
-          <div className="fixed top-0 left-0 w-screen h-screen flex flex-col justify-center items-center bg-white opacity-90">
-            <RingLoader className="self-center" color="#4992FF" />
-            <div className="text-center font-medium text-soma-grey-60 text-sm my-5">
-              AI가 description, tags를 자동생성중입니다...
-            </div>
-          </div>
-        )}
-        {isModalOpen && (
-          <GuideCreateMemoModal
-            onClose={() => {
-              setIsModalOpen(false);
-              editor?.setOptions({ editable: true });
-            }}
-            onCreateBtnClick={() => router.push('/login')}
-            description={descriptionAI.completion}
-            tags={tagsAI.completion}
-          />
-        )}
+        <input
+          type="text"
+          placeholder="제목을 입력해주세요."
+          name="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="w-full outline-none text-2xl sm:text-4xl px-4 py-3 bg-transparent font-bold mt-2 border-t-[0.5px] border-soma-grey-49"
+          autoFocus={true}
+        />
+        <SelectColorBar
+          selected={selectedColor}
+          onClick={(color: MemoColor) => setSelectedColor(color)}
+        />
+        <MyEditor editor={editor} />
       </div>
-    )
+      {generateAI.isLoading && <FakeEditor editor={fakeEditor} />}
+      {(descriptionAI.isLoading || tagsAI.isLoading) && (
+        <div className="fixed top-0 left-0 w-screen h-screen flex flex-col justify-center items-center bg-white opacity-90">
+          <RingLoader className="self-center" color="#4992FF" />
+          <div className="text-center font-medium text-soma-grey-60 text-sm my-5">
+            AI가 description, tags를 자동생성중입니다...
+          </div>
+        </div>
+      )}
+      {isModalOpen && (
+        <GuideCreateMemoModal
+          onClose={() => {
+            setIsModalOpen(false);
+            editor?.setOptions({ editable: true });
+          }}
+          onCreateBtnClick={() => router.push('/login')}
+          description={descriptionAI.completion}
+          tags={tagsAI.completion}
+        />
+      )}
+    </div>
   );
 }
