@@ -5,11 +5,12 @@ import { AiFillCheckCircle, AiOutlineCheckCircle } from 'react-icons/ai';
 type Props = {
   memo: Memo;
   onClick: (selected: boolean, memo: Memo) => void;
+  seriesId: number;
 };
 
-export default function SelectCard({ memo, onClick }: Props) {
+export default function SelectCard({ memo, onClick, seriesId }: Props) {
   const [selected, setSelected] = useState(false);
-  const { memoTitle, memoDescription, memoColor, seriesId } = memo;
+  const { memoTitle, memoDescription, memoColor } = memo;
 
   const handleClick = () => {
     setSelected((pre) => !pre);
@@ -21,7 +22,11 @@ export default function SelectCard({ memo, onClick }: Props) {
       className={`flex flex-col relative rounded-md shadow-md aspect-square p-2 ${
         selected ? 'brightness-75' : ''
       } 
-      ${seriesId ? 'pointer-events-none brightness-50' : ''}
+      ${
+        memo.seriesId && memo.seriesId !== seriesId
+          ? 'pointer-events-none brightness-50'
+          : ''
+      }
       ${
         {
           white: 'bg-soma-white',
@@ -37,7 +42,7 @@ export default function SelectCard({ memo, onClick }: Props) {
       onClick={handleClick}
     >
       <div className="self-end text-soma-blue-40">
-        {seriesId ? (
+        {memo.seriesId && memo.seriesId !== seriesId ? (
           <div className="text-xs h-5 font font-medium">
             다른 시리즈에 속한 메모
           </div>

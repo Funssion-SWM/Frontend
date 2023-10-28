@@ -12,12 +12,14 @@ type Props = {
   memoIdsInSeries: number[];
   onAdd: (ids: Memo[]) => void;
   userId: number;
+  seriesId: number;
 };
 
 export default function AddMemoContainer({
   memoIdsInSeries,
   onAdd,
   userId,
+  seriesId,
 }: Props) {
   const [searchString, setSearchString] = useState('');
   const [memos, setMemos] = useState<Memo[]>([]);
@@ -113,7 +115,11 @@ export default function AddMemoContainer({
           .filter((memo) => !memoIdsInSeries.includes(memo.memoId))
           .map((memo) => (
             <li key={memo.memoId}>
-              <SelectCard memo={memo} onClick={handleClickCard} />
+              <SelectCard
+                memo={memo}
+                onClick={handleClickCard}
+                seriesId={seriesId}
+              />
             </li>
           ))}
       </ul>

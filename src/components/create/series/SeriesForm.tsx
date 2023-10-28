@@ -254,6 +254,7 @@ export default function SeriesForm({ userId }: Props) {
             memoIdsInSeries={memos.map((memo) => memo.id)}
             onAdd={handleAdd}
             userId={userId}
+            seriesId={seriesId}
           />
         </div>
       </div>
