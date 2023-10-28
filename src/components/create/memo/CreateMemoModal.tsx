@@ -2,6 +2,7 @@ import CloseIcon from '@/components/search/CloseIcon';
 import Tag from '@/components/shared/Tag';
 import BlueBtn from '@/components/shared/btn/BlueBtn';
 import { getSeriesByUserId } from '@/service/me';
+import { getMemoById } from '@/service/memos';
 import { notifyToast } from '@/service/notify';
 import { hasSpecialChar } from '@/service/validation';
 import { Series } from '@/types/series';
@@ -18,6 +19,7 @@ type Props = {
   userId: number;
   description: string;
   tags: string;
+  memoId: number;
 };
 
 export default function CreateMemoModal({
@@ -26,6 +28,7 @@ export default function CreateMemoModal({
   userId,
   description,
   tags,
+  memoId,
 }: Props) {
   const [inputTag, setInputTag] = useState<string>('');
   const [currentTags, setCurrentTags] = useState<string[]>(
@@ -43,6 +46,10 @@ export default function CreateMemoModal({
     getSeriesByUserId(userId, 0, 20).then((seriesArr) =>
       setSeriesArr(seriesArr)
     );
+    getMemoById(memoId).then((memo) => {
+      setSelectedSeriesId(memo.seriesId);
+      setSelectedSeriesTitle(memo.seriesTitle);
+    });
   }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

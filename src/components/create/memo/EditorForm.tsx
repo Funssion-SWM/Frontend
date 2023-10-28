@@ -476,6 +476,7 @@ export default function EditorForm({ userId }: Props) {
             userId={userId}
             description={descriptionAI.completion}
             tags={tagsAI.completion}
+            memoId={memoId}
           />
         )}
       </div>
