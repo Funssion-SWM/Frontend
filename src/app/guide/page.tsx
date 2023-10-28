@@ -17,7 +17,7 @@ export default function GuidePage() {
             즉각적으로 반영되는 마크다운 에디터입니다
           </div>
           <div className="embla__slide bg-soma-blue-20 rounded-xl">
-            '/' 키를 눌러 여러 가지 방법으로 작성해보세요!<br/>
+            {`\'/\'`} 키를 눌러 여러 가지 방법으로 작성해보세요!<br/>
             이미지, 코드블럭 등을 자유롭게 사용할 수 있습니다
           </div>
           <div className="embla__slide bg-soma-blue-20 rounded-xl">
@@ -25,7 +25,7 @@ export default function GuidePage() {
             배경 및 글씨 색, 볼드체 및 이탤릭체 등 원하는 대로 바꿀 수 있습니다.
           </div>
           <div className="embla__slide bg-soma-blue-20 rounded-xl">
-            '++' 버튼을 눌러 AI를 사용해보세요!<br/>
+          {`\'++\'`} 를 입력하여 AI를 사용해보세요!<br/>
             ChatGPT 가 남은 문장을 완성시켜줍니다.
           </div>
           <div className="embla__slide bg-soma-blue-20 rounded-xl">
