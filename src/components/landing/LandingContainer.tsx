@@ -48,7 +48,7 @@ export default function LandingContainer() {
             <br />
             블럭 기반 에디터를 활용해 개발 기록을 간편하게 작성해보세요
           </p>
-          <Link href={MAIN_PATH}>
+          <Link href={"/guide"}>
             <button className="bg-soma-blue-40 w-72 h-16 shadow-2xl text-white px-3.5 py-2 rounded-3xl transition hover:bg-soma-blue-50 sm:text-2xl">
               시작하기
             </button>
@@ -123,7 +123,7 @@ export default function LandingContainer() {
           <br />
           긍정적인 개발공간을 만들어보세요.
         </p>
-        <Link href={MAIN_PATH}>
+        <Link href={"/guide"}>
           <button className="bg-soma-blue-40 w-72 h-16 shadow-2xl text-white px-3.5 py-2 rounded-3xl transition hover:bg-soma-blue-50 sm:text-2xl">
             시작하기
           </button>

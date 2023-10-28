@@ -1,0 +1,14 @@
+.embla {
+    overflow: hidden;
+  }
+  .embla__container {
+    display: flex;
+  }
+  .embla__slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    align-items: center;
+    font-weight: 800;
+  }
