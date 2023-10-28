@@ -1,13 +1,14 @@
 'use client';
 
 import BlueBtn from '@/components/shared/btn/BlueBtn';
+import { notifyToast } from '@/service/notify';
 import { ChangeEvent, useState } from 'react';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 
-const TITLE_STYLE = 'text-lg font-semibold';
+const TITLE_STYLE = 'sm:text-lg font-semibold';
 
 const TEXTAREA_STYLE =
-  'bg-soma-grey-20 w-full resize-none h-36 text-lg break-all p-4 outline-none rounded-xl';
+  'bg-soma-grey-20 w-full resize-none h-32 break-all p-4 outline-none rounded-xl';
 
 type StackInfo = {
   stack: string;
@@ -18,9 +19,7 @@ const stackOptions = ['Java', 'JavaScript', 'Python', 'C', 'C++'];
 const levelOptions = [0, 1, 2, 3, 4, 5];
 
 export default function CoverLetterForm() {
-  const [stackInfos, setStackInfos] = useState<StackInfo[]>([
-    { stack: 'JavaScript', level: 5 },
-  ]);
+  const [stackInfos, setStackInfos] = useState<StackInfo[]>([]);
   const [stackInfo, setStackInfo] = useState<StackInfo>({
     stack: stackOptions[0],
     level: levelOptions[0],
@@ -37,6 +36,12 @@ export default function CoverLetterForm() {
   };
 
   const handleAddStackInfo = () => {
+    const stackArr = stackInfos.map((stackInfo) => stackInfo.stack);
+    if (stackArr.includes(stackInfo.stack)) {
+      notifyToast('이미 포함된 기술스택입니다.', 'warning');
+      return;
+    }
+
     setStackInfos((preInfos) => [...preInfos, stackInfo]);
     setStackInfo({
       stack: stackOptions[0],
@@ -44,18 +49,21 @@ export default function CoverLetterForm() {
     });
   };
 
+  const handleDeleteStackInfo = (stack: string) => {
+    setStackInfos(stackInfos.filter((stackInfo) => stackInfo.stack !== stack));
+  };
+
   return (
     <div>
-      <div className="mb-5">
+      <div className="flex flex-col gap-1 mb-5">
         <div className="flex items-center">
           <div className={TITLE_STYLE}>
-            기술스택 레벨 (자신있는 기술스택의 레벨을 정의해주세요. 레벨정의는
-            우측 정보란에 나와있습니다.)
+            기술스택 (레벨정의는 우측 정보 아이콘을 확인해주세요.)
           </div>
           <div className="group mx-2 relative">
             <AiOutlineInfoCircle />
-            <div className="absolute top-0 left-0 w-[460px] p-3 bg-white opacity-0 pointer-events-none transition-all group-hover:opacity-100 group-hover:pointer-events-auto rounded-2xl shadow-lg">
-              <ul className="flex flex-col text-sm gap-3">
+            <div className="absolute top-0 right-0 sm:left-0 w-[300px] sm:w-[460px] p-3 bg-white opacity-0 pointer-events-none transition-all group-hover:opacity-100 group-hover:pointer-events-auto rounded-2xl shadow-lg">
+              <ul className="flex flex-col text-xs sm:text-sm gap-3">
                 <li> 0: 개발 경험이나 기술 지식이 전혀 없음.</li>
                 <li>
                   1: 관련 지식이나 경험이 적고, 간단한 기능 구현에도 책/인터넷의
@@ -85,55 +93,62 @@ export default function CoverLetterForm() {
           </div>
         </div>
 
-        <div>
-          <div className="flex">
-            <div>
-              <label>Stack :</label>
-              <select
-                className="outline-none text-center"
-                value={stackInfo.stack}
-                name="stack"
-                onChange={handleOptionsChange}
-              >
-                {stackOptions.map((option, idx) => (
-                  <option key={idx} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label>Level :</label>
-              <select
-                className="outline-none text-center"
-                value={stackInfo.level}
-                name="level"
-                onChange={handleOptionsChange}
-              >
-                {levelOptions.map((level, idx) => (
-                  <option key={idx} value={level}>
-                    {level}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <button
-              className="bg-soma-blue-40 text-white w-6 h-6 rounded-lg"
-              onClick={handleAddStackInfo}
+        <div className="flex items-center gap-5">
+          <div className="flex items-center bg-soma-grey-20 pl-2 gap-2 rounded-lg">
+            <label>Stack</label>
+            <select
+              className="outline-none text-center bg-soma-grey-30 rounded-lg p-1"
+              value={stackInfo.stack}
+              name="stack"
+              onChange={handleOptionsChange}
             >
-              +
-            </button>
+              {stackOptions.map((option, idx) => (
+                <option key={idx} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
           </div>
-
-          <ul className="flex gap-5">
-            {stackInfos.map((item, idx) => (
-              <div key={idx} className="flex gap-2">
-                <p>{item.stack} :</p>
-                <p>{item.level}</p>
-              </div>
-            ))}
-          </ul>
+          <div className="flex items-center bg-soma-grey-20 pl-2 gap-2 rounded-lg">
+            <label>Level</label>
+            <select
+              className="outline-none text-center bg-soma-grey-30 rounded-lg p-1"
+              value={stackInfo.level}
+              name="level"
+              onChange={handleOptionsChange}
+            >
+              {levelOptions.map((level, idx) => (
+                <option key={idx} value={level}>
+                  {level}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button
+            className="bg-soma-blue-40 text-white w-6 h-6 text-sm rounded-md"
+            onClick={handleAddStackInfo}
+          >
+            +
+          </button>
         </div>
+
+        <ul className="flex gap-2 overflow-x-auto h-6">
+          {stackInfos.map((item, idx) => (
+            <li
+              key={idx}
+              className="flex gap-2 items-center bg-soma-grey-20 px-2 rounded-lg"
+            >
+              <p className="text-soma-blue-40 font-semibold">{item.stack}</p>
+              <p className="text-soma-grey-60 font-medium">{item.level}</p>
+              <button
+                className="bg-soma-grey-40 text-white w-5 h-5 text-sm rounded-md"
+                onClick={() => handleDeleteStackInfo(item.stack)}
+              >
+                -
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div>
