@@ -4,11 +4,16 @@ import GuideEditor from '@/components/editor/components/GuideEditor';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import '@/styles/embla.css';
+import { useEffect } from 'react';
 
 const HIGHLIGHT_STYLE = 'text-soma-blue-40 font-bold';
 
 export default function GuidePage() {
-  const [emblaRef] = useEmblaCarousel({ loop: false }, [Autoplay()]);
+  const [emblaRef, embla] = useEmblaCarousel({ loop: false, watchDrag: false }, [Autoplay({playOnInit: false})]);
+
+  useEffect(() => {
+    embla?.plugins().autoplay?.play()
+  }, [embla])
 
   return (
     <div className="max-w-screen-lg m-auto">
