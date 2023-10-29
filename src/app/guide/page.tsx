@@ -8,7 +8,7 @@ import '@/styles/embla.css';
 const HIGHLIGHT_STYLE = 'text-soma-blue-40 font-bold';
 
 export default function GuidePage() {
-  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()]);
+  const [emblaRef] = useEmblaCarousel({ loop: false }, [Autoplay()]);
 
   return (
     <div className="max-w-screen-lg m-auto">
