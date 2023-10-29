@@ -2,14 +2,22 @@ import { ErrorResponse } from '@/types';
 import { CoverletterInfo } from '@/types/coverletter';
 
 export async function getCoverletterInfoByUserId(
-  userId: number
+  userId: number,
+  cookie?: string
 ): Promise<CoverletterInfo | ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users/profile/professional/${userId}`,
-    {
-      next: { revalidate: 0 },
-      credentials: 'include',
-    }
+    cookie
+      ? {
+          next: { revalidate: 0 },
+          headers: {
+            Cookie: `${cookie}`,
+          },
+        }
+      : {
+          next: { revalidate: 0 },
+          credentials: 'include',
+        }
   )
     .then((res) => res.json())
     .catch(console.error);
@@ -51,7 +59,9 @@ export async function updateCoverletter(
     .catch(console.error);
 }
 
-export async function setCoverletterVisibleMode(isVisible: boolean) {
+export async function setCoverletterVisibleMode(
+  isVisible: boolean
+): Promise<void | ErrorResponse> {
   const url = new URL(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users/profile/professional/visibility`
   );
@@ -63,6 +73,25 @@ export async function setCoverletterVisibleMode(isVisible: boolean) {
     method: 'POST',
     credentials: 'include',
   })
+    .then((res) => res.json())
+    .catch(console.error);
+}
+
+export async function getCoverletterVisibleMode(cookie?: string) {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users/profile/professional/visibility`,
+    cookie
+      ? {
+          next: { revalidate: 0 },
+          headers: {
+            Cookie: `${cookie}`,
+          },
+        }
+      : {
+          next: { revalidate: 0 },
+          credentials: 'include',
+        }
+  )
     .then((res) => res.json())
     .catch(console.error);
 }
