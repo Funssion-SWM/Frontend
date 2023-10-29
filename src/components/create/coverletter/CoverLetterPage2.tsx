@@ -1,27 +1,14 @@
 import MyEditor from '@/components/editor';
-import { useEditor } from '@tiptap/react';
 import { useEffect, useRef, useState } from 'react';
-import { handleTiptapExtensions } from '@/components/editor/extensions';
-import { handleTiptapEditorProps } from '@/components/editor/props';
 import BlueBtn from '@/components/shared/btn/BlueBtn';
+import { Editor } from '@tiptap/react';
 
 type Props = {
   onPrevBtnClick: () => void;
+  editor: Editor | null;
 };
 
-export default function CoverLetterPage2({ onPrevBtnClick }: Props) {
-  const [contents, setContents] = useState('');
-
-  const editor = useEditor({
-    extensions: handleTiptapExtensions('question', undefined),
-    editorProps: handleTiptapEditorProps('question', undefined),
-    autofocus: 'end',
-    onCreate: async (e) => {},
-    onUpdate: (e) => {
-      setContents(JSON.stringify(e.editor.getJSON()));
-    },
-  });
-
+export default function CoverLetterPage2({ onPrevBtnClick, editor }: Props) {
   const edirotRef = useRef<HTMLDivElement>(null);
   const [currentScrollHeight, setCurrentScrollHeight] = useState<number>(0);
   useEffect(() => {

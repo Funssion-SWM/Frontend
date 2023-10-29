@@ -5,21 +5,30 @@ import { notifyToast } from '@/service/notify';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import CoverLetterPage2 from './CoverLetterPage2';
+import { StackInfo } from '@/types/coverletter';
+import {
+  createCoverletter,
+  getCoverletterInfoByUserId,
+  updateCoverletter,
+} from '@/service/coverletter';
+import { useEditor } from '@tiptap/react';
+import { handleTiptapExtensions } from '@/components/editor/extensions';
+import { handleTiptapEditorProps } from '@/components/editor/props';
+import { useRouter } from 'next/navigation';
 
 const TITLE_STYLE = 'sm:text-lg font-semibold';
 
 const TEXTAREA_STYLE =
   'bg-soma-grey-20 w-full resize-none h-32 break-all p-4 outline-none rounded-xl';
 
-type StackInfo = {
-  stack: string;
-  level: number;
+type Props = {
+  userId: number;
 };
 
 const stackOptions = ['Java', 'JavaScript', 'Python', 'C', 'C++'];
 const levelOptions = [0, 1, 2, 3, 4, 5];
 
-export default function CoverLetterForm() {
+export default function CoverLetterForm({ userId }: Props) {
   const [stackInfos, setStackInfos] = useState<StackInfo[]>([]);
   const [stackInfo, setStackInfo] = useState<StackInfo>({
     stack: stackOptions[0],
@@ -30,6 +39,29 @@ export default function CoverLetterForm() {
   const [answer3, setAnswer3] = useState('');
 
   const [page, setPage] = useState(1);
+  const [isCreated, setIsCreated] = useState(true);
+  const router = useRouter();
+
+  const editor = useEditor({
+    extensions: handleTiptapExtensions('question', undefined),
+    editorProps: handleTiptapEditorProps('question', undefined),
+    autofocus: 'end',
+    onCreate: (e) => {
+      getCoverletterInfoByUserId(userId).then((res) => {
+        if ('code' in res) {
+          if (res.code === 404) setIsCreated(false);
+          notifyToast(res.message, 'error');
+          return;
+        }
+        const { answer1, answer2, answer3, techStack, resume } = res;
+        setAnswer1(answer1);
+        setAnswer2(answer2);
+        setAnswer3(answer3);
+        setStackInfos(JSON.parse(techStack));
+        e.editor.commands.setContent(JSON.parse(resume));
+      });
+    },
+  });
 
   const handleOptionsChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const { value, name } = e.target;
@@ -54,6 +86,29 @@ export default function CoverLetterForm() {
 
   const handleDeleteStackInfo = (stack: string) => {
     setStackInfos(stackInfos.filter((stackInfo) => stackInfo.stack !== stack));
+  };
+
+  const handleSave = () => {
+    const coverletterInfo = {
+      introduce: '',
+      techStack: JSON.stringify(stackInfos),
+      answer1,
+      answer2,
+      answer3,
+      resume: JSON.stringify(editor?.getJSON()),
+      description: '',
+    };
+    let fn = isCreated
+      ? updateCoverletter(coverletterInfo)
+      : createCoverletter(coverletterInfo);
+
+    fn.then((res) => {
+      if (res) {
+        notifyToast(res.message, 'error');
+        return;
+      }
+      router.push(`/me/${userId}`);
+    });
   };
 
   useEffect(() => {
@@ -220,7 +275,7 @@ export default function CoverLetterForm() {
       </div>
 
       <div className="flex justify-end mt-5 gap-2">
-        <BlueBtn text="저장" onClick={() => {}} />
+        <BlueBtn text="저장" onClick={handleSave} />
         <BlueBtn
           text="다음"
           onClick={() => {
@@ -230,6 +285,6 @@ export default function CoverLetterForm() {
       </div>
     </div>
   ) : (
-    <CoverLetterPage2 onPrevBtnClick={() => setPage(1)} />
+    <CoverLetterPage2 onPrevBtnClick={() => setPage(1)} editor={editor} />
   );
 }
