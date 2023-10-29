@@ -11,9 +11,9 @@ const HIGHLIGHT_STYLE = 'text-soma-blue-40 font-bold';
 export default function GuidePage() {
   const [emblaRef, embla] = useEmblaCarousel({ loop: false, watchDrag: false }, [Autoplay({playOnInit: true})]);
 
-  useEffect(() => {
-    embla?.plugins().autoplay?.play()
-  }, [embla])
+  // useEffect(() => {
+  //   embla?.plugins().autoplay?.play()
+  // }, [embla])
 
   return (
     <div className="max-w-screen-lg m-auto">
