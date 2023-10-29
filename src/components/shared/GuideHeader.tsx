@@ -4,20 +4,16 @@ import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import '@/styles/embla.css';
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 
 const HIGHLIGHT_STYLE = 'text-soma-blue-40 font-bold';
 
 export default function GuideHeader() {
   const [emblaRef, embla] = useEmblaCarousel({ loop: false, watchDrag: false }, [Autoplay({playOnInit: false})]);
-  const router = useRouter();
 
   useEffect(() => {
     if (embla)
-      embla?.plugins().autoplay?.play();
-    else 
-      router.refresh();
-  }, [embla])
+      embla.plugins().autoplay?.play();
+  }, [embla, embla?.plugins().autoplay])
 
   return (
     <div
