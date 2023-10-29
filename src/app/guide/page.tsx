@@ -1,5 +1,5 @@
-import GuideEditor from '@/components/editor/components/GuideEditor';
-import GuideHeader from '@/components/shared/GuideHeader';
+import GuideEditor from "@/components/guide/GuideEditor";
+import GuideHeader from "@/components/guide/GuideHeader";
 
 export default function GuidePage() {
   return (

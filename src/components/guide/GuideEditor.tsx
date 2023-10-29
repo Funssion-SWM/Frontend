@@ -5,7 +5,7 @@ import MyEditor from '@/components/editor';
 import { useEditor } from '@tiptap/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import BlueBtn from '../../shared/btn/BlueBtn';
+import BlueBtn from '../shared/btn/BlueBtn';
 import { createOrUpdateMemo, getMemoById } from '@/service/memos';
 import { getPrevText } from '@/lib/editor';
 import { useCompletion } from 'ai/react';
