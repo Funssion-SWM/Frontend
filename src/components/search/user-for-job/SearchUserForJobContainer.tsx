@@ -1,12 +1,12 @@
 'use client';
 
 import { DevelopmentArea } from '@/types/coverletter';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import SelectStacksContainer from './SelectStacksContainer';
 import SelectDevelopmentAreaContainer from './SelectDevelopmentAreaContainer';
 import { notifyToast } from '@/service/notify';
 import { ModalContext } from '@/context/ModalProvider';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import UserListContainer from './UserListContainer';
 
 export default function SearchUserForJobContainer() {
@@ -17,10 +17,17 @@ export default function SearchUserForJobContainer() {
 
   const { open } = useContext(ModalContext);
   const router = useRouter();
+  const pageNum = useSearchParams()?.get('page');
+
+  useEffect(() => {
+    if (pageNum) {
+      setPage(Number(pageNum));
+    }
+  }, [pageNum]);
 
   const handleDevelopmentAreaClick = (item: DevelopmentArea) => {
     setSelectedDevelopmentArea(item);
-    setPage((prePage) => prePage + 1);
+    router.push(`/search/user-for-job?page=2`);
   };
 
   const handleStackClick = (item: string) => {
@@ -39,10 +46,7 @@ export default function SearchUserForJobContainer() {
       notifyToast('기술 스택을 한 가지 이상 선택해주세요.', 'warning');
       return;
     }
-
-    setPage((prePage) => prePage + 1);
-    console.log(selectedDevelopmentArea);
-    console.log(selectedStacks);
+    router.push(`/search/user-for-job?page=3`);
   };
 
   return (
