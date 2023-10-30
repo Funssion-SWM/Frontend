@@ -7,11 +7,7 @@ import SelectDevelopmentAreaContainer from './SelectDevelopmentAreaContainer';
 import { notifyToast } from '@/service/notify';
 import { ModalContext } from '@/context/ModalProvider';
 import { useRouter } from 'next/navigation';
-
-const titles = [
-  '원하는 주요 분야를 선택해주세요',
-  '원하는 기술 스택 최대 3가지를 선택해주세요',
-];
+import UserListContainer from './UserListContainer';
 
 export default function SearchUserForJobContainer() {
   const [page, setPage] = useState(1);
@@ -65,7 +61,12 @@ export default function SearchUserForJobContainer() {
               onBtnClick={handleBtnClick}
             />
           ),
-          3: <div>리스트 보여줄꺼야</div>,
+          3: (
+            <UserListContainer
+              selectedDevelopmentArea={selectedDevelopmentArea}
+              selectedStacks={selectedStacks}
+            />
+          ),
         }[page]
       }
       <button
