@@ -17,6 +17,7 @@ import { handleTiptapEditorProps } from '@/components/editor/props';
 import { useRouter } from 'next/navigation';
 import { useCompletion } from 'ai/react';
 import { RingLoader } from 'react-spinners';
+import { developmentAreaOptions, stackOptions } from '@/utils/const';
 
 const TITLE_STYLE = 'sm:text-xl font-semibold';
 
@@ -27,33 +28,6 @@ type Props = {
   userId: number;
 };
 
-const developmentAreaOptions: DevelopmentArea[] = [
-  'Frontend',
-  'Backend',
-  'AI',
-  'DevOps',
-];
-const stackOptions = [
-  'Java',
-  'JavaScript',
-  'Spring,',
-  'Spring Boot',
-  'jQuery',
-  'TypeScript',
-  'React',
-  'Vue.js',
-  'Next.js',
-  'Node.js',
-  'Python',
-  'C',
-  'C++',
-  'C#',
-  'PHP',
-  'Kotlin',
-  'Swift',
-  'React Native',
-  'Flutter',
-];
 const levelOptions = [0, 1, 2, 3, 4, 5];
 
 export default function CoverLetterForm({ userId }: Props) {
