@@ -14,8 +14,8 @@ import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 
 export const metadata: Metadata = {
-  title: 'Inforum - Memos',
-  description: 'Inforum Memos 페이지입니다.',
+  title: '인포럼 - Memos',
+  description: '인포럼 Memos 페이지입니다.',
   keywords: ['inforum', '인포럼', 'memo', '메모', '블로그', 'blog'],
 };
 

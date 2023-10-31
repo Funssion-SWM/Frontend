@@ -9,8 +9,8 @@ import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 
 export const metadata: Metadata = {
-  title: 'Inforum - Series',
-  description: 'Inforum Series 페이지입니다.',
+  title: '인포럼 - Series',
+  description: '인포럼 Series 페이지입니다.',
   keywords: ['inforum', '인포럼', '시리즈', 'series', '블로그', 'blog'],
 };
 
@@ -21,7 +21,7 @@ export default async function SeriesPage() {
 
   const seriesData = getSeriesArray('month', 'new');
   const myData = checkUser(cookie);
-  
+
   let [seriesArray, { id, isLogin }] = await Promise.all([seriesData, myData]);
 
   if ('code' in seriesArray) {
@@ -33,9 +33,7 @@ export default async function SeriesPage() {
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
 
-  const notifications = isLogin
-    ? await getNotificationsTop30(cookie)
-    : [];
+  const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
 
   return (
     <section>

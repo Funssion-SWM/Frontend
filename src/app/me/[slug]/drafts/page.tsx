@@ -48,6 +48,6 @@ export default async function MeDraftPage({ params: { slug } }: Props) {
 }
 
 export const metadata: Metadata = {
-  title: '임시 글 목록 - Inforum',
+  title: '임시 글 목록 - 인포럼',
   description: '임시 글들이 저장되어있습니다.',
 };
