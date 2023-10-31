@@ -4,8 +4,8 @@ import FindPasswordForm from '@/components/find/FindPasswordForm';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Inforum - Find Password',
-  description: 'Inforum Find Password 페이지입니다.',
+  title: '인포럼 - Find Password',
+  description: '인포럼 Find Password 페이지입니다.',
 };
 
 export default function FindPasswordPage() {

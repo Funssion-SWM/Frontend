@@ -5,8 +5,8 @@ import fs from 'fs';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Inforum - 이용약관',
-  description: 'Inforum 이용약관 페이지입니다.',
+  title: '인포럼 - 이용약관',
+  description: '인포럼 이용약관 페이지입니다.',
 };
 
 export default function AgreementPage() {
