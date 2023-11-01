@@ -1,5 +1,6 @@
 import { ErrorResponse } from '@/types';
 import { CoverletterInfo } from '@/types/coverletter';
+import { PostImageResponse } from '@/types/image';
 
 export async function getCoverletterInfoByUserId(
   userId: number,
@@ -93,5 +94,27 @@ export async function getCoverletterVisibleMode(cookie?: string) {
         }
   )
     .then((res) => res.json())
+    .catch(console.error);
+}
+
+export async function postImageInCoverletter(
+  image: File
+): Promise<PostImageResponse | ErrorResponse> {
+  const formdata = new FormData();
+  formdata.append('image', image);
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/profile/professional/resume/image`,
+    {
+      method: 'POST',
+      body: formdata,
+      credentials: 'include',
+    }
+  )
+    .then((res) => {
+      if (res.status === 413) {
+        return { code: 413, message: '이미지 크기가 10MB를 초과하였습니다.' };
+      }
+      return res.json();
+    })
     .catch(console.error);
 }

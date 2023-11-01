@@ -48,8 +48,8 @@ export default function CoverLetterForm({ userId }: Props) {
   const router = useRouter();
 
   const editor = useEditor({
-    extensions: handleTiptapExtensions('question', undefined),
-    editorProps: handleTiptapEditorProps('question', undefined),
+    extensions: handleTiptapExtensions('coverletter', userId),
+    editorProps: handleTiptapEditorProps('coverletter', userId),
     autofocus: 'end',
     onCreate: (e) => {
       getCoverletterInfoByUserId(userId).then((res) => {
