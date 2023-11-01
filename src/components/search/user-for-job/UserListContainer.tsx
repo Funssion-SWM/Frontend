@@ -50,12 +50,15 @@ export default function UserListContainer({
   const [userList, setUserList] = useState<UserForJobInfo[]>([]);
 
   useEffect(() => {
+    console.log(selectedStacks);
     getUserForJobInfos(selectedDevelopmentArea, selectedStacks).then((res) => {
+      console.log(res);
       if ('code' in res) {
         notifyToast(res.message, 'error');
         return;
       }
       setUserList(res);
+      console.log(res);
     });
   }, []);
 
@@ -63,7 +66,7 @@ export default function UserListContainer({
     <section className="w-full">
       <div className={`sm:text-4xl text-lg font-bold`}>User List</div>
       <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {dummyData.map((userForJobInfo) => {
+        {userList.map((userForJobInfo) => {
           return (
             <li key={userForJobInfo.id}>
               <UserCard userForJobInfo={userForJobInfo} />

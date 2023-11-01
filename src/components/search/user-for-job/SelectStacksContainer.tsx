@@ -33,11 +33,7 @@ export default function SelectStacksContainer({
       <div className={`sm:text-4xl text-lg font-bold`}>
         원하는 기술 스택 최대 3가지를 선택해주세요
       </div>
-      <ul
-        className={`flex flex-wrap justify-center gap-10 ${
-          true ? 'opacity-100' : 'opacity-0 invisible'
-        }  duration-1000 ease-in-out`}
-      >
+      <ul className={`flex flex-wrap justify-center gap-10`}>
         {stackOptions.map((item, idx) => {
           return (
             <li

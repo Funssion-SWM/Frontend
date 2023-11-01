@@ -4,19 +4,31 @@ import { UserForJobInfo } from '@/types/userForJob';
 
 export async function getUserForJobInfos(
   developmentArea: DevelopmentArea | null,
-  techStack: string[]
+  techStacks: string[]
 ): Promise<UserForJobInfo[] | ErrorResponse> {
   const url = new URL(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users/profile`
   );
-  const params = {
-    developmentArea: developmentArea ?? '',
-    techStack: techStack.toString(),
+  const techStackDto = {
+    developmentArea,
+    techStacks,
   };
-  url.search = new URLSearchParams(params).toString();
-  return fetch(url, { next: { revalidate: 0 } })
+  // const params = {
+  //   techStackDto: techStackDto.toString(),
+  // };
+  // url.search = new URLSearchParams(params).toString();
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    next: { revalidate: 0 },
+    credentials: 'include',
+    body: JSON.stringify(techStackDto),
+  })
     .then((res) => {
-      if (res.status === 500) throw new Error('getUserForJobInfos 500에러');
+      // if (res.status === 500) throw new Error('getUserForJobInfos 500에러');
+      console.log(res);
       return res.json();
     })
     .catch(console.error);

@@ -3,6 +3,7 @@ import { UserForJobInfo } from '@/types/userForJob';
 import Image from 'next/image';
 import Link from 'next/link';
 import basicProfileImg from '@/assets/profile.svg';
+import { StackInfo } from '@/types/coverletter';
 
 type Props = {
   userForJobInfo: UserForJobInfo;
@@ -11,7 +12,8 @@ type Props = {
 export default function UserCard({ userForJobInfo }: Props) {
   const { introduce, name, rank, imagePath, developmentArea, techStack } =
     userForJobInfo;
-  const exampleStack = ['react', 'javascript', 'typescript'];
+
+  const parsingTechStacks: StackInfo[] = JSON.parse(techStack);
   return (
     <div className="flex flex-col justify-between relative rounded-md shadow-md aspect-square">
       <div className="flex justify-between px-3 pt-3">
@@ -33,29 +35,27 @@ export default function UserCard({ userForJobInfo }: Props) {
       </div>
       <div className="flex flex-col gap-3 items-center px-3">
         <div className="font-semibold text-soma-blue-50">{developmentArea}</div>
-        <ul className="flex gap-3">
-          {exampleStack.map((stack, idx) => {
+        <ul className="flex gap-3 overflow-x-auto w-full justify-center">
+          {parsingTechStacks.map((item, idx) => {
             return (
               <li
                 key={idx}
                 className="text-sm font-medium text-soma-blue-40 bg-white border-[1px] border-soma-grey-40 rounded-2xl px-2 py-1"
               >
-                {stack}
+                {item.stack}
               </li>
             );
           })}
         </ul>
         <p className="text-soma-grey-70 font-semibold line-clamp-3 break-all h-20">
-          안녕하세요. 꾸준한 개발자 동그리입니다. 안녕하세요. 꾸준한 개발자
-          동그리입니다. 안녕하세
           {introduce}
         </p>
       </div>
       <div className="flex">
-        <button className="flex-1 bg-soma-blue-40 text-white font-semibold py-2 hover:brightness-75 transition-all">
+        <button className="flex-1 bg-soma-blue-40 text-white font-semibold py-2 hover:brightness-75 transition-all rounded-bl-md">
           자소서 보기
         </button>
-        <button className="flex-1 bg-white text-soma-blue-40 font-semibold py-2 hover:brightness-75 transition-all">
+        <button className="flex-1 bg-white text-soma-blue-40 font-semibold py-2 hover:brightness-75 transition-all rounded-br-md">
           미니면접보기
         </button>
       </div>

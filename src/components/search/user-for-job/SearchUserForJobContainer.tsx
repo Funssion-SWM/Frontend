@@ -77,7 +77,7 @@ export default function SearchUserForJobContainer() {
         className="absolute top-5 right-5 text-soma-grey-49"
         onClick={() => {
           open('나가시겠습니까?', () => {
-            router.back();
+            router.push('/series');
           });
         }}
       >
