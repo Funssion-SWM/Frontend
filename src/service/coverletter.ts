@@ -1,5 +1,5 @@
 import { ErrorResponse } from '@/types';
-import { CoverletterInfo } from '@/types/coverletter';
+import { CoverletterInfo, SetCoverletterRequest } from '@/types/coverletter';
 import { PostImageResponse } from '@/types/image';
 
 export async function getCoverletterInfoByUserId(
@@ -25,7 +25,7 @@ export async function getCoverletterInfoByUserId(
 }
 
 export async function createCoverletter(
-  coverletterInfo: CoverletterInfo
+  coverletterInfo: SetCoverletterRequest
 ): Promise<void | ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users/profile/professional`,
@@ -43,7 +43,7 @@ export async function createCoverletter(
 }
 
 export async function updateCoverletter(
-  coverletterInfo: CoverletterInfo
+  coverletterInfo: SetCoverletterRequest
 ): Promise<void | ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/users/profile/professional`,

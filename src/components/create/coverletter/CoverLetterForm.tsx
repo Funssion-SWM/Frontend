@@ -119,7 +119,6 @@ export default function CoverLetterForm({ userId }: Props) {
       answer2,
       answer3,
       resume: JSON.stringify(editor?.getJSON()),
-      description: '',
     };
     let fn = isCreated
       ? updateCoverletter(coverletterInfo)
