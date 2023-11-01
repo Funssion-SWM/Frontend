@@ -10,7 +10,7 @@ type Props = {
 };
 
 export default function UserCard({ userForJobInfo }: Props) {
-  const { introduce, name, rank, imagePath, developmentArea, techStack } =
+  const { id, introduce, name, rank, imagePath, developmentArea, techStack } =
     userForJobInfo;
 
   const parsingTechStacks: StackInfo[] = JSON.parse(techStack);
@@ -52,9 +52,14 @@ export default function UserCard({ userForJobInfo }: Props) {
         </p>
       </div>
       <div className="flex">
-        <button className="flex-1 bg-soma-blue-40 text-white font-semibold py-2 hover:brightness-75 transition-all rounded-bl-md">
+        <a
+          href={`/coverletter/${id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-center flex-1 bg-soma-blue-40 text-white font-semibold py-2 hover:brightness-75 transition-all rounded-bl-md"
+        >
           자소서 보기
-        </button>
+        </a>
         <button className="flex-1 bg-white text-soma-blue-40 font-semibold py-2 hover:brightness-75 transition-all rounded-br-md">
           미니면접보기
         </button>
