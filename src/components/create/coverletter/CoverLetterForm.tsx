@@ -374,7 +374,11 @@ export default function CoverLetterForm({ userId }: Props) {
           </div>
         </div>
       ) : (
-        <CoverLetterPage2 onPrevBtnClick={() => setPage(1)} editor={editor} />
+        <CoverLetterPage2
+          onPrevBtnClick={() => setPage(1)}
+          onSaveBtnClick={handleSave}
+          editor={editor}
+        />
       )}
       {/* {descriptionAI.isLoading && (
         <div className="fixed top-0 left-0 w-screen h-screen flex flex-col justify-center items-center bg-white opacity-90">

@@ -5,10 +5,15 @@ import { Editor } from '@tiptap/react';
 
 type Props = {
   onPrevBtnClick: () => void;
+  onSaveBtnClick: () => void;
   editor: Editor | null;
 };
 
-export default function CoverLetterPage2({ onPrevBtnClick, editor }: Props) {
+export default function CoverLetterPage2({
+  onPrevBtnClick,
+  onSaveBtnClick,
+  editor,
+}: Props) {
   const edirotRef = useRef<HTMLDivElement>(null);
   const [currentScrollHeight, setCurrentScrollHeight] = useState<number>(0);
   useEffect(() => {
@@ -36,7 +41,7 @@ export default function CoverLetterPage2({ onPrevBtnClick, editor }: Props) {
         </div>
       </div>
       <div className="flex justify-end mt-5 gap-2">
-        <BlueBtn text="저장" onClick={() => {}} />
+        <BlueBtn text="저장" onClick={onSaveBtnClick} />
         <BlueBtn text="이전" onClick={onPrevBtnClick} />
       </div>
     </div>
