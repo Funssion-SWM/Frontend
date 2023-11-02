@@ -1,9 +1,11 @@
+import { postAnswer } from '@/service/mini-interview';
 import { useEffect, useState } from 'react';
 
 type Props = {
   question: string;
   questionNum: number;
   next: () => void;
+  employerId: number;
 };
 
 const INITIAL_SECOND = 60;
@@ -12,6 +14,7 @@ export default function MiniInterviewQuestionContainer({
   question,
   questionNum,
   next,
+  employerId,
 }: Props) {
   const [answer, setAnswer] = useState('');
   const [second, setSecond] = useState(INITIAL_SECOND);
@@ -40,10 +43,13 @@ export default function MiniInterviewQuestionContainer({
   const handleSubmit = () => {
     switch (questionNum) {
       case 1:
+        postAnswer(employerId, 1, answer);
         break;
       case 2:
+        postAnswer(employerId, 2, answer);
         break;
       case 3:
+        postAnswer(employerId, 3, answer);
         break;
       default:
         throw new Error('알맞은 question num이 아님');

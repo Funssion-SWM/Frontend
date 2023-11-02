@@ -1,8 +1,8 @@
 type Props = {
-  next: () => void;
+  onStart: () => void;
 };
 
-export default function MiniInterviewReadyContainer({ next }: Props) {
+export default function MiniInterviewReadyContainer({ onStart }: Props) {
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-10">
       <div className="text-3xl sm:text-5xl font-bold">인프랩 - 미니 인터뷰</div>
@@ -13,7 +13,7 @@ export default function MiniInterviewReadyContainer({ next }: Props) {
       </div>
       <button
         className="bg-soma-blue-40 text-white px-4 py-2 text-xl sm:text-2xl rounded-2xl hover:brightness-90 transition-all"
-        onClick={() => next()}
+        onClick={onStart}
       >
         시작하기
       </button>
