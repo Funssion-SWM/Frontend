@@ -1,8 +1,16 @@
-export type SignUpData = {
+export type UserSignUpData = {
   user_name: string;
   login_type: number;
   user_email: string;
   user_pw: string;
+};
+
+export type EmployerSignUpData = {
+  user_name: string;
+  login_type: number;
+  user_email: string;
+  user_pw: string;
+  companyName: string;
 };
 
 export type LoginData = {
@@ -10,12 +18,21 @@ export type LoginData = {
   user_pw: string;
 };
 
-export type SignupFormData = {
+export type UserSignupFormData = {
   email: string;
   authCode: string;
   pw: string;
   confirmPw: string;
   nickname: string;
+};
+
+export type EmployerSignupFormData = {
+  email: string;
+  authCode: string;
+  pw: string;
+  confirmPw: string;
+  nickname: string;
+  company: string;
 };
 
 export type LoginFormData = {
@@ -51,6 +68,7 @@ export type SignupResponse = {
   loginType: string;
   createdDate: string;
   email: string;
+  role: string;
 };
 
 export type UserInfo = {
@@ -93,6 +111,8 @@ export type PostType = 'memo' | 'question' | 'answer';
 export type ButtonSize = 'small' | 'medium' | 'big';
 
 export type ModalType = 'alert' | 'info';
+
+export type UserType = 'user' | 'employeer' | 'admin';
 
 export type FindEmailResponse = {
   email: string;

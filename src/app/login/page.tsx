@@ -29,10 +29,21 @@ export default function LoginPage() {
             계정이 없으신가요?
           </p>
           <Link
-            href="/signup"
-            className="self-end my-2 font-semibold text-soma-blue-50 text-sm sm:text-base"
+            href="/signup?login-type=user"
+            className="self-end font-semibold text-soma-blue-50 text-sm sm:text-base"
           >
             회원가입하기
+          </Link>
+        </div>
+        <div className="flex items-center mb-3">
+          <p className="text-soma-grey-50 mr-3 text-xs sm:text-sm">
+            채용 서비스를 이용하러 오셨나요?
+          </p>
+          <Link
+            href="/signup?login-type=employeer"
+            className="self-end my-2 font-semibold text-soma-blue-50 text-sm sm:text-base"
+          >
+            시작하기
           </Link>
         </div>
         <div className="flex text-soma-grey-50 text-xs sm:text-sm gap-2">

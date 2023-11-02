@@ -5,10 +5,11 @@ import {
   checkEmailAndSendCode,
   checkNickname,
   confirmCode,
-  signUp,
+  employerSignUp,
+  userSignUp,
 } from '@/service/auth';
 import { useRouter } from 'next/navigation';
-import { SignupFormData } from '@/types';
+import { EmployerSignupFormData, UserSignupFormData, UserType } from '@/types';
 import BlueBtn from '../shared/btn/BlueBtn';
 import IsValidBtn from '../shared/btn/IsValidBtn';
 import {
@@ -20,22 +21,34 @@ import { BASIC_INPUT_STYLE } from '@/utils/tailwindcss';
 import { notifyToast } from '@/service/notify';
 import Link from 'next/link';
 
-export default function SignupForm() {
+type Props = {
+  loginType: UserType;
+}
+
+export default function SignupForm({ loginType }:Props) {
   const router = useRouter();
-  const [signupData, setSignupData] = useState<SignupFormData>({
+  const [signupData, setSignupData] = 
+  loginType === 'user' ? useState<UserSignupFormData>({
     email: '',
     authCode: '',
     pw: '',
     confirmPw: '',
     nickname: '',
-  });
+  }) : useState<EmployerSignupFormData>({
+    email: '',
+    authCode: '',
+    pw: '',
+    confirmPw: '',
+    nickname: '',
+    company: ''
+  })
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidCode, setIsValidCode] = useState(false);
   const [isValidNickname, setIsValidNickname] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
-    setSignupData((info) => ({ ...info, [name]: value }));
+    setSignupData((info: any) => ({ ...info, [name]: value }));
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -65,12 +78,18 @@ export default function SignupForm() {
       return;
     }
 
-    signUp({
+    loginType === 'user' ? userSignUp({
       user_name: signupData.nickname,
       login_type: 0,
       user_email: signupData.email,
       user_pw: signupData.pw,
-    }).then((data) => router.push(`/signup/setting/${data.id}`));
+    }).then((data) => router.push(`/signup/setting/${data.id}?type=${data.role}`)) : employerSignUp({
+      user_name: signupData.nickname,
+      login_type: 0,
+      user_email: signupData.email,
+      user_pw: signupData.pw,
+      companyName: (signupData as EmployerSignupFormData).company,
+    }).then((data) => router.push(`/signup/setting/${data.id}?type=${data.role}`))
   };
 
   const handleIsValidEmail = () => {
@@ -194,6 +213,25 @@ export default function SignupForm() {
           />
         </div>
       </div>
+      {
+        loginType === 'employeer' && (
+          <div className="flex flex-col  my-1">
+            <label htmlFor="company" className="text-xs sm:text-sm">
+              회사명
+            </label>
+            <input
+              className={BASIC_INPUT_STYLE}
+              type="text"
+              id="company"
+              name="company"
+              value={(signupData as EmployerSignupFormData).company}
+              onChange={handleChange}
+              required
+              placeholder="귀하의 현재 직장의 이름을 입력해 주세요."
+            />
+          </div>
+        )
+      }
       <div className="flex flex-col  my-1">
         <label htmlFor="pw" className="text-xs sm:text-sm">
           비밀번호
