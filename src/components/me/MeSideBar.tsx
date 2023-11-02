@@ -5,6 +5,7 @@ import Setting from './Setting';
 import { RankInfo, Stats } from '@/types/rank';
 import ScoreDetailProvider from '@/context/ScoreDetailProvider';
 import ScoreDetailModal from './ScoreDetailModal';
+import CoverLetterOpenToggle from './CoverLetterOpenToggle';
 
 type Props = {
   userInfo: UserInfo;
@@ -15,6 +16,8 @@ type Props = {
   userRankInfo: RankInfo;
   userStats: Stats;
   dailyScore: number;
+  isCoverletterCreated: boolean;
+  coverletterIsVisible: boolean;
 };
 
 export default function MeSideBar({
@@ -26,6 +29,8 @@ export default function MeSideBar({
   userRankInfo,
   userStats,
   dailyScore,
+  isCoverletterCreated,
+  coverletterIsVisible,
 }: Props) {
   return (
     <section className="flex flex-col items-center w-full sm:w-[350px] sm:min-h-screen p-6 bg-soma-grey-20">
@@ -42,6 +47,9 @@ export default function MeSideBar({
       </ScoreDetailProvider>
       <History history={history} userId={userId} />
       {myId === Number(userId) && <Setting myId={myId} />}
+      {myId === Number(userId) && isCoverletterCreated && (
+        <CoverLetterOpenToggle coverletterIsVisible={coverletterIsVisible} />
+      )}
     </section>
   );
 }

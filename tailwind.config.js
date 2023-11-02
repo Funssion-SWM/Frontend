@@ -94,6 +94,7 @@ module.exports = {
       },
       minHeight: {
         'for-fit-screen': 'calc(100vh - 120px)',
+        'screen-150px': 'calc(100vh - 150px)',
       },
       maxHeight: {
         'for-fit-screen': 'calc(100vh - 120px)',

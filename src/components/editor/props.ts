@@ -2,7 +2,7 @@ import { EditorProps } from '@tiptap/pm/view';
 import { startImageUpload } from './plugins/upload-images';
 
 export function handleTiptapEditorProps(
-  type: 'memo' | 'question' | 'answer' | 'guide',
+  type: 'memo' | 'question' | 'answer' | 'guide' | 'coverletter',
   postId: number | undefined,
   callback?: () => Promise<number>,
   routingCallback?: (id: number) => void

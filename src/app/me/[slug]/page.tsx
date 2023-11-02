@@ -18,6 +18,10 @@ import FollowListModalProvider from '@/context/FollowListModalProvider';
 import FollowListModal from '@/components/me/FollowListModal';
 import { getNotificationsTop30 } from '@/service/notification';
 import { getScoreInfoByUserId } from '@/service/rank';
+import {
+  getCoverletterInfoByUserId,
+  getCoverletterVisibleMode,
+} from '@/service/coverletter';
 
 type Props = {
   params: {
@@ -46,6 +50,7 @@ export default async function MePage({ params: { slug } }: Props) {
   const userRankData = getRankInfoByUserId(userId);
   const userStatsData = getStatsByUserId(userId);
   const userScoreData = getScoreInfoByUserId(userId);
+  const coverletterVisibleModeData = getCoverletterVisibleMode();
 
   const [
     memos,
@@ -58,6 +63,7 @@ export default async function MePage({ params: { slug } }: Props) {
     userRankInfo,
     userStats,
     { dailyScore },
+    coverletterIsVisible,
   ] = await Promise.all([
     memosData,
     userData,
@@ -69,11 +75,21 @@ export default async function MePage({ params: { slug } }: Props) {
     userRankData,
     userStatsData,
     userScoreData,
+    coverletterVisibleModeData,
   ]);
 
   const myUserInfo = await getUserInfo(id);
 
   const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
+
+  const isCoverletterCreated = await getCoverletterInfoByUserId(userId).then(
+    (res) => {
+      if ('code' in res) {
+        return false;
+      }
+      return true;
+    }
+  );
 
   return (
     <section>
@@ -97,6 +113,8 @@ export default async function MePage({ params: { slug } }: Props) {
               userRankInfo={userRankInfo}
               userStats={userStats}
               dailyScore={dailyScore}
+              isCoverletterCreated={isCoverletterCreated}
+              coverletterIsVisible={coverletterIsVisible}
             />
             <FollowListModal isMine={id === userId} />
           </FollowListModalProvider>
