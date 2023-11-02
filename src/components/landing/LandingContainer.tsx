@@ -12,10 +12,12 @@ import speechBubble from '@/assets/icons/speech_bubble.svg';
 import Footer from '@/components/shared/Footer';
 import down from '@/assets/icons/down.svg';
 import { MAIN_PATH } from '@/utils/const';
+import { useRouter } from 'next/navigation';
 
 export default function LandingContainer() {
   const [readyState, setReadyState] = useState(false);
   const firstScreenRef = useRef<null | HTMLDivElement>(null);
+  const router = useRouter();
 
   return (
     <div className="snap-y snap-mandatory overflow-y-scroll h-screen">
@@ -48,11 +50,16 @@ export default function LandingContainer() {
             <br />
             블럭 기반 에디터를 활용해 개발 기록을 간편하게 작성해보세요
           </p>
-          <Link href={MAIN_PATH}>
+          <button
+            onClick={() => {
+              router.push(MAIN_PATH);
+              router.refresh();
+            }}
+          >
             <button className="bg-soma-blue-40 w-72 h-16 shadow-2xl text-white px-3.5 py-2 rounded-3xl transition hover:bg-soma-blue-50 sm:text-2xl">
               시작하기
             </button>
-          </Link>
+          </button>
         </div>
         <Image
           src={down}
@@ -123,11 +130,16 @@ export default function LandingContainer() {
           <br />
           긍정적인 개발공간을 만들어보세요.
         </p>
-        <Link href={MAIN_PATH}>
+        <button
+          onClick={() => {
+            router.push('/guide');
+            router.refresh();
+          }}
+        >
           <button className="bg-soma-blue-40 w-72 h-16 shadow-2xl text-white px-3.5 py-2 rounded-3xl transition hover:bg-soma-blue-50 sm:text-2xl">
             시작하기
           </button>
-        </Link>
+        </button>
       </div>
 
       <Footer extraClass="w-full sm:snap-always sm:snap-end bg-white" />

@@ -5,8 +5,8 @@ import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Inforum - 개인정보처리방침',
-  description: 'Inforum 개인정보처리방침 페이지입니다.',
+  title: '인포럼 - 개인정보처리방침',
+  description: '인포럼 개인정보처리방침 페이지입니다.',
 };
 
 export default async function PrivacyPolicyPage() {

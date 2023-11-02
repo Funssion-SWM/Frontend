@@ -140,7 +140,7 @@ export async function generateMetadata({ params }: Props) {
   const { nickname } = await getUserInfo(userId);
 
   return {
-    title: `${nickname} - Inforum`,
+    title: `${nickname} - 인포럼`,
     description: `${nickname}의 마이페이지입니다.`,
   };
 }

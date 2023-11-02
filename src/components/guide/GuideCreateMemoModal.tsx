@@ -1,34 +1,21 @@
 import CloseIcon from '@/components/search/CloseIcon';
 import Tag from '@/components/shared/Tag';
 import BlueBtn from '@/components/shared/btn/BlueBtn';
-import { getSeriesByUserId } from '@/service/me';
-import { getMemoById } from '@/service/memos';
-import { notifyToast } from '@/service/notify';
 import { hasSpecialChar } from '@/service/validation';
-import { Series } from '@/types/series';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type Props = {
   onClose: () => void;
-  onCreateBtnClick: (
-    description: string,
-    seriesId: number | null,
-    seriesTitle: string | null,
-    tags: string[]
-  ) => void;
-  userId: number;
+  onCreateBtnClick: () => void;
   description: string;
   tags: string;
-  memoId: number;
 };
 
-export default function CreateMemoModal({
+export default function GuideCreateMemoModal({
   onClose,
   onCreateBtnClick,
-  userId,
   description,
   tags,
-  memoId,
 }: Props) {
   const [inputTag, setInputTag] = useState<string>('');
   const [currentTags, setCurrentTags] = useState<string[]>(
@@ -36,21 +23,6 @@ export default function CreateMemoModal({
   );
   const [currentDescription, setCurrentDescription] =
     useState<string>(description);
-  const [seriesArr, setSeriesArr] = useState<Series[]>([]);
-  const [selectedSeriesId, setSelectedSeriesId] = useState<number | null>(null);
-  const [selectedSeriesTitle, setSelectedSeriesTitle] = useState<string | null>(
-    null
-  );
-
-  useEffect(() => {
-    getSeriesByUserId(userId, 0, 20).then((seriesArr) =>
-      setSeriesArr(seriesArr)
-    );
-    getMemoById(memoId).then((memo) => {
-      setSelectedSeriesId(memo.seriesId);
-      setSelectedSeriesTitle(memo.seriesTitle);
-    });
-  }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.nativeEvent.isComposing) return;
@@ -90,37 +62,9 @@ sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 mt-10 sm:mt-0 sm:-transl
           </div>
           <div className=" flex flex-col w-full">
             <p className="font-semibold text-xl my-2">Series에 추가</p>
-            {seriesArr.length === 0 ? (
-              <div className="flex justify-center items-center h-60">
-                <p className="text-soma-grey-49 text-sm">
-                  series가 없습니다...
-                </p>
-              </div>
-            ) : (
-              <ul className="flex flex-col gap-2 h-60 overflow-y-auto ">
-                {seriesArr.map((item) => (
-                  <li
-                    key={item.id}
-                    className={`py-1 px-2 cursor-pointer line-clamp-1 break-all rounded-lg hover:bg-soma-blue-40 hover:text-white transition-all ${
-                      item.id === selectedSeriesId
-                        ? 'bg-soma-blue-40 text-white'
-                        : 'bg-soma-grey-20'
-                    }`}
-                    onClick={() => {
-                      if (item.id === selectedSeriesId) {
-                        setSelectedSeriesId(null);
-                        setSelectedSeriesTitle(null);
-                      } else {
-                        setSelectedSeriesId(item.id);
-                        setSelectedSeriesTitle(item.title);
-                      }
-                    }}
-                  >
-                    <p>{item.title}</p>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <div className="flex justify-center items-center h-60">
+              <p className="text-soma-grey-49 text-sm">series가 없습니다...</p>
+            </div>
           </div>
         </div>
         <div className="flex flex-col">
@@ -139,7 +83,7 @@ sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 mt-10 sm:mt-0 sm:-transl
             ))}
             <input
               type="text"
-              placeholder="태그를 입력 후 엔터를 눌러주세요."
+              placeholder="원하는 태그를 입력 후 엔터를 눌러주세요."
               name="tag"
               value={inputTag}
               onChange={(e) => setInputTag(e.target.value)}
@@ -149,15 +93,8 @@ sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 mt-10 sm:mt-0 sm:-transl
           </div>
         </div>
         <BlueBtn
-          text="등록"
-          onClick={() => {
-            onCreateBtnClick(
-              description,
-              selectedSeriesId,
-              selectedSeriesTitle,
-              currentTags
-            );
-          }}
+          text="메모 작성하러 가기"
+          onClick={() => onCreateBtnClick()}
           extraStyle="absolute top-2 right-3"
         />
       </div>
@@ -168,4 +105,7 @@ sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 mt-10 sm:mt-0 sm:-transl
       />
     </div>
   );
+}
+function notifyToast(arg0: string, arg1: string) {
+  throw new Error('Function not implemented.');
 }
