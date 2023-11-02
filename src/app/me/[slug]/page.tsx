@@ -82,14 +82,15 @@ export default async function MePage({ params: { slug } }: Props) {
 
   const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
 
-  const isCoverletterCreated = await getCoverletterInfoByUserId(userId).then(
-    (res) => {
-      if ('code' in res) {
-        return false;
-      }
-      return true;
+  const isCoverletterCreated = await getCoverletterInfoByUserId(
+    userId,
+    cookie
+  ).then((res) => {
+    if ('code' in res) {
+      return false;
     }
-  );
+    return true;
+  });
 
   return (
     <section>
