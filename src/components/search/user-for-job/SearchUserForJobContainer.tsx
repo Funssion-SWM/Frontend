@@ -25,9 +25,13 @@ export default function SearchUserForJobContainer() {
     }
   }, [pageNum]);
 
+  const next = () => {
+    setPage((pre) => pre + 1);
+  };
+
   const handleDevelopmentAreaClick = (item: DevelopmentArea) => {
     setSelectedDevelopmentArea(item);
-    router.push(`/search/user-for-job?page=2`);
+    next();
   };
 
   const handleStackClick = (item: string) => {
@@ -46,8 +50,21 @@ export default function SearchUserForJobContainer() {
       notifyToast('기술 스택을 한 가지 이상 선택해주세요.', 'warning');
       return;
     }
-    router.push(`/search/user-for-job?page=3`);
+    next();
   };
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      return (e.returnValue = '');
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  });
 
   return (
     <div>
