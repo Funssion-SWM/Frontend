@@ -1,5 +1,7 @@
 import { Configuration, OpenAIApi } from 'openai-edge';
 import { OpenAIStream, StreamingTextResponse } from 'ai';
+import { kv } from '@vercel/kv';
+import { Ratelimit } from '@upstash/ratelimit';
 
 const config = new Configuration({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
@@ -15,24 +17,24 @@ export async function POST(req: Request): Promise<Response> {
     messages: [
       {
         role: 'system',
-        content: `Your task is to extract two of the most important software-related keywords in the article. 
-          The input value inclues title and contents. 
-          The output format is a JavaScript array containing strings, except for two special characters. 
-          You don't answer except for the keyword arrangement.
+        content: `You're a software-related interview question generator.
+          Your task is to generate software-related interview questions for each of the three keywords
+          Create 3 questions for 3 keywords and return them to js array
+          Don't answer anything other than the question array. Please answer in Korean only
           -------------------------
           The example input form is as follows.
-          title : ..., contents : ...
+          keyword1: ... , keyword2: ... , keyword3: ...
           -------------------------
           The sample output form is as follows.
-          ["Nextjs", "자바"]`,
+          [question1, question2, question3]`,
       },
       {
         role: 'user',
         content: prompt,
       },
     ],
-    temperature: 0.7,
-    top_p: 1,
+    temperature: 0.5,
+    top_p: 0.5,
     frequency_penalty: 0,
     presence_penalty: 0,
     stream: true,
