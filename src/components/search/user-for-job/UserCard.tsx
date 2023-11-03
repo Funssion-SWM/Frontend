@@ -25,6 +25,7 @@ export default function UserCard({ userForJobInfo }: Props) {
     developmentArea,
     techStack,
     isLike,
+    description,
   } = userForJobInfo;
   const [cureentIsLike, setCurrentIsLike] = useState(isLike);
 
@@ -113,6 +114,12 @@ export default function UserCard({ userForJobInfo }: Props) {
         <p className="text-soma-grey-70 font-semibold line-clamp-3 break-all h-20">
           {introduce}
         </p>
+        <div className=" group relative">
+          <p className="text-sm text-soma-grey-50">자소서 요약</p>
+          <div className="absolute top-0 right-0 sm:left-0 w-[300px] sm:w-[500px] p-3 bg-white opacity-0 pointer-events-none transition-all group-hover:opacity-100 group-hover:pointer-events-auto rounded-2xl shadow-lg whitespace-pre-wrap">
+            {description}
+          </div>
+        </div>
       </div>
       <div className="flex">
         <a
@@ -124,7 +131,7 @@ export default function UserCard({ userForJobInfo }: Props) {
           자소서 보기
         </a>
         <button className="flex-1 bg-white text-soma-blue-40 font-semibold py-2 hover:brightness-75 transition-all rounded-br-md">
-          미니면접보기
+          미니면접 요청
         </button>
       </div>
     </div>
