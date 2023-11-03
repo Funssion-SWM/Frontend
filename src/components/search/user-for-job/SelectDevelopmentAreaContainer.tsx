@@ -22,7 +22,7 @@ export default function SelectDevelopmentAreaContainer({
 
   return (
     <div
-      className={`flex flex-col gap-20 items-center ${
+      className={`flex flex-col gap-20 items-center justify-center min-h-screen ${
         visible ? 'opacity-100' : 'opacity-0'
       } duration-1000 ease-in-out`}
     >

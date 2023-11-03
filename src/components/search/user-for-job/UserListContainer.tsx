@@ -10,39 +10,6 @@ type Props = {
   selectedStacks: string[];
 };
 
-const dummyData: UserForJobInfo[] = [
-  {
-    id: 1,
-    name: 'dongree',
-    imagePath: '',
-    rank: 'DIAMOND_3',
-    introduce: '안녕하세요~~~~',
-    developmentArea: 'Frontend',
-    techStack: "['react','javascript','typescript]",
-    description: '',
-  },
-  {
-    id: 2,
-    name: 'dongree',
-    imagePath: '',
-    rank: 'DIAMOND_3',
-    introduce: '안녕하세요~~~~',
-    developmentArea: 'Frontend',
-    techStack: "['react','javascript','typescript]",
-    description: '',
-  },
-  {
-    id: 3,
-    name: 'dongree',
-    imagePath: '',
-    rank: 'DIAMOND_3',
-    introduce: '안녕하세요~~~~',
-    developmentArea: 'Frontend',
-    techStack: "['react','javascript','typescript]",
-    description: '',
-  },
-];
-
 export default function UserListContainer({
   selectedDevelopmentArea,
   selectedStacks,
@@ -50,21 +17,18 @@ export default function UserListContainer({
   const [userList, setUserList] = useState<UserForJobInfo[]>([]);
 
   useEffect(() => {
-    console.log(selectedStacks);
     getUserForJobInfos(selectedDevelopmentArea, selectedStacks).then((res) => {
-      console.log(res);
       if ('code' in res) {
         notifyToast(res.message, 'error');
         return;
       }
       setUserList(res);
-      console.log(res);
     });
   }, []);
 
   return (
-    <section className="w-full">
-      <div className={`sm:text-4xl text-lg font-bold`}>User List</div>
+    <section className="w-full mt-10 sm:mt-20">
+      <div className={`sm:text-3xl text-xl font-bold my-5`}>User List</div>
       <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {userList.map((userForJobInfo) => {
           return (

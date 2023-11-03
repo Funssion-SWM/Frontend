@@ -4,34 +4,97 @@ import Image from 'next/image';
 import Link from 'next/link';
 import basicProfileImg from '@/assets/profile.svg';
 import { StackInfo } from '@/types/coverletter';
+import fillHeart from '@/assets/icons/heart_fill.svg';
+import emptyHeart from '@/assets/icons/heart_empty.svg';
+import { likeEmployee, unlikeEmployee } from '@/service/like';
+import { notifyToast } from '@/service/notify';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 type Props = {
   userForJobInfo: UserForJobInfo;
 };
 
 export default function UserCard({ userForJobInfo }: Props) {
-  const { id, introduce, name, rank, imagePath, developmentArea, techStack } =
-    userForJobInfo;
+  const {
+    id,
+    introduce,
+    name,
+    rank,
+    imagePath,
+    developmentArea,
+    techStack,
+    isLike,
+  } = userForJobInfo;
+  const [cureentIsLike, setCurrentIsLike] = useState(isLike);
 
   const parsingTechStacks: StackInfo[] = JSON.parse(techStack);
+
+  const router = useRouter();
+  const handleClickLike = () => {
+    unlikeEmployee(id).then((res) => {
+      if ('code' in res) {
+        if (res.code === 401) router.push('/login');
+        notifyToast(res.message, 'error');
+        return;
+      }
+      setCurrentIsLike(false);
+    });
+  };
+  const handleClickUnlike = () => {
+    likeEmployee(id).then((res) => {
+      if ('code' in res) {
+        if (res.code === 401) router.push('/login');
+        notifyToast(res.message, 'error');
+        return;
+      }
+      setCurrentIsLike(true);
+    });
+  };
+
   return (
     <div className="flex flex-col justify-between relative rounded-md shadow-md aspect-square">
-      <div className="flex justify-between px-3 pt-3">
+      <div className="flex justify-between items-center px-3 pt-3">
         <div className="flex items-center gap-2">
-          <Link href={`/`} prefetch={false}>
+          <div className="relative">
+            <Link href={`/`} prefetch={false}>
+              <Image
+                src={imagePath || basicProfileImg}
+                alt="profileImg"
+                width={40}
+                height={40}
+                className="rounded-full w-10 h-10 object-cover"
+              />
+            </Link>
             <Image
-              src={imagePath || basicProfileImg}
-              alt="profileImg"
-              width={40}
-              height={40}
-              className="rounded-full w-10 h-10 object-cover"
+              src={getImageSrcFromRank(rank)}
+              alt="rank"
+              width={35}
+              height={35}
+              className="absolute top-0 -translate-x-1/2 -translate-y-1/2"
             />
-          </Link>
+          </div>
+
           <div className="text-soma-grey-60 font-medium text-sm line-clamp-1">
             {name}
           </div>
         </div>
-        <Image src={getImageSrcFromRank(rank)} alt="rank" />
+        <div className="flex items-center">
+          {cureentIsLike ? (
+            <button onClick={handleClickLike}>
+              <Image src={fillHeart} alt="fill_heart" width={20} height={20} />
+            </button>
+          ) : (
+            <button onClick={handleClickUnlike}>
+              <Image
+                src={emptyHeart}
+                alt="empty_heart"
+                width={20}
+                height={20}
+              />
+            </button>
+          )}
+        </div>
       </div>
       <div className="flex flex-col gap-3 items-center px-3">
         <div className="font-semibold text-soma-blue-50">{developmentArea}</div>

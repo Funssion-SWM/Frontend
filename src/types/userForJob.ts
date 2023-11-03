@@ -10,4 +10,5 @@ export type UserForJobInfo = {
   developmentArea: DevelopmentArea;
   techStack: string;
   description: string;
+  isLike: boolean;
 };
