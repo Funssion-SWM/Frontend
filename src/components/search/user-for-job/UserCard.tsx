@@ -13,9 +13,13 @@ import { useState } from 'react';
 
 type Props = {
   userForJobInfo: UserForJobInfo;
+  onRequestInterview: (userId: number) => void;
 };
 
-export default function UserCard({ userForJobInfo }: Props) {
+export default function UserCard({
+  userForJobInfo,
+  onRequestInterview,
+}: Props) {
   const {
     id,
     introduce,
@@ -130,7 +134,10 @@ export default function UserCard({ userForJobInfo }: Props) {
         >
           자소서 보기
         </a>
-        <button className="flex-1 bg-white text-soma-blue-40 font-semibold py-2 hover:brightness-75 transition-all rounded-br-md">
+        <button
+          className="flex-1 bg-white text-soma-blue-40 font-semibold py-2 hover:brightness-75 transition-all rounded-br-md"
+          onClick={() => onRequestInterview(id)}
+        >
           미니면접 요청
         </button>
       </div>

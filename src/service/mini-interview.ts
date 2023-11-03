@@ -1,4 +1,4 @@
-import { ErrorResponse } from '@/types';
+import { ErrorResponse, IsSuccessResponse } from '@/types';
 import {
   GetInterviewQuestionResponse,
   InterviewState,
@@ -83,6 +83,30 @@ export async function continueInterview(
           next: { revalidate: 0 },
           credentials: 'include',
         }
+  )
+    .then((res) => res.json())
+    .catch(console.error);
+}
+
+export async function createThreeQuestionsForInterview(
+  employeeId: number,
+  questions: string[]
+): Promise<IsSuccessResponse | ErrorResponse> {
+  const bodyData = {
+    question1: questions[0],
+    question2: questions[1],
+    question3: questions[2],
+  };
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/interview/questions/${employeeId}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(bodyData),
+    }
   )
     .then((res) => res.json())
     .catch(console.error);

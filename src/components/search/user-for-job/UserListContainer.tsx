@@ -4,6 +4,7 @@ import { DevelopmentArea } from '@/types/coverletter';
 import { UserForJobInfo } from '@/types/userForJob';
 import { useEffect, useState } from 'react';
 import UserCard from './UserCard';
+import KeywordModal from './KeywordModal';
 
 type Props = {
   selectedDevelopmentArea: DevelopmentArea | null;
@@ -15,6 +16,8 @@ export default function UserListContainer({
   selectedStacks,
 }: Props) {
   const [userList, setUserList] = useState<UserForJobInfo[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 
   useEffect(() => {
     getUserForJobInfos(selectedDevelopmentArea, selectedStacks).then((res) => {
@@ -26,6 +29,11 @@ export default function UserListContainer({
     });
   }, []);
 
+  const handleRequestInterview = (userId: number) => {
+    setSelectedUserId(userId);
+    setIsOpen(true);
+  };
+
   return (
     <section className="w-full mt-10 sm:mt-20">
       <div className={`sm:text-3xl text-xl font-bold my-5`}>User List</div>
@@ -33,11 +41,20 @@ export default function UserListContainer({
         {userList.map((userForJobInfo) => {
           return (
             <li key={userForJobInfo.id}>
-              <UserCard userForJobInfo={userForJobInfo} />
+              <UserCard
+                userForJobInfo={userForJobInfo}
+                onRequestInterview={handleRequestInterview}
+              />
             </li>
           );
         })}
       </ul>
+      {isOpen && (
+        <KeywordModal
+          onClose={() => setIsOpen(false)}
+          userId={selectedUserId}
+        />
+      )}
     </section>
   );
 }
