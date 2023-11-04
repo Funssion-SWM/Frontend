@@ -56,7 +56,7 @@ export default async function MePage({ params: { slug } }: Props) {
     memos,
     userInfo,
     history,
-    { id, isLogin },
+    { id, isLogin, authority },
     tags,
     followings,
     followers,
@@ -98,6 +98,7 @@ export default async function MePage({ params: { slug } }: Props) {
         isLogin={isLogin}
         notifications={notifications}
         profileImageFilePath={myUserInfo?.profileImageFilePath}
+        authority={authority}
       />
       <LayoutWrapper paddingY="py-0">
         <div className="flex flex-col sm:flex-row">

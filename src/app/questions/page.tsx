@@ -30,7 +30,7 @@ export default async function QuestionsPage() {
     QUESTION_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
   );
   const myData = checkUser(cookie);
-  const [questions, { id, isLogin }] = await Promise.all([
+  const [questions, { id, isLogin, authority }] = await Promise.all([
     questionData,
     myData,
   ]);
@@ -48,6 +48,7 @@ export default async function QuestionsPage() {
         notifications={notifications}
         profileImageFilePath={profileImageFilePath}
         currentPage="questions"
+        authority={authority}
       />
       <LayoutWrapper paddingY="sm:py-5">
         <QuestionsContainer questions={questions} />

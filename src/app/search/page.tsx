@@ -14,7 +14,7 @@ export default async function SearchPage() {
 
   const myData = checkUser(cookie);
 
-  const [{ id, isLogin }] = await Promise.all([myData]);
+  const [{ id, isLogin, authority }] = await Promise.all([myData]);
 
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
@@ -28,6 +28,7 @@ export default async function SearchPage() {
         isLogin={isLogin}
         notifications={notifications}
         profileImageFilePath={profileImageFilePath}
+        authority={authority}
       />
       <LayoutWrapper paddingY="sm:py-5">
         <SearchContainer isLogin={isLogin} />

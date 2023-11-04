@@ -20,12 +20,14 @@ import { checkNotifications } from '@/service/notification';
 import { FaRankingStar } from 'react-icons/fa6';
 import '@/styles/headerScrollbar.css';
 import { MAIN_PATH } from '@/utils/const';
+import { Authority } from '@/types';
 
 type Props = {
   isLogin: boolean;
   profileImageFilePath: string | undefined;
   notifications: Notification[];
   currentPage?: 'memos' | 'questions' | 'series';
+  authority: Authority;
 };
 
 export default function Header({
@@ -33,6 +35,7 @@ export default function Header({
   profileImageFilePath,
   notifications,
   currentPage,
+  authority,
 }: Props) {
   const router = useRouter();
   const dropdownRef = useRef<HTMLElement>(null);
@@ -102,6 +105,14 @@ export default function Header({
         </div>
         {isLogin ? (
           <nav className="flex items-center gap-2 sm:gap-3 absolute right-1 sm:right-3">
+            {authority === 'ROLE_EMPLOYER' && (
+              <Link
+                href="/search/user-for-job"
+                className="text-soma-blue-40 text-sm font-semibold hover:text-soma-blue-50 transition-all"
+              >
+                User 찾기
+              </Link>
+            )}
             <div className="relative">
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfnkPn7J4uwSP-g3nclOVsx1m4ePUbf_GEpYG1Cpsh2aWgtMQ/viewform?usp=sf_link"

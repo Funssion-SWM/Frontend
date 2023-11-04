@@ -30,7 +30,7 @@ export default async function RankingPage() {
 
   const top10RankingData = getTop10Ranking();
   const myData = checkUser(cookie);
-  const [top10Ranking, { id, isLogin }] = await Promise.all([
+  const [top10Ranking, { id, isLogin, authority }] = await Promise.all([
     top10RankingData,
     myData,
   ]);
@@ -49,6 +49,7 @@ export default async function RankingPage() {
         isLogin={isLogin}
         notifications={notifications}
         profileImageFilePath={profileImageFilePath}
+        authority={authority}
       />
       <LayoutWrapper paddingY="sm:py-5">
         <RankingContainer

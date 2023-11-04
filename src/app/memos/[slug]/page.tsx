@@ -47,7 +47,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
     },
     { isLike },
     comments,
-    { id, isLogin },
+    { id, isLogin, authority },
     questions,
   ] = await Promise.all([
     memoData,
@@ -66,9 +66,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
 
-    const notifications = isLogin
-    ? await getNotificationsTop30(cookie)
-    : [];
+  const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
 
   return (
     <section>
@@ -77,6 +75,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
         notifications={notifications}
         profileImageFilePath={profileImageFilePath}
         currentPage="memos"
+        authority={authority}
       />
       <LayoutWrapper paddingY="sm:py-5">
         <div className="flex w-full ">

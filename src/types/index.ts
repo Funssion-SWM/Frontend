@@ -50,7 +50,10 @@ export type FindPasswrdFormData = {
 export type CheckUserResponse = {
   id: number;
   isLogin: boolean;
+  authority: Authority;
 };
+
+export type Authority = 'ROLE_ANONYMOUS' | 'ROLE_EMPLOYER' | 'ROLE_USER';
 
 export type IsSuccessResponse = {
   isSuccess: boolean;
