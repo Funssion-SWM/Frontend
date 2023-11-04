@@ -6,6 +6,7 @@ import { getEmployees, getLikedEmployees } from '@/service/employer';
 import { Employee } from '@/types/employer';
 import { useState } from 'react';
 import EmployeeCard from './EmployeeCard';
+import InterviewResultModal from './InterviewResultModal';
 
 type Props = {
   employees: Employee[];
@@ -19,7 +20,11 @@ export default function MeEmployerContainer({ employees }: Props) {
     useState<BigCategory>('interview');
   const [selectedInterviewCategory, setSelectedInterviewCategory] =
     useState<InterviewCategory>('ongoing');
-  const [currentEmployees, setCurrentEmployees] = useState<Employee[]>([]);
+  const [currentEmployees, setCurrentEmployees] =
+    useState<Employee[]>(employees);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 
   const handleClick = async (type: BigCategory) => {
     let employees;
@@ -54,6 +59,11 @@ export default function MeEmployerContainer({ employees }: Props) {
         throw new Error('잘못된 카테고리 이름임');
     }
     setSelectedInterviewCategory(type);
+  };
+
+  const handleClickResult = (userId: number) => {
+    setSelectedUserId(userId);
+    setIsOpen(true);
   };
 
   return (
@@ -95,7 +105,11 @@ export default function MeEmployerContainer({ employees }: Props) {
                 )}
                 {selectedBigCategory !== 'liked' &&
                   selectedInterviewCategory === 'done' && (
-                    <EmployeeCard employee={employee} type="done" />
+                    <EmployeeCard
+                      employee={employee}
+                      type="done"
+                      onClickResult={handleClickResult}
+                    />
                   )}
                 {selectedBigCategory !== 'liked' &&
                   selectedInterviewCategory === 'ongoing' && (
@@ -105,6 +119,12 @@ export default function MeEmployerContainer({ employees }: Props) {
             );
           })}
         </ul>
+        {isOpen && (
+          <InterviewResultModal
+            onClose={() => setIsOpen(false)}
+            userId={selectedUserId}
+          />
+        )}
       </section>
     </div>
   );

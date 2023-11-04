@@ -15,9 +15,10 @@ import { useRouter } from 'next/navigation';
 type Props = {
   employee: Employee;
   type: 'liked' | 'ongoing' | 'done';
+  onClickResult?: (userId: number) => void;
 };
 
-export default function EmployeeCard({ employee, type }: Props) {
+export default function EmployeeCard({ employee, type, onClickResult }: Props) {
   const {
     imagePath,
     rank,
@@ -150,7 +151,9 @@ export default function EmployeeCard({ employee, type }: Props) {
           {type === 'done' && (
             <button
               className="flex-1 bg-white text-soma-blue-40 font-semibold py-2 hover:brightness-75 transition-all rounded-br-md"
-              onClick={() => {}}
+              onClick={() => {
+                if (onClickResult !== undefined) onClickResult(userId);
+              }}
             >
               면접 결과
             </button>

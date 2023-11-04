@@ -1,4 +1,5 @@
 import { Employee } from '@/types/employer';
+import { InterviewResult } from '@/types/mini-interview';
 
 export async function getEmployees(
   isDone: boolean,
@@ -54,7 +55,7 @@ export async function getLikedEmployees(
 export async function getInterviewResultByEmployeeId(
   employeeId: number,
   cookie?: string | undefined
-): Promise<Employee[]> {
+): Promise<InterviewResult> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/employer/interview-result/${employeeId}`,
     cookie
