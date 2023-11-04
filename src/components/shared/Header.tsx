@@ -236,6 +236,20 @@ export default function Header({
                   scrollDirection === 'down' && 'opacity-0 invisible'
                 } ${isActive ? 'visible' : 'invisible'}`}
               >
+                {authority === 'ROLE_EMPLOYER' && (
+                  <button
+                    className="hover:bg-gray-200 p-2 rounded-t-lg tracking-wider px-3"
+                    onClick={() => {
+                      checkUser().then((data) => {
+                        router.push(`/me/employer/${data.id}`);
+                        router.refresh();
+                      });
+                      setIsActive(false);
+                    }}
+                  >
+                    User리스트
+                  </button>
+                )}
                 <button
                   className="hover:bg-gray-200 p-2 rounded-t-lg tracking-wider px-3"
                   onClick={() => {
