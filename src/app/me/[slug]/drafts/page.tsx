@@ -23,7 +23,10 @@ export default async function MeDraftPage({ params: { slug } }: Props) {
   const memosDraftData = getMemosDraftsByUserId(slug);
   const myData = checkUser(cookie);
 
-  const [memos, { id, isLogin }] = await Promise.all([memosDraftData, myData]);
+  const [memos, { id, isLogin, authority }] = await Promise.all([
+    memosDraftData,
+    myData,
+  ]);
 
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
@@ -39,6 +42,7 @@ export default async function MeDraftPage({ params: { slug } }: Props) {
         isLogin={isLogin}
         notifications={notifications}
         profileImageFilePath={profileImageFilePath}
+        authority={authority}
       />
       <LayoutWrapper paddingY="sm:py-5">
         <MeDraftContainer memos={memos} isMine={id === Number(slug)} />
