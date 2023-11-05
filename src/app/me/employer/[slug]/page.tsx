@@ -25,6 +25,7 @@ export default async function MeEmployerPage({ params: { slug } }: Props) {
   const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
 
   const employees = await getEmployees(false, cookie);
+  console.log(employees)
 
   return (
     <section>

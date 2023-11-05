@@ -7,6 +7,7 @@ import { Employee } from '@/types/employer';
 import { useState } from 'react';
 import EmployeeCard from './EmployeeCard';
 import InterviewResultModal from './InterviewResultModal';
+import { useSearchParams } from 'next/navigation';
 
 type Props = {
   employees: Employee[];
@@ -22,9 +23,10 @@ export default function MeEmployerContainer({ employees }: Props) {
     useState<InterviewCategory>('ongoing');
   const [currentEmployees, setCurrentEmployees] =
     useState<Employee[]>(employees);
+  const intervieweeId = useSearchParams()?.get('intervieweeId') ?? '0';
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(!intervieweeId);
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(Number.parseInt(intervieweeId));
 
   const handleClick = async (type: BigCategory) => {
     let employees;
