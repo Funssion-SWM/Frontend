@@ -83,6 +83,7 @@ export default function SearchResultContainer({
   };
 
   const handlePostCategotyClick = async (type: PostType) => {
+    if (type === postType) return;
     setIsLoading(true);
     setPageNum(0);
     setIsEnd(false);
@@ -93,6 +94,7 @@ export default function SearchResultContainer({
   };
 
   const handleOrderByCategoryClick = async (orderBy: Orderby) => {
+    if (orderBy === selectedOrderType) return;
     setIsLoading(true);
     setPageNum(0);
     setIsEnd(false);

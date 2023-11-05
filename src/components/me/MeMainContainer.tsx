@@ -41,6 +41,7 @@ export default function MeMainContainer({ memos, userId }: Props) {
   const isInitialMount = useRef(true);
 
   const handleClick = async (type: BigCategory) => {
+    if (type === selectedBigCategory) return;
     setIsLoading(true);
     setPageNum(0);
     setIsEnd(false);
@@ -60,6 +61,7 @@ export default function MeMainContainer({ memos, userId }: Props) {
   };
 
   const handlePostCategotyClick = async (type: PostType) => {
+    if (type === selectedPostType) return;
     setIsLoading(true);
     setPageNum(0);
     setIsEnd(false);

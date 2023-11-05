@@ -2,7 +2,7 @@
 
 import { Orderby } from '@/types';
 import CategoryBtn from '../shared/btn/CategoryBtn';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SeriesGrid from './SeriesGrid';
 import { Series } from '@/types/series';
 import { getSeriesArray } from '@/service/series';
@@ -20,8 +20,10 @@ export default function SeriesContainer({ seriesArray }: Props) {
   const [pageNum, setPageNum] = useState(1);
   const [isEnd, setIsEnd] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const isInitialMount = useRef(true);
 
   const handleClick = async (orderBy: Orderby) => {
+    if (orderBy === selectedOrderType) return;
     setPageNum(1);
     setIsEnd(false);
     const series = await getSeriesArray(
@@ -59,7 +61,11 @@ export default function SeriesContainer({ seriesArray }: Props) {
   };
 
   useEffect(() => {
-    fetchSeries();
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      fetchSeries();
+    }
   }, [pageNum]);
 
   const onIntersect: IntersectionObserverCallback = ([entry]) => {
