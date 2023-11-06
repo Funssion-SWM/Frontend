@@ -19,7 +19,7 @@ export default async function MiniInterviewPage({ searchParams }: Props) {
   const employerId = Number(searchParams?.employerId);
   const employeeId = Number(searchParams?.employeeId);
 
-  const { question1, question2, question3, status } =
+  const { question1, question2, question3, status, companyName } =
     await getInterviewQuestions(employerId, employeeId, cookie);
 
   const questions = [question1, question2, question3];
@@ -43,6 +43,7 @@ export default async function MiniInterviewPage({ searchParams }: Props) {
         questions={questions}
         state={state}
         employerId={employerId}
+        companyName={companyName}
       />
     </LayoutWrapper>
   );

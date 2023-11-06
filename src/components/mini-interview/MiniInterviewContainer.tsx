@@ -12,12 +12,14 @@ type Props = {
   questions: string[];
   state: InterviewState;
   employerId: number;
+  companyName: string;
 };
 
 export default function MiniInterviewContainer({
   questions,
   state,
   employerId,
+  companyName,
 }: Props) {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -64,7 +66,12 @@ export default function MiniInterviewContainer({
     <section>
       {
         {
-          1: <MiniInterviewReadyContainer onStart={handleStart} />,
+          1: (
+            <MiniInterviewReadyContainer
+              onStart={handleStart}
+              companyName={companyName}
+            />
+          ),
           2: (
             <MiniInterviewQuestionContainer
               next={next}
