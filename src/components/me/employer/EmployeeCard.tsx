@@ -4,8 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import basicProfileImg from '@/assets/profile.svg';
 import { StackInfo } from '@/types/coverletter';
-import { useEffect, useState } from 'react';
-import { getInterviewResultByEmployeeId } from '@/service/employer';
+import { useState } from 'react';
 import fillHeart from '@/assets/icons/heart_fill.svg';
 import emptyHeart from '@/assets/icons/heart_empty.svg';
 import { likeEmployee, unlikeEmployee } from '@/service/like';
@@ -56,10 +55,6 @@ export default function EmployeeCard({ employee, type, onClickResult }: Props) {
       setIsLike(true);
     });
   };
-
-  useEffect(() => {
-    getInterviewResultByEmployeeId(697).then((res) => console.log(res));
-  }, []);
 
   return (
     isVisible && (
