@@ -13,6 +13,8 @@ import Footer from '@/components/shared/Footer';
 import down from '@/assets/icons/down.svg';
 import { MAIN_PATH } from '@/utils/const';
 import { useRouter } from 'next/navigation';
+import infinity from '@/assets/icons/rank/infinity_1.svg';
+import wheel from '@/assets/icons/wheel_icon.svg';
 
 export default function LandingContainer() {
   const [readyState, setReadyState] = useState(false);
@@ -85,14 +87,16 @@ export default function LandingContainer() {
             className="w-[30px] sm:w-9 mt-5"
           />
           <p className="text-2xl sm:text-4xl font-bold leading-tight mb-5">
-            Gen AI를 활용한
+            생성형 AI를 활용한
             <br />
             텍스트 자동 생성 기능
           </p>
           <p className="text-sm sm:text-xl font-normal">
             작성 중 ++를 입력해 텍스트를 자동 생성해보세요!
             <br />
-            검색보다 빠르고 간편하게 정보를 제공합니다.
+            글을 다 작성하면 자동생성된 요약과 태그를 제공합니다.
+            {/* <br />
+            검색보다 빠르고 간편하게 정보를 제공합니다. */}
           </p>
         </div>
       </div>
@@ -112,6 +116,53 @@ export default function LandingContainer() {
           <p className="text-sm sm:text-xl font-normal">
             바로 반영되는 마크다운을 사용해보세요!
             <br />/ 키와 드래그를 이용하여 다양한 편집 기능을 사용해보세요!
+          </p>
+        </div>
+        <Image
+          src={editing}
+          alt="landing"
+          width={600}
+          className="rounded-2xl"
+        />
+      </div>
+
+      <div className="flex flex-col sm:flex-row items-center justify-center h-full font-semibold sm:snap-always sm:snap-center ">
+        <Image
+          src={landing}
+          alt="landing"
+          width={600}
+          className="rounded-2xl"
+        />
+        <div className="sm:ml-14 w-full sm:w-auto px-4">
+          <Image
+            src={infinity}
+            alt="infinity"
+            className="w-[30px] sm:w-9 mt-5"
+          />
+          <p className="text-2xl sm:text-4xl font-bold leading-tight mb-5">
+            즐겁고, 꾸준하게
+            <br />
+            Post Motivation
+          </p>
+          <p className="text-sm sm:text-xl font-normal">
+            Post History 기능으로 꾸준하게 작성해보세요!
+            <br />
+            메모 작성, 답변 채택 등 다양한 활동을 통해 등급을 올려보세요!
+          </p>
+        </div>
+      </div>
+      <div className="flex flex-col-reverse sm:flex-row items-center justify-center h-full font-semibold sm:snap-always sm:snap-center ">
+        <div className="sm:mr-14 w-full sm:w-auto px-4">
+          <Image src={wheel} alt="wheel" className="w-[30px] sm:w-9 mt-5" />
+          <p className="text-2xl sm:text-4xl font-bold leading-tight mb-5">
+            신속하고 정확한
+            <br />
+            채용 연계 서비스
+          </p>
+          <p className="text-sm sm:text-xl font-normal">
+            원하는 직무의 구직자를 인포럼에서 찾아보세요!
+            <br />
+            키워드에 맞는 질문을 자동 생성해 미니인터뷰를 진행해보세요!
           </p>
         </div>
         <Image
