@@ -4,6 +4,7 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { setCoverletterVisibleMode } from '@/service/coverletter';
 import { notifyToast } from '@/service/notify';
 import { useEffect, useRef, useState } from 'react';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
 
 type Props = {
   coverletterIsVisible: boolean;
@@ -39,6 +40,13 @@ export default function CoverLetterOpenToggle({ coverletterIsVisible }: Props) {
       <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
         자소서 공개
       </span>
+      <div className=" group relative mx-2">
+        <AiOutlineInfoCircle />
+        <div className="absolute top-0 -right-10 sm:left-0 w-[270px] p-3 bg-white opacity-0 pointer-events-none transition-all group-hover:opacity-100 group-hover:pointer-events-auto rounded-2xl shadow-lg whitespace-pre-wrap z-10">
+          자소서를 공개할 경우 채용자는 자신의 자소서와 이메일 정보를 볼 수
+          있습니다.
+        </div>
+      </div>
     </label>
   );
 }
