@@ -62,7 +62,7 @@ export default function UserCard({
       <div className="flex justify-between items-center px-3 pt-3">
         <div className="flex items-center gap-2">
           <div className="relative">
-            <Link href={`/`} prefetch={false}>
+            <Link href={`/me/${id}`} prefetch={false}>
               <Image
                 src={imagePath || basicProfileImg}
                 alt="profileImg"
