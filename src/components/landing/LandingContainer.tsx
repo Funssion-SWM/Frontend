@@ -4,7 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 import TypeIt from 'typeit-react';
-import landing from '@/assets/landing.gif';
+import autocomplete from '@/assets/autocomplete.gif';
+import mypage from '@/assets/mypage.gif';
 import editing from '@/assets/edit-memo.gif';
 import logo from '@/assets/inforum_logo.png';
 import editUnderline from '@/assets/icons/edit_underline.svg';
@@ -15,6 +16,7 @@ import { MAIN_PATH } from '@/utils/const';
 import { useRouter } from 'next/navigation';
 import infinity from '@/assets/icons/rank/infinity_1.svg';
 import wheel from '@/assets/icons/wheel_icon.svg';
+import coverletter from '@/assets/coverletter_example.png';
 
 export default function LandingContainer() {
   const [readyState, setReadyState] = useState(false);
@@ -75,8 +77,8 @@ export default function LandingContainer() {
 
       <div className="flex flex-col sm:flex-row items-center justify-center h-full font-semibold sm:snap-always sm:snap-center ">
         <Image
-          src={landing}
-          alt="landing"
+          src={autocomplete}
+          alt="autocomplete"
           width={600}
           className="rounded-2xl"
         />
@@ -127,12 +129,7 @@ export default function LandingContainer() {
       </div>
 
       <div className="flex flex-col sm:flex-row items-center justify-center h-full font-semibold sm:snap-always sm:snap-center ">
-        <Image
-          src={landing}
-          alt="landing"
-          width={600}
-          className="rounded-2xl"
-        />
+        <Image src={mypage} alt="mypage" width={600} className="rounded-2xl" />
         <div className="sm:ml-14 w-full sm:w-auto px-4">
           <Image
             src={infinity}
@@ -166,10 +163,10 @@ export default function LandingContainer() {
           </p>
         </div>
         <Image
-          src={editing}
-          alt="landing"
+          src={coverletter}
+          alt="coverletter_landing_image"
           width={600}
-          className="rounded-2xl"
+          className="rounded-2xl border-2"
         />
       </div>
 
