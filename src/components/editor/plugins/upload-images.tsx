@@ -199,7 +199,6 @@ export const handleImageUpload = (
         image.src = url;
         image.onload = () => {
           resolve(url);
-          console.log(url);
         };
         break;
       default:

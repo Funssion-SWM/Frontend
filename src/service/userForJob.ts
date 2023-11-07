@@ -28,7 +28,6 @@ export async function getUserForJobInfos(
   })
     .then((res) => {
       // if (res.status === 500) throw new Error('getUserForJobInfos 500에러');
-      console.log(res);
       return res.json();
     })
     .catch(console.error);
