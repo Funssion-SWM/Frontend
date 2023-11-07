@@ -194,18 +194,22 @@ export default function Header({
                       </div>
                       <div
                         onClick={() => {
-                          switch(notification.notificationType) {
+                          switch (notification.notificationType) {
                             case 'NEW_INTERVIEW':
                               checkUser().then((data) => {
-                                router.push(`/mini-interview?employerId=${notification.senderId}&employeeId=${data.id}`);
-                              })
+                                router.push(
+                                  `/mini-interview?employerId=${notification.senderId}&employeeId=${data.id}`
+                                );
+                              });
                               break;
                             case 'NEW_FOLLOWER':
                             case 'NEW_EMPLOYER':
                               router.push('/me/' + notification.senderId);
                               break;
                             case 'NEW_INTERVIEW_COMPLETE':
-                              router.push(`/me/employer/id?intervieweeId=${notification.senderId}`)
+                              router.push(
+                                `/me/employer/id?intervieweeId=${notification.senderId}`
+                              );
                               break;
                             default:
                               router.push(
@@ -213,7 +217,7 @@ export default function Header({
                                   notification.postTypeToShow.toLocaleLowerCase() +
                                   's/' +
                                   notification.postIdToShow
-                              )
+                              );
                           }
                         }}
                         className="px-3 pb-2 text-sm flex justify-between items-center"
@@ -303,7 +307,7 @@ export default function Header({
               </div>
             </nav>
             <BlueBtn
-              text={'만들기'}
+              text={'글쓰기'}
               onClick={() => {
                 openCreationModal();
                 setIsActive(false);
