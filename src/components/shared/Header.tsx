@@ -110,7 +110,7 @@ export default function Header({
                 href="/search/user-for-job"
                 className="text-soma-blue-40 text-sm font-semibold hover:text-soma-blue-50 transition-all"
               >
-                User 찾기
+                구직자 찾기
               </Link>
             )}
             <div className="relative">
@@ -264,7 +264,7 @@ export default function Header({
                       setIsActive(false);
                     }}
                   >
-                    User리스트
+                    채용자 페이지
                   </button>
                 )}
                 <button
