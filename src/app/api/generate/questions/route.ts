@@ -10,7 +10,7 @@ const openai = new OpenAIApi(config);
 
 export const runtime = 'edge';
 
-export async function POST(req: Request): Promise<Response> {  
+export async function POST(req: Request): Promise<Response> {
   let { prompt } = await req.json();
   const response = await openai.createChatCompletion({
     model: 'gpt-3.5-turbo',
@@ -20,6 +20,7 @@ export async function POST(req: Request): Promise<Response> {
         content: `You're a software-related interview question generator.
           Your task is to generate one interview question for each of the three keywords given.
           give me the 3 questions you created in the JS string array
+          Each questions are separate by each keywords
           Don't answer anything other than the question array. Please answer in Korean only
           -------------------------
           The example input form is as follows.
