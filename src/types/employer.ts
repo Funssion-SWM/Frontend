@@ -5,6 +5,7 @@ import { Rank } from './rank';
 export type Employee = {
   userId: number;
   username: string;
+  email: string;
   imagePath: string;
   rank: Rank;
   introduce: string;
