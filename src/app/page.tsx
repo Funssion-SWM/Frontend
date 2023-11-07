@@ -1,4 +1,5 @@
 import LandingContainer from '@/components/landing/LandingContainer';
+import EventHeader from '@/components/shared/EventHeader';
 import { checkUser } from '@/service/auth';
 import { ACCESS_TOKEN, MAIN_PATH, REFRESH_TOKEN } from '@/utils/const';
 import { cookies } from 'next/headers';
@@ -13,5 +14,10 @@ export default async function LandingPage() {
 
   isLogin && redirect(MAIN_PATH);
 
-  return <LandingContainer />;
+  return (
+    <div>
+      <EventHeader />
+      <LandingContainer />;
+    </div>
+  );
 }

@@ -130,15 +130,15 @@ export default function LandingContainer() {
           <br />
           긍정적인 개발공간을 만들어보세요.
         </p>
+
         <button
+          className="bg-soma-blue-40 w-72 h-16 shadow-2xl text-white px-3.5 py-2 rounded-3xl transition hover:bg-soma-blue-50 sm:text-2xl"
           onClick={() => {
-            router.push('/guide');
+            router.push(`${MAIN_PATH}`);
             router.refresh();
           }}
         >
-          <button className="bg-soma-blue-40 w-72 h-16 shadow-2xl text-white px-3.5 py-2 rounded-3xl transition hover:bg-soma-blue-50 sm:text-2xl">
-            시작하기
-          </button>
+          시작하기
         </button>
       </div>
 
