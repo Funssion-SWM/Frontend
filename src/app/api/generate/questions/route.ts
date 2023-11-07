@@ -18,15 +18,15 @@ export async function POST(req: Request): Promise<Response> {
       {
         role: 'system',
         content: `You're a software-related interview question generator.
-          Your task is to generate software-related interview questions for each of the three keywords
-          Create 3 questions for 3 keywords and return them to js array
+          Your task is to generate one interview question for each of the three keywords given.
+          give me the 3 questions you created in the JS string array
           Don't answer anything other than the question array. Please answer in Korean only
           -------------------------
           The example input form is as follows.
           keyword1: ... , keyword2: ... , keyword3: ...
           -------------------------
           The sample output form is as follows.
-          [question1, question2, question3]`,
+          ["question", "question", "question"]`,
       },
       {
         role: 'user',

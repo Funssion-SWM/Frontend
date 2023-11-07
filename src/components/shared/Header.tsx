@@ -37,7 +37,6 @@ export default function Header({
   currentPage,
   authority,
 }: Props) {
-  console.log(notifications);
   const router = useRouter();
   const dropdownRef = useRef<HTMLElement>(null);
   const notificationRef = useRef<HTMLElement>(null);
@@ -206,9 +205,7 @@ export default function Header({
                               router.push('/me/' + notification.senderId);
                               break;
                             case 'NEW_INTERVIEW_COMPLETE':
-                              checkUser().then((data) => {
-                                router.push(`/me/employer/id?intervieweeId=${data.id}`)
-                              })
+                              router.push(`/me/employer/id?intervieweeId=${notification.senderId}`)
                               break;
                             default:
                               router.push(
