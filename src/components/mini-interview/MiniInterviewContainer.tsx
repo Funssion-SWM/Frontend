@@ -21,6 +21,7 @@ export default function MiniInterviewContainer({
   employerId,
   companyName,
 }: Props) {
+  console.log(state)
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
 

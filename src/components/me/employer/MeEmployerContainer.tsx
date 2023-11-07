@@ -4,18 +4,20 @@ import BarBtn from '@/components/shared/btn/BarBtn';
 import CategoryBtn from '@/components/shared/btn/CategoryBtn';
 import { getEmployees, getLikedEmployees } from '@/service/employer';
 import { Employee } from '@/types/employer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EmployeeCard from './EmployeeCard';
 import InterviewResultModal from './InterviewResultModal';
+import { useSearchParams } from 'next/navigation';
 
 type Props = {
   employees: Employee[];
+  intervieweeId:number;
 };
 
 type BigCategory = 'interview' | 'liked';
 type InterviewCategory = 'ongoing' | 'done';
 
-export default function MeEmployerContainer({ employees }: Props) {
+export default function MeEmployerContainer({ employees, intervieweeId }: Props) {
   const [selectedBigCategory, setSelectedBigCategory] =
     useState<BigCategory>('interview');
   const [selectedInterviewCategory, setSelectedInterviewCategory] =
@@ -23,8 +25,8 @@ export default function MeEmployerContainer({ employees }: Props) {
   const [currentEmployees, setCurrentEmployees] =
     useState<Employee[]>(employees);
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(!!intervieweeId);
+  const [selectedUserId, setSelectedUserId] = useState<number>(intervieweeId);
 
   const handleClick = async (type: BigCategory) => {
     let employees;
@@ -65,6 +67,11 @@ export default function MeEmployerContainer({ employees }: Props) {
     setSelectedUserId(userId);
     setIsOpen(true);
   };
+
+  useEffect(() => {
+    if (!intervieweeId) return;
+    handleInterviewCategoryClick('done');
+  }, [])
 
   return (
     <div>

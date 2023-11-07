@@ -11,9 +11,10 @@ type Props = {
   params: {
     slug: string;
   };
+  searchParams?: { [key: string]: string | string[] | undefined };
 };
 
-export default async function MeEmployerPage({ params: { slug } }: Props) {
+export default async function MeEmployerPage({ params: { slug }, searchParams }: Props) {
   const accessToken = cookies().get(ACCESS_TOKEN)?.value;
   const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
   const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
@@ -21,7 +22,7 @@ export default async function MeEmployerPage({ params: { slug } }: Props) {
 
   const { id, isLogin, authority } = await checkUser(cookie);
   const myUserInfo = await getUserInfo(id);
-
+  const intervieweeId = Number(searchParams?.intervieweeId)
   const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
 
   const employees = await getEmployees(false, cookie);
@@ -35,7 +36,7 @@ export default async function MeEmployerPage({ params: { slug } }: Props) {
         authority={authority}
       />
       <LayoutWrapper paddingY="py-0">
-        <MeEmployerContainer employees={employees} />
+        <MeEmployerContainer employees={employees} intervieweeId={intervieweeId}/>
       </LayoutWrapper>
     </section>
   );

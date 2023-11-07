@@ -193,16 +193,29 @@ export default function Header({
                         </span>
                       </div>
                       <div
-                        onClick={() =>
-                          notification.postTypeToShow
-                            ? router.push(
+                        onClick={() => {
+                          switch(notification.notificationType) {
+                            case 'NEW_INTERVIEW':
+                              checkUser().then((data) => {
+                                router.push(`/mini-interview?employerId=${notification.senderId}&employeeId=${data.id}`);
+                              })
+                              break;
+                            case 'NEW_FOLLOWER':
+                            case 'NEW_EMPLOYER':
+                              router.push('/me/' + notification.senderId);
+                              break;
+                            case 'NEW_INTERVIEW_COMPLETE':
+                              router.push(`/me/employer/id?intervieweeId=${notification.senderId}`)
+                              break;
+                            default:
+                              router.push(
                                 '/' +
                                   notification.postTypeToShow.toLocaleLowerCase() +
                                   's/' +
                                   notification.postIdToShow
                               )
-                            : router.push('/me/' + notification.senderId)
-                        }
+                          }
+                        }}
                         className="px-3 pb-2 text-sm flex justify-between items-center"
                       >
                         <span className="hover:text-soma-blue-40 cursor-pointer">
