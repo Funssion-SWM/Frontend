@@ -1,17 +1,34 @@
 import {
   CheckUserResponse,
+  EmployerSignUpData,
   ErrorResponse,
   FindEmailResponse,
   IsSuccessResponse,
   IsValidResponse,
-  SignUpData,
   SignupResponse,
   UserInfo,
+  UserSignUpData,
 } from '@/types';
 import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url';
 
-export async function signUp(userData: SignUpData): Promise<SignupResponse> {
+export async function userSignUp(userData: UserSignUpData): Promise<SignupResponse> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify(userData),
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('error');
+      }
+      return res.json();
+    })
+    .catch(console.error);
+}
+
+export async function employerSignUp(userData: EmployerSignUpData): Promise<SignupResponse> {
+  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/employer`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',

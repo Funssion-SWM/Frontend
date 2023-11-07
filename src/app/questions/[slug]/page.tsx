@@ -27,20 +27,14 @@ export default async function QuestionPage({ params: { slug } }: Props) {
   const myData = checkUser(cookie);
   const likeData = getIsLike('questions', questionId, cookie);
 
-  const [question, answers, { id, isLogin }, { isLike }] = await Promise.all([
-    questionData,
-    answersData,
-    myData,
-    likeData,
-  ]);
+  const [question, answers, { id, isLogin, authority }, { isLike }] =
+    await Promise.all([questionData, answersData, myData, likeData]);
 
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
 
-  const notifications = isLogin
-    ? await getNotificationsTop30(cookie)
-    : [];
+  const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
 
   const { memoTitle } = question.memoId
     ? await getMemoById(question.memoId)
@@ -55,6 +49,7 @@ export default async function QuestionPage({ params: { slug } }: Props) {
         notifications={notifications}
         profileImageFilePath={profileImageFilePath}
         currentPage="questions"
+        authority={authority}
       />
       <LayoutWrapper>
         <QuestionDetail

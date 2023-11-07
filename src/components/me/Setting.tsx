@@ -17,9 +17,12 @@ export default function Setting({ myId }: Props) {
   const { open } = useContext(ModalContext);
 
   return (
-    <div className="flex flex-col gap-4 text-soma-grey-50 text-sm items-center mt-8">
+    <div className="flex flex-col gap-2 text-soma-grey-50 text-sm items-center mt-8">
       <Link href={`/me/setting/${myId}`} prefetch={false}>
         회원 정보 수정
+      </Link>
+      <Link href={`/create/coverletter`} prefetch={false}>
+        자기소개서 작성
       </Link>
       <button
         onClick={() => {

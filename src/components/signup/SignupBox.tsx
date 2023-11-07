@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import CheckForm from './CheckForm';
 import SignupForm from './SignupForm';
+import { useSearchParams } from 'next/navigation';
+import { UserType } from '@/types';
 
 type Props = {
   privacyPolicyMdText: string;
@@ -14,11 +16,13 @@ export default function SignupBox({
   agreementMdText,
 }: Props) {
   const [agreed, setAgreed] = useState(false);
+  const loginType = useSearchParams()?.get('login-type') as UserType ?? 'user' as UserType;
+
 
   return (
     <div className="w-full">
       {agreed ? (
-        <SignupForm />
+        <SignupForm loginType={loginType} />
       ) : (
         <CheckForm
           privacyPolicyMdText={privacyPolicyMdText}

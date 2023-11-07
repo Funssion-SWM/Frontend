@@ -33,9 +33,9 @@ export default async function SeriesDetailPage({ params: { slug } }: Props) {
     cookie
   );
   const myData = checkUser(cookie);
-  const questionsData = getQuestionsByMemoId(memoInfoList[0].id);  
+  const questionsData = getQuestionsByMemoId(memoInfoList[0].id);
 
-  const [memo, { isLike }, comments, { id, isLogin }, questions] =
+  const [memo, { isLike }, comments, { id, isLogin, authority }, questions] =
     await Promise.all([memoData, likeData, commentData, myData, questionsData]);
 
   const { isFollowed, followCnt, followerCnt } = await getUserInfo(
@@ -47,9 +47,7 @@ export default async function SeriesDetailPage({ params: { slug } }: Props) {
     ? await getUserInfo(id)
     : { profileImageFilePath: undefined };
 
-  const notifications = isLogin
-    ? await getNotificationsTop30(cookie)
-    : [];
+  const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
 
   return (
     <section>
@@ -58,6 +56,7 @@ export default async function SeriesDetailPage({ params: { slug } }: Props) {
         notifications={notifications}
         profileImageFilePath={profileImageFilePath}
         currentPage="series"
+        authority={authority}
       />
       <LayoutWrapper paddingY="sm:py-5">
         <SeriesDetailContainer

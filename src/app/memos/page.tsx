@@ -31,7 +31,10 @@ export default async function MemosPage() {
     MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
   );
   const myData = checkUser(cookie);
-  const [memos, { id, isLogin }] = await Promise.all([memosData, myData]);
+  const [memos, { id, isLogin, authority }] = await Promise.all([
+    memosData,
+    myData,
+  ]);
 
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
@@ -46,6 +49,7 @@ export default async function MemosPage() {
         notifications={notifications}
         profileImageFilePath={profileImageFilePath}
         currentPage="memos"
+        authority={authority}
       />
       <LayoutWrapper paddingY="sm:py-5">
         <MemosContainer memos={memos} />

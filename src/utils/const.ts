@@ -1,3 +1,4 @@
+import { DevelopmentArea } from '@/types/coverletter';
 import { MemoColor } from '@/types/memo';
 
 export const COLORS: MemoColor[] = [
@@ -31,3 +32,31 @@ export const SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL = 20;
 export const QUESTION_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL = 10;
 
 export const MAIN_PATH = '/series';
+
+export const developmentAreaOptions: DevelopmentArea[] = [
+  'Frontend',
+  'Backend',
+  'AI',
+  'DevOps',
+];
+export const stackOptions = [
+  'Java',
+  'JavaScript',
+  'Spring',
+  'Spring Boot',
+  'jQuery',
+  'TypeScript',
+  'React',
+  'Vue.js',
+  'Next.js',
+  'Node.js',
+  'Python',
+  'C',
+  'C++',
+  'C#',
+  'PHP',
+  'Kotlin',
+  'Swift',
+  'React Native',
+  'Flutter',
+];

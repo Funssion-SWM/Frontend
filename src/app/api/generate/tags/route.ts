@@ -1,7 +1,5 @@
 import { Configuration, OpenAIApi } from 'openai-edge';
 import { OpenAIStream, StreamingTextResponse } from 'ai';
-import { kv } from '@vercel/kv';
-import { Ratelimit } from '@upstash/ratelimit';
 
 const config = new Configuration({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,

@@ -6,6 +6,7 @@ import { postImageInQuestion } from '@/service/questions';
 import { postImageInAnswer } from '@/service/answers';
 import { notifyToast } from '@/service/notify';
 import { MAX_IMAGE_BYTE } from '@/utils/const';
+import { postImageInCoverletter } from '@/service/coverletter';
 
 const uploadKey = new PluginKey('upload-image');
 
@@ -66,7 +67,7 @@ function findPlaceholder(state: EditorState, id: {}) {
 export function startImageUpload(
   file: File,
   postId: number,
-  type: 'memo' | 'question' | 'answer' | 'guide',
+  type: 'memo' | 'question' | 'answer' | 'guide' | 'coverletter',
   view: EditorView,
   pos: number,
   routingCallback?: (postId: number) => void
@@ -134,7 +135,7 @@ export function startImageUpload(
 
 export const handleImageUpload = (
   file: File,
-  type: 'memo' | 'question' | 'answer' | 'guide',
+  type: 'memo' | 'question' | 'answer' | 'guide' | 'coverletter',
   postId: number
 ) => {
   // upload to Vercel Blob
@@ -179,13 +180,25 @@ export const handleImageUpload = (
           };
         });
         break;
+      case 'coverletter':
+        postImageInCoverletter(file).then((res) => {
+          if ('code' in res) {
+            reject(res.message);
+            return;
+          }
+          let image = new Image();
+          image.src = res.imagePath;
+          image.onload = () => {
+            resolve(res.imagePath);
+          };
+        });
+        break;
       case 'guide':
         const url = window.URL.createObjectURL(file);
         let image = new Image();
         image.src = url;
         image.onload = () => {
           resolve(url);
-          console.log(url);
         };
         break;
       default:

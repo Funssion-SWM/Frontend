@@ -22,6 +22,7 @@ export default function MemosContainer({ memos }: Props) {
   const isInitialMount = useRef(true);
 
   const handleClick = async (orderBy: Orderby) => {
+    if (orderBy === selectedOrderType) return;
     setIsLoading(true);
     setIsEnd(false);
     setPageNum(0);

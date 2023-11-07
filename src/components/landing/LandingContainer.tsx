@@ -4,7 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 import TypeIt from 'typeit-react';
-import landing from '@/assets/landing.gif';
+import autocomplete from '@/assets/autocomplete.gif';
+import mypage from '@/assets/mypage.gif';
 import editing from '@/assets/edit-memo.gif';
 import logo from '@/assets/inforum_logo.png';
 import editUnderline from '@/assets/icons/edit_underline.svg';
@@ -13,6 +14,9 @@ import Footer from '@/components/shared/Footer';
 import down from '@/assets/icons/down.svg';
 import { MAIN_PATH } from '@/utils/const';
 import { useRouter } from 'next/navigation';
+import infinity from '@/assets/icons/rank/infinity_1.svg';
+import wheel from '@/assets/icons/wheel_icon.svg';
+import coverletter from '@/assets/coverletter_example.png';
 
 export default function LandingContainer() {
   const [readyState, setReadyState] = useState(false);
@@ -73,8 +77,8 @@ export default function LandingContainer() {
 
       <div className="flex flex-col sm:flex-row items-center justify-center h-full font-semibold sm:snap-always sm:snap-center ">
         <Image
-          src={landing}
-          alt="landing"
+          src={autocomplete}
+          alt="autocomplete"
           width={600}
           className="rounded-2xl"
         />
@@ -85,14 +89,16 @@ export default function LandingContainer() {
             className="w-[30px] sm:w-9 mt-5"
           />
           <p className="text-2xl sm:text-4xl font-bold leading-tight mb-5">
-            Gen AI를 활용한
+            생성형 AI를 활용한
             <br />
             텍스트 자동 생성 기능
           </p>
           <p className="text-sm sm:text-xl font-normal">
             작성 중 ++를 입력해 텍스트를 자동 생성해보세요!
             <br />
-            검색보다 빠르고 간편하게 정보를 제공합니다.
+            글을 다 작성하면 자동생성된 요약과 태그를 제공합니다.
+            {/* <br />
+            검색보다 빠르고 간편하게 정보를 제공합니다. */}
           </p>
         </div>
       </div>
@@ -122,6 +128,48 @@ export default function LandingContainer() {
         />
       </div>
 
+      <div className="flex flex-col sm:flex-row items-center justify-center h-full font-semibold sm:snap-always sm:snap-center ">
+        <Image src={mypage} alt="mypage" width={600} className="rounded-2xl" />
+        <div className="sm:ml-14 w-full sm:w-auto px-4">
+          <Image
+            src={infinity}
+            alt="infinity"
+            className="w-[30px] sm:w-9 mt-5"
+          />
+          <p className="text-2xl sm:text-4xl font-bold leading-tight mb-5">
+            즐겁고, 꾸준하게
+            <br />
+            Post Motivation
+          </p>
+          <p className="text-sm sm:text-xl font-normal">
+            Post History 기능으로 꾸준하게 작성해보세요!
+            <br />
+            메모 작성, 답변 채택 등 다양한 활동을 통해 등급을 올려보세요!
+          </p>
+        </div>
+      </div>
+      <div className="flex flex-col-reverse sm:flex-row items-center justify-center h-full font-semibold sm:snap-always sm:snap-center ">
+        <div className="sm:mr-14 w-full sm:w-auto px-4">
+          <Image src={wheel} alt="wheel" className="w-[30px] sm:w-9 mt-5" />
+          <p className="text-2xl sm:text-4xl font-bold leading-tight mb-5">
+            신속하고 정확한
+            <br />
+            채용 연계 서비스
+          </p>
+          <p className="text-sm sm:text-xl font-normal">
+            원하는 직무의 구직자를 인포럼에서 찾아보세요!
+            <br />
+            키워드에 맞는 질문을 자동 생성해 미니인터뷰를 진행해보세요!
+          </p>
+        </div>
+        <Image
+          src={coverletter}
+          alt="coverletter_landing_image"
+          width={600}
+          className="rounded-2xl border-2"
+        />
+      </div>
+
       <div className="flex relative flex-col items-center justify-center h-full font-semibold sm:snap-always sm:snap-center bg-[#F6F8FC]">
         <p className="text-4xl sm:text-5xl w-80 sm:w-auto font-bold text-center leading-snug sm:leading-snug mb-16">
           인포럼과 함께
@@ -130,15 +178,15 @@ export default function LandingContainer() {
           <br />
           긍정적인 개발공간을 만들어보세요.
         </p>
+
         <button
+          className="bg-soma-blue-40 w-72 h-16 shadow-2xl text-white px-3.5 py-2 rounded-3xl transition hover:bg-soma-blue-50 sm:text-2xl"
           onClick={() => {
-            router.push('/guide');
+            router.push(`${MAIN_PATH}`);
             router.refresh();
           }}
         >
-          <button className="bg-soma-blue-40 w-72 h-16 shadow-2xl text-white px-3.5 py-2 rounded-3xl transition hover:bg-soma-blue-50 sm:text-2xl">
-            시작하기
-          </button>
+          시작하기
         </button>
       </div>
 

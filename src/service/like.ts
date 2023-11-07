@@ -1,4 +1,4 @@
-import { ErrorResponse, Like } from '@/types';
+import { ErrorResponse, IsSuccessResponse, Like } from '@/types';
 
 type LikePostType = 'memos' | 'blogs' | 'questions' | 'answers' | 'series';
 
@@ -108,6 +108,34 @@ export async function unlikeComment(
 ): Promise<ErrorResponse> {
   return fetch(
     `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/comments/like/${commentId}?isReComment=${isReComment}`,
+    {
+      method: 'DELETE',
+      credentials: 'include',
+    }
+  )
+    .then((res) => res.json())
+    .catch(console.error);
+}
+
+export async function likeEmployee(
+  userId: number
+): Promise<IsSuccessResponse | ErrorResponse> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/employer/like/${userId}`,
+    {
+      method: 'POST',
+      credentials: 'include',
+    }
+  )
+    .then((res) => res.json())
+    .catch(console.error);
+}
+
+export async function unlikeEmployee(
+  userId: number
+): Promise<IsSuccessResponse | ErrorResponse> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/employer/like/${userId}`,
     {
       method: 'DELETE',
       credentials: 'include',

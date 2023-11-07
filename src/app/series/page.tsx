@@ -22,7 +22,10 @@ export default async function SeriesPage() {
   const seriesData = getSeriesArray('month', 'new');
   const myData = checkUser(cookie);
 
-  let [seriesArray, { id, isLogin }] = await Promise.all([seriesData, myData]);
+  let [seriesArray, { id, isLogin, authority }] = await Promise.all([
+    seriesData,
+    myData,
+  ]);
 
   if ('code' in seriesArray) {
     seriesArray = [];
@@ -42,6 +45,7 @@ export default async function SeriesPage() {
         notifications={notifications}
         profileImageFilePath={profileImageFilePath}
         currentPage="series"
+        authority={authority}
       />
       <LayoutWrapper paddingY="sm:py-5">
         <SeriesContainer seriesArray={seriesArray} />

@@ -22,6 +22,7 @@ export default function QuestionsContainer({ questions }: Props) {
   const isInitialMount = useRef(true);
 
   const handleClick = async (orderBy: QuestionOrderBy) => {
+    if (orderBy === selectedOrderType) return;
     setIsLoading(true);
     setIsEnd(false);
     setPageNum(0);
