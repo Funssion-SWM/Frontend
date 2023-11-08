@@ -35,7 +35,7 @@ export default async function RankingPage() {
     myData,
   ]);
 
-  const myRanking = id === -1 ? null : await getRankingByUserId(id);
+  const myRanking = id === 0 ? null : await getRankingByUserId(id);
 
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
