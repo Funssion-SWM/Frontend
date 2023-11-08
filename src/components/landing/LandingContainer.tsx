@@ -17,6 +17,7 @@ import { useRouter } from 'next/navigation';
 import infinity from '@/assets/icons/rank/infinity_1.svg';
 import wheel from '@/assets/icons/wheel_icon.svg';
 import coverletter from '@/assets/coverletter_example.png';
+import EventHeader from '../shared/EventHeader';
 
 export default function LandingContainer() {
   const [readyState, setReadyState] = useState(false);
@@ -25,6 +26,7 @@ export default function LandingContainer() {
 
   return (
     <div className="snap-y snap-mandatory overflow-y-scroll h-screen">
+      <EventHeader />
       <div
         className="flex relative flex-col justify-center items-center h-full sm:snap-always sm:snap-center  bg-gradient-to-t from-soma-blue-30 from-0% via-white via-80%"
         ref={firstScreenRef}

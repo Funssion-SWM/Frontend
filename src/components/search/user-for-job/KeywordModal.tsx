@@ -49,6 +49,10 @@ export default function KeywordModal({ onClose, userId }: Props) {
         notifyToast(res.message, 'error');
         return;
       }
+      notifyToast(
+        '키워드에 맞는 질문 3개가 생성되었고 미니면접이 해당 사용자에게 요청되었습니다.',
+        'success'
+      );
       onClose();
     });
   };

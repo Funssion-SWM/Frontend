@@ -91,7 +91,7 @@ export default function SearchUserForJobContainer() {
         }[page]
       }
       <button
-        className="absolute top-5 right-5 text-soma-grey-49"
+        className="absolute top-5 right-5 text-soma-grey-49 font-semibold"
         onClick={() => {
           open('나가시겠습니까?', () => {
             router.push('/series');

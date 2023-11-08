@@ -14,10 +14,5 @@ export default async function LandingPage() {
 
   isLogin && redirect(MAIN_PATH);
 
-  return (
-    <div>
-      <EventHeader />
-      <LandingContainer />;
-    </div>
-  );
+  return <LandingContainer />;
 }

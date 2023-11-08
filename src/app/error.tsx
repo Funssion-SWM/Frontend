@@ -1,5 +1,6 @@
 'use client'; // Error components must be Client Components
 
+import { MAIN_PATH } from '@/utils/const';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
@@ -25,7 +26,7 @@ export default function Error({
       <button
         className="bg-soma-blue-40 w-72 h-16 shadow-2xl text-white px-3.5 py-2 rounded-3xl transition hover:bg-soma-blue-50 sm:text-2xl mt-10"
         onClick={() => {
-          router.push('/memos');
+          router.push(MAIN_PATH);
           router.refresh();
         }}
       >
