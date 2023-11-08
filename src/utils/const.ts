@@ -44,7 +44,6 @@ export const stackOptions = [
   'JavaScript',
   'Spring',
   'Spring Boot',
-  'jQuery',
   'TypeScript',
   'React',
   'Vue.js',
@@ -59,4 +58,7 @@ export const stackOptions = [
   'Swift',
   'React Native',
   'Flutter',
+  'AWS',
+  'Github actions',
+  'Jenkins',
 ];
