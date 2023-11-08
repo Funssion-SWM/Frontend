@@ -117,7 +117,7 @@ export default function EmployeeCard({ employee, type, onClickResult }: Props) {
               return (
                 <li
                   key={idx}
-                  className="text-sm font-medium text-soma-blue-40 bg-white border-[1px] border-soma-grey-40 rounded-2xl px-2 py-1"
+                  className="text-sm font-medium text-soma-blue-40 bg-white border-[1px] border-soma-grey-40 rounded-2xl px-2 py-1 whitespace-nowrap"
                 >
                   {item.stack}
                 </li>
