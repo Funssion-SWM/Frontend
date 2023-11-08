@@ -115,10 +115,10 @@ export default function UserCard({
             );
           })}
         </ul>
-        <p className="text-soma-grey-70 font-semibold line-clamp-3 break-all h-20">
+        <p className="text-soma-grey-70 font-semibold line-clamp-3 break-all h-20 overflow-y-auto">
           {introduce}
         </p>
-        <div className=" group relative">
+        <div className=" group relative my-1">
           <p className="text-sm text-soma-grey-50">자소서 요약</p>
           <div className="absolute top-0 right-0 sm:left-0 w-[300px] sm:w-[500px] p-3 bg-white opacity-0 pointer-events-none transition-all group-hover:opacity-100 group-hover:pointer-events-auto rounded-2xl shadow-lg whitespace-pre-wrap">
             {description}
