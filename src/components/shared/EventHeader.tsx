@@ -1,8 +1,6 @@
 export default function EventHeader() {
   return (
-    <header
-      className={`fixed top-0 bg-white z-10 transition-all ease-in-out duration-300 w-full`}
-    >
+    <header className={`fixed top-0 bg-white z-10 w-full`}>
       <div className="flex justify-center relative items-center py-4 px-1 sm:px-5 m-auto h-[70px] font-medium text-xl">
         <p>
           🎉
