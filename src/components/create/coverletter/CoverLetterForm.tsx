@@ -54,7 +54,10 @@ export default function CoverLetterForm({ userId }: Props) {
     onCreate: (e) => {
       getCoverletterInfoByUserId(userId).then((res) => {
         if ('code' in res) {
-          if (res.code === 404) setIsCreated(false);
+          if (res.code === 404) {
+            setIsCreated(false);
+            return;
+          }
           notifyToast(res.message, 'error');
           return;
         }
