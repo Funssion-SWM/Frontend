@@ -133,8 +133,14 @@ export default function MemoSideBar({
             </>
           )}
           {currnetCategory === 'recommendation' && (
-            <div className="p-2">
-              <MemosGrid memos={recommendations} colNum={1} />
+            <div className="p-2 overflow-y-auto h-full">
+              {recommendations.length === 0 ? (
+                <p className="flex justify-center items-center h-full text-sm text-soma-grey-49">
+                  해당 메모와 관련된 추천이 없습니다...
+                </p>
+              ) : (
+                <MemosGrid memos={recommendations} colNum={1} />
+              )}
             </div>
           )}
         </aside>
