@@ -4,7 +4,7 @@ import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { getCommentsByPostTypeAndPostId } from '@/service/comments';
 import { getIsLike } from '@/service/like';
-import { getMemoById } from '@/service/memos';
+import { getMemoById, getMemoRecommendationsById } from '@/service/memos';
 import { getNotificationsTop30 } from '@/service/notification';
 import { getQuestionsByMemoId } from '@/service/questions';
 import { getSeriesById } from '@/service/series';
@@ -34,9 +34,23 @@ export default async function SeriesDetailPage({ params: { slug } }: Props) {
   );
   const myData = checkUser(cookie);
   const questionsData = getQuestionsByMemoId(memoInfoList[0].id);
+  const recommendationsData = getMemoRecommendationsById(memoInfoList[0].id);
 
-  const [memo, { isLike }, comments, { id, isLogin, authority }, questions] =
-    await Promise.all([memoData, likeData, commentData, myData, questionsData]);
+  const [
+    memo,
+    { isLike },
+    comments,
+    { id, isLogin, authority },
+    questions,
+    recommendation,
+  ] = await Promise.all([
+    memoData,
+    likeData,
+    commentData,
+    myData,
+    questionsData,
+    recommendationsData,
+  ]);
 
   const { isFollowed, followCnt, followerCnt } = await getUserInfo(
     memo.authorId,
@@ -63,6 +77,7 @@ export default async function SeriesDetailPage({ params: { slug } }: Props) {
           memo={memo}
           comments={comments}
           questions={questions}
+          recommendation={recommendation}
           isLike={isLike}
           userId={id}
           isLogin={isLogin}

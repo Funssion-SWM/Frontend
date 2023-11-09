@@ -1,6 +1,6 @@
 import Header from '@/components/shared/Header';
 import MemoViewer from '@/components/memo/MemoViewer';
-import { getMemoById } from '@/service/memos';
+import { getMemoById, getMemoRecommendationsById } from '@/service/memos';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import MemoSideBar from '@/components/memo/MemoSideBar';
 import { getCommentsByPostTypeAndPostId } from '@/service/comments';
@@ -28,6 +28,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
   const commentData = getCommentsByPostTypeAndPostId('memo', memoId, cookie);
   const myData = checkUser(cookie);
   const questionsData = getQuestionsByMemoId(memoId);
+  const recommendationsData = getMemoRecommendationsById(memoId);
 
   const [
     {
@@ -48,12 +49,14 @@ export default async function MemoPage({ params: { slug } }: Props) {
     { isLike },
     comments,
     { id, isLogin, authority },
+    recommendations,
     questions,
   ] = await Promise.all([
     memoData,
     likeData,
     commentData,
     myData,
+    recommendationsData,
     questionsData,
   ]);
 
@@ -98,6 +101,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
             authorId={authorId}
             comments={comments}
             questions={questions}
+            recommendations={recommendations}
             memoId={memoId}
             userId={id}
             isFollowed={isFollowed}

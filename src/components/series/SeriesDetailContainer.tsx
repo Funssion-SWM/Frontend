@@ -3,7 +3,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import MemoViewer from '../memo/MemoViewer';
 import MemoSideBar from '../memo/MemoSideBar';
-import { getMemoById } from '@/service/memos';
+import { getMemoById, getMemoRecommendationsById } from '@/service/memos';
 import { getCommentsByPostTypeAndPostId } from '@/service/comments';
 import { getQuestionsByMemoId } from '@/service/questions';
 import { Question } from '@/types/question';
@@ -24,6 +24,7 @@ type Props = {
   memo: Memo;
   comments: Comment[];
   questions: Question[];
+  recommendation: Memo[];
   isLike: boolean;
   userId: number;
   isLogin: boolean;
@@ -42,6 +43,7 @@ export default function SeriesDetailContainer({
   memo,
   comments,
   questions,
+  recommendation,
   isLike,
   userId,
   isLogin,
@@ -59,6 +61,8 @@ export default function SeriesDetailContainer({
   const [currentComments, setCurrentComments] = useState<Comment[]>(comments);
   const [currentQuestions, setCurrentQuestions] =
     useState<Question[]>(questions);
+  const [currentRecommendations, setCurrentRecommendations] =
+    useState<Memo[]>(recommendation);
   const dropdownRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const router = useRouter();
@@ -72,6 +76,9 @@ export default function SeriesDetailContainer({
     });
     getQuestionsByMemoId(memoInfoList[currentIdx].id).then((questions) =>
       setCurrentQuestions(questions)
+    );
+    getMemoRecommendationsById(memoInfoList[currentIdx].id).then(
+      (recommendations) => setCurrentRecommendations(recommendations)
     );
   }, [currentIdx]);
 
@@ -205,6 +212,7 @@ export default function SeriesDetailContainer({
           authorId={authorId}
           comments={currentComments}
           questions={currentQuestions}
+          recommendations={currentRecommendations}
           memoId={currentMemo.memoId}
           userId={userId}
           isFollowed={isFollowed}
