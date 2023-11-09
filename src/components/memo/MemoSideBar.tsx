@@ -12,6 +12,8 @@ import QuestionsList from '../question/QuestionsList';
 import { useRouter } from 'next/navigation';
 import { notifyToast } from '@/service/notify';
 import { Rank } from '@/types/rank';
+import { Memo } from '@/types/memo';
+import MemosGrid from './MemosGrid';
 
 type Props = {
   authorName: string;
@@ -19,6 +21,7 @@ type Props = {
   authorId: number;
   comments: Comment[];
   questions: Question[];
+  recommendations: Memo[];
   memoId: number;
   userId: number;
   isFollowed: boolean;
@@ -35,6 +38,7 @@ export default function MemoSideBar({
   authorId,
   comments,
   questions,
+  recommendations,
   memoId,
   userId,
   isFollowed,
@@ -127,6 +131,11 @@ export default function MemoSideBar({
                 질문하기
               </button>
             </>
+          )}
+          {currnetCategory === 'recommendation' && (
+            <div className="p-2">
+              <MemosGrid memos={recommendations} colNum={1} />
+            </div>
           )}
         </aside>
       )}

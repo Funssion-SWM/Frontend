@@ -119,13 +119,11 @@ export default function MemoSidebarHeader({
           onClick={() => onCategoryBtnClick('question')}
           isSelected={currentCategory === 'question'}
         />
-        {/* <BarBtn
+        <BarBtn
           text="추천"
-          onClick={() => {
-            alert('지원 예정입니다! 개발자들이 열심히 개발하고 있어요 :)');
-          }}
+          onClick={() => onCategoryBtnClick('recommendation')}
           isSelected={currentCategory === 'recommendation'}
-        /> */}
+        />
       </div>
     </div>
   );
