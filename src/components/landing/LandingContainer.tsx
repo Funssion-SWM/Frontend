@@ -16,7 +16,7 @@ import { MAIN_PATH } from '@/utils/const';
 import { useRouter } from 'next/navigation';
 import infinity from '@/assets/icons/rank/infinity_1.svg';
 import wheel from '@/assets/icons/wheel_icon.svg';
-import coverletter from '@/assets/coverletter_example.png';
+import hire from '@/assets/hire.gif';
 import EventHeader from '../shared/EventHeader';
 
 export default function LandingContainer() {
@@ -165,8 +165,8 @@ export default function LandingContainer() {
           </p>
         </div>
         <Image
-          src={coverletter}
-          alt="coverletter_landing_image"
+          src={hire}
+          alt="hire"
           width={600}
           className="rounded-2xl border-2"
         />
