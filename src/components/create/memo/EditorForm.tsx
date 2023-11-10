@@ -474,7 +474,13 @@ export default function EditorForm({ userId }: Props) {
             }}
             onCreateBtnClick={handleCreate}
             userId={userId}
-            description={descriptionAI.completion}
+            description={
+              descriptionAI.completion ||
+              getDescription(JSON.stringify(editor?.getJSON())).substring(
+                0,
+                150
+              )
+            }
             tags={tagsAI.completion}
             memoId={memoId}
           />
