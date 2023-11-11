@@ -65,15 +65,20 @@ export default function Header({
       }`}
     >
       <div className="flex justify-center relative items-center py-4 px-1 sm:px-5 max-w-screen-xl m-auto h-[70px]">
-        <Image
-          src={logo}
-          alt="logo"
+        <button
           onClick={() => {
             router.push(MAIN_PATH);
             router.refresh();
           }}
-          className="cursor-pointer absolute left-1 sm:left-3 w-[90px] sm:w-[120px]"
-        />
+          className="cursor-pointer absolute left-1"
+        >
+          <Image
+            src={logo}
+            alt="logo"
+            className="sm:left-3 w-[90px] sm:w-[120px]"
+          />
+        </button>
+
         <div className="sm:flex gap-4 font-semibold text-soma-grey-50 sm:text-lg hidden">
           <Link
             href="/series"
