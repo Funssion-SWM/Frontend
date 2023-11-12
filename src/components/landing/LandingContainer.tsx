@@ -57,14 +57,13 @@ export default function LandingContainer() {
             블럭 기반 에디터를 활용해 개발 기록을 간편하게 작성해보세요
           </p>
           <button
+            className="bg-soma-blue-40 w-72 h-16 shadow-2xl text-white px-3.5 py-2 rounded-3xl transition hover:bg-soma-blue-50 sm:text-2xl"
             onClick={() => {
               router.push(MAIN_PATH);
               router.refresh();
             }}
           >
-            <button className="bg-soma-blue-40 w-72 h-16 shadow-2xl text-white px-3.5 py-2 rounded-3xl transition hover:bg-soma-blue-50 sm:text-2xl">
-              시작하기
-            </button>
+            시작하기
           </button>
         </div>
         <Image
