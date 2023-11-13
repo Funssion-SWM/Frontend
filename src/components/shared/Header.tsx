@@ -170,7 +170,7 @@ export default function Header({
                   return (
                     <li key={notification.id.toString()}>
                       <div className="flex justify-between px-2 py-1 text-xs border-t border-gray-300">
-                        <span
+                        <button
                           className="inline-flex items-center gap-2 cursor-pointer hover:text-soma-blue-40"
                           onClick={() =>
                             router.push('me/' + notification.senderId)
@@ -188,7 +188,7 @@ export default function Header({
                             />
                           </span>
                           {notification.senderName}
-                        </span>
+                        </button>
 
                         <span className="inline-flex items-center">
                           <RelativeDate
@@ -197,7 +197,7 @@ export default function Header({
                           />
                         </span>
                       </div>
-                      <div
+                      <button
                         onClick={() => {
                           switch (notification.notificationType) {
                             case 'NEW_INTERVIEW':
@@ -235,7 +235,7 @@ export default function Header({
                         ) : (
                           <span className="bg-red-400 rounded-full inline-block w-2 h-2" />
                         )}
-                      </div>
+                      </button>
                     </li>
                   );
                 })}
