@@ -6,14 +6,20 @@ type Props = {
   tags: string[];
   memoId: number;
   memoTitle: string;
+  isLogin: boolean;
 };
 
-export default function QuestionFooter({ tags, memoId, memoTitle }: Props) {
+export default function QuestionFooter({
+  tags,
+  memoId,
+  memoTitle,
+  isLogin,
+}: Props) {
   return (
     <div className="flex justify-between text-xs sm:text-sm">
       <div className="flex flex-wrap gap-1">
         {tags.map((tag, idx) => (
-          <TagView key={idx} tagText={tag} />
+          <TagView key={idx} tagText={tag} isLogin={isLogin} />
         ))}
       </div>
       {/* <TagsList tags={tags} /> */}
