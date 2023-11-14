@@ -205,6 +205,7 @@ export default function SeriesDetailContainer({
           type="series"
           seriesId={seriesId}
           seriesTitle={seriesTitle}
+          isLogin={isLogin}
         />
         <MemoSideBar
           authorName={authorName}
