@@ -10,9 +10,10 @@ import { useContext } from 'react';
 
 type Props = {
   myId: number;
+  isCoverletterCreated: boolean;
 };
 
-export default function Setting({ myId }: Props) {
+export default function Setting({ myId, isCoverletterCreated }: Props) {
   const router = useRouter();
   const { open } = useContext(ModalContext);
 
@@ -22,7 +23,7 @@ export default function Setting({ myId }: Props) {
         회원 정보 수정
       </Link>
       <Link href={`/create/coverletter`} prefetch={false}>
-        자기소개서 작성
+        {`자기소개서 ${isCoverletterCreated ? '수정' : '작성'}`}
       </Link>
       <button
         onClick={() => {

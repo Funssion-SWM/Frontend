@@ -46,7 +46,9 @@ export default function MeSideBar({
         <ScoreDetailModal userStats={userStats} />
       </ScoreDetailProvider>
       <History history={history} userId={userId} />
-      {myId === Number(userId) && <Setting myId={myId} />}
+      {myId === Number(userId) && (
+        <Setting myId={myId} isCoverletterCreated={isCoverletterCreated} />
+      )}
       {myId === Number(userId) && isCoverletterCreated && (
         <CoverLetterOpenToggle coverletterIsVisible={coverletterIsVisible} />
       )}
