@@ -11,10 +11,10 @@ export const metadata: Metadata = {
   description: '자기 소개를 작성하는 곳입니다.',
 };
 
-export default async function CoverLetterPage() {
-  // const headersList = headers();
-  // const referer = headersList.get('referer');
-  // referer === null && redirect(MAIN_PATH);
+export default async function CreateCoverLetterPage() {
+  const headersList = headers();
+  const referer = headersList.get('referer');
+  referer === null && redirect(MAIN_PATH);
 
   const accessToken = cookies().get(ACCESS_TOKEN)?.value;
   const refreshToken = cookies().get(REFRESH_TOKEN)?.value;

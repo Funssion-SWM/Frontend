@@ -2,7 +2,7 @@
 
 import BlueBtn from '@/components/shared/btn/BlueBtn';
 import { notifyToast } from '@/service/notify';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import CoverLetterPage2 from './CoverLetterPage2';
 import { DevelopmentArea, StackInfo } from '@/types/coverletter';
@@ -15,9 +15,8 @@ import { useEditor } from '@tiptap/react';
 import { handleTiptapExtensions } from '@/components/editor/extensions';
 import { handleTiptapEditorProps } from '@/components/editor/props';
 import { useRouter } from 'next/navigation';
-import { useCompletion } from 'ai/react';
-import { RingLoader } from 'react-spinners';
 import { developmentAreaOptions, stackOptions } from '@/utils/const';
+import { ModalContext } from '@/context/ModalProvider';
 
 const TITLE_STYLE = 'sm:text-xl font-semibold';
 
@@ -46,6 +45,7 @@ export default function CoverLetterForm({ userId }: Props) {
   const [page, setPage] = useState(1);
   const [isCreated, setIsCreated] = useState(true);
   const router = useRouter();
+  const { open } = useContext(ModalContext);
 
   const editor = useEditor({
     extensions: handleTiptapExtensions('coverletter', userId),
@@ -107,13 +107,6 @@ export default function CoverLetterForm({ userId }: Props) {
   };
 
   const handleSave = async () => {
-    // if (answer1.length !== 0 && answer2.length !== 0 && answer3.length !== 0) {
-    //   const textFormPrompt = `answer1: ${answer1}
-    //                           answer2: ${answer2}
-    //                           answer3: ${answer3}`;
-    //   await descriptionAI.complete(textFormPrompt);
-
-    // console.log(descriptionAI.completion);
     const coverletterInfo = {
       introduce,
       techStack: JSON.stringify(stackInfos),
@@ -149,16 +142,8 @@ export default function CoverLetterForm({ userId }: Props) {
     };
   });
 
-  // const descriptionAI = useCompletion({
-  //   id: 'inforum4',
-  //   api: '/api/generate/description/coverletter',
-  //   onError: (err) => {
-  //     notifyToast(err.message, 'error');
-  //   },
-  // });
-
   return (
-    <div>
+    <div className="relative">
       {page === 1 ? (
         <div>
           <div className="flex flex-col gap-10 mb-5">
@@ -383,13 +368,19 @@ export default function CoverLetterForm({ userId }: Props) {
           editor={editor}
         />
       )}
-      {/* {descriptionAI.isLoading && (
-        <div className="fixed top-0 left-0 w-screen h-screen flex flex-col justify-center items-center bg-white opacity-90">
-          <RingLoader className="self-center" color="#4992FF" />
-          {/* <div className="text-center font-medium text-soma-grey-60 text-sm my-5">
-              AI가 description, tags를 자동생성중입니다...
-            </div> 
-        </div>)} */}
+      <button
+        className="absolute top-0 right-0 text-soma-grey-50"
+        onClick={() =>
+          open(
+            '나가시겠습니까? 나가면 수정했던 정보는 저장되지 않습니다.',
+            () => {
+              router.back();
+            }
+          )
+        }
+      >
+        나가기
+      </button>
     </div>
   );
 }

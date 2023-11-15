@@ -94,6 +94,7 @@ export default async function MemoPage({ params: { slug } }: Props) {
             createdDate={createdDate}
             seriesId={seriesId}
             seriesTitle={seriesTitle}
+            isLogin={isLogin}
           />
           <MemoSideBar
             authorName={authorName}

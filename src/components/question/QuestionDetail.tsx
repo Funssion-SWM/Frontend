@@ -16,6 +16,7 @@ type Props = {
   isLike: boolean;
   userId: number;
   memoTitle: string;
+  isLogin: boolean;
 };
 
 export default function QuestionDetail({
@@ -35,6 +36,7 @@ export default function QuestionDetail({
   isLike,
   userId,
   memoTitle,
+  isLogin,
 }: Props) {
   return (
     <div className="flex flex-col">
@@ -63,7 +65,12 @@ export default function QuestionDetail({
             />
           </div>
         </div>
-        <QuestionFooter tags={tags} memoId={memoId} memoTitle={memoTitle} />
+        <QuestionFooter
+          tags={tags}
+          memoId={memoId}
+          memoTitle={memoTitle}
+          isLogin={isLogin}
+        />
       </div>
       <p className="sm:text-xl p-2 mt-10 font-semibold border-b-[1px] border-soma-grey-49 ">
         <span className="text-soma-blue-40">{answersCount}개</span>의 답변

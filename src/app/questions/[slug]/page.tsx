@@ -58,6 +58,7 @@ export default async function QuestionPage({ params: { slug } }: Props) {
           isLike={isLike}
           userId={id}
           memoTitle={memoTitle}
+          isLogin={isLogin}
         />
       </LayoutWrapper>
     </section>

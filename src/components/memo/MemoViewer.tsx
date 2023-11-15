@@ -20,6 +20,7 @@ type Props = {
   type?: 'memo' | 'series';
   seriesId: number;
   seriesTitle: string;
+  isLogin: boolean;
 };
 
 export default function MemoViewer({
@@ -35,6 +36,7 @@ export default function MemoViewer({
   type = 'memo',
   seriesId,
   seriesTitle,
+  isLogin,
 }: Props) {
   const editor = useEditor({
     extensions: handleTiptapExtensions('memo', memoId),
@@ -86,7 +88,7 @@ export default function MemoViewer({
       </div>
       <div className="flex flex-wrap gap-1 mx-2 mt-10 mb-1">
         {memoTags.map((tag, idx) => (
-          <TagView key={idx} tagText={tag} />
+          <TagView key={idx} tagText={tag} isLogin={isLogin} />
         ))}
       </div>
     </section>

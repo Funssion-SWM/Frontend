@@ -58,7 +58,7 @@ export default function GuideHeader() {
           <br />
           마크다운 에디터, 일반 에디터 모두 잘 동작합니다.
         </div> */}
-          <div className="embla__slide bg-soma-grey-20 rounded-xl">
+          {/* <div className="embla__slide bg-soma-grey-20 rounded-xl">
             인포럼에서 <span className={HIGHLIGHT_STYLE}>post 작성</span>하고
             커피☕️ 받아가세요!
             <br />
@@ -66,7 +66,7 @@ export default function GuideHeader() {
             작성하고 페이지 상단{' '}
             <span className={HIGHLIGHT_STYLE}>이벤트 설문조사</span>를
             참여해주시면 커피☕️를 드립니다.
-          </div>
+          </div> */}
         </div>
       </div>
     )
