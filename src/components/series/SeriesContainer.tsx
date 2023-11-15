@@ -17,7 +17,7 @@ export default function SeriesContainer({ seriesArray }: Props) {
   const [currentSeriesArray, setCurrentSeriesArray] =
     useState<Series[]>(seriesArray);
   const [selectedOrderType, setSelectedOrderType] = useState<Orderby>('new');
-  const [pageNum, setPageNum] = useState(1);
+  const [pageNum, setPageNum] = useState(0);
   const [isEnd, setIsEnd] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const isInitialMount = useRef(true);
