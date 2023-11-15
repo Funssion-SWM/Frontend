@@ -5,6 +5,8 @@ import Link from 'next/link';
 import logo from '@/assets/inforum_logo.png';
 import Image from 'next/image';
 import { MAIN_PATH } from '@/utils/const';
+import { headers } from 'next/headers';
+import { notifyToast } from '@/service/notify';
 
 export const metadata: Metadata = {
   title: '로그인',
@@ -12,6 +14,11 @@ export const metadata: Metadata = {
 };
 
 export default function LoginPage() {
+  const headersList = headers();
+  const referer = headersList.get('referer');
+  referer === 'https://accounts.google.com/' &&
+    notifyToast('이미 일반 회원가입으로 등록된 계정입니다.', 'error');
+
   return (
     <section className="relative flex flex-col w-full items-center max-w-screen-sm mx-auto mt-32 py-5 px-10 sm:px-32">
       <Link
