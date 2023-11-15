@@ -24,14 +24,16 @@ export default function SeriesContainer({ seriesArray }: Props) {
 
   const handleClick = async (orderBy: Orderby) => {
     if (orderBy === selectedOrderType) return;
-    setPageNum(1);
+    setIsLoading(true);
     setIsEnd(false);
+    setPageNum(0);
     const series = await getSeriesArray(
       'month',
       orderBy,
       0,
       SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
     );
+    setIsLoading(false);
     if (!('code' in series)) setCurrentSeriesArray(series);
     setSelectedOrderType(orderBy);
   };
