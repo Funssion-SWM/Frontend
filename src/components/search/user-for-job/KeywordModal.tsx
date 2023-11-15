@@ -48,8 +48,8 @@ export default function KeywordModal({ onClose, userId }: Props) {
     const questionsString = await questionAI.complete(textForPrompt);
     const questions = JSON.parse(questionsString ?? "['','','']");
     setQuestion1(questions[0]);
-    setQuestion1(questions[1]);
-    setQuestion1(questions[2]);
+    setQuestion2(questions[1]);
+    setQuestion3(questions[2]);
     setIsGenerated(true);
   };
 
