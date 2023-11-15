@@ -118,7 +118,7 @@ export default function Header({
                 구직자 찾기
               </Link>
             )}
-            <div className="relative">
+            {/* <div className="relative">
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfnkPn7J4uwSP-g3nclOVsx1m4ePUbf_GEpYG1Cpsh2aWgtMQ/viewform?usp=sf_link"
                 target="_blank"
@@ -130,7 +130,7 @@ export default function Header({
               <div className="absolute w-20 text-xs -top-4 -left-5 text-soma-grey-60 font-semibold animate-bounce duration-1000 ease-in-out">
                 <span className="text-green-400">N pay</span> 3000원
               </div>
-            </div>
+            </div> */}
 
             <button onClick={() => router.push('/search/form')}>
               <Image
@@ -321,7 +321,7 @@ export default function Header({
           </nav>
         ) : (
           <nav className="flex items-center gap-3 absolute right-1 sm:right-3">
-            <div className="relative">
+            {/* <div className="relative">
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfnkPn7J4uwSP-g3nclOVsx1m4ePUbf_GEpYG1Cpsh2aWgtMQ/viewform?usp=sf_link"
                 target="_blank"
@@ -333,7 +333,7 @@ export default function Header({
               <div className="absolute w-20 text-xs -top-4 -left-5 text-soma-grey-60 font-semibold animate-bounce duration-1000 ease-in-out">
                 <span className="text-green-400">N pay</span> 3000원
               </div>
-            </div>
+            </div> */}
             <Link
               href="/guide"
               className={`font-semibold text-soma-grey-50 hover:text-soma-blue-40 transition-all text-sm`}

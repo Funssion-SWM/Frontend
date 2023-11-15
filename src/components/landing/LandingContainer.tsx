@@ -26,7 +26,7 @@ export default function LandingContainer() {
 
   return (
     <div className="snap-y snap-mandatory overflow-y-scroll h-screen">
-      <EventHeader />
+      {/* <EventHeader /> */}
       <div
         className="flex relative flex-col justify-center items-center h-full sm:snap-always sm:snap-center  bg-gradient-to-t from-soma-blue-30 from-0% via-white via-80%"
         ref={firstScreenRef}
