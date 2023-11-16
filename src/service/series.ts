@@ -4,12 +4,13 @@ import {
   PostSeriesResponse,
   Series,
 } from '@/types/series';
+import { SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/utils/const';
 
 export async function getSeriesArray(
   period: Period = 'month',
   orderBy: Orderby = 'new',
   pageNum: number = 0,
-  resultCntPerPage: number = 12
+  resultCntPerPage: number = SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
 ): Promise<Series[] | ErrorResponse> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/series`);
   const params = {
