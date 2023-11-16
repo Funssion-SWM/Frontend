@@ -2,8 +2,8 @@
 
 import { login } from '@/service/auth';
 import { LoginFormData } from '@/types';
-import { useRouter } from 'next/navigation';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import BlueBtn from '../shared/btn/BlueBtn';
 import { BASIC_INPUT_STYLE } from '@/utils/tailwindcss';
 import { notifyToast } from '@/service/notify';
@@ -11,6 +11,7 @@ import { MAIN_PATH } from '@/utils/const';
 
 export default function LoginForm() {
   const router = useRouter();
+  const duplicate = useSearchParams()?.get('duplicate');
   const [loginData, setLoginData] = useState<LoginFormData>({
     email: '',
     pw: '',
@@ -34,6 +35,11 @@ export default function LoginForm() {
       }
     });
   };
+
+  useEffect(() => {
+    if (duplicate === 'true')
+      notifyToast('이미 일반 회원가입으로 등록된 계정입니다.', 'error');
+  }, []);
 
   return (
     <form className="flex flex-col w-full" role="form" onSubmit={handleSubmit}>
