@@ -1,12 +1,13 @@
 import { ErrorResponse, Orderby, Period } from '@/types';
 import { PostImageResponse } from '@/types/image';
 import { Memo, PostMemoData } from '@/types/memo';
+import { MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/utils/const';
 
 export async function getMemos(
   period: Period = 'month',
   orderBy: Orderby = 'new',
   pageNum: number = 0,
-  resultCntPerPage: number = 12
+  resultCntPerPage: number = MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
 ): Promise<Memo[]> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/memos`);
   const params = {
