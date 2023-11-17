@@ -95,6 +95,7 @@ export default function SearchUserForJobContainer() {
         onClick={() => {
           open('나가시겠습니까?', () => {
             router.push('/series');
+            router.refresh();
           });
         }}
       >

@@ -12,9 +12,9 @@ export const metadata: Metadata = {
 };
 
 export default async function CreateCoverLetterPage() {
-  const headersList = headers();
-  const referer = headersList.get('referer');
-  referer === null && redirect(MAIN_PATH);
+  // const headersList = headers();
+  // const referer = headersList.get('referer');
+  // referer === null && redirect(MAIN_PATH);
 
   const accessToken = cookies().get(ACCESS_TOKEN)?.value;
   const refreshToken = cookies().get(REFRESH_TOKEN)?.value;

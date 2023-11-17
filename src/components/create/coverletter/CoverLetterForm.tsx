@@ -18,7 +18,7 @@ import { useRouter } from 'next/navigation';
 import { developmentAreaOptions, stackOptions } from '@/utils/const';
 import { ModalContext } from '@/context/ModalProvider';
 
-const TITLE_STYLE = 'sm:text-xl font-semibold';
+const TITLE_STYLE = 'sm:text-xl font-semibold my-1';
 
 const TEXTAREA_STYLE =
   'bg-soma-grey-20 w-full resize-none h-32 break-all p-4 outline-none rounded-xl';
@@ -274,8 +274,8 @@ export default function CoverLetterForm({ userId }: Props) {
             </div>
 
             <div>
-              <div className={TITLE_STYLE}>자기소개</div>
               <div>
+                <div className={TITLE_STYLE}>한 줄 소개</div>
                 <div>
                   <input
                     type="text"
@@ -295,7 +295,9 @@ export default function CoverLetterForm({ userId }: Props) {
                   />
                   <div className="text-end text-sm">{introduce.length}/50</div>
                 </div>
-
+              </div>
+              <div>
+                <div className={TITLE_STYLE}>공통 질문</div>
                 <div>
                   1. 프로젝트 경험에 대해 자유롭게 서술해주세요. (최대 500자)
                 </div>

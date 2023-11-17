@@ -29,7 +29,7 @@ export default function CoverLetterPage2({
     <div>
       <div className="flex">
         <h2 className="text-xl font-semibold sm:mb-[22.5px]">
-          자유롭게 자신을 어필해해보세요!
+          자유롭게 자신을 어필해보세요!
         </h2>
       </div>
 
