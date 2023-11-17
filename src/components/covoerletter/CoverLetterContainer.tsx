@@ -26,7 +26,7 @@ export default function CoverLetterContainer({ coverletter }: Props) {
 
   const [page, setPage] = useState(1);
 
-  const TITLE_STYLE = 'sm:text-xl font-semibold';
+  const TITLE_STYLE = 'sm:text-xl font-semibold my-1';
   const ANSWER_STYLE = 'bg-soma-grey-20 w-full break-all p-4 rounded-xl';
   return (
     <div>
@@ -88,7 +88,7 @@ export default function CoverLetterContainer({ coverletter }: Props) {
             </div>
 
             <div className="flex flex-col gap-4">
-              <div className={TITLE_STYLE}>자기소개</div>
+              <div className={TITLE_STYLE}>공통 질문</div>
               <div>
                 <div>1. 프로젝트 경험에 대해 자유롭게 서술해주세요.</div>
                 <p className={ANSWER_STYLE}>{answer1}</p>
