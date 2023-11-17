@@ -153,9 +153,9 @@ export default function LandingContainer() {
         <div className="sm:mr-14 w-full sm:w-auto px-4">
           <Image src={wheel} alt="wheel" className="w-[30px] sm:w-9 mt-5" />
           <p className="text-2xl sm:text-4xl font-bold leading-tight mb-5">
-            신속하고 정확한
+            신속하고 편리한
             <br />
-            채용 연계 서비스
+            채용 도우미 서비스
           </p>
           <p className="text-sm sm:text-xl font-normal">
             원하는 직무의 구직자를 인포럼에서 찾아보세요!
