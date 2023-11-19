@@ -99,6 +99,16 @@ module.exports = {
       maxHeight: {
         'for-fit-screen': 'calc(100vh - 120px)',
       },
+      fontSize: {
+        '6xl': [
+          '3.5rem',
+          {
+            lineHeight: '3.75rem',
+            letterSpacing: '-0.02em',
+            fontWeight: '700',
+          },
+        ],
+      },
     },
   },
   plugins: [

@@ -36,7 +36,7 @@ export default function UserListContainer({
 
   return (
     <section className="w-full mt-10 sm:mt-20">
-      <div className={`sm:text-3xl text-xl font-bold my-5`}>User List</div>
+      <h3 className={`sm:text-3xl text-xl font-bold my-5`}>User List</h3>
       <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {userList.map((userForJobInfo) => {
           return (
