@@ -25,14 +25,21 @@ export default function LandingContainer() {
   const router = useRouter();
 
   return (
-    <div className="snap-y snap-mandatory overflow-y-scroll h-screen">
+    <section className="snap-y snap-mandatory overflow-y-scroll h-screen">
       {/* <EventHeader /> */}
       <div
         className="flex relative flex-col justify-center items-center h-full sm:snap-always sm:snap-center  bg-gradient-to-t from-soma-blue-30 from-0% via-white via-80%"
         ref={firstScreenRef}
       >
-        <Image src={logo} width={300} alt="logo" />
-        <h1 className="text-4xl sm:text-5xl mt-5 font-bold text-center overflow-hidden">
+        <Image
+          src={logo}
+          width={350}
+          alt="logo"
+          className={`transition-opacity ${
+            readyState ? 'opacity-100' : 'opacity-0 invisible'
+          }  duration-1000 ease-in-out`}
+        />
+        <h1 className="text-4xl sm:text-6xl mt-5 font-bold text-center overflow-hidden">
           <TypeIt
             options={{
               strings: [''],
@@ -43,7 +50,7 @@ export default function LandingContainer() {
               },
             }}
           >
-            개발 기록을 쉽고 즐겁게
+            무한한 개발 이야기 공간
           </TypeIt>
         </h1>
         <div
@@ -52,9 +59,9 @@ export default function LandingContainer() {
           }  duration-1000 ease-in-out`}
         >
           <p className="text-sm sm:text-2xl my-7 text-center ">
-            자동 텍스트 생성 기능을 통해 글을 쉽고 빠르게 작성하세요
+            다양한 개발 컨텐츠를 쉽고 간편하게 만들어 보세요
             <br />
-            블럭 기반 에디터를 활용해 개발 기록을 간편하게 작성해보세요
+            인포럼과 함께 긍정적인 개발 생태계를 만들어봐요
           </p>
           <button
             className="bg-soma-blue-40 w-72 h-16 shadow-2xl text-white px-3.5 py-2 rounded-3xl transition hover:bg-soma-blue-50 sm:text-2xl"
@@ -95,9 +102,9 @@ export default function LandingContainer() {
             텍스트 자동 생성 기능
           </p>
           <p className="text-sm sm:text-xl font-normal">
-            작성 중 ++를 입력해 텍스트를 자동 생성해보세요!
+            ++ 명령어를 입력해 텍스트를 자동 생성해보세요!
             <br />
-            글을 다 작성하면 자동생성된 요약과 태그를 제공합니다.
+            글을 다 작성하면 자동생성된 요약과 태그를 제공합니다!
             {/* <br />
             검색보다 빠르고 간편하게 정보를 제공합니다. */}
           </p>
@@ -117,8 +124,9 @@ export default function LandingContainer() {
             간편한 에디팅 기능
           </p>
           <p className="text-sm sm:text-xl font-normal">
-            바로 반영되는 마크다운을 사용해보세요!
-            <br />/ 키와 드래그를 이용하여 다양한 편집 기능을 사용해보세요!
+            / 키와 드래그를 이용하여 다양한 편집 기능을 사용해보세요!
+            <br />
+            바로 반영되는 마크다운 문법을 사용해보세요!
           </p>
         </div>
         <Image
@@ -158,9 +166,9 @@ export default function LandingContainer() {
             채용 도우미 서비스
           </p>
           <p className="text-sm sm:text-xl font-normal">
-            원하는 직무의 구직자를 인포럼에서 찾아보세요!
+            원하는 직무의 개발자를 인포럼에서 찾아보세요!
             <br />
-            키워드에 맞는 질문을 자동 생성해 미니인터뷰를 진행해보세요!
+            키워드에 맞는 질문을 자동 생성해 미니면접을 진행해보세요!
           </p>
         </div>
         <Image
@@ -217,6 +225,6 @@ export default function LandingContainer() {
           />
         </button>
       </div> */}
-    </div>
+    </section>
   );
 }
