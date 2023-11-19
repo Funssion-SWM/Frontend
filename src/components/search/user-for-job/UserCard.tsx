@@ -62,7 +62,7 @@ export default function UserCard({
       <div className="flex justify-between items-center px-3 pt-3">
         <div className="flex items-center gap-2">
           <div className="relative">
-            <Link href={`/me/${id}`} prefetch={false}>
+            <a href={`/me/${id}`} target="_blank" rel="noopener noreferrer">
               <Image
                 src={imagePath || basicProfileImg}
                 alt="profileImg"
@@ -70,7 +70,7 @@ export default function UserCard({
                 height={40}
                 className="rounded-full w-10 h-10 object-cover"
               />
-            </Link>
+            </a>
             <Image
               src={getImageSrcFromRank(rank)}
               alt="rank"
