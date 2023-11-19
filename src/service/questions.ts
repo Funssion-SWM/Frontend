@@ -61,7 +61,7 @@ export async function getQuestionsByMemoId(
 export async function createQuestion(
   bodyData: PostQuestionData,
   memoId: number
-): Promise<Question | ErrorResponse> {
+): Promise<{ questionId: number; message: string } | ErrorResponse> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions`);
   if (memoId) {
     const params = { memoId: memoId.toString() };
@@ -83,7 +83,7 @@ export async function createQuestion(
 export async function updateQuestion(
   bodyData: PostQuestionData,
   id: number
-): Promise<Question | ErrorResponse> {
+): Promise<IsSuccessResponse | ErrorResponse> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions/${id}`, {
     method: 'PUT',
     headers: {

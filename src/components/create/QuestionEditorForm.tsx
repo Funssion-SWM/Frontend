@@ -116,7 +116,7 @@ export default function QuestionEditorForm() {
             return;
           }
           notifyToast('성공적으로 등록되었습니다.', 'success');
-          router.push(`/questions/${res.id}`);
+          router.push(`/questions/${res.questionId}`);
           router.refresh();
         });
   };
