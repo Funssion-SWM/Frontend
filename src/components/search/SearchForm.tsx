@@ -2,7 +2,13 @@
 
 import Image from 'next/image';
 import searchIcon from '@/assets/icons/icon_search_32.svg';
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { addSearchHistory } from '@/service/search';
 import { useSearchParams } from 'next/navigation';
 
@@ -20,6 +26,7 @@ export default function SearchForm({ onChange, isLogin }: Props) {
   const userName = searchParams?.get('userName') ?? undefined;
 
   const formRef = useRef<HTMLFormElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [borderColor, setBorderColor] = useState('border-blue-400');
 
   const handleClick = () => {
@@ -39,6 +46,12 @@ export default function SearchForm({ onChange, isLogin }: Props) {
     isLogin && addSearchHistory(searchString, false);
   };
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.selectionStart = inputRef.current.value.length;
+    }
+  }, []);
+
   return (
     <form
       ref={formRef}
@@ -57,6 +70,7 @@ export default function SearchForm({ onChange, isLogin }: Props) {
       <input
         type="text"
         autoFocus
+        ref={inputRef}
         className={`text-lg focus:outline-none bg-transparent mx-4 w-full ${
           isTag ? 'text-green-500' : ''
         }`}
