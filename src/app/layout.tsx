@@ -38,6 +38,9 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="ko" className={pretendard.className}>
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <GoogleAnalytics />
       <body className="flex flex-col">
         <ToastProvider>
