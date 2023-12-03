@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
+
+const withPWA = require('next-pwa')({
+  dest: 'public',
+});
+
 const nextConfig = {
   output: 'standalone',
   experimental: {
@@ -7,9 +12,15 @@ const nextConfig = {
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'store.inforum.me' }],
   },
+  reactStrictMode: true,
+  pwa: {
+    dest: 'public',
+    register: true,
+    skipWaiting: true,
+  },
 };
 
-module.exports = nextConfig;
+module.exports = withPWA(nextConfig);
 
 // Injected content via Sentry wizard below
 
