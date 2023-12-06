@@ -1,13 +1,14 @@
-import { EditorContent, useEditor } from '@tiptap/react';
+import { useEditor } from '@tiptap/react';
 import { handleTiptapExtensions } from '../editor/extensions';
 import { handleTiptapEditorProps } from '../editor/props';
 import { Answer } from '@/types/answer';
 import AnswerCardHeader from './AnswerCardHeader';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateAnswer } from '@/service/answers';
 import { notifyToast } from '@/service/notify';
 import AnswerCardFooter from './AnswerCardFooter';
+import { generateHTML } from '@tiptap/html';
 
 type Props = {
   answer: Answer;
@@ -47,6 +48,10 @@ export default function AnswerCard({
     editable: isEditMode,
     content: JSON.parse(text),
   });
+
+  const output = useMemo(() => {
+    return generateHTML(JSON.parse(text), handleTiptapExtensions('answer', 0));
+  }, [text]);
 
   const handleUpdateBtnClick = () => {
     setIsEditMode(true);
@@ -89,9 +94,12 @@ export default function AnswerCard({
         questionId={questionId}
         authorRank={rank}
       />
-      <div className="break-all my-3">
-        <EditorContent editor={editor} />
-      </div>
+      <div
+        className="max-w-full my-3 prose-sm break-all sm:prose-lg prose-headings:my-2 prose-p:my-0 prose-stone dark:prose-invert prose-headings:font-display font-default focus:outline-none"
+        dangerouslySetInnerHTML={{
+          __html: output,
+        }}
+      ></div>
       <AnswerCardFooter
         repliesCount={repliesCount}
         answerId={id}
@@ -103,7 +111,7 @@ export default function AnswerCard({
         isDislike={disLike}
       />
       {selected && (
-        <div className="absolute top-0 right-0 font-medium bg-soma-blue-40 text-soma-white py-2 px-4 rounded-xl rounded-e-none rounded-t-none text-xs sm:text-base">
+        <div className="absolute top-0 right-0 px-4 py-2 text-xs font-medium rounded-t-none bg-soma-blue-40 text-soma-white rounded-xl rounded-e-none sm:text-base">
           selected
         </div>
       )}

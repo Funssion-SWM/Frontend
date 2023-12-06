@@ -1,14 +1,14 @@
 'use client';
 
 import { Question } from '@/types/question';
-import { EditorContent, useEditor } from '@tiptap/react';
+import { generateHTML } from '@tiptap/html';
 import { handleTiptapExtensions } from '../editor/extensions';
-import { handleTiptapEditorProps } from '../editor/props';
 import QuestionHeader from './QuestionHeader';
 import QuestionFooter from './QuestionFooter';
 import AnswersList from './AnswersList';
 import { Answer } from '@/types/answer';
 import AnswerForm from './AnswerForm';
+import { useMemo } from 'react';
 
 type Props = {
   questionData: Question;
@@ -38,9 +38,16 @@ export default function QuestionDetail({
   memoTitle,
   isLogin,
 }: Props) {
+  const output = useMemo(() => {
+    return generateHTML(
+      JSON.parse(text),
+      handleTiptapExtensions('question', id)
+    );
+  }, [text]);
+
   return (
     <div className="flex flex-col">
-      <div className="bg-soma-grey-25 rounded-2xl p-5">
+      <div className="p-5 bg-soma-grey-25 rounded-2xl">
         <QuestionHeader
           questionId={id}
           likeNum={likes}
@@ -50,20 +57,16 @@ export default function QuestionDetail({
           isLike={isLike}
         />
         <div className="my-5">
-          <h1 className="text-2xl sm:text-4xl text-soma-grey-70 font-bold break-all">
+          <h1 className="text-2xl font-bold break-all sm:text-4xl text-soma-grey-70">
             {title}
           </h1>
           <div className="h-[0.5px] mx-1 my-4 bg-soma-grey-49"></div>
-          <div className="break-all ">
-            <EditorContent
-              editor={useEditor({
-                extensions: handleTiptapExtensions('question', id),
-                editorProps: handleTiptapEditorProps('question', id),
-                editable: false,
-                content: JSON.parse(text),
-              })}
-            />
-          </div>
+          <div
+            className="max-w-full prose-sm break-all sm:prose-lg prose-headings:my-2 prose-p:my-0 prose-stone dark:prose-invert prose-headings:font-display font-default focus:outline-none"
+            dangerouslySetInnerHTML={{
+              __html: output,
+            }}
+          ></div>
         </div>
         <QuestionFooter
           tags={tags}
