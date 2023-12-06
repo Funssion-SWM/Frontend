@@ -1,6 +1,6 @@
 'use client';
 
-import { generateHTML } from '@tiptap/react';
+import { generateHTML } from '@tiptap/html';
 import MemoViewerHeader from './MemoViewerHeader';
 import { handleTiptapExtensions } from '@/components/editor/extensions';
 import TagView from '../shared/TagView';
@@ -77,7 +77,9 @@ export default function MemoViewer({
       <div className="h-[0.5px] mx-3 my-4 bg-soma-grey-49"></div>
       <div
         className="flex-grow max-w-full px-4 prose-sm break-all sm:prose-lg prose-headings:my-2 prose-p:my-0 prose-stone dark:prose-invert prose-headings:font-display font-default focus:outline-none"
-        dangerouslySetInnerHTML={{ __html: output }}
+        dangerouslySetInnerHTML={{
+          __html: output,
+        }}
       ></div>
       <div className="flex flex-wrap gap-1 mx-2 mt-10 mb-1">
         {memoTags.map((tag, idx) => (
