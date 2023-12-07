@@ -1,9 +1,9 @@
-import { useEditor } from '@tiptap/react';
+import { EditorContent, useEditor } from '@tiptap/react';
 import { handleTiptapExtensions } from '../editor/extensions';
 import { handleTiptapEditorProps } from '../editor/props';
 import { Answer } from '@/types/answer';
 import AnswerCardHeader from './AnswerCardHeader';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateAnswer } from '@/service/answers';
 import { notifyToast } from '@/service/notify';
@@ -39,6 +39,7 @@ export default function AnswerCard({
   isMyQuestion,
   isSolved,
 }: Props) {
+  const [hydrated, setHydrated] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const router = useRouter();
 
@@ -72,6 +73,11 @@ export default function AnswerCard({
     });
   };
 
+  useEffect(() => {
+    editor?.commands.setContent(JSON.parse(text));
+    setHydrated(true);
+  }, []);
+
   return (
     <article
       className={`flex flex-col relative p-4 border-b-[1px] border-soma-grey-49 ${
@@ -94,12 +100,18 @@ export default function AnswerCard({
         questionId={questionId}
         authorRank={rank}
       />
-      <div
-        className="max-w-full my-3 prose-sm break-all sm:prose-lg prose-headings:my-2 prose-p:my-0 prose-stone dark:prose-invert prose-headings:font-display font-default focus:outline-none"
-        dangerouslySetInnerHTML={{
-          __html: output,
-        }}
-      ></div>
+      {hydrated ? (
+        <div className="my-3 break-all">
+          <EditorContent editor={editor} />
+        </div>
+      ) : (
+        <div
+          className="hidden"
+          dangerouslySetInnerHTML={{
+            __html: output,
+          }}
+        ></div>
+      )}
       <AnswerCardFooter
         repliesCount={repliesCount}
         answerId={id}
