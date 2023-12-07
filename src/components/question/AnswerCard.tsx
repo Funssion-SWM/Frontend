@@ -106,7 +106,7 @@ export default function AnswerCard({
         </div>
       ) : (
         <div
-          className="max-w-full my-3 prose-sm break-all sm:prose-lg prose-headings:my-2 prose-p:my-0 prose-stone dark:prose-invert prose-headings:font-display font-default focus:outline-none"
+          className="hidden"
           dangerouslySetInnerHTML={{
             __html: output,
           }}
