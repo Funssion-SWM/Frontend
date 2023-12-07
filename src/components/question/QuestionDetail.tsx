@@ -8,7 +8,9 @@ import QuestionFooter from './QuestionFooter';
 import AnswersList from './AnswersList';
 import { Answer } from '@/types/answer';
 import AnswerForm from './AnswerForm';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { EditorContent, useEditor } from '@tiptap/react';
+import { handleTiptapEditorProps } from '../editor/props';
 
 type Props = {
   questionData: Question;
@@ -38,12 +40,26 @@ export default function QuestionDetail({
   memoTitle,
   isLogin,
 }: Props) {
+  const [hydrated, setHydrated] = useState(false);
+
+  const editor = useEditor({
+    extensions: handleTiptapExtensions('question', id),
+    editorProps: handleTiptapEditorProps('question', id),
+    editable: false,
+    content: JSON.parse(text),
+  });
+
   const output = useMemo(() => {
     return generateHTML(
       JSON.parse(text),
       handleTiptapExtensions('question', id)
     );
   }, [text]);
+
+  useEffect(() => {
+    editor?.commands.setContent(JSON.parse(text));
+    setHydrated(true);
+  }, []);
 
   return (
     <div className="flex flex-col">
@@ -61,12 +77,19 @@ export default function QuestionDetail({
             {title}
           </h1>
           <div className="h-[0.5px] mx-1 my-4 bg-soma-grey-49"></div>
-          <div
-            className="max-w-full prose-sm break-all sm:prose-lg prose-headings:my-2 prose-p:my-0 prose-stone dark:prose-invert prose-headings:font-display font-default focus:outline-none"
-            dangerouslySetInnerHTML={{
-              __html: output,
-            }}
-          ></div>
+
+          {hydrated ? (
+            <div className="break-all">
+              <EditorContent editor={editor} />
+            </div>
+          ) : (
+            <div
+              className="max-w-full prose-sm break-all sm:prose-lg prose-headings:my-2 prose-p:my-0 prose-stone dark:prose-invert prose-headings:font-display font-default focus:outline-none"
+              dangerouslySetInnerHTML={{
+                __html: output,
+              }}
+            ></div>
+          )}
         </div>
         <QuestionFooter
           tags={tags}
