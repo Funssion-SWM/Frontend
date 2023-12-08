@@ -1,11 +1,9 @@
 ## About the Project
 
-개발기록을 쉽고 즐겁게,  
-무한한 개발 이야기 공간
+개발기록을 쉽고 즐겁게, 무한한 개발 이야기 공간, 인포럼   
+Link : https://www.inforum.me
 
 <img width="25%" src="https://github.com/Funssion-SWM/Frontend/assets/68095803/7ded1a36-0616-40d2-9f7d-c756fdee7a62"/>
-
-Link : https://www.inforum.me
 
 ## Stacks
 
@@ -17,7 +15,7 @@ Link : https://www.inforum.me
 
 - 생성형 AI를 활용한 텍스트 자동 생성
 - 생성형 AI를 활용한 요약, 태그 자동 생성
-- 오픈소스(https://github.com/steven-tey/novel)를 활용한 블럭 기반 웹에디터
+- 오픈소스( https://github.com/steven-tey/novel )를 활용한 블럭 기반 웹에디터
 - 시리즈
 
 #### 2. 컨텐츠 생산 동기 부여를 위한 기능
