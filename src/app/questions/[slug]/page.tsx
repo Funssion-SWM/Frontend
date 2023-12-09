@@ -9,6 +9,7 @@ import { getNotificationsTop30 } from '@/service/notification';
 import { getQuestionById } from '@/service/questions';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { cookies } from 'next/headers';
+import { notFound } from 'next/navigation';
 
 type Props = {
   params: {
@@ -22,13 +23,20 @@ export default async function QuestionPage({ params: { slug } }: Props) {
   const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
   const questionId = Number(slug);
 
-  const questionData = getQuestionById(questionId, cookie);
+  const question = await getQuestionById(questionId, cookie);
+  if (question.id === undefined) {
+    notFound();
+  }
+
   const answersData = getAnswersByQuestionId(questionId, cookie);
   const myData = checkUser(cookie);
   const likeData = getIsLike('questions', questionId, cookie);
 
-  const [question, answers, { id, isLogin, authority }, { isLike }] =
-    await Promise.all([questionData, answersData, myData, likeData]);
+  const [answers, { id, isLogin, authority }, { isLike }] = await Promise.all([
+    answersData,
+    myData,
+    likeData,
+  ]);
 
   const { profileImageFilePath } = isLogin
     ? await getUserInfo(id)
@@ -68,6 +76,9 @@ export default async function QuestionPage({ params: { slug } }: Props) {
 export async function generateMetadata({ params: { slug } }: Props) {
   const questionId = Number(slug);
   const { title, description } = await getQuestionById(questionId);
+  if (title === undefined) {
+    notFound();
+  }
 
   return {
     title: title,

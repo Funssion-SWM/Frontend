@@ -10,6 +10,7 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { getQuestionsByMemoId } from '@/service/questions';
 import { getNotificationsTop30 } from '@/service/notification';
+import { notFound } from 'next/navigation';
 
 type Props = {
   params: {
@@ -23,7 +24,26 @@ export default async function MemoPage({ params: { slug } }: Props) {
   const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
   const memoId = Number(slug);
 
-  const memoData = getMemoById(memoId, cookie);
+  const {
+    memoTitle,
+    memoColor,
+    memoText,
+    authorId,
+    likes,
+    authorName,
+    authorProfileImagePath,
+    memoTags,
+    isMine,
+    createdDate,
+    seriesId,
+    seriesTitle,
+    authorRank,
+  } = await getMemoById(memoId, cookie);
+
+  if (memoTitle === undefined) {
+    notFound();
+  }
+
   const likeData = getIsLike('memos', memoId, cookie);
   const commentData = getCommentsByPostTypeAndPostId('memo', memoId, cookie);
   const myData = checkUser(cookie);
@@ -31,28 +51,12 @@ export default async function MemoPage({ params: { slug } }: Props) {
   const recommendationsData = getMemoRecommendationsById(memoId);
 
   const [
-    {
-      memoTitle,
-      memoColor,
-      memoText,
-      authorId,
-      likes,
-      authorName,
-      authorProfileImagePath,
-      memoTags,
-      isMine,
-      createdDate,
-      seriesId,
-      seriesTitle,
-      authorRank,
-    },
     { isLike },
     comments,
     { id, isLogin, authority },
     recommendations,
     questions,
   ] = await Promise.all([
-    memoData,
     likeData,
     commentData,
     myData,
@@ -121,6 +125,9 @@ export default async function MemoPage({ params: { slug } }: Props) {
 export async function generateMetadata({ params: { slug } }: Props) {
   const memoId = Number(slug);
   const { memoTitle, memoDescription } = await getMemoById(memoId);
+  if (memoTitle === undefined) {
+    notFound();
+  }
 
   return {
     title: memoTitle,

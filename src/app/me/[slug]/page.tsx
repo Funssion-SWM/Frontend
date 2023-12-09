@@ -22,6 +22,7 @@ import {
   getCoverletterInfoByUserId,
   getCoverletterVisibleMode,
 } from '@/service/coverletter';
+import { notFound } from 'next/navigation';
 
 type Props = {
   params: {
@@ -35,8 +36,12 @@ export default async function MePage({ params: { slug } }: Props) {
   const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
   const userId = Number(slug);
 
+  const userInfo = await getUserInfo(userId, cookie);
+  if (userInfo.userId === undefined) {
+    notFound();
+  }
+
   const memosData = getMemosByUserId(userId);
-  const userData = getUserInfo(userId, cookie);
   const historyData = getHistory(
     userId,
     new Date().getFullYear(),
@@ -54,7 +59,6 @@ export default async function MePage({ params: { slug } }: Props) {
 
   const [
     memos,
-    userInfo,
     history,
     { id, isLogin, authority },
     tags,
@@ -66,7 +70,6 @@ export default async function MePage({ params: { slug } }: Props) {
     coverletterIsVisible,
   ] = await Promise.all([
     memosData,
-    userData,
     historyData,
     myData,
     tagData,
@@ -137,9 +140,12 @@ export default async function MePage({ params: { slug } }: Props) {
   );
 }
 
-export async function generateMetadata({ params }: Props) {
-  const userId = Number(params.slug);
+export async function generateMetadata({ params: { slug } }: Props) {
+  const userId = Number(slug);
   const { nickname } = await getUserInfo(userId);
+  if (nickname === undefined) {
+    notFound();
+  }
 
   return {
     title: `${nickname} - 인포럼`,
