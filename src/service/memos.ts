@@ -56,10 +56,7 @@ export async function getMemoById(
           credentials: 'include',
         }
   )
-    .then((res) => {
-      if (!res.ok) throw new Error('error');
-      return res.json();
-    })
+    .then((res) => res.json())
     .catch(console.error);
 }
 

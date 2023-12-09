@@ -10,6 +10,7 @@ import { getQuestionsByMemoId } from '@/service/questions';
 import { getSeriesById } from '@/service/series';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { cookies } from 'next/headers';
+import { notFound } from 'next/navigation';
 
 type Props = {
   params: {
@@ -24,6 +25,9 @@ export default async function SeriesDetailPage({ params: { slug } }: Props) {
   const seriesId = Number(slug);
 
   const { memoInfoList, likes, title } = await getSeriesById(seriesId);
+  if (title === undefined) {
+    notFound();
+  }
 
   const memoData = getMemoById(memoInfoList[0].id, cookie);
   const likeData = getIsLike('series', seriesId, cookie);
@@ -98,6 +102,9 @@ export default async function SeriesDetailPage({ params: { slug } }: Props) {
 export async function generateMetadata({ params: { slug } }: Props) {
   const seriesId = Number(slug);
   const { title, description } = await getSeriesById(seriesId);
+  if (title === undefined) {
+    notFound();
+  }
 
   return {
     title: title,

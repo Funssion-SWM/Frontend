@@ -11,7 +11,9 @@ import {
 } from '@/types';
 import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url';
 
-export async function userSignUp(userData: UserSignUpData): Promise<SignupResponse> {
+export async function userSignUp(
+  userData: UserSignUpData
+): Promise<SignupResponse> {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -27,13 +29,18 @@ export async function userSignUp(userData: UserSignUpData): Promise<SignupRespon
     .catch(console.error);
 }
 
-export async function employerSignUp(userData: EmployerSignUpData): Promise<SignupResponse> {
-  return fetch(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/employer`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
-    body: JSON.stringify(userData),
-  })
+export async function employerSignUp(
+  userData: EmployerSignUpData
+): Promise<SignupResponse> {
+  return fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS_SECURE}/users/employer`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(userData),
+    }
+  )
     .then((res) => {
       if (!res.ok) {
         throw new Error('error');
@@ -211,10 +218,7 @@ export async function getUserInfo(
           credentials: 'include',
         }
   )
-    .then((res) => {
-      if (!res.ok) throw new Error('error 발생!');
-      return res.json();
-    })
+    .then((res) => res.json())
     .catch(console.error);
 }
 

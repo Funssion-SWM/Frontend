@@ -91,19 +91,18 @@ export default function MemoViewer({
         {title}
       </h1>
       <div className="h-[0.5px] mx-3 my-4 bg-soma-grey-49"></div>
-      {hydrated ? (
-        <div className="flex-grow px-4 break-all">
+      <div className="flex-grow px-4 break-all">
+        {hydrated ? (
           <EditorContent editor={editor} />
-        </div>
-      ) : (
-        <div
-          className="hidden"
-          dangerouslySetInnerHTML={{
-            __html: output,
-          }}
-        ></div>
-      )}
-
+        ) : (
+          <div
+            className="hidden"
+            dangerouslySetInnerHTML={{
+              __html: output,
+            }}
+          ></div>
+        )}
+      </div>
       <div className="flex flex-wrap gap-1 mx-2 mt-10 mb-1">
         {memoTags.map((tag, idx) => (
           <TagView key={idx} tagText={tag} isLogin={isLogin} />
