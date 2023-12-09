@@ -351,7 +351,10 @@ export default function Header({
                 alt="search_icon"
               />
             </button>
-            <button onClick={() => router.push('/ranking')}>
+            <button
+              onClick={() => router.push('/ranking')}
+              aria-label="ranking"
+            >
               <FaRankingStar className="w-5 h-5 text-soma-grey-60" />
             </button>
             <Link href="/login">
