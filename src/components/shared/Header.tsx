@@ -70,7 +70,7 @@ export default function Header({
             router.push(MAIN_PATH);
             router.refresh();
           }}
-          className="cursor-pointer absolute left-1"
+          className="absolute cursor-pointer left-1"
         >
           <Image
             src={logo}
@@ -79,7 +79,7 @@ export default function Header({
           />
         </button>
 
-        <div className="sm:flex gap-4 font-semibold text-soma-grey-50 sm:text-lg hidden">
+        <div className="hidden gap-4 font-semibold sm:flex text-soma-grey-50 sm:text-lg">
           <Link
             href="/series"
             className={`${
@@ -109,11 +109,11 @@ export default function Header({
           </Link>
         </div>
         {isLogin ? (
-          <nav className="flex items-center gap-2 sm:gap-3 absolute right-1 sm:right-3">
+          <nav className="absolute flex items-center gap-2 sm:gap-3 right-1 sm:right-3">
             {authority === 'ROLE_EMPLOYER' && (
               <Link
                 href="/search/user-for-job"
-                className="text-soma-blue-40 text-sm font-semibold hover:text-soma-blue-50 transition-all"
+                className="text-sm font-semibold transition-all text-soma-blue-40 hover:text-soma-blue-50"
               >
                 구직자 찾기
               </Link>
@@ -123,11 +123,11 @@ export default function Header({
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfnkPn7J4uwSP-g3nclOVsx1m4ePUbf_GEpYG1Cpsh2aWgtMQ/viewform?usp=sf_link"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-semibold text-soma-grey-50 hover:text-soma-blue-40 text-sm transition"
+                className="text-sm font-semibold transition text-soma-grey-50 hover:text-soma-blue-40"
               >
                 이벤트
               </a>
-              <div className="absolute w-20 text-xs -top-4 -left-5 text-soma-grey-60 font-semibold animate-bounce duration-1000 ease-in-out">
+              <div className="absolute w-20 text-xs font-semibold duration-1000 ease-in-out -top-4 -left-5 text-soma-grey-60 animate-bounce">
                 <span className="text-green-400">N pay</span> 3000원
               </div>
             </div> */}
@@ -140,11 +140,14 @@ export default function Header({
               />
             </button>
 
-            <button onClick={() => router.push('/ranking')}>
-              <FaRankingStar className="text-soma-grey-60 w-5 h-5" />
+            <button
+              onClick={() => router.push('/ranking')}
+              aria-label="ranking"
+            >
+              <FaRankingStar className="w-5 h-5 text-soma-grey-60" />
             </button>
 
-            <nav className="flex items-center relative" ref={notificationRef}>
+            <nav className="relative flex items-center" ref={notificationRef}>
               <button onClick={handleClick} className="relative">
                 <Image
                   className="cursor-pointer"
@@ -162,7 +165,7 @@ export default function Header({
                   scrollDirection === 'down' && 'opacity-0 invisible'
                 } ${isNotificationActive ? 'visible' : 'hidden'}`}
               >
-                <div className="py-2 px-4 bg-gray-100 rounded-t-xl">알림</div>
+                <div className="px-4 py-2 bg-gray-100 rounded-t-xl">알림</div>
                 {notifications?.map((notification) => {
                   if (!notification.isChecked && isChecked === null)
                     setIsChecked(false);
@@ -178,7 +181,7 @@ export default function Header({
                         >
                           <span className="inline-flex items-center">
                             <Image
-                              className="cursor-pointer rounded-full inline-block w-7 h-7 object-cover"
+                              className="inline-block object-cover rounded-full cursor-pointer w-7 h-7"
                               src={
                                 notification.senderImagePath ?? basicProfileImg
                               }
@@ -225,15 +228,15 @@ export default function Header({
                               );
                           }
                         }}
-                        className="px-3 pb-2 text-sm flex justify-between items-center"
+                        className="flex items-center justify-between px-3 pb-2 text-sm"
                       >
-                        <span className="hover:text-soma-blue-40 cursor-pointer">
+                        <span className="cursor-pointer hover:text-soma-blue-40">
                           {notification.message}
                         </span>
                         {notification.isChecked ? (
                           <></>
                         ) : (
-                          <span className="bg-red-400 rounded-full inline-block w-2 h-2" />
+                          <span className="inline-block w-2 h-2 bg-red-400 rounded-full" />
                         )}
                       </button>
                     </li>
@@ -249,7 +252,7 @@ export default function Header({
                   alt="profileImg"
                   width={32}
                   height={32}
-                  className="rounded-full w-8 h-8 object-cover"
+                  className="object-cover w-8 h-8 rounded-full"
                 />
               </button>
 
@@ -260,7 +263,7 @@ export default function Header({
               >
                 {authority === 'ROLE_EMPLOYER' && (
                   <button
-                    className="hover:bg-gray-200 p-2 rounded-t-lg tracking-wider px-3"
+                    className="p-2 px-3 tracking-wider rounded-t-lg hover:bg-gray-200"
                     onClick={() => {
                       checkUser().then((data) => {
                         router.push(`/me/employer/${data.id}`);
@@ -273,7 +276,7 @@ export default function Header({
                   </button>
                 )}
                 <button
-                  className="hover:bg-gray-200 p-2 rounded-t-lg tracking-wider px-3"
+                  className="p-2 px-3 tracking-wider rounded-t-lg hover:bg-gray-200"
                   onClick={() => {
                     checkUser().then((data) => {
                       router.push(`/me/${data.id}`);
@@ -285,7 +288,7 @@ export default function Header({
                   마이페이지
                 </button>
                 <button
-                  className="hover:bg-gray-200 p-2 tracking-wider px-3"
+                  className="p-2 px-3 tracking-wider hover:bg-gray-200"
                   onClick={() => {
                     checkUser().then((data) =>
                       router.push(`/me/${data.id}/drafts`)
@@ -296,7 +299,7 @@ export default function Header({
                   임시글
                 </button>
                 <button
-                  className="hover:bg-gray-200 p-2 rounded-b-lg tracking-wider px-3"
+                  className="p-2 px-3 tracking-wider rounded-b-lg hover:bg-gray-200"
                   onClick={() => {
                     setIsActive(false);
                     open('로그아웃 하시겠습니까?', () => {
@@ -320,17 +323,17 @@ export default function Header({
             />
           </nav>
         ) : (
-          <nav className="flex items-center gap-3 absolute right-1 sm:right-3">
+          <nav className="absolute flex items-center gap-3 right-1 sm:right-3">
             {/* <div className="relative">
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfnkPn7J4uwSP-g3nclOVsx1m4ePUbf_GEpYG1Cpsh2aWgtMQ/viewform?usp=sf_link"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-semibold text-soma-grey-50 hover:text-soma-blue-40 text-sm transition"
+                className="text-sm font-semibold transition text-soma-grey-50 hover:text-soma-blue-40"
               >
                 이벤트
               </a>
-              <div className="absolute w-20 text-xs -top-4 -left-5 text-soma-grey-60 font-semibold animate-bounce duration-1000 ease-in-out">
+              <div className="absolute w-20 text-xs font-semibold duration-1000 ease-in-out -top-4 -left-5 text-soma-grey-60 animate-bounce">
                 <span className="text-green-400">N pay</span> 3000원
               </div>
             </div> */}
@@ -349,7 +352,7 @@ export default function Header({
               />
             </button>
             <button onClick={() => router.push('/ranking')}>
-              <FaRankingStar className="text-soma-grey-60 w-5 h-5" />
+              <FaRankingStar className="w-5 h-5 text-soma-grey-60" />
             </button>
             <Link href="/login">
               <BlueBtn text="로그인" onClick={() => {}} />
@@ -357,7 +360,7 @@ export default function Header({
           </nav>
         )}
       </div>
-      <div className="sm:hidden gap-4 font-semibold text-soma-grey-50 sm:text-lg flex justify-center my-2">
+      <div className="flex justify-center gap-4 my-2 font-semibold sm:hidden text-soma-grey-50 sm:text-lg">
         <Link
           href="/series"
           className={`${
