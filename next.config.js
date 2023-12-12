@@ -10,7 +10,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    remotePatterns: [{ protocol: 'https', hostname: 'store.inforum.me' }],
+    remotePatterns: [{ protocol: 'https', hostname: 'store.inforum24.com' }],
   },
   reactStrictMode: true,
   pwa: {
