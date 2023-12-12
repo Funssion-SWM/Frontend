@@ -3,7 +3,7 @@
   "background_color": "#FFFFFF",
   "display": "standalone",
   "scope": "/",
-  "start_url": "https://www.inforum.me",
+  "start_url": "/",
   "name": "inforum",
   "short_name": "inforum",
   "icons": [
