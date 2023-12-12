@@ -1,3 +1,3 @@
 User-agent: *
 Disallow: /api
-Sitemap: https://www.inforum.me/sitemap.xml
+Sitemap: https://www.inforum24.com/sitemap.xml

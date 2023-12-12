@@ -1,7 +1,7 @@
 ## About the Project
 
 개발기록을 쉽고 즐겁게, 무한한 개발 이야기 공간, 인포럼   
-Link : https://www.inforum.me
+Link : https://www.inforum24.com
 
 <img width="25%" src="https://github.com/Funssion-SWM/Frontend/assets/68095803/7ded1a36-0616-40d2-9f7d-c756fdee7a62"/>
 
