@@ -55,7 +55,7 @@ export default function MemoViewer({
   useEffect(() => {
     editor?.commands.setContent(content);
     setHydrated(true);
-  }, []);
+  }, [content]);
 
   return (
     <section
