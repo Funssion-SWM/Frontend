@@ -13,12 +13,12 @@ import { MemoInfo } from '@/types/series';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import LikeBox from '../shared/LikeBox';
 import Image from 'next/image';
-import more from '@/assets/icons/more.svg';
 import { useRouter } from 'next/navigation';
 import { ModalContext } from '@/context/ModalProvider';
 import { deleteSeries } from '@/service/series';
 import { notifyToast } from '@/service/notify';
 import arrowIcon from '@/assets/icons/arrow_icon.svg';
+import MoreOptions from '../shared/MoreOptions';
 
 type Props = {
   memo: Memo;
@@ -89,15 +89,24 @@ export default function SeriesDetailContainer({
   }, [currentIdx, comments]);
 
   const handleDelete = () => {
-    deleteSeries(seriesId).then((res) => {
-      if (res?.code) {
-        notifyToast(res.message, 'error');
-        return;
-      }
-      notifyToast('성공적으로 시리즈가 삭제되었습니다.', 'success');
-      router.push('/series');
-      router.refresh();
+    setIsActive(false);
+    open('시리즈를 삭제하시겠습니까?', () => {
+      deleteSeries(seriesId).then((res) => {
+        if (res?.code) {
+          notifyToast(res.message, 'error');
+          return;
+        }
+        notifyToast('성공적으로 시리즈가 삭제되었습니다.', 'success');
+        router.push('/series');
+        router.refresh();
+      });
     });
+  };
+
+  const handleUpdateBtnClick = () => {
+    setIsActive(false);
+    router.push(`/create/series/?id=${seriesId}`);
+    router.refresh();
   };
 
   const handleLeftBtnClick = () => {
@@ -114,12 +123,12 @@ export default function SeriesDetailContainer({
 
   return (
     <div className="flex flex-col">
-      <div className="flex items-center justify-between bg-soma-grey-20 p-4 rounded-lg">
-        <h1 className="text-xl sm:text-3xl font-semibold">
+      <div className="flex items-center justify-between p-4 rounded-lg bg-soma-grey-20">
+        <h1 className="text-xl font-semibold sm:text-3xl">
           <span className="text-soma-blue-50">Series </span>
           {seriesTitle}
         </h1>
-        <nav className="relative flex items-center z-0" ref={dropdownRef}>
+        <nav className="relative z-0 flex items-center" ref={dropdownRef}>
           <LikeBox
             likeNum={seriesLikeNum}
             postId={seriesId}
@@ -128,43 +137,17 @@ export default function SeriesDetailContainer({
             iconSize={20}
           />
           {isMySeries && (
-            <div className="flex ml-2">
-              <button onClick={() => setIsActive((pre) => !pre)}>
-                <Image src={more} alt="more" />
-              </button>
-              <nav
-                className={`absolute top-6 right-0 bg-white flex flex-col gap-1 rounded-lg shadow-inner w-20 ${
-                  isActive ? 'visible' : 'invisible'
-                }`}
-              >
-                <button
-                  className="hover:bg-gray-200 p-2 rounded-t-lg"
-                  onClick={() => {
-                    setIsActive(false);
-                    router.push(`/create/series/?id=${seriesId}`);
-                    router.refresh();
-                  }}
-                >
-                  수정하기
-                </button>
-                <button
-                  className="hover:bg-gray-200 p-2 rounded-b-lg"
-                  onClick={() => {
-                    setIsActive(false);
-                    open('시리즈를 삭제하시겠습니까?', () => {
-                      handleDelete();
-                    });
-                  }}
-                >
-                  삭제하기
-                </button>
-              </nav>
-            </div>
+            <MoreOptions
+              isActive={isActive}
+              onClick={() => setIsActive((pre) => !pre)}
+              onUpdateBtnClick={handleUpdateBtnClick}
+              onDeleteBtnClick={handleDelete}
+            />
           )}
         </nav>
       </div>
       <ul
-        className="flex gap-2 overflow-x-auto my-2 py-2 scroll-smooth"
+        className="flex gap-2 py-2 my-2 overflow-x-auto scroll-smooth"
         ref={horizontalNavRef}
       >
         {memoInfoList.map(({ title }, idx) => (
@@ -187,7 +170,7 @@ export default function SeriesDetailContainer({
                 : 'text-soma-grey-60 border-soma-grey-40'
             }`}
           >
-            <p className="line-clamp-1 break-all">{title}</p>
+            <p className="break-all line-clamp-1">{title}</p>
           </button>
         ))}
       </ul>
@@ -224,7 +207,7 @@ export default function SeriesDetailContainer({
           authorRank={authorRank}
         />
       </div>
-      <div className="flex justify-center items-center my-5">
+      <div className="flex items-center justify-center my-5">
         <button
           className={`rounded-full border-2 p-1 border-soma-grey-30 rotate-180 ${
             currentIdx === 0 ? 'opacity-40 pointer-events-none' : ''
@@ -233,7 +216,7 @@ export default function SeriesDetailContainer({
         >
           <Image src={arrowIcon} alt="arrowIcon" />
         </button>
-        <div className="text-soma-grey-48 mx-5">
+        <div className="mx-5 text-soma-grey-48">
           <span className="text-soma-blue-50">Series {currentIdx + 1}</span> /{' '}
           {memoInfoList.length}
         </div>
