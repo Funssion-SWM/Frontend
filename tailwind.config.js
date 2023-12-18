@@ -109,6 +109,19 @@ module.exports = {
           },
         ],
       },
+      keyframes: {
+        fall: {
+          '0%': { opacity: 0 },
+          '3%, 90%': { opacity: 0.9 },
+          '100%': {
+            transform: 'translateY(97%)',
+            opacity: 0,
+          },
+        },
+      },
+      animation: {
+        fall: 'fall 3.5s linear infinite',
+      },
     },
   },
   plugins: [
