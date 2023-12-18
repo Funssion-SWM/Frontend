@@ -8,6 +8,7 @@ import GoogleAnalytics from '@/components/GoogleAnalytics';
 import ToastProvider from '@/components/ToastProvider';
 import CreationModalProvider from '@/context/CreationModalProvider';
 import CreationModal from '@/components/shared/CreationModal';
+import SnowContainer from '@/components/snow/SnowContainer';
 
 export const metadata = {
   title: '인포럼 - 무한한 개발 이야기 공간',
@@ -52,6 +53,7 @@ export default async function RootLayout({
             <CreationModal />
           </CreationModalProvider>
         </ToastProvider>
+        <SnowContainer />
       </body>
     </html>
   );
