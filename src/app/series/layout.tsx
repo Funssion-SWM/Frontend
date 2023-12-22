@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   keywords: ['inforum', '인포럼', '시리즈', 'series', '블로그', 'blog'],
 };
 
-export default async function MemoLayout({
+export default async function SeriesLayout({
   children,
 }: {
   children: React.ReactNode;
