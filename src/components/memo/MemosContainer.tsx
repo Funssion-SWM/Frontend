@@ -16,7 +16,7 @@ type Props = {
 
 export default function MemosContainer({ memos, type }: Props) {
   const [memoData, setMemodata] = useState<Memo[]>(memos);
-  const [pageNum, setPageNum] = useState(0);
+  const [pageNum, setPageNum] = useState(1);
   const [isEnd, setIsEnd] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const isInitialMount = useRef(true);
