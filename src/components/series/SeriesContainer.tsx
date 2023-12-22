@@ -1,49 +1,33 @@
 'use client';
 
 import { Orderby } from '@/types';
-import CategoryBtn from '../shared/btn/CategoryBtn';
 import { useEffect, useRef, useState } from 'react';
 import SeriesGrid from './SeriesGrid';
 import { Series } from '@/types/series';
 import { getSeriesArray } from '@/service/series';
 import useObserver from '@/hooks/useObserver';
 import { SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/utils/const';
+import CategoryLink from '../shared/CategoryLink';
 
 type Props = {
   seriesArray: Series[];
+  type: Orderby;
 };
 
-export default function SeriesContainer({ seriesArray }: Props) {
+export default function SeriesContainer({ seriesArray, type }: Props) {
   const [currentSeriesArray, setCurrentSeriesArray] =
     useState<Series[]>(seriesArray);
-  const [selectedOrderType, setSelectedOrderType] = useState<Orderby>('new');
-  const [pageNum, setPageNum] = useState(0);
+  const [pageNum, setPageNum] = useState(1);
   const [isEnd, setIsEnd] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const isInitialMount = useRef(true);
-
-  const handleClick = async (orderBy: Orderby) => {
-    if (orderBy === selectedOrderType) return;
-    setIsLoading(true);
-    setIsEnd(false);
-    setPageNum(0);
-    const series = await getSeriesArray(
-      'month',
-      orderBy,
-      0,
-      SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
-    );
-    setIsLoading(false);
-    if (!('code' in series)) setCurrentSeriesArray(series);
-    setSelectedOrderType(orderBy);
-  };
 
   const fetchSeries = () => {
     if (isLoading || isEnd) return;
     setIsLoading(true);
     getSeriesArray(
       'month',
-      selectedOrderType,
+      type,
       pageNum,
       SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
     )
@@ -80,17 +64,17 @@ export default function SeriesContainer({ seriesArray }: Props) {
   return (
     <div>
       <div className="flex gap-2 mb-3">
-        <CategoryBtn
+        <CategoryLink
           text="New"
+          href="/series/new"
           size="big"
-          onClick={() => handleClick('new')}
-          isSelected={selectedOrderType === 'new'}
+          isSelected={type === 'new'}
         />
-        <CategoryBtn
+        <CategoryLink
           text="Hot"
+          href="/series/hot"
           size="big"
-          onClick={() => handleClick('hot')}
-          isSelected={selectedOrderType === 'hot'}
+          isSelected={type === 'hot'}
         />
       </div>
       <SeriesGrid seriesArr={currentSeriesArray} colNum={4} />
