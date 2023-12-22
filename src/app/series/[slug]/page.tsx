@@ -1,11 +1,8 @@
 import SeriesDetailContainer from '@/components/series/SeriesDetailContainer';
-import Header from '@/components/shared/Header';
-import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { getCommentsByPostTypeAndPostId } from '@/service/comments';
 import { getIsLike } from '@/service/like';
 import { getMemoById, getMemoRecommendationsById } from '@/service/memos';
-import { getNotificationsTop30 } from '@/service/notification';
 import { getQuestionsByMemoId } from '@/service/questions';
 import { getSeriesById } from '@/service/series';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
@@ -44,7 +41,7 @@ export default async function SeriesDetailPage({ params: { slug } }: Props) {
     memo,
     { isLike },
     comments,
-    { id, isLogin, authority },
+    { id, isLogin },
     questions,
     recommendation,
   ] = await Promise.all([
@@ -61,41 +58,24 @@ export default async function SeriesDetailPage({ params: { slug } }: Props) {
     cookie
   );
 
-  const { profileImageFilePath } = isLogin
-    ? await getUserInfo(id)
-    : { profileImageFilePath: undefined };
-
-  const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
-
   return (
-    <section>
-      <Header
-        isLogin={isLogin}
-        notifications={notifications}
-        profileImageFilePath={profileImageFilePath}
-        currentPage="series"
-        authority={authority}
-      />
-      <LayoutWrapper paddingY="sm:py-5">
-        <SeriesDetailContainer
-          memo={memo}
-          comments={comments}
-          questions={questions}
-          recommendation={recommendation}
-          isLike={isLike}
-          userId={id}
-          isLogin={isLogin}
-          isFollowed={isFollowed}
-          authorFollowingNum={followCnt}
-          authorFollowerNum={followerCnt}
-          memoInfoList={memoInfoList}
-          seriesLikeNum={likes}
-          seriesId={seriesId}
-          isMySeries={id === memo.authorId}
-          seriesTitle={title}
-        />
-      </LayoutWrapper>
-    </section>
+    <SeriesDetailContainer
+      memo={memo}
+      comments={comments}
+      questions={questions}
+      recommendation={recommendation}
+      isLike={isLike}
+      userId={id}
+      isLogin={isLogin}
+      isFollowed={isFollowed}
+      authorFollowingNum={followCnt}
+      authorFollowerNum={followerCnt}
+      memoInfoList={memoInfoList}
+      seriesLikeNum={likes}
+      seriesId={seriesId}
+      isMySeries={id === memo.authorId}
+      seriesTitle={title}
+    />
   );
 }
 
