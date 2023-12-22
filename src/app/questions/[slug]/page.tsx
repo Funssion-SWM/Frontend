@@ -1,11 +1,8 @@
 import QuestionDetail from '@/components/question/QuestionDetail';
-import Header from '@/components/shared/Header';
-import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { getAnswersByQuestionId } from '@/service/answers';
-import { checkUser, getUserInfo } from '@/service/auth';
+import { checkUser } from '@/service/auth';
 import { getIsLike } from '@/service/like';
 import { getMemoById } from '@/service/memos';
-import { getNotificationsTop30 } from '@/service/notification';
 import { getQuestionById } from '@/service/questions';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
 import { cookies } from 'next/headers';
@@ -32,17 +29,11 @@ export default async function QuestionPage({ params: { slug } }: Props) {
   const myData = checkUser(cookie);
   const likeData = getIsLike('questions', questionId, cookie);
 
-  const [answers, { id, isLogin, authority }, { isLike }] = await Promise.all([
+  const [answers, { id, isLogin }, { isLike }] = await Promise.all([
     answersData,
     myData,
     likeData,
   ]);
-
-  const { profileImageFilePath } = isLogin
-    ? await getUserInfo(id)
-    : { profileImageFilePath: undefined };
-
-  const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
 
   const { memoTitle } = question.memoId
     ? await getMemoById(question.memoId)
@@ -51,25 +42,14 @@ export default async function QuestionPage({ params: { slug } }: Props) {
       };
 
   return (
-    <section>
-      <Header
-        isLogin={isLogin}
-        notifications={notifications}
-        profileImageFilePath={profileImageFilePath}
-        currentPage="questions"
-        authority={authority}
-      />
-      <LayoutWrapper>
-        <QuestionDetail
-          questionData={question}
-          answers={answers}
-          isLike={isLike}
-          userId={id}
-          memoTitle={memoTitle}
-          isLogin={isLogin}
-        />
-      </LayoutWrapper>
-    </section>
+    <QuestionDetail
+      questionData={question}
+      answers={answers}
+      isLike={isLike}
+      userId={id}
+      memoTitle={memoTitle}
+      isLogin={isLogin}
+    />
   );
 }
 
