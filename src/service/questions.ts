@@ -5,7 +5,7 @@ import { QUESTION_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/utils/const';
 
 export async function getQuestions(
   orderBy: QuestionOrderBy = 'NEW',
-  pageNum: number,
+  pageNum: number = 0,
   resultCntPerPage: number = QUESTION_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
 ): Promise<Question[]> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/questions`);

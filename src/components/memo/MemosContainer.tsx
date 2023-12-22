@@ -5,47 +5,26 @@ import { Orderby } from '@/types';
 import MemosGrid from './MemosGrid';
 import { useEffect, useRef, useState } from 'react';
 import { getMemos } from '@/service/memos';
-import CategoryBtn from '@/components/shared/btn/CategoryBtn';
 import useObserver from '@/hooks/useObserver';
 import { MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/utils/const';
+import CategoryLink from '../shared/CategoryLink';
 
 type Props = {
   memos: Memo[];
+  type: Orderby;
 };
 
-export default function MemosContainer({ memos }: Props) {
+export default function MemosContainer({ memos, type }: Props) {
   const [memoData, setMemodata] = useState<Memo[]>(memos);
-  const [selectedOrderType, setSelectedOrderType] = useState<Orderby>('new');
-  const [pageNum, setPageNum] = useState(0);
+  const [pageNum, setPageNum] = useState(1);
   const [isEnd, setIsEnd] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const isInitialMount = useRef(true);
 
-  const handleClick = async (orderBy: Orderby) => {
-    if (orderBy === selectedOrderType) return;
-    setIsLoading(true);
-    setIsEnd(false);
-    setPageNum(0);
-    const memos = await getMemos(
-      'month',
-      orderBy,
-      0,
-      MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
-    );
-    setIsLoading(false);
-    setMemodata(memos);
-    setSelectedOrderType(orderBy);
-  };
-
   const fetchMemos = () => {
     if (isLoading || isEnd) return;
     setIsLoading(true);
-    getMemos(
-      'month',
-      selectedOrderType,
-      pageNum,
-      MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
-    )
+    getMemos('month', type, pageNum, MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL)
       .then((data) => {
         setIsLoading(false);
         if (!data.length) setIsEnd(true);
@@ -76,17 +55,17 @@ export default function MemosContainer({ memos }: Props) {
   return (
     <div>
       <div className="flex gap-2 mb-3">
-        <CategoryBtn
+        <CategoryLink
           text="New"
+          href="/memos/new"
           size="big"
-          onClick={() => handleClick('new')}
-          isSelected={selectedOrderType === 'new'}
+          isSelected={type === 'new'}
         />
-        <CategoryBtn
+        <CategoryLink
           text="Hot"
+          href="/memos/hot"
           size="big"
-          onClick={() => handleClick('hot')}
-          isSelected={selectedOrderType === 'hot'}
+          isSelected={type === 'hot'}
         />
       </div>
       <MemosGrid memos={memoData} colNum={4} />
