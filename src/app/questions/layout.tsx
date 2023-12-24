@@ -36,7 +36,7 @@ export default async function QuestionLayout({
         isLogin={isLogin}
         notifications={notifications}
         profileImageFilePath={profileImageFilePath}
-        currentPage="memos"
+        currentPage="questions"
         authority={authority}
       />
       <LayoutWrapper paddingY="sm:py-5">{children}</LayoutWrapper>
