@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import useObserver from '@/hooks/useObserver';
 
 export const useInfinityScroll = <T>(
@@ -13,7 +13,6 @@ export const useInfinityScroll = <T>(
   const [pageNum, setPageNum] = useState(1);
   const [isEnd, setIsEnd] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const isInitialMount = useRef(true);
 
   const fetchData = () => {
     if (isLoading || isEnd) return;
@@ -21,11 +20,11 @@ export const useInfinityScroll = <T>(
 
     fn(pageNum)
       .then((item) => {
-        setIsLoading(false);
         if (!item.length) setIsEnd(true);
         else {
           setData([...data, ...item]);
         }
+        setIsLoading(false);
       })
       .catch(() => {
         setIsLoading(false);
@@ -33,11 +32,7 @@ export const useInfinityScroll = <T>(
   };
 
   useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      fetchData();
-    }
+    fetchData();
   }, [pageNum]);
 
   const onIntersect: IntersectionObserverCallback = ([entry]) => {
