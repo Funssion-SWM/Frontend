@@ -1,5 +1,5 @@
 import MePostCategories from '@/components/me/MePostCategories';
-import QuestionsList from '@/components/question/QuestionsList';
+import MeQuestionsContainer from '@/components/me/MeQuestionsContainer';
 import { getQuestionsByUserId } from '@/service/me';
 
 type Props = {
@@ -19,7 +19,11 @@ export default async function MePostQuestionPage({ params: { slug } }: Props) {
         selected="question"
         bigCategory="post"
       />
-      <QuestionsList questions={questions} size="big" />
+      <MeQuestionsContainer
+        questions={questions}
+        userId={userId}
+        bigCategory="post"
+      />
     </>
   );
 }

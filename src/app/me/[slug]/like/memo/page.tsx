@@ -1,5 +1,5 @@
+import MeMemosContainer from '@/components/me/MeMemosContainer';
 import MePostCategories from '@/components/me/MePostCategories';
-import MemosGrid from '@/components/memo/MemosGrid';
 import { getLikedMemosByUserId } from '@/service/me';
 
 type Props = {
@@ -15,7 +15,7 @@ export default async function MeLikedMemoPage({ params: { slug } }: Props) {
   return (
     <>
       <MePostCategories userId={userId} selected="memo" bigCategory="like" />
-      <MemosGrid memos={memos} colNum={3} />
+      <MeMemosContainer memos={memos} userId={userId} bigCategory="like" />
     </>
   );
 }

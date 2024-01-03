@@ -1,5 +1,5 @@
 import MePostCategories from '@/components/me/MePostCategories';
-import SeriesGrid from '@/components/series/SeriesGrid';
+import MeSeriesContainer from '@/components/me/MeSeriesContainer';
 import { getLikedSeriesByUserId } from '@/service/me';
 
 type Props = {
@@ -15,7 +15,11 @@ export default async function MeLikedSeriesPage({ params: { slug } }: Props) {
   return (
     <>
       <MePostCategories userId={userId} selected="series" bigCategory="like" />
-      <SeriesGrid seriesArr={series} colNum={3} />
+      <MeSeriesContainer
+        seriesArr={series}
+        userId={userId}
+        bigCategory="like"
+      />{' '}
     </>
   );
 }

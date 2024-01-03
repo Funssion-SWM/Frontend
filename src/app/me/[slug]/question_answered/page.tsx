@@ -1,6 +1,6 @@
 import { getAnswerdQuestionsByUserId } from '@/service/me';
 import MeNavigator from '@/components/me/MeNavigator';
-import QuestionsList from '@/components/question/QuestionsList';
+import MeQuestionsContainer from '@/components/me/MeQuestionsContainer';
 
 type Props = {
   params: {
@@ -17,7 +17,11 @@ export default async function MeQuestionAnsweredPage({
   return (
     <section className="w-full grow sm:px-4 sm:py-2">
       <MeNavigator userId={userId} type="question_answered" />
-      <QuestionsList questions={questions} size="big" />
+      <MeQuestionsContainer
+        questions={questions}
+        userId={userId}
+        bigCategory="answered"
+      />
     </section>
   );
 }

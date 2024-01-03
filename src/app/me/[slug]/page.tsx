@@ -1,7 +1,7 @@
 import { getMemosByUserId } from '@/service/me';
 import MeNavigator from '@/components/me/MeNavigator';
 import MePostCategories from '@/components/me/MePostCategories';
-import MemosGrid from '@/components/memo/MemosGrid';
+import MeMemosContainer from '@/components/me/MeMemosContainer';
 
 type Props = {
   params: {
@@ -18,7 +18,7 @@ export default async function MePage({ params: { slug } }: Props) {
       <MeNavigator userId={userId} type="post" />
       <>
         <MePostCategories userId={userId} selected="memo" bigCategory="post" />
-        <MemosGrid memos={memos} colNum={3} />
+        <MeMemosContainer memos={memos} userId={userId} bigCategory="post" />
       </>
     </section>
   );
