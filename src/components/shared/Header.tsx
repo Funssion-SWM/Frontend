@@ -291,7 +291,7 @@ export default function Header({
                   className="p-2 px-3 tracking-wider hover:bg-gray-200"
                   onClick={() => {
                     checkUser().then((data) =>
-                      router.push(`/me/${data.id}/drafts`)
+                      router.push(`/drafts/${data.id}`)
                     );
                     setIsActive(false);
                   }}
