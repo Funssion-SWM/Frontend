@@ -1,7 +1,6 @@
 import Header from '@/components/shared/Header';
 import {
   getHistory,
-  getMemosByUserId,
   getRankInfoByUserId,
   getStatsByUserId,
 } from '@/service/me';
@@ -41,7 +40,6 @@ export default async function MeLayout({ children, params: { slug } }: Props) {
     notFound();
   }
 
-  const memosData = getMemosByUserId(userId);
   const historyData = getHistory(
     userId,
     new Date().getFullYear(),
