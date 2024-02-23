@@ -11,7 +11,7 @@ export async function getSeriesArray(
   orderBy: Orderby = 'new',
   pageNum: number = 0,
   resultCntPerPage: number = SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL
-): Promise<Series[] | ErrorResponse> {
+): Promise<Series[]> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/series`);
   const params = {
     period: period,
