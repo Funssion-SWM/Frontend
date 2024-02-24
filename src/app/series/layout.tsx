@@ -7,7 +7,7 @@ import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 
 export const metadata: Metadata = {
-  title: '인포럼 - Series',
+  title: 'Series - 인포럼',
   description: '인포럼 Series 페이지입니다.',
   keywords: ['inforum', '인포럼', '시리즈', 'series', '블로그', 'blog'],
 };
