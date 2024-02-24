@@ -1,6 +1,8 @@
 # 인포럼 (Inforum)
 
-<p align='center'><img width="30%" src="https://github.com/Funssion-SWM/Frontend/assets/68095803/7ded1a36-0616-40d2-9f7d-c756fdee7a62"/></p>
+<p align='center'><img width="40%" src="https://github.com/Funssion-SWM/Frontend/assets/68095803/7ded1a36-0616-40d2-9f7d-c756fdee7a62"/></p>
+
+## About the Project
 
 개발 기간 : 2023.06 ~ 2023.11  
 개발 인원 : 3명 (FE 1, BE 2)  
@@ -8,23 +10,23 @@
 
 생성형 AI를 활용한 텍스트 자동 생성 기능, 채용 도우미 서비스 등 다양한 기능을 제공하는 통합 개발자 커뮤니티 서비스
 
-<p align='center'><img width="70%" src="https://github.com/Funssion-SWM/Frontend/assets/68095803/91849d33-7942-4299-9f6a-48b732d64e21"/></p>
+<p align='center'><img width="75%" src="https://github.com/Funssion-SWM/Frontend/assets/68095803/91849d33-7942-4299-9f6a-48b732d64e21"/></p>
 
-# Stacks
+## Stacks
 
-#### FE
+### FE
 
 <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=next.js&logoColor=white"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white"> <img src="https://img.shields.io/badge/tailwind-FFFFFF?style=for-the-badge&logo=tailwindcss&logoColor=#38BDF8">
 
-#### BE
+### BE
 
 <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white"> <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/spring boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/postgresql-4169E1?style=for-the-badge&logo=postgresql&logoColor=white">
 
-#### DevOps
+### DevOps
 
 <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"> <img src="https://img.shields.io/badge/aws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"> <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/github actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white">
 
-# 화면 구성
+## 화면 구성
 
 |                                                               랜딩 페이지                                                                |                                                                  로그인                                                                   |
 | :--------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------: |
@@ -44,7 +46,7 @@
 |                                                               채용 도우미                                                                |                                                               채용자 페이지                                                               |
 |     <img width="90%" alt="job1" src="https://github.com/Funssion-SWM/Frontend/assets/68095803/9c456eea-4b7e-42ad-916c-3f2d22a5599f">     |     <img width="90%" alt="job2" src="https://github.com/Funssion-SWM/Frontend/assets/68095803/24280746-5338-43cf-8cef-b084125b28ad">      |
 
-# 주요 기능
+## 주요 기능
 
 ### 1. 컨텐츠 생산성 향상을 위한 기능
 
@@ -67,7 +69,7 @@
 - 좋아요
 - Q&A
 
-# 개발 현황
+## 개발 현황
 
 MVP 개발완료 및 배포 (23.08.14)  
 사용성 테스트 수행 (23.08.15 ~ 23.08.22)  
