@@ -135,3 +135,16 @@ export default async function MeLayout({ children, params: { slug } }: Props) {
     </section>
   );
 }
+
+export async function generateMetadata({ params: { slug } }: Props) {
+  const userId = Number(slug);
+  const { nickname } = await getUserInfo(userId);
+  if (nickname === undefined) {
+    notFound();
+  }
+
+  return {
+    title: `${nickname} - 인포럼`,
+    description: `${nickname}의 마이페이지입니다.`,
+  };
+}

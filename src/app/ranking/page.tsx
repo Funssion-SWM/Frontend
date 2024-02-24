@@ -9,7 +9,7 @@ import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 
 export const metadata: Metadata = {
-  title: '인포럼 - Ranking',
+  title: 'Ranking - 인포럼',
   description: '인포럼 Ranking 페이지입니다.',
   keywords: [
     'inforum',
