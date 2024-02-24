@@ -16,7 +16,7 @@
 
 ### FE
 
-<img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=next.js&logoColor=white"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white"> <img src="https://img.shields.io/badge/tailwind-FFFFFF?style=for-the-badge&logo=tailwindcss&logoColor=#38BDF8">
+<img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=next.js&logoColor=white"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white"> <img src="https://img.shields.io/badge/tailwind-F0F0F0?style=for-the-badge&logo=tailwindcss&logoColor=#38BDF8">
 
 ### BE
 
@@ -52,22 +52,23 @@
 
 - 생성형 AI를 활용한 텍스트 자동 생성
 - 생성형 AI를 활용한 요약, 태그 자동 생성
-- 오픈소스( https://github.com/steven-tey/novel )를 활용한 블럭 기반 웹에디터
+- Notion 형식의 블럭 기반 웹에디터
 - 메모를 여러 개 모아둘 수 있는 시리즈
 
 ### 2. 컨텐츠 생산 동기 부여를 위한 기능
 
-- Commit 히스토리처럼 작성 기록을 담은 Post history
 - 등급 제도 (브론즈, 실버, 골드, 플래티넘, 다이아, 인피니티)
+- 작성 기록을 UI로 확인할 수 있는 Post history
 - 채용 도우미 서비스
+  - 자기소개서 작성
+  - 구직자 추천
+  - 미니 면접
 
-### 3. 일반 커뮤니티 기능
+### 3. 일반 기능
 
-- 댓글
-- 알림
-- 검색
-- 좋아요
-- Q&A
+- 관심 기술 분야를 힌 눈에 확인할 수 있는 마이페이지
+- 커뮤니티 기능(댓글, 좋아요, 검색, 팔로우/팔로잉)
+- 태그 기반 게시물 추천
 
 ## 개발 현황
 
