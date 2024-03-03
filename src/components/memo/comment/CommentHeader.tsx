@@ -1,10 +1,10 @@
 import Image from 'next/image';
-import basicProfileImg from '@/assets/profile.svg';
 import Link from 'next/link';
 import LikeBox from '@/components/shared/LikeBox';
 import RelativeDate from '@/components/shared/RelativeDate';
 import { getImageSrcFromRank } from '@/utils/rank';
 import { Rank } from '@/types/rank';
+import { DefaultProfile } from '@/assets/svg';
 
 type Props = {
   commentId: number;
@@ -35,7 +35,7 @@ export default function CommentHeader({
         <div className="relative">
           <Link href={`/me/${authorId}`} prefetch={false}>
             <Image
-              src={authorImagePath ?? basicProfileImg}
+              src={authorImagePath ?? DefaultProfile}
               alt="profileImg"
               width={28}
               height={28}

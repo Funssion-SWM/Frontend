@@ -7,7 +7,7 @@ import { validateNickname } from '@/utils/validation';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import logo from '@/assets/inforum_logo.png';
+import logo from '@/assets/images/inforum_logo.png';
 import { notifyToast } from '@/utils/notify';
 
 type Props = {
@@ -47,15 +47,15 @@ export default function NicknameForm({ userId }: Props) {
   };
 
   return (
-    <section className="flex flex-col w-full items-center max-w-screen-sm mx-auto mt-32 py-5 px-10 sm:px-32">
+    <section className="flex flex-col items-center w-full max-w-screen-sm px-10 py-5 mx-auto mt-32 sm:px-32">
       <Image src={logo} alt="logo" width={200} className="mb-10" />
-      <div className="flex flex-col my-1 w-full">
+      <div className="flex flex-col w-full my-1">
         <label htmlFor="nickname" className="text-xs sm:text-sm">
           닉네임
         </label>
         <div className="flex items-center">
           <input
-            className="border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow text-sm sm:text-base"
+            className="px-4 py-2 my-2 text-sm border-2 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow sm:text-base"
             type="text"
             id="nickname"
             name="nickname"

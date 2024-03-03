@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { MAIN_PATH } from '@/constants/general';
-import down from '@/assets/icons/down.svg';
+import { Down } from '@/assets/svg';
 
 export default function MainDescription() {
   const [readyState, setReadyState] = useState(false);
@@ -39,7 +39,7 @@ export default function MainDescription() {
         </Link>
       </div>
       <Image
-        src={down}
+        src={Down}
         alt="down"
         className={`absolute m-auto left-0 right-0 bottom-10  animate-bounce transition-opacity rounded-full
         ${

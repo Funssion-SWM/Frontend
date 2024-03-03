@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import basicProfileImg from '../../assets/profile.svg';
 import { UserInfo } from '@/types/auth';
 import FollowBtn from './FollowBtn';
 import CountInfo from './CountInfo';
@@ -11,6 +10,7 @@ import RankWithBadge from '../shared/RankWithBadge';
 import { calcRankPercentage } from '@/utils/rank';
 import { useContext } from 'react';
 import { ScoreDetailContext } from '@/context/ScoreDetailProvider';
+import { DefaultProfile } from '@/assets/svg';
 
 type Props = {
   userInfo: UserInfo;
@@ -35,7 +35,7 @@ export default function Profile({
     <section className="flex flex-col items-center w-full">
       <div className="flex flex-col items-center mb-3">
         <Image
-          src={userInfo.profileImageFilePath ?? basicProfileImg}
+          src={userInfo.profileImageFilePath ?? DefaultProfile}
           alt="profileImg"
           width={96}
           height={96}

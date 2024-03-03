@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import logo from '@/assets/inforum_logo.png';
-import kakao from '@/assets/icons/kakao.svg';
-import insta from '@/assets/icons/insta.svg';
+import logo from '@/assets/images/inforum_logo.png';
+import { Instagram, Kakao } from '@/assets/svg';
 
 type Props = {
   extraClass?: string;
@@ -11,7 +10,7 @@ type Props = {
 export default function Footer({ extraClass }: Props) {
   return (
     <footer className={`bg-soma-grey-25 py-10 ${extraClass}`}>
-      <div className="flex flex-col sm:flex-row items-center px-4 sm:max-w-screen-xl m-auto text-soma-grey-70 text-xs sm:text-sm">
+      <div className="flex flex-col items-center px-4 m-auto text-xs sm:flex-row sm:max-w-screen-xl text-soma-grey-70 sm:text-sm">
         <div className="flex flex-col w-full sm:w-auto">
           <div className="flex items-center">
             <Image
@@ -30,11 +29,11 @@ export default function Footer({ extraClass }: Props) {
             </div>
           </div>
           <div className="mt-5 sm:mt-10">
-            <span className="font-bold mr-2">Add.</span>
+            <span className="mr-2 font-bold">Add.</span>
             <span>서울특별시 강남구 테헤란로 311 SW마에스트로 연수센터</span>
           </div>
           <div className="mt-5 sm:mt-3">
-            <span className="font-bold mr-2">Channel.</span>
+            <span className="mr-2 font-bold">Channel.</span>
             <a
               href="http://pf.kakao.com/_WxdeCG"
               target="_blank"
@@ -46,13 +45,13 @@ export default function Footer({ extraClass }: Props) {
           </div>
         </div>
 
-        <div className="flex flex-col sm:ml-20 w-full sm:w-auto">
+        <div className="flex flex-col w-full sm:ml-20 sm:w-auto">
           <div className="mt-5 sm:mt-20">
-            <span className="font-bold mr-2">Mail.</span>
+            <span className="mr-2 font-bold">Mail.</span>
             <span>inforum_2023@naver.com</span>
           </div>
           <div className="mt-5 sm:mt-3">
-            <span className="font-bold mr-2">Form.</span>
+            <span className="mr-2 font-bold">Form.</span>
             <a
               href="https://forms.gle/KSUMNMhubdPmTMxk8"
               target="_blank"
@@ -64,20 +63,20 @@ export default function Footer({ extraClass }: Props) {
           </div>
         </div>
 
-        <div className="hidden sm:flex sm:gap-3 mt-20 ml-auto">
+        <div className="hidden mt-20 ml-auto sm:flex sm:gap-3">
           <a
             href="https://www.instagram.com/inforum_swm/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image src={insta} alt="insta" width={24} />
+            <Image src={Instagram} alt="instagram-icon" width={24} />
           </a>
           <a
             href="http://pf.kakao.com/_WxdeCG"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image src={kakao} alt="kakao" width={24} />
+            <Image src={Kakao} alt="kakao-icon" width={24} />
           </a>
         </div>
       </div>

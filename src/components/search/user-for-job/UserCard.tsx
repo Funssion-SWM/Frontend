@@ -1,14 +1,12 @@
 import { getImageSrcFromRank } from '@/utils/rank';
 import { UserForJobInfo } from '@/types/userForJob';
 import Image from 'next/image';
-import basicProfileImg from '@/assets/profile.svg';
 import { StackInfo } from '@/types/coverletter';
-import fillHeart from '@/assets/icons/heart_fill.svg';
-import emptyHeart from '@/assets/icons/heart_empty.svg';
 import { likeEmployee, unlikeEmployee } from '@/service/like';
 import { notifyToast } from '@/utils/notify';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { DefaultProfile, HeartEmpty, HeartFill } from '@/assets/svg';
 
 type Props = {
   userForJobInfo: UserForJobInfo;
@@ -63,7 +61,7 @@ export default function UserCard({
           <div className="relative">
             <a href={`/me/${id}`} target="_blank" rel="noopener noreferrer">
               <Image
-                src={imagePath || basicProfileImg}
+                src={imagePath || DefaultProfile}
                 alt="profileImg"
                 width={40}
                 height={40}
@@ -86,13 +84,13 @@ export default function UserCard({
         <div className="flex items-center">
           {cureentIsLike ? (
             <button onClick={handleClickLike}>
-              <Image src={fillHeart} alt="fill_heart" width={20} height={20} />
+              <Image src={HeartFill} alt="fill-heart" width={20} height={20} />
             </button>
           ) : (
             <button onClick={handleClickUnlike}>
               <Image
-                src={emptyHeart}
-                alt="empty_heart"
+                src={HeartEmpty}
+                alt="empty-heart"
                 width={20}
                 height={20}
               />

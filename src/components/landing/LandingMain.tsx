@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import logo from '@/assets/inforum_logo.png';
+import logo from '@/assets/images/inforum_logo.png';
 import MainDescription from '@/components/landing/MainDescription';
 
 export default function LandingMain() {

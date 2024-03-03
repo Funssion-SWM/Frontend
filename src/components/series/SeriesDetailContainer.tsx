@@ -17,8 +17,8 @@ import { useRouter } from 'next/navigation';
 import { ModalContext } from '@/context/ModalProvider';
 import { deleteSeries } from '@/service/series';
 import { notifyToast } from '@/utils/notify';
-import arrowIcon from '@/assets/icons/arrow_icon.svg';
 import MoreOptions from '../shared/MoreOptions';
+import { Arrow } from '@/assets/svg';
 
 type Props = {
   memo: Memo;
@@ -214,7 +214,7 @@ export default function SeriesDetailContainer({
           }`}
           onClick={handleLeftBtnClick}
         >
-          <Image src={arrowIcon} alt="arrowIcon" />
+          <Image src={Arrow} alt="arrowIcon" />
         </button>
         <div className="mx-5 text-soma-grey-48">
           <span className="text-soma-blue-50">Series {currentIdx + 1}</span> /{' '}
@@ -228,7 +228,7 @@ export default function SeriesDetailContainer({
           }`}
           onClick={handleRightBtnClick}
         >
-          <Image src={arrowIcon} alt="arrowIcon" />
+          <Image src={Arrow} alt="arrowIcon" />
         </button>
       </div>
     </div>

@@ -3,11 +3,10 @@
 import { useState } from 'react';
 import { like, likeComment, unlike, unlikeComment } from '@/service/like';
 import Image from 'next/image';
-import fillHeart from '@/assets/icons/heart_fill.svg';
-import emptyHeart from '@/assets/icons/heart_empty.svg';
 import { useRouter } from 'next/navigation';
 import { notifyToast } from '@/utils/notify';
 import { azertMono } from '@/styles/fonts';
+import { HeartEmpty, HeartFill } from '@/assets/svg';
 
 type Props = {
   likeNum: number;
@@ -96,8 +95,8 @@ export default function LikeBox({
       {currentIsLike ? (
         <button onClick={handleClickLike}>
           <Image
-            src={fillHeart}
-            alt="fill_heart"
+            src={HeartFill}
+            alt="fill-heart"
             width={iconSize}
             height={iconSize}
           />
@@ -105,8 +104,8 @@ export default function LikeBox({
       ) : (
         <button onClick={handleClickUnlike}>
           <Image
-            src={emptyHeart}
-            alt="empty_heart"
+            src={HeartEmpty}
+            alt="empty-heart"
             width={iconSize}
             height={iconSize}
           />

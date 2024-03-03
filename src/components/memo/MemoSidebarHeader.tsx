@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import WhiteBtn from '../shared/btn/WhiteBtn';
-import basicProfileImg from '@/assets/profile.svg';
 import BarBtn from '../shared/btn/BarBtn';
 import { useState } from 'react';
 import { follow, unfollow } from '@/service/follow';
@@ -9,6 +8,7 @@ import { notifyToast } from '@/utils/notify';
 import { useRouter } from 'next/navigation';
 import { Rank } from '@/types/rank';
 import { getImageSrcFromRank } from '@/utils/rank';
+import { DefaultProfile } from '@/assets/svg';
 
 type Props = {
   authorId: number;
@@ -51,7 +51,7 @@ export default function MemoSidebarHeader({
           <div className="relative">
             <Link href={`/me/${authorId}`} prefetch={false}>
               <Image
-                src={authorProfileImagePath ?? basicProfileImg}
+                src={authorProfileImagePath ?? DefaultProfile}
                 alt="profileImg"
                 width={36}
                 height={36}

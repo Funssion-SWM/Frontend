@@ -1,97 +1,99 @@
+import {
+  Bronze1,
+  Bronze2,
+  Bronze3,
+  Bronze4,
+  Bronze5,
+  Diamond1,
+  Diamond2,
+  Diamond3,
+  Diamond4,
+  Diamond5,
+  Gold1,
+  Gold2,
+  Gold3,
+  Gold4,
+  Gold5,
+  Infinity1,
+  Infinity2,
+  Infinity3,
+  Infinity4,
+  Infinity5,
+  Platinum1,
+  Platinum2,
+  Platinum3,
+  Platinum4,
+  Platinum5,
+  Silver1,
+  Silver2,
+  Silver3,
+  Silver4,
+  Silver5,
+} from '@/assets/svg';
 import { Rank } from '@/types/rank';
-import bronze5 from '@/assets/icons/rank/bronze_5.svg';
-import bronze4 from '@/assets/icons/rank/bronze_4.svg';
-import bronze3 from '@/assets/icons/rank/bronze_3.svg';
-import bronze2 from '@/assets/icons/rank/bronze_2.svg';
-import bronze1 from '@/assets/icons/rank/bronze_1.svg';
-import silver5 from '@/assets/icons/rank/silver_5.svg';
-import silver4 from '@/assets/icons/rank/silver_4.svg';
-import silver3 from '@/assets/icons/rank/silver_3.svg';
-import silver2 from '@/assets/icons/rank/silver_2.svg';
-import silver1 from '@/assets/icons/rank/silver_1.svg';
-import gold5 from '@/assets/icons/rank/gold_5.svg';
-import gold4 from '@/assets/icons/rank/gold_4.svg';
-import gold3 from '@/assets/icons/rank/gold_3.svg';
-import gold2 from '@/assets/icons/rank/gold_2.svg';
-import gold1 from '@/assets/icons/rank/gold_1.svg';
-import platinum5 from '@/assets/icons/rank/platinum_5.svg';
-import platinum4 from '@/assets/icons/rank/platinum_4.svg';
-import platinum3 from '@/assets/icons/rank/platinum_3.svg';
-import platinum2 from '@/assets/icons/rank/platinum_2.svg';
-import platinum1 from '@/assets/icons/rank/platinum_1.svg';
-import diamond5 from '@/assets/icons/rank/diamond_5.svg';
-import diamond4 from '@/assets/icons/rank/diamond_4.svg';
-import diamond3 from '@/assets/icons/rank/diamond_3.svg';
-import diamond2 from '@/assets/icons/rank/diamond_2.svg';
-import diamond1 from '@/assets/icons/rank/diamond_1.svg';
-import infinity5 from '@/assets/icons/rank/infinity_5.svg';
-import infinity4 from '@/assets/icons/rank/infinity_4.svg';
-import infinity3 from '@/assets/icons/rank/infinity_3.svg';
-import infinity2 from '@/assets/icons/rank/infinity_2.svg';
-import infinity1 from '@/assets/icons/rank/infinity_1.svg';
 
 export function getImageSrcFromRank(rank: Rank): string {
   switch (rank) {
     case 'BRONZE_5':
-      return bronze5;
+      return Bronze5;
     case 'BRONZE_4':
-      return bronze4;
+      return Bronze4;
     case 'BRONZE_3':
-      return bronze3;
+      return Bronze3;
     case 'BRONZE_2':
-      return bronze2;
+      return Bronze2;
     case 'BRONZE_1':
-      return bronze1;
+      return Bronze1;
     case 'SILVER_5':
-      return silver5;
+      return Silver5;
     case 'SILVER_4':
-      return silver4;
+      return Silver4;
     case 'SILVER_3':
-      return silver3;
+      return Silver3;
     case 'SILVER_2':
-      return silver2;
+      return Silver2;
     case 'SILVER_1':
-      return silver1;
+      return Silver1;
     case 'GOLD_5':
-      return gold5;
+      return Gold5;
     case 'GOLD_4':
-      return gold4;
+      return Gold4;
     case 'GOLD_3':
-      return gold3;
+      return Gold3;
     case 'GOLD_2':
-      return gold2;
+      return Gold2;
     case 'GOLD_1':
-      return gold1;
+      return Gold1;
     case 'PLATINUM_5':
-      return platinum5;
+      return Platinum5;
     case 'PLATINUM_4':
-      return platinum4;
+      return Platinum4;
     case 'PLATINUM_3':
-      return platinum3;
+      return Platinum3;
     case 'PLATINUM_2':
-      return platinum2;
+      return Platinum2;
     case 'PLATINUM_1':
-      return platinum1;
+      return Platinum1;
     case 'DIAMOND_5':
-      return diamond5;
+      return Diamond5;
     case 'DIAMOND_4':
-      return diamond4;
+      return Diamond4;
     case 'DIAMOND_3':
-      return diamond3;
+      return Diamond3;
     case 'DIAMOND_2':
-      return diamond2;
+      return Diamond2;
     case 'DIAMOND_1':
-      return diamond1;
+      return Diamond1;
     case 'INFINITY_5':
-      return infinity5;
+      return Infinity5;
     case 'INFINITY_4':
-      return infinity4;
+      return Infinity4;
     case 'INFINITY_3':
-      return infinity3;
+      return Infinity3;
     case 'INFINITY_2':
-      return infinity2;
+      return Infinity2;
     case 'INFINITY_1':
-      return infinity1;
+      return Infinity1;
     default:
       throw new Error('wrong rank type');
   }

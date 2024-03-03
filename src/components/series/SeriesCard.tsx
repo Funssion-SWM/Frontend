@@ -1,12 +1,11 @@
 import { Series } from '@/types/series';
 import Image from 'next/image';
-import inforumImg from '@/assets/inforumlogo1.jpeg';
+import inforumImg from '@/assets/images/inforum_logo_bg.jpeg';
 import Link from 'next/link';
-import basicProfileImg from '@/assets/profile.svg';
-import fillHeart from '@/assets/icons/heart_fill.svg';
 import { azertMono } from '@/styles/fonts';
 import RelativeDate from '../shared/RelativeDate';
 import { getImageSrcFromRank } from '@/utils/rank';
+import { DefaultProfile, HeartFill } from '@/assets/svg';
 
 type Props = {
   series: Series;
@@ -105,7 +104,7 @@ export default function SeriesCard({ series }: Props) {
               />
               <Link href={`/me/${authorId}`} prefetch={false}>
                 <Image
-                  src={authorProfileImagePath || basicProfileImg}
+                  src={authorProfileImagePath || DefaultProfile}
                   alt="profileImage"
                   width={16}
                   height={16}
@@ -118,7 +117,7 @@ export default function SeriesCard({ series }: Props) {
               <RelativeDate date={created} type="YMD" />
             </div>
             <div className="flex items-center">
-              <Image src={fillHeart} alt="fill_heart" width={12} height={12} />
+              <Image src={HeartFill} alt="fill-heart" width={12} height={12} />
               <p className={`ml-1 text-soma-grey-49 ${azertMono.className}`}>
                 {likes}
               </p>

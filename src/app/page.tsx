@@ -6,14 +6,11 @@ import LandingMain from '@/components/landing/LandingMain';
 import DescriptionBox from '@/components/landing/DescriptionBox';
 import LastNaigator from '@/components/landing/LastNaigator';
 import Footer from '@/components/shared/Footer';
-import autocomplete from '@/assets/autocomplete.gif';
-import mypage from '@/assets/mypage.gif';
-import editing from '@/assets/edit-memo.gif';
-import hire from '@/assets/hire.gif';
-import editUnderline from '@/assets/icons/edit_underline.svg';
-import speechBubble from '@/assets/icons/speech_bubble.svg';
-import infinity from '@/assets/icons/rank/infinity_1.svg';
-import wheel from '@/assets/icons/wheel_icon.svg';
+import autocomplete from '@/assets/gif/autocomplete.gif';
+import mypage from '@/assets/gif/mypage.gif';
+import editing from '@/assets/gif/edit-memo.gif';
+import hire from '@/assets/gif/hire.gif';
+import { EditUnderline, Infinity1, SpeechBubble, Wheel } from '@/assets/svg';
 
 export default async function LandingPage() {
   const accessToken = cookies().get(ACCESS_TOKEN)?.value;
@@ -35,7 +32,7 @@ export default async function LandingPage() {
           description2="글을 다 작성하면 자동생성된 요약과 태그를 제공합니다!"
           subImgAlt="speech-bubble"
           mainImgAlt="autocomplete"
-          subImg={speechBubble}
+          subImg={SpeechBubble}
           mainImg={autocomplete}
         />
         <DescriptionBox
@@ -45,7 +42,7 @@ export default async function LandingPage() {
           description2="바로 반영되는 마크다운 문법을 사용해보세요!"
           subImgAlt="edit-underline"
           mainImgAlt="editing"
-          subImg={editUnderline}
+          subImg={EditUnderline}
           mainImg={editing}
           reverse
         />
@@ -56,7 +53,7 @@ export default async function LandingPage() {
           description2="메모 작성, 답변 채택 등 다양한 활동을 통해 등급을 올려보세요!"
           subImgAlt="infinity"
           mainImgAlt="mypage"
-          subImg={infinity}
+          subImg={Infinity1}
           mainImg={mypage}
         />
         <DescriptionBox
@@ -66,7 +63,7 @@ export default async function LandingPage() {
           description2="키워드에 맞는 질문을 자동 생성해 미니면접을 진행해보세요!"
           subImgAlt="wheel"
           mainImgAlt="hire"
-          subImg={wheel}
+          subImg={Wheel}
           mainImg={hire}
           reverse
         />

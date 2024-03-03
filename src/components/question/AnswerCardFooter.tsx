@@ -1,14 +1,16 @@
 import Image from 'next/image';
-import thumbsUpActive from '@/assets/icons/thumb_up_active.svg';
-import thumbsUpInactive from '@/assets/icons/thumb_up_inactive.svg';
-import thumbsDownActive from '@/assets/icons/thumb_down_active.svg';
-import thumbsDownInactive from '@/assets/icons/thumb_down_incative.svg';
 import { useState } from 'react';
 import AnswerCommentContainer from './AnswerCommentContainer';
 import { dislike, like, undislike, unlike } from '@/service/like';
 import { notifyToast } from '@/utils/notify';
 import { azertMono } from '@/styles/fonts';
 import { useRouter } from 'next/navigation';
+import {
+  ThumbDownActive,
+  ThumbDownInactive,
+  ThumbUpActive,
+  ThumbUpInactive,
+} from '@/assets/svg';
 
 type Props = {
   repliesCount: number;
@@ -132,9 +134,9 @@ export default function AnswerCardFooter({
 
   return (
     <div>
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <button
-          className="text-soma-blue-40 text-sm font-semibold"
+          className="text-sm font-semibold text-soma-blue-40"
           onClick={() => setIsCommentBtnClicked((pre) => !pre)}
         >
           {isCommentBtnClicked
@@ -147,9 +149,9 @@ export default function AnswerCardFooter({
           <div className="flex">
             <button onClick={handleThumbUpClick}>
               {currentIsLike ? (
-                <Image src={thumbsUpActive} alt="thumbsUpActive" />
+                <Image src={ThumbUpActive} alt="thumb-up-active" />
               ) : (
-                <Image src={thumbsUpInactive} alt="thumbsUpInactive" />
+                <Image src={ThumbUpInactive} alt="thumb-up-inactive" />
               )}
             </button>
             <span>{currentLikeNum}</span>
@@ -157,9 +159,9 @@ export default function AnswerCardFooter({
           <div className="flex">
             <button onClick={handleThumbDownClick}>
               {currentIsDislike ? (
-                <Image src={thumbsDownActive} alt="thumbsDownActive" />
+                <Image src={ThumbDownActive} alt="thumb-down-active" />
               ) : (
-                <Image src={thumbsDownInactive} alt="thumbsDownInactive" />
+                <Image src={ThumbDownInactive} alt="thumb-down-inactive" />
               )}
             </button>
             <span>{currentDislikeNum}</span>

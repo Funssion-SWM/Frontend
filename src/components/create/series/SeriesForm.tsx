@@ -13,14 +13,14 @@ import {
 } from 'react';
 import AddMemoContainer from './AddMemoContainer';
 import MemoOrderContainer from './MemoOrderContainer';
-import { MAX_IMAGE_BYTE } from '@/constants/general';
+import { MAX_IMAGE_BYTE } from '@/constants/limit';
 import { notifyToast } from '@/utils/notify';
 import Image from 'next/image';
 import { createSeries, getSeriesById, updateSeries } from '@/service/series';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { MemoInfo } from '@/types/series';
 import { Memo } from '@/types/memo';
-import defaultImage from '@/assets/inforumlogo1.jpeg';
+import defaultImage from '@/assets/images/inforum_logo_bg.jpeg';
 import { ModalContext } from '@/context/ModalProvider';
 
 type Props = {
@@ -164,15 +164,15 @@ export default function SeriesForm({ userId }: Props) {
 
   return (
     <div className="flex flex-col w-full min-h-for-fit-screen">
-      <div className="flex justify-between items-center mb-2 mx-2 sm:mx-0">
+      <div className="flex items-center justify-between mx-2 mb-2 sm:mx-0">
         <div className="text-3xl font-semibold">Series</div>
         <BlueBtn text="등록" onClick={handleCreateBtnClick} />
       </div>
-      <div className="flex flex-col sm:flex-row  w-full gap-4 ">
+      <div className="flex flex-col w-full gap-4 sm:flex-row ">
         <div className="sm:min-w-[300px] flex flex-col rounded-lg">
           {isEmptyImage === 'false' ? (
             <button
-              className="self-end text-xs my-1 text-soma-grey-49"
+              className="self-end my-1 text-xs text-soma-grey-49"
               onClick={handleCancelImage}
             >
               기본 이미지로
@@ -191,7 +191,7 @@ export default function SeriesForm({ userId }: Props) {
               onChange={handleFileChange}
             />
             <button
-              className="flex relative justify-center items-center h-full"
+              className="relative flex items-center justify-center h-full"
               onClick={() => fileInput.current.click()}
             >
               {imageUrl ? (
@@ -200,7 +200,7 @@ export default function SeriesForm({ userId }: Props) {
                   width={300}
                   height={192}
                   alt="profile"
-                  className="w-ful h-full object-cover rounded-lg"
+                  className="object-cover h-full rounded-lg w-ful"
                 />
               ) : (
                 <Image
@@ -208,11 +208,11 @@ export default function SeriesForm({ userId }: Props) {
                   width={300}
                   height={192}
                   alt="profile"
-                  className="w-ful h-full object-cover rounded-lg"
+                  className="object-cover h-full rounded-lg w-ful"
                 />
               )}
               {!imageUrl && (
-                <div className="absolute bottom-2 text-soma-blue-40 font-semibold bg-white px-2 py-1 rounded-3xl text-sm">
+                <div className="absolute px-2 py-1 text-sm font-semibold bg-white bottom-2 text-soma-blue-40 rounded-3xl">
                   썸네일 업로드
                 </div>
               )}
@@ -220,19 +220,19 @@ export default function SeriesForm({ userId }: Props) {
           </div>
           <input
             type="text"
-            className="bg-soma-grey-25 p-3 my-3 outline-none rounded-lg"
+            className="p-3 my-3 rounded-lg outline-none bg-soma-grey-25"
             placeholder="시리즈 제목"
             onChange={(e) => setTitle(e.target.value)}
             value={title}
           ></input>
           <textarea
-            className="bg-soma-grey-25 p-3 resize-none outline-none rounded-lg h-72 break-all"
+            className="p-3 break-all rounded-lg outline-none resize-none bg-soma-grey-25 h-72"
             placeholder="시리즈를 짧게 소개해보세요..."
             onChange={(e) => setDescription(e.target.value)}
             value={description}
           ></textarea>
           <button
-            className="text-soma-grey-50 mt-5 text-sm"
+            className="mt-5 text-sm text-soma-grey-50"
             onClick={() =>
               open('나가시겠습니까?', () => {
                 router.push(`/series`);
@@ -242,7 +242,7 @@ export default function SeriesForm({ userId }: Props) {
             나가기
           </button>
         </div>
-        <div className="flex flex-col grow mt-6">
+        <div className="flex flex-col mt-6 grow">
           <DndProvider backend={HTML5Backend}>
             <MemoOrderContainer
               memos={memos}

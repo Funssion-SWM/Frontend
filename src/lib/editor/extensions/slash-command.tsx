@@ -24,10 +24,9 @@ import {
   Code,
   CheckSquare,
 } from 'lucide-react';
-import LoadingCircle from '@/assets/icons/loading-circle';
+import LoadingCircle from '@/lib/editor/icons/loading-circle';
 import { toast } from 'sonner';
 // import va from '@vercel/analytics';
-import Magic from '@/assets/icons/magic';
 import { startImageUpload } from '../plugins/upload-images';
 import { getPrevText } from '../lib/editor';
 

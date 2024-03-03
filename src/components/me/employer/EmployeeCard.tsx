@@ -2,14 +2,12 @@ import { getImageSrcFromRank } from '@/utils/rank';
 import { Employee } from '@/types/employer';
 import Image from 'next/image';
 import Link from 'next/link';
-import basicProfileImg from '@/assets/profile.svg';
 import { StackInfo } from '@/types/coverletter';
 import { useState } from 'react';
-import fillHeart from '@/assets/icons/heart_fill.svg';
-import emptyHeart from '@/assets/icons/heart_empty.svg';
 import { likeEmployee, unlikeEmployee } from '@/service/like';
 import { notifyToast } from '@/utils/notify';
 import { useRouter } from 'next/navigation';
+import { DefaultProfile, HeartEmpty, HeartFill } from '@/assets/svg';
 
 type Props = {
   employee: Employee;
@@ -65,7 +63,7 @@ export default function EmployeeCard({ employee, type, onClickResult }: Props) {
             <div className="relative">
               <Link href={`/`} prefetch={false}>
                 <Image
-                  src={imagePath || basicProfileImg}
+                  src={imagePath || DefaultProfile}
                   alt="profileImg"
                   width={40}
                   height={40}
@@ -89,8 +87,8 @@ export default function EmployeeCard({ employee, type, onClickResult }: Props) {
               {isLike ? (
                 <button onClick={handleClickLike}>
                   <Image
-                    src={fillHeart}
-                    alt="fill_heart"
+                    src={HeartFill}
+                    alt="fill-heart"
                     width={20}
                     height={20}
                   />
@@ -98,8 +96,8 @@ export default function EmployeeCard({ employee, type, onClickResult }: Props) {
               ) : (
                 <button onClick={handleClickUnlike}>
                   <Image
-                    src={emptyHeart}
-                    alt="empty_heart"
+                    src={HeartEmpty}
+                    alt="empty-heart"
                     width={20}
                     height={20}
                   />
@@ -128,7 +126,7 @@ export default function EmployeeCard({ employee, type, onClickResult }: Props) {
             {introduce}
           </p>
           <p className="text-xs text-soma-grey-60">{email}</p>
-          <div className="relative  group">
+          <div className="relative group">
             <p className="text-sm text-soma-grey-50">자소서 요약</p>
             <div className="absolute top-0 right-0 sm:left-0 w-[300px] sm:w-[500px] p-3 bg-white opacity-0 pointer-events-none transition-all group-hover:opacity-100 group-hover:pointer-events-auto rounded-2xl shadow-lg whitespace-pre-wrap z-10">
               {description}

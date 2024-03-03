@@ -1,11 +1,10 @@
 import Image from 'next/image';
-import basicProfileImg from '@/assets/profile.svg';
-import fillHeart from '../../assets/icons/heart_fill.svg';
 import Link from 'next/link';
 import RelativeDate from '../shared/RelativeDate';
 import { azertMono } from '@/styles/fonts';
 import { getImageSrcFromRank } from '@/utils/rank';
 import { Rank } from '@/types/rank';
+import { DefaultProfile, HeartFill } from '@/assets/svg';
 
 type Props = {
   createDate: string;
@@ -30,7 +29,7 @@ export default function MemoCardHeader({
         <div className="relative">
           <Link href={`/me/${authorId}`} prefetch={false}>
             <Image
-              src={imagePath ?? basicProfileImg}
+              src={imagePath ?? DefaultProfile}
               alt="profileImg"
               width={40}
               height={40}
@@ -54,7 +53,7 @@ export default function MemoCardHeader({
         </div>
       </div>
       <div className="flex items-center">
-        <Image src={fillHeart} alt="fill_heart" width={16} height={16} />
+        <Image src={HeartFill} alt="fill-heart" width={16} height={16} />
         <p
           className={`text-soma-grey-49 text-sm text-center ml-1 ${azertMono.className} `}
         >

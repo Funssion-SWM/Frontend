@@ -8,9 +8,6 @@ import {
   useRef,
   useState,
 } from 'react';
-
-import profileImage from '../assets/profile.svg';
-import editIcon from '../assets/icons/edit.svg';
 import BlueBtn from './shared/btn/BlueBtn';
 import WhiteBtn from './shared/btn/WhiteBtn';
 import { useRouter } from 'next/navigation';
@@ -21,6 +18,7 @@ import Tag from './shared/Tag';
 import { notifyToast } from '@/utils/notify';
 import { MAIN_PATH } from '@/constants/general';
 import { MAX_PROFILE_IMAGE_BYTE } from '@/constants/limit';
+import { Edit, DefaultProfile } from '@/assets/svg';
 
 type Props = {
   userId: number;
@@ -120,17 +118,13 @@ export default function MyInfoForm({
           onClick={() => fileInput.current.click()}
         >
           <Image
-            src={imageUrl === '' ? profileImage : imageUrl}
+            src={imageUrl === '' ? DefaultProfile : imageUrl}
             width={96}
             height={96}
             alt="profile"
             className="object-cover w-24 h-24 rounded-full"
           />
-          <Image
-            src={editIcon}
-            alt="edit"
-            className="absolute bottom-0 right-0"
-          />
+          <Image src={Edit} alt="edit" className="absolute bottom-0 right-0" />
         </button>
       </div>
       <button
