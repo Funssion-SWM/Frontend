@@ -1,6 +1,6 @@
 import { FollowListModalContext } from '@/context/FollowListModalProvider';
 import { follow, unfollow } from '@/service/follow';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import { UserInfo } from '@/types';
 import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';

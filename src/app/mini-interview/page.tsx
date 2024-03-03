@@ -4,7 +4,7 @@ import {
   continueInterview,
   getInterviewQuestions,
 } from '@/service/mini-interview';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/general';
 import { cookies } from 'next/headers';
 
 type Props = {

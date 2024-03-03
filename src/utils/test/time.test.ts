@@ -1,4 +1,4 @@
-import { extractYMDHM, formatDate } from '../time';
+import { extractYMDHM, formatDate } from '@/utils//time';
 
 describe('time', () => {
   it('check extractYMDHM length', () => {

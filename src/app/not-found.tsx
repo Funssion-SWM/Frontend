@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import image404 from '@/assets/image404.png';
 import Link from 'next/link';
-import { MAIN_PATH } from '@/utils/const';
+import { MAIN_PATH } from '@/constants/general';
 
 export default function NotFoundPage() {
   return (

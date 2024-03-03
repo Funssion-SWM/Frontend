@@ -1,7 +1,7 @@
 import CloseIcon from '@/components/search/CloseIcon';
 import Tag from '@/components/shared/Tag';
 import BlueBtn from '@/components/shared/btn/BlueBtn';
-import { hasSpecialChar } from '@/service/validation';
+import { hasSpecialChar } from '@/utils/validation';
 import { useState } from 'react';
 
 type Props = {

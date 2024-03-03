@@ -1,5 +1,5 @@
 import BlueBtn from '@/components/shared/btn/BlueBtn';
-import { stackOptions } from '@/utils/const';
+import { STACK_OPTIONS } from '@/constants/general';
 import { useEffect, useState } from 'react';
 
 type Props = {
@@ -34,7 +34,7 @@ export default function SelectStacksContainer({
         원하는 기술 스택 최대 3가지를 선택해주세요
       </div>
       <ul className={`flex flex-wrap justify-center gap-10`}>
-        {stackOptions.map((item, idx) => {
+        {STACK_OPTIONS.map((item, idx) => {
           return (
             <li
               key={idx}

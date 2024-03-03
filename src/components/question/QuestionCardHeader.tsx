@@ -6,7 +6,7 @@ import { QuestionCardSize } from '@/types/question';
 import RelativeDate from '../shared/RelativeDate';
 import { azertMono } from '@/styles/fonts';
 import { Rank } from '@/types/rank';
-import { getImageSrcFromRank } from '@/service/rank';
+import { getImageSrcFromRank } from '@/utils/rank';
 
 type Props = {
   createdDate: string;
@@ -28,7 +28,7 @@ export default function QuestionCardHeader({
   authorRank,
 }: Props) {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex items-center justify-between">
       <div className="flex items-center">
         <div className="relative">
           <Link href={`/me/${authorId}`} prefetch={false}>

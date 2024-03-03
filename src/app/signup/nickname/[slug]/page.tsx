@@ -1,5 +1,5 @@
 import NicknameForm from '@/components/signup/NicknameForm';
-import { MAIN_PATH } from '@/utils/const';
+import { MAIN_PATH } from '@/constants/general';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 

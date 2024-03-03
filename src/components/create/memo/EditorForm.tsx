@@ -13,7 +13,7 @@ import {
 } from '@/service/memos';
 import { getPrevText } from '@/lib/editor/lib/editor';
 import { useCompletion } from 'ai/react';
-import { getDescription } from '@/service/description';
+import { getDescription } from '@/utils/description';
 import { ModalContext } from '@/context/ModalProvider';
 import { handleTiptapExtensions } from '@/lib/editor/extensions';
 import { handleTiptapEditorProps } from '@/lib/editor/props';
@@ -22,8 +22,8 @@ import WhiteBtnWithCount from '@/components/shared/btn/WhiteBtnWithCount';
 import FakeEditor from '@/lib/editor/components/FakeEditor';
 import { useDebounce } from '@/hooks/useDebounce';
 import { DraftsInModalContext } from '@/context/DraftsInModalProvider';
-import { TEMPORARY_SAVE_INTERVAL_TIME } from '@/utils/const';
-import { notifyToast } from '@/service/notify';
+import { TEMPORARY_SAVE_INTERVAL_TIME } from '@/constants/limit';
+import { notifyToast } from '@/utils/notify';
 import CreateMemoModal from './CreateMemoModal';
 import { RingLoader } from 'react-spinners';
 

@@ -1,13 +1,12 @@
-import { getImageSrcFromRank } from '@/service/rank';
+import { getImageSrcFromRank } from '@/utils/rank';
 import { UserForJobInfo } from '@/types/userForJob';
 import Image from 'next/image';
-import Link from 'next/link';
 import basicProfileImg from '@/assets/profile.svg';
 import { StackInfo } from '@/types/coverletter';
 import fillHeart from '@/assets/icons/heart_fill.svg';
 import emptyHeart from '@/assets/icons/heart_empty.svg';
 import { likeEmployee, unlikeEmployee } from '@/service/like';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -58,8 +57,8 @@ export default function UserCard({
   };
 
   return (
-    <div className="flex flex-col justify-between relative rounded-md shadow-md aspect-square">
-      <div className="flex justify-between items-center px-3 pt-3">
+    <div className="relative flex flex-col justify-between rounded-md shadow-md aspect-square">
+      <div className="flex items-center justify-between px-3 pt-3">
         <div className="flex items-center gap-2">
           <div className="relative">
             <a href={`/me/${id}`} target="_blank" rel="noopener noreferrer">
@@ -68,7 +67,7 @@ export default function UserCard({
                 alt="profileImg"
                 width={40}
                 height={40}
-                className="rounded-full w-10 h-10 object-cover"
+                className="object-cover w-10 h-10 rounded-full"
               />
             </a>
             <Image
@@ -80,7 +79,7 @@ export default function UserCard({
             />
           </div>
 
-          <div className="text-soma-grey-60 font-medium text-sm line-clamp-1">
+          <div className="text-sm font-medium text-soma-grey-60 line-clamp-1">
             {name}
           </div>
         </div>
@@ -101,9 +100,9 @@ export default function UserCard({
           )}
         </div>
       </div>
-      <div className="flex flex-col gap-3 items-center px-3">
+      <div className="flex flex-col items-center gap-3 px-3">
         <div className="font-semibold text-soma-blue-50">{developmentArea}</div>
-        <ul className="flex gap-3 overflow-x-auto w-full">
+        <ul className="flex w-full gap-3 overflow-x-auto">
           {parsingTechStacks.map((item, idx) => {
             return (
               <li
@@ -115,10 +114,10 @@ export default function UserCard({
             );
           })}
         </ul>
-        <p className="text-soma-grey-70 font-semibold line-clamp-3 break-all h-20 overflow-y-auto">
+        <p className="h-20 overflow-y-auto font-semibold break-all text-soma-grey-70 line-clamp-3">
           {introduce}
         </p>
-        <div className=" group relative my-1">
+        <div className="relative my-1 group">
           <p className="text-sm text-soma-grey-50">자소서 요약</p>
           <div className="absolute top-0 right-0 sm:left-0 w-[300px] sm:w-[500px] p-3 bg-white opacity-0 pointer-events-none transition-all group-hover:opacity-100 group-hover:pointer-events-auto rounded-2xl shadow-lg whitespace-pre-wrap z-10">
             {description}
@@ -130,12 +129,12 @@ export default function UserCard({
           href={`/coverletter/${id}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-center flex-1 bg-soma-blue-40 text-white font-semibold py-2 hover:brightness-75 transition-all rounded-bl-md"
+          className="flex-1 py-2 font-semibold text-center text-white transition-all bg-soma-blue-40 hover:brightness-75 rounded-bl-md"
         >
           자소서 보기
         </a>
         <button
-          className="flex-1 bg-white text-soma-blue-40 font-semibold py-2 hover:brightness-75 transition-all rounded-br-md"
+          className="flex-1 py-2 font-semibold transition-all bg-white text-soma-blue-40 hover:brightness-75 rounded-br-md"
           onClick={() => onRequestInterview(id)}
         >
           미니면접 요청

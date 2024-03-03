@@ -1,6 +1,6 @@
 'use client';
 
-import { MAIN_PATH } from '@/utils/const';
+import { MAIN_PATH } from '@/constants/general';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';

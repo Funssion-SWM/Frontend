@@ -2,7 +2,7 @@
 
 import { useDebounce } from '@/hooks/useDebounce';
 import { setCoverletterVisibleMode } from '@/service/coverletter';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import { useEffect, useRef, useState } from 'react';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 

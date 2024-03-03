@@ -2,7 +2,7 @@ import Header from '@/components/shared/Header';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { getNotificationsTop30 } from '@/service/notification';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/general';
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 

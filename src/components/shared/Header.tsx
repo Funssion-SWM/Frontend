@@ -19,7 +19,7 @@ import RelativeDate from './RelativeDate';
 import { checkNotifications } from '@/service/notification';
 import { FaRankingStar } from 'react-icons/fa6';
 import '@/styles/headerScrollbar.css';
-import { MAIN_PATH } from '@/utils/const';
+import { MAIN_PATH } from '@/constants/general';
 import { Authority } from '@/types';
 
 type Props = {

@@ -1,4 +1,4 @@
-import { getImageSrcFromRank } from '@/service/rank';
+import { getImageSrcFromRank } from '@/utils/rank';
 import { Rank } from '@/types/rank';
 import Image from 'next/image';
 import { AiOutlineSmile } from 'react-icons/ai';
@@ -45,7 +45,7 @@ export default function RankingCard({
           alt="profileImg"
           width={20}
           height={20}
-          className="mx-2 w-5 h-5 rounded-full"
+          className="w-5 h-5 mx-2 rounded-full"
         />
         <div>{nickname}</div>
         <Image src={getImageSrcFromRank(tier)} alt="rankIcon" />

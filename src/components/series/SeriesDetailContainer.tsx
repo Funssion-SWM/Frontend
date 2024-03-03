@@ -16,7 +16,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ModalContext } from '@/context/ModalProvider';
 import { deleteSeries } from '@/service/series';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import arrowIcon from '@/assets/icons/arrow_icon.svg';
 import MoreOptions from '../shared/MoreOptions';
 

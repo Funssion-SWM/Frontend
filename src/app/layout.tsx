@@ -5,7 +5,7 @@ import { pretendard } from '@/styles/fonts';
 import ModalProvider from '@/context/ModalProvider';
 import Modal from '@/components/shared/Modal';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
-import ToastProvider from '@/components/ToastProvider';
+import ToastProvider from '@/context/ToastProvider';
 import CreationModalProvider from '@/context/CreationModalProvider';
 import CreationModal from '@/components/shared/CreationModal';
 import SnowContainer from '@/components/snow/SnowContainer';

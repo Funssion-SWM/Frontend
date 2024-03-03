@@ -7,12 +7,12 @@ import { searchMemos } from '@/service/search';
 import CategoryBtn from '@/components/shared/btn/CategoryBtn';
 import MemosGrid from '../memo/MemosGrid';
 import { useDebounce } from '@/hooks/useDebounce';
-import { SEARCH_RESULT_TIME } from '@/utils/const';
+import { SEARCH_RESULT_TIME } from '@/constants/limit';
 import BarBtn from '../shared/btn/BarBtn';
 import QuestionsList from '../question/QuestionsList';
 import { Question } from '@/types/question';
 import { searchQuestions, searchSeries } from '@/service/search';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import { Series } from '@/types/series';
 import SeriesGrid from '../series/SeriesGrid';
 import useObserver from '@/hooks/useObserver';
@@ -218,7 +218,7 @@ export default function SearchResultContainer({
           isSelected={selectedOrderType === 'new'}
         />
       </div>
-      <div className="my-4 font-medium ml-2">
+      <div className="my-4 ml-2 font-medium">
         <span className="text-soma-blue-40">
           {
             {

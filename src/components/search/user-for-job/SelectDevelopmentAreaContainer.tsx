@@ -1,5 +1,5 @@
 import { DevelopmentArea } from '@/types/coverletter';
-import { developmentAreaOptions } from '@/utils/const';
+import { DEVELOPMENT_AREA_OPTIONS } from '@/constants/general';
 import { useEffect, useState } from 'react';
 
 type Props = {
@@ -34,7 +34,7 @@ export default function SelectDevelopmentAreaContainer({
           true ? 'opacity-100' : 'opacity-0 invisible'
         }  duration-1000 ease-in-out`}
       >
-        {developmentAreaOptions.map((item, idx) => {
+        {DEVELOPMENT_AREA_OPTIONS.map((item, idx) => {
           return (
             <li
               key={idx}

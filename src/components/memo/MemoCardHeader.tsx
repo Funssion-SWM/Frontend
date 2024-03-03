@@ -4,7 +4,7 @@ import fillHeart from '../../assets/icons/heart_fill.svg';
 import Link from 'next/link';
 import RelativeDate from '../shared/RelativeDate';
 import { azertMono } from '@/styles/fonts';
-import { getImageSrcFromRank } from '@/service/rank';
+import { getImageSrcFromRank } from '@/utils/rank';
 import { Rank } from '@/types/rank';
 
 type Props = {
@@ -25,7 +25,7 @@ export default function MemoCardHeader({
   authorRank,
 }: Props) {
   return (
-    <div className="flex justify-between h-10 items-center">
+    <div className="flex items-center justify-between h-10">
       <div className="flex items-center">
         <div className="relative">
           <Link href={`/me/${authorId}`} prefetch={false}>
@@ -34,7 +34,7 @@ export default function MemoCardHeader({
               alt="profileImg"
               width={40}
               height={40}
-              className="rounded-full w-10 h-10 object-cover"
+              className="object-cover w-10 h-10 rounded-full"
             />
           </Link>
           <Image
@@ -47,7 +47,7 @@ export default function MemoCardHeader({
         </div>
 
         <div className="ml-2">
-          <h4 className="text-soma-grey-60 font-medium text-sm line-clamp-1">
+          <h4 className="text-sm font-medium text-soma-grey-60 line-clamp-1">
             {authorName}
           </h4>
           <RelativeDate date={createDate} type="YMD" />

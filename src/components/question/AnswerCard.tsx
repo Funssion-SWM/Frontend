@@ -6,7 +6,7 @@ import AnswerCardHeader from './AnswerCardHeader';
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateAnswer } from '@/service/answers';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import AnswerCardFooter from './AnswerCardFooter';
 import { generateHTML } from '@tiptap/html';
 

@@ -4,7 +4,7 @@ import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import MeDraftContainer from '@/components/me/MeDraftContainer';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { cookies } from 'next/headers';
-import { ACCESS_TOKEN, MAIN_PATH, REFRESH_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, MAIN_PATH, REFRESH_TOKEN } from '@/constants/general';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { getNotificationsTop30 } from '@/service/notification';

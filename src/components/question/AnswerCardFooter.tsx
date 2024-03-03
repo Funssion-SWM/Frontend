@@ -6,7 +6,7 @@ import thumbsDownInactive from '@/assets/icons/thumb_down_incative.svg';
 import { useState } from 'react';
 import AnswerCommentContainer from './AnswerCommentContainer';
 import { dislike, like, undislike, unlike } from '@/service/like';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import { azertMono } from '@/styles/fonts';
 import { useRouter } from 'next/navigation';
 

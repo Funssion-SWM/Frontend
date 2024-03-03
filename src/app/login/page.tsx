@@ -4,9 +4,9 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import logo from '@/assets/inforum_logo.png';
 import Image from 'next/image';
-import { MAIN_PATH } from '@/utils/const';
+import { MAIN_PATH } from '@/constants/general';
 import { headers } from 'next/headers';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 
 export const metadata: Metadata = {
   title: '로그인',

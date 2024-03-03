@@ -2,8 +2,8 @@
 
 import { ModalContext } from '@/context/ModalProvider';
 import { withdraw } from '@/service/auth';
-import { notifyToast } from '@/service/notify';
-import { MAIN_PATH } from '@/utils/const';
+import { notifyToast } from '@/utils/notify';
+import { MAIN_PATH } from '@/constants/general';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';

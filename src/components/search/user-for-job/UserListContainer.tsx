@@ -1,4 +1,4 @@
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import { getUserForJobInfos } from '@/service/userForJob';
 import { DevelopmentArea } from '@/types/coverletter';
 import { UserForJobInfo } from '@/types/userForJob';

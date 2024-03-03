@@ -4,7 +4,7 @@ import { headers } from 'next/headers';
 import { getDefaultTags } from '@/service/tag';
 import logo from '@/assets/inforum_logo.png';
 import Image from 'next/image';
-import { MAIN_PATH } from '@/utils/const';
+import { MAIN_PATH } from '@/constants/general';
 
 type Props = {
   params: {

@@ -1,5 +1,5 @@
 import { checkUser } from '@/service/auth';
-import { ACCESS_TOKEN, MAIN_PATH, REFRESH_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, MAIN_PATH, REFRESH_TOKEN } from '@/constants/general';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import LandingMain from '@/components/landing/LandingMain';

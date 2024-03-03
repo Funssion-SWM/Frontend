@@ -1,7 +1,7 @@
 import SeriesForm from '@/components/create/series/SeriesForm';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser } from '@/service/auth';
-import { ACCESS_TOKEN, MAIN_PATH, REFRESH_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, MAIN_PATH, REFRESH_TOKEN } from '@/constants/general';
 import { Metadata } from 'next';
 import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';

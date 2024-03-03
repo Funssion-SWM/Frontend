@@ -5,10 +5,10 @@ import basicProfileImg from '@/assets/profile.svg';
 import BarBtn from '../shared/btn/BarBtn';
 import { useState } from 'react';
 import { follow, unfollow } from '@/service/follow';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import { useRouter } from 'next/navigation';
 import { Rank } from '@/types/rank';
-import { getImageSrcFromRank } from '@/service/rank';
+import { getImageSrcFromRank } from '@/utils/rank';
 
 type Props = {
   authorId: number;
@@ -45,8 +45,8 @@ export default function MemoSidebarHeader({
   const router = useRouter();
 
   return (
-    <div className="bg-white rounded-t-2xl sticky top-0 p-3 pb-0 ">
-      <div className="flex justify-between items-center">
+    <div className="sticky top-0 p-3 pb-0 bg-white rounded-t-2xl ">
+      <div className="flex items-center justify-between">
         <div className="flex items-center text-sm">
           <div className="relative">
             <Link href={`/me/${authorId}`} prefetch={false}>
@@ -55,7 +55,7 @@ export default function MemoSidebarHeader({
                 alt="profileImg"
                 width={36}
                 height={36}
-                className="w-9 h-9 rounded-full border-2 border-soma-grey-30 object-cover"
+                className="object-cover border-2 rounded-full w-9 h-9 border-soma-grey-30"
               />
             </Link>
             <Image
@@ -67,7 +67,7 @@ export default function MemoSidebarHeader({
             />
           </div>
           <div className="ml-3">
-            <div className="text-soma-grey-60 font-semibold">{authorName}</div>
+            <div className="font-semibold text-soma-grey-60">{authorName}</div>
             <div className="flex gap-1 text-xs text-soma-grey-49">
               <div>팔로워 {currentFollowerNum}</div>
               <div>팔로잉 {authorFollowingNum}</div>

@@ -5,9 +5,9 @@ import { LoginFormData } from '@/types';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import BlueBtn from '../shared/btn/BlueBtn';
-import { BASIC_INPUT_STYLE } from '@/utils/tailwindcss';
-import { notifyToast } from '@/service/notify';
-import { MAIN_PATH } from '@/utils/const';
+import { BASIC_INPUT_STYLE } from '@/constants/style';
+import { notifyToast } from '@/utils/notify';
+import { MAIN_PATH } from '@/constants/general';
 
 export default function LoginForm() {
   const router = useRouter();

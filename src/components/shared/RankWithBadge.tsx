@@ -1,4 +1,4 @@
-import { getImageSrcFromRank } from '@/service/rank';
+import { getImageSrcFromRank } from '@/utils/rank';
 import { Rank } from '@/types/rank';
 import Image from 'next/image';
 

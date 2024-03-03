@@ -9,7 +9,7 @@ import {
   updateRecomment,
 } from '@/service/comments';
 import CommentHeader from '../comment/CommentHeader';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 
 type Props = {
   commentProperty: Comment;

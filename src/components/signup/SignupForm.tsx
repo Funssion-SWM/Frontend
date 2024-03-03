@@ -16,9 +16,9 @@ import {
   validateEmail,
   validateNickname,
   validatePassword,
-} from '@/service/validation';
-import { BASIC_INPUT_STYLE } from '@/utils/tailwindcss';
-import { notifyToast } from '@/service/notify';
+} from '@/utils/validation';
+import { BASIC_INPUT_STYLE } from '@/constants/style';
+import { notifyToast } from '@/utils/notify';
 import Link from 'next/link';
 
 type Props = {
@@ -224,7 +224,7 @@ export default function SignupForm({ loginType }: Props) {
         </div>
       </div>
       {loginType === 'employeer' && (
-        <div className="flex flex-col  my-1">
+        <div className="flex flex-col my-1">
           <label htmlFor="company" className="text-xs sm:text-sm">
             회사명
           </label>
@@ -240,7 +240,7 @@ export default function SignupForm({ loginType }: Props) {
           />
         </div>
       )}
-      <div className="flex flex-col  my-1">
+      <div className="flex flex-col my-1">
         <label htmlFor="pw" className="text-xs sm:text-sm">
           비밀번호
         </label>
@@ -255,7 +255,7 @@ export default function SignupForm({ loginType }: Props) {
           placeholder="8~15자리 (영어, 숫자, 특수문자(@$!%*#?&)) 포함)"
         />
       </div>
-      <div className="flex flex-col  my-1">
+      <div className="flex flex-col my-1">
         <label htmlFor="confirmPw" className="text-xs sm:text-sm">
           비밀번호 확인
         </label>
@@ -272,12 +272,12 @@ export default function SignupForm({ loginType }: Props) {
       </div>
       <BlueBtn text="회원가입" onClick={() => {}} extraStyle="my-5" />
       <div className="flex items-center justify-center">
-        <p className="text-soma-grey-50 mr-3 text-xs sm:text-sm">
+        <p className="mr-3 text-xs text-soma-grey-50 sm:text-sm">
           계정이 이미 있나요?
         </p>
         <Link
           href="/login"
-          className="self-end my-2 font-semibold text-soma-blue-50 text-sm sm:text-base"
+          className="self-end my-2 text-sm font-semibold text-soma-blue-50 sm:text-base"
         >
           로그인하기
         </Link>

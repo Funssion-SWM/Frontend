@@ -4,8 +4,8 @@ import { Decoration, DecorationSet, EditorView } from '@tiptap/pm/view';
 import { postImageInMemo } from '@/service/memos';
 import { postImageInQuestion } from '@/service/questions';
 import { postImageInAnswer } from '@/service/answers';
-import { notifyToast } from '@/service/notify';
-import { MAX_IMAGE_BYTE } from '@/utils/const';
+import { notifyToast } from '@/utils/notify';
+import { MAX_IMAGE_BYTE } from '@/constants/limit';
 import { postImageInCoverletter } from '@/service/coverletter';
 
 const uploadKey = new PluginKey('upload-image');

@@ -5,7 +5,7 @@ import logo from '@/assets/inforum_logo.png';
 import { join } from 'path';
 import fs from 'fs';
 import SignupBox from '@/components/signup/SignupBox';
-import { MAIN_PATH } from '@/utils/const';
+import { MAIN_PATH } from '@/constants/general';
 
 export const metadata: Metadata = {
   title: '회원가입',

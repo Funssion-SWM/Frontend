@@ -3,12 +3,12 @@
 import BlueBtn from '@/components/shared/btn/BlueBtn';
 import IsValidBtn from '@/components/shared/btn/IsValidBtn';
 import { checkNickname, registerNickname } from '@/service/auth';
-import { validateNickname } from '@/service/validation';
+import { validateNickname } from '@/utils/validation';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import logo from '@/assets/inforum_logo.png';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 
 type Props = {
   userId: number;

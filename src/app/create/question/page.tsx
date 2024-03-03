@@ -1,6 +1,6 @@
 import QuestionEditorForm from '@/components/create/QuestionEditorForm';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
-import { MAIN_PATH } from '@/utils/const';
+import { MAIN_PATH } from '@/constants/general';
 import { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';

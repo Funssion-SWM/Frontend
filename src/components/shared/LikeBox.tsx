@@ -6,7 +6,7 @@ import Image from 'next/image';
 import fillHeart from '@/assets/icons/heart_fill.svg';
 import emptyHeart from '@/assets/icons/heart_empty.svg';
 import { useRouter } from 'next/navigation';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import { azertMono } from '@/styles/fonts';
 
 type Props = {

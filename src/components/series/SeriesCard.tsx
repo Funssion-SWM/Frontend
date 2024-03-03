@@ -6,7 +6,7 @@ import basicProfileImg from '@/assets/profile.svg';
 import fillHeart from '@/assets/icons/heart_fill.svg';
 import { azertMono } from '@/styles/fonts';
 import RelativeDate from '../shared/RelativeDate';
-import { getImageSrcFromRank } from '@/service/rank';
+import { getImageSrcFromRank } from '@/utils/rank';
 
 type Props = {
   series: Series;
@@ -74,7 +74,7 @@ export default function SeriesCard({ series }: Props) {
         }`}
       >
         <Link href={`/series/${id}`} prefetch={false}>
-          <div className="relative h-1/2 rounded-md">
+          <div className="relative rounded-md h-1/2">
             <Image
               src={thumbnailImagePath ?? inforumImg}
               fill={true}
@@ -84,18 +84,18 @@ export default function SeriesCard({ series }: Props) {
           </div>
         </Link>
 
-        <div className="p-2 relative h-1/2">
+        <div className="relative p-2 h-1/2">
           <Link href={`/series/${id}`} prefetch={false}>
             <div className="flex flex-col h-full">
-              <p className="font-semibold text-lg text-soma-grey-70 line-clamp-1 my-1 break-all">
+              <p className="my-1 text-lg font-semibold break-all text-soma-grey-70 line-clamp-1">
                 {title}
               </p>
-              <p className="line-clamp-2 break-all text-soma-grey-60 text-sm">
+              <p className="text-sm break-all line-clamp-2 text-soma-grey-60">
                 {description}
               </p>
             </div>
           </Link>
-          <div className="absolute w-full flex items-center text-soma-grey-60 justify-between bottom-0 left-0 p-2 text-xs">
+          <div className="absolute bottom-0 left-0 flex items-center justify-between w-full p-2 text-xs text-soma-grey-60">
             <div className="flex">
               <Image
                 src={getImageSrcFromRank(authorRank)}

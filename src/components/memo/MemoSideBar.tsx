@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { Question } from '@/types/question';
 import QuestionsList from '../question/QuestionsList';
 import { useRouter } from 'next/navigation';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import { Rank } from '@/types/rank';
 import { Memo } from '@/types/memo';
 import MemosGrid from './MemosGrid';

@@ -1,7 +1,7 @@
 import { ErrorResponse, IsSuccessResponse } from '@/types';
 import { PostImageResponse } from '@/types/image';
 import { PostQuestionData, Question, QuestionOrderBy } from '@/types/question';
-import { QUESTION_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/utils/const';
+import { QUESTION_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/constants/limit';
 
 export async function getQuestions(
   orderBy: QuestionOrderBy = 'NEW',

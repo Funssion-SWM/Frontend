@@ -3,8 +3,8 @@ import Tag from '@/components/shared/Tag';
 import BlueBtn from '@/components/shared/btn/BlueBtn';
 import { getSeriesByUserId } from '@/service/me';
 import { getMemoById } from '@/service/memos';
-import { notifyToast } from '@/service/notify';
-import { hasSpecialChar } from '@/service/validation';
+import { notifyToast } from '@/utils/notify';
+import { hasSpecialChar } from '@/utils/validation';
 import { Series } from '@/types/series';
 import { useEffect, useState } from 'react';
 

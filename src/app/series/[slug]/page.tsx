@@ -5,7 +5,7 @@ import { getIsLike } from '@/service/like';
 import { getMemoById, getMemoRecommendationsById } from '@/service/memos';
 import { getQuestionsByMemoId } from '@/service/questions';
 import { getSeriesById } from '@/service/series';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/general';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 

@@ -1,7 +1,7 @@
 'use client';
 
 import BlueBtn from '@/components/shared/btn/BlueBtn';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import CoverLetterPage2 from './CoverLetterPage2';
@@ -15,7 +15,7 @@ import { useEditor } from '@tiptap/react';
 import { handleTiptapExtensions } from '@/lib/editor/extensions';
 import { handleTiptapEditorProps } from '@/lib/editor/props';
 import { useRouter } from 'next/navigation';
-import { developmentAreaOptions, stackOptions } from '@/utils/const';
+import { DEVELOPMENT_AREA_OPTIONS, STACK_OPTIONS } from '@/constants/general';
 import { ModalContext } from '@/context/ModalProvider';
 
 const TITLE_STYLE = 'sm:text-xl font-semibold my-1';
@@ -33,7 +33,7 @@ export default function CoverLetterForm({ userId }: Props) {
   const [introduce, setIntrodunce] = useState<string>('');
   const [stackInfos, setStackInfos] = useState<StackInfo[]>([]);
   const [stackInfo, setStackInfo] = useState<StackInfo>({
-    stack: stackOptions[0],
+    stack: STACK_OPTIONS[0],
     level: levelOptions[0],
   });
   const [developmentArea, setDevelopmentArea] =
@@ -97,7 +97,7 @@ export default function CoverLetterForm({ userId }: Props) {
 
     setStackInfos((preInfos) => [...preInfos, stackInfo]);
     setStackInfo({
-      stack: stackOptions[0],
+      stack: STACK_OPTIONS[0],
       level: levelOptions[0],
     });
   };
@@ -150,7 +150,7 @@ export default function CoverLetterForm({ userId }: Props) {
             <div className="flex flex-col gap-1">
               <div className={TITLE_STYLE}>개발 분야</div>
               <ul className="flex gap-3">
-                {developmentAreaOptions.map((item, idx) => {
+                {DEVELOPMENT_AREA_OPTIONS.map((item, idx) => {
                   return (
                     <li
                       key={idx}
@@ -178,10 +178,10 @@ export default function CoverLetterForm({ userId }: Props) {
                 <div className={TITLE_STYLE}>
                   기술스택 (레벨정의는 우측 정보 아이콘을 확인해주세요.)
                 </div>
-                <div className="group mx-2 relative">
+                <div className="relative mx-2 group">
                   <AiOutlineInfoCircle />
                   <div className="absolute top-0 right-0 sm:left-0 w-[300px] sm:w-[460px] p-3 bg-white opacity-0 pointer-events-none transition-all group-hover:opacity-100 group-hover:pointer-events-auto rounded-2xl shadow-lg">
-                    <ul className="flex flex-col text-xs sm:text-sm gap-3">
+                    <ul className="flex flex-col gap-3 text-xs sm:text-sm">
                       <li> 0: 개발 경험이나 기술 지식이 전혀 없음.</li>
                       <li>
                         1: 관련 지식이나 경험이 적고, 간단한 기능 구현에도
@@ -212,25 +212,25 @@ export default function CoverLetterForm({ userId }: Props) {
               </div>
 
               <div className="flex items-center gap-5">
-                <div className="flex items-center bg-soma-grey-20 pl-2 gap-2 rounded-lg">
+                <div className="flex items-center gap-2 pl-2 rounded-lg bg-soma-grey-20">
                   <label>Stack</label>
                   <select
-                    className="outline-none text-center bg-soma-grey-30 rounded-lg p-1"
+                    className="p-1 text-center rounded-lg outline-none bg-soma-grey-30"
                     value={stackInfo.stack}
                     name="stack"
                     onChange={handleOptionsChange}
                   >
-                    {stackOptions.map((option, idx) => (
+                    {STACK_OPTIONS.map((option, idx) => (
                       <option key={idx} value={option}>
                         {option}
                       </option>
                     ))}
                   </select>
                 </div>
-                <div className="flex items-center bg-soma-grey-20 pl-2 gap-2 rounded-lg">
+                <div className="flex items-center gap-2 pl-2 rounded-lg bg-soma-grey-20">
                   <label>Level</label>
                   <select
-                    className="outline-none text-center bg-soma-grey-30 rounded-lg p-1"
+                    className="p-1 text-center rounded-lg outline-none bg-soma-grey-30"
                     value={stackInfo.level}
                     name="level"
                     onChange={handleOptionsChange}
@@ -243,27 +243,27 @@ export default function CoverLetterForm({ userId }: Props) {
                   </select>
                 </div>
                 <button
-                  className="bg-soma-blue-40 text-white w-6 h-6 text-sm rounded-md"
+                  className="w-6 h-6 text-sm text-white rounded-md bg-soma-blue-40"
                   onClick={handleAddStackInfo}
                 >
                   +
                 </button>
               </div>
 
-              <ul className="flex gap-2 overflow-x-auto h-6">
+              <ul className="flex h-6 gap-2 overflow-x-auto">
                 {stackInfos.map((item, idx) => (
                   <li
                     key={idx}
-                    className="flex gap-2 items-center bg-soma-grey-20 px-2 rounded-lg"
+                    className="flex items-center gap-2 px-2 rounded-lg bg-soma-grey-20"
                   >
-                    <p className="text-soma-blue-40 font-semibold">
+                    <p className="font-semibold text-soma-blue-40">
                       {item.stack}
                     </p>
-                    <p className="text-soma-grey-60 font-medium">
+                    <p className="font-medium text-soma-grey-60">
                       {item.level}
                     </p>
                     <button
-                      className="bg-soma-grey-40 text-white w-5 h-5 text-sm rounded-md"
+                      className="w-5 h-5 text-sm text-white rounded-md bg-soma-grey-40"
                       onClick={() => handleDeleteStackInfo(item.stack)}
                     >
                       -
@@ -279,7 +279,7 @@ export default function CoverLetterForm({ userId }: Props) {
                 <div>
                   <input
                     type="text"
-                    className="w-full bg-soma-grey-20 py-2 px-4 outline-none rounded-xl"
+                    className="w-full px-4 py-2 outline-none bg-soma-grey-20 rounded-xl"
                     value={introduce}
                     onChange={(e) => {
                       if (e.target.value.length > 50) {
@@ -293,7 +293,7 @@ export default function CoverLetterForm({ userId }: Props) {
                     }}
                     placeholder="한 줄 소개 (채용자한테 간단히 소개되어 보여집니다.)"
                   />
-                  <div className="text-end text-sm">{introduce.length}/50</div>
+                  <div className="text-sm text-end">{introduce.length}/50</div>
                 </div>
               </div>
               <div>
@@ -312,7 +312,7 @@ export default function CoverLetterForm({ userId }: Props) {
                     setAnswer1(e.target.value);
                   }}
                 ></textarea>
-                <div className="text-end text-sm">{answer1.length}/500</div>
+                <div className="text-sm text-end">{answer1.length}/500</div>
               </div>
               <div>
                 <div>
@@ -330,7 +330,7 @@ export default function CoverLetterForm({ userId }: Props) {
                     setAnswer2(e.target.value);
                   }}
                 ></textarea>
-                <div className="text-end text-sm">{answer2.length}/500</div>
+                <div className="text-sm text-end">{answer2.length}/500</div>
               </div>
               <div>
                 <div>
@@ -348,12 +348,12 @@ export default function CoverLetterForm({ userId }: Props) {
                     setAnswer3(e.target.value);
                   }}
                 ></textarea>
-                <div className="text-end text-sm">{answer3.length}/500</div>
+                <div className="text-sm text-end">{answer3.length}/500</div>
               </div>
             </div>
           </div>
 
-          <div className="flex justify-end mt-5 gap-2">
+          <div className="flex justify-end gap-2 mt-5">
             <BlueBtn text="저장" onClick={handleSave} />
             <BlueBtn
               text="다음"

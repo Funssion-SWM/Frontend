@@ -1,7 +1,7 @@
 import CoverLetterForm from '@/components/create/coverletter/CoverLetterForm';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser } from '@/service/auth';
-import { ACCESS_TOKEN, MAIN_PATH, REFRESH_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, MAIN_PATH, REFRESH_TOKEN } from '@/constants/general';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { cookies, headers } from 'next/headers';

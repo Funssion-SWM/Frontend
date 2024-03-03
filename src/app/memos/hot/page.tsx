@@ -1,6 +1,6 @@
 import MemosContainer from '@/components/memo/MemosContainer';
 import { getMemos } from '@/service/memos';
-import { MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/utils/const';
+import { MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/constants/limit';
 
 export default async function MemosHotPage() {
   const memos = await getMemos(

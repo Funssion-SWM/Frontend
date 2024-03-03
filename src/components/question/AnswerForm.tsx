@@ -4,7 +4,7 @@ import { handleTiptapEditorProps } from '@/lib/editor/props';
 import BlueBtn from '../shared/btn/BlueBtn';
 import { createAnswer } from '@/service/answers';
 import { useRouter } from 'next/navigation';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import { EditorBubbleMenu } from '@/lib/editor/components';
 
 type Props = {

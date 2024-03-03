@@ -7,7 +7,7 @@ import {
   MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL,
   QUESTION_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL,
   SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL,
-} from '@/utils/const';
+} from '@/constants/limit';
 
 export async function getHistory(
   userId: number,
