@@ -4,7 +4,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import BlueBtn from '../shared/btn/BlueBtn';
 import IsValidBtn from '../shared/btn/IsValidBtn';
 import { BASIC_INPUT_STYLE } from '@/constants/style';
-import { FindPasswrdFormData } from '@/types';
+import { FindPasswrdFormData } from '@/types/auth';
 import { validateEmail, validatePassword } from '@/utils/validation';
 import {
   changePassword,

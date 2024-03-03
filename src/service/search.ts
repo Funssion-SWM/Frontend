@@ -1,4 +1,4 @@
-import { ErrorResponse, Orderby, SearchHistory } from '@/types';
+import { ErrorResponse, Orderby, SearchHistory } from '@/types/common';
 import { Memo } from '@/types/memo';
 import { Question } from '@/types/question';
 import { Series } from '@/types/series';

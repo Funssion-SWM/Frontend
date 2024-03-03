@@ -3,7 +3,7 @@
 import Calendar from 'react-calendar';
 import { useState } from 'react';
 import { getHistory } from '@/service/me';
-import { HistoryItem } from '@/types';
+import { HistoryItem } from '@/types/common';
 import '../../styles/calendar/Calendar.css';
 import HistoryBox from '@/components/me/HistoryBox';
 
@@ -60,7 +60,7 @@ export default function History({ history, userId }: Props) {
       memoCnt: 0,
       blogCnt: 0,
       questionCnt: 0,
-      answerCnt: 0
+      answerCnt: 0,
     };
 
     if (

@@ -16,7 +16,7 @@ import WhiteBtn from './shared/btn/WhiteBtn';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { checkUser, registerUserInfo, updateUserInfo } from '@/service/auth';
-import { UserInfo } from '@/types';
+import { UserInfo } from '@/types/auth';
 import Tag from './shared/Tag';
 import { notifyToast } from '@/utils/notify';
 import { MAIN_PATH } from '@/constants/general';

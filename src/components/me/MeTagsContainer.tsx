@@ -1,4 +1,4 @@
-import { UserInfo } from '@/types';
+import { UserInfo } from '@/types/auth';
 import TagView from '../shared/TagView';
 
 type Props = {
@@ -16,7 +16,7 @@ export default function MeTagsContainer({
 }: Props) {
   return (
     <div className="my-10">
-      <div className="flex flex-wrap justify-center items-center mx-10 sm:text-2xl font-bold">
+      <div className="flex flex-wrap items-center justify-center mx-10 font-bold sm:text-2xl">
         <span>{userInfo.nickname}님은</span>
         <TagView
           tagText={tags[0]}
@@ -34,7 +34,7 @@ export default function MeTagsContainer({
         />
         <span>의 글을 많이 작성했어요.</span>
       </div>
-      <ul className="flex justify-center w-3/4 flex-wrap mx-auto mt-10">
+      <ul className="flex flex-wrap justify-center w-3/4 mx-auto mt-10">
         {tags.map((tagText) => (
           <li key={tagText}>
             <TagView

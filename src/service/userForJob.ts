@@ -1,4 +1,4 @@
-import { ErrorResponse } from '@/types';
+import { ErrorResponse } from '@/types/common';
 import { DevelopmentArea } from '@/types/coverletter';
 import { UserForJobInfo } from '@/types/userForJob';
 

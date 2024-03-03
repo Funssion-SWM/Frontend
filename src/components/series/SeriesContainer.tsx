@@ -1,6 +1,6 @@
 'use client';
 
-import { Orderby } from '@/types';
+import { Orderby } from '@/types/common';
 import SeriesGrid from './SeriesGrid';
 import { Series } from '@/types/series';
 import { getSeriesArray } from '@/service/series';

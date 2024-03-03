@@ -1,7 +1,7 @@
 'use client';
 
 import { login } from '@/service/auth';
-import { LoginFormData } from '@/types';
+import { LoginFormData } from '@/types/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import BlueBtn from '../shared/btn/BlueBtn';

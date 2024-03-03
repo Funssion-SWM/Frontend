@@ -1,4 +1,4 @@
-import { HistoryItem } from '@/types';
+import { HistoryItem } from '@/types/common';
 import { Memo } from '@/types/memo';
 import { Question } from '@/types/question';
 import { RankInfo, Stats } from '@/types/rank';

@@ -1,6 +1,6 @@
 'use client';
 
-import { UserInfo } from '@/types';
+import { UserInfo } from '@/types/auth';
 import { ReactNode, createContext, useState } from 'react';
 
 type Props = {

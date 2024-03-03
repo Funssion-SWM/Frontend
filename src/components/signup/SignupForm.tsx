@@ -9,7 +9,8 @@ import {
   userSignUp,
 } from '@/service/auth';
 import { useRouter } from 'next/navigation';
-import { EmployerSignupFormData, UserSignupFormData, UserType } from '@/types';
+import { UserType } from '@/types/common';
+import { EmployerSignupFormData } from '@/types/auth';
 import BlueBtn from '../shared/btn/BlueBtn';
 import IsValidBtn from '../shared/btn/IsValidBtn';
 import {

@@ -1,4 +1,4 @@
-import { ErrorResponse, IsSuccessResponse, PostType } from '@/types';
+import { ErrorResponse, IsSuccessResponse, PostType } from '@/types/common';
 import { Comment, PostCommentData, PostRecoomentData } from '@/types/comment';
 
 export async function getCommentsByPostTypeAndPostId(

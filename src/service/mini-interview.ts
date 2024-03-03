@@ -1,4 +1,4 @@
-import { ErrorResponse, IsSuccessResponse } from '@/types';
+import { ErrorResponse, IsSuccessResponse } from '@/types/common';
 import {
   GetInterviewQuestionResponse,
   InterviewState,

@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import basicProfileImg from '../../assets/profile.svg';
-import { UserInfo } from '@/types';
+import { UserInfo } from '@/types/auth';
 import FollowBtn from './FollowBtn';
 import CountInfo from './CountInfo';
 import MyProgressBar from '../shared/MyProgressBar';

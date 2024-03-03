@@ -1,4 +1,4 @@
-import { ErrorResponse, Orderby, Period } from '@/types';
+import { ErrorResponse, Orderby, Period } from '@/types/common';
 import {
   GetSeriesByIdResponse,
   PostSeriesResponse,

@@ -1,4 +1,4 @@
-import { ErrorResponse } from '@/types';
+import { ErrorResponse } from '@/types/common';
 import { CoverletterInfo, SetCoverletterRequest } from '@/types/coverletter';
 import { PostImageResponse } from '@/types/image';
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { Memo } from '@/types/memo';
-import { Orderby } from '@/types';
+import { Orderby } from '@/types/common';
 import MemosGrid from './MemosGrid';
 import { getMemos } from '@/service/memos';
 import CategoryLink from '../shared/CategoryLink';

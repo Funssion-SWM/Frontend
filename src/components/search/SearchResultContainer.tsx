@@ -1,7 +1,7 @@
 'use client';
 
 import { Memo } from '@/types/memo';
-import { Orderby } from '@/types';
+import { Orderby } from '@/types/common';
 import { useEffect, useRef, useState } from 'react';
 import { searchMemos } from '@/service/search';
 import CategoryBtn from '@/components/shared/btn/CategoryBtn';

@@ -1,4 +1,4 @@
-import { ErrorResponse, IsSuccessResponse } from '@/types';
+import { ErrorResponse, IsSuccessResponse } from '@/types/common';
 import { PostImageResponse } from '@/types/image';
 import { PostQuestionData, Question, QuestionOrderBy } from '@/types/question';
 import { QUESTION_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/constants/limit';

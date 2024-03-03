@@ -1,14 +1,18 @@
 import {
-  CheckUserResponse,
-  EmployerSignUpData,
   ErrorResponse,
-  FindEmailResponse,
   IsSuccessResponse,
   IsValidResponse,
+} from '@/types/common';
+
+import {
+  CheckUserResponse,
+  EmployerSignUpData,
+  FindEmailResponse,
   SignupResponse,
   UserInfo,
   UserSignUpData,
-} from '@/types';
+} from '@/types/auth';
+
 import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url';
 
 export async function userSignUp(

@@ -1,4 +1,4 @@
-import { HistoryItem } from '@/types';
+import { HistoryItem } from '@/types/common';
 
 type Props = {
   item: HistoryItem;

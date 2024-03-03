@@ -1,6 +1,7 @@
 import Profile from './Profile';
 import History from './History';
-import { HistoryItem, UserInfo } from '@/types';
+import { HistoryItem } from '@/types/common';
+import { UserInfo } from '@/types/auth';
 import Setting from './Setting';
 import { RankInfo, Stats } from '@/types/rank';
 import ScoreDetailProvider from '@/context/ScoreDetailProvider';

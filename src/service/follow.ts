@@ -1,4 +1,5 @@
-import { ErrorResponse, UserInfo } from '@/types';
+import { ErrorResponse } from '@/types/common';
+import { UserInfo } from '@/types/auth';
 
 export async function follow(userId: string): Promise<ErrorResponse> {
   const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_IP_ADDRESS}/follow`);
