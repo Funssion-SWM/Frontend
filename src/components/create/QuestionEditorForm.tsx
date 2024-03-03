@@ -1,13 +1,13 @@
 'use client';
 
-import MyEditor from '@/components/editor';
+import MyEditor from '@/lib/editor/index';
 import { useEditor } from '@tiptap/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { getDescription } from '@/service/description';
 import { ModalContext } from '@/context/ModalProvider';
-import { handleTiptapExtensions } from '@/components/editor/extensions';
-import { handleTiptapEditorProps } from '@/components/editor/props';
+import { handleTiptapExtensions } from '@/lib/editor/extensions';
+import { handleTiptapEditorProps } from '@/lib/editor/props';
 import Tag from '@/components/shared/Tag';
 import { notifyToast } from '@/service/notify';
 import BlueBtn from '../shared/btn/BlueBtn';

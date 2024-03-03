@@ -12,7 +12,7 @@ import { Markdown } from 'tiptap-markdown';
 import Highlight from '@tiptap/extension-highlight';
 import { handleSlashCommand } from './slash-command';
 import { InputRule } from '@tiptap/core';
-import UploadImagesPlugin from '@/components/editor/plugins/upload-images';
+import UploadImagesPlugin from '@/lib/editor/plugins/upload-images';
 import UpdatedImage from './updated-image';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import css from 'highlight.js/lib/languages/css';

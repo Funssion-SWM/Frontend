@@ -1,6 +1,6 @@
 import { EditorContent, useEditor } from '@tiptap/react';
-import { handleTiptapExtensions } from '../editor/extensions';
-import { handleTiptapEditorProps } from '../editor/props';
+import { handleTiptapExtensions } from '@/lib/editor/extensions';
+import { handleTiptapEditorProps } from '@/lib/editor/props';
 import { Answer } from '@/types/answer';
 import AnswerCardHeader from './AnswerCardHeader';
 import { useEffect, useMemo, useState } from 'react';

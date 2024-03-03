@@ -107,11 +107,11 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
   return (
     <div className="relative h-full">
       <button
-        className="flex h-full items-center gap-1 p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
+        className="flex items-center h-full gap-1 p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span
-          className="rounded-sm px-1"
+          className="px-1 rounded-sm"
           style={{
             color: activeColorItem?.color,
             backgroundColor: activeHighlightItem?.color,
@@ -120,12 +120,12 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
           A
         </span>
 
-        <ChevronDown className="h-4 w-4" />
+        <ChevronDown className="w-4 h-4" />
       </button>
 
       {isOpen && (
         <section className="fixed top-full z-[99999] mt-1 flex w-48 flex-col overflow-hidden rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1">
-          <div className="my-1 px-2 text-sm text-stone-500">Color</div>
+          <div className="px-2 my-1 text-sm text-stone-500">Color</div>
           {TEXT_COLORS.map(({ name, color }, index) => (
             <button
               key={index}
@@ -135,11 +135,11 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
                   editor.chain().focus().setColor(color).run();
                 setIsOpen(false);
               }}
-              className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
+              className="flex items-center justify-between px-2 py-1 text-sm rounded-sm text-stone-600 hover:bg-stone-100"
             >
               <div className="flex items-center space-x-2">
                 <div
-                  className="rounded-sm border border-stone-200 px-1 py-px font-medium"
+                  className="px-1 py-px font-medium border rounded-sm border-stone-200"
                   style={{ color }}
                 >
                   A
@@ -147,12 +147,12 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
                 <span>{name}</span>
               </div>
               {editor.isActive('textStyle', { color }) && (
-                <Check className="h-4 w-4" />
+                <Check className="w-4 h-4" />
               )}
             </button>
           ))}
 
-          <div className="mb-1 mt-2 px-2 text-sm text-stone-500">
+          <div className="px-2 mt-2 mb-1 text-sm text-stone-500">
             Background
           </div>
 
@@ -164,11 +164,11 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
                 name !== 'Default' && editor.commands.setHighlight({ color });
                 setIsOpen(false);
               }}
-              className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
+              className="flex items-center justify-between px-2 py-1 text-sm rounded-sm text-stone-600 hover:bg-stone-100"
             >
               <div className="flex items-center space-x-2">
                 <div
-                  className="rounded-sm border border-stone-200 px-1 py-px font-medium"
+                  className="px-1 py-px font-medium border rounded-sm border-stone-200"
                   style={{ backgroundColor: color }}
                 >
                   A
@@ -176,7 +176,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
                 <span>{name}</span>
               </div>
               {editor.isActive('highlight', { color }) && (
-                <Check className="h-4 w-4" />
+                <Check className="w-4 h-4" />
               )}
             </button>
           ))}

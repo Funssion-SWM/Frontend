@@ -4,10 +4,10 @@ import { CoverletterInfo, StackInfo } from '@/types/coverletter';
 import { useState } from 'react';
 import BlueBtn from '../shared/btn/BlueBtn';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
-import MyEditor from '../editor';
+import MyEditor from '@/lib/editor';
 import { useEditor } from '@tiptap/react';
-import { handleTiptapExtensions } from '../editor/extensions';
-import { handleTiptapEditorProps } from '../editor/props';
+import { handleTiptapExtensions } from '@/lib/editor/extensions';
+import { handleTiptapEditorProps } from '@/lib/editor/props';
 
 type Props = {
   coverletter: CoverletterInfo;
@@ -38,10 +38,10 @@ export default function CoverLetterContainer({ coverletter }: Props) {
                 <div className={TITLE_STYLE}>
                   기술스택 (레벨정의는 우측 정보 아이콘을 확인해주세요.)
                 </div>
-                <div className="group mx-2 relative">
+                <div className="relative mx-2 group">
                   <AiOutlineInfoCircle />
                   <div className="absolute top-0 right-0 sm:left-0 w-[300px] sm:w-[460px] p-3 bg-white opacity-0 pointer-events-none transition-all group-hover:opacity-100 group-hover:pointer-events-auto rounded-2xl shadow-lg">
-                    <ul className="flex flex-col text-xs sm:text-sm gap-3">
+                    <ul className="flex flex-col gap-3 text-xs sm:text-sm">
                       <li> 0: 개발 경험이나 기술 지식이 전혀 없음.</li>
                       <li>
                         1: 관련 지식이나 경험이 적고, 간단한 기능 구현에도
@@ -70,16 +70,16 @@ export default function CoverLetterContainer({ coverletter }: Props) {
                   </div>
                 </div>
               </div>
-              <ul className="flex gap-2 overflow-x-auto h-6">
+              <ul className="flex h-6 gap-2 overflow-x-auto">
                 {parsingTechStacks.map((item, idx) => (
                   <li
                     key={idx}
-                    className="flex gap-2 items-center bg-soma-grey-20 px-2 rounded-lg"
+                    className="flex items-center gap-2 px-2 rounded-lg bg-soma-grey-20"
                   >
-                    <p className="text-soma-blue-40 font-semibold">
+                    <p className="font-semibold text-soma-blue-40">
                       {item.stack}
                     </p>
-                    <p className="text-soma-grey-60 font-medium">
+                    <p className="font-medium text-soma-grey-60">
                       {item.level}
                     </p>
                   </li>
@@ -110,7 +110,7 @@ export default function CoverLetterContainer({ coverletter }: Props) {
             </div>
           </div>
 
-          <div className="flex justify-end mt-5 gap-2">
+          <div className="flex justify-end gap-2 mt-5">
             <BlueBtn
               text="다음"
               onClick={() => {
@@ -128,7 +128,7 @@ export default function CoverLetterContainer({ coverletter }: Props) {
           >
             <MyEditor editor={editor} />
           </div>
-          <div className="flex justify-end mt-5 gap-2">
+          <div className="flex justify-end gap-2 mt-5">
             <BlueBtn
               text="이전"
               onClick={() => {

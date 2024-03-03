@@ -1,22 +1,22 @@
 'use client';
 
 import SelectColorBar from '@/components/create/memo/SelectColorBar';
-import MyEditor from '@/components/editor';
+import MyEditor from '@/lib/editor/index';
 import { useEditor } from '@tiptap/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import BlueBtn from '../shared/btn/BlueBtn';
 import { createOrUpdateMemo, getMemoById } from '@/service/memos';
-import { getPrevText } from '@/lib/editor';
 import { useCompletion } from 'ai/react';
 import { getDescription } from '@/service/description';
-import { handleTiptapExtensions } from '@/components/editor/extensions';
-import { handleTiptapEditorProps } from '@/components/editor/props';
+import { handleTiptapExtensions } from '@/lib/editor/extensions';
+import { handleTiptapEditorProps } from '@/lib/editor/props';
 import { MemoColor } from '@/types/memo';
-import FakeEditor from '@/components/editor/components/FakeEditor';
+import FakeEditor from '@/lib/editor/components/FakeEditor';
 import { notifyToast } from '@/service/notify';
 import { RingLoader } from 'react-spinners';
 import GuideCreateMemoModal from './GuideCreateMemoModal';
+import { getPrevText } from '@/lib/editor/lib/editor';
 
 export default function GuideEditor() {
   const router = useRouter();
@@ -198,7 +198,7 @@ export default function GuideEditor() {
           }[selectedColor]
         }`}
       >
-        <div className="flex justify-end gap-2 mr-1 my-1">
+        <div className="flex justify-end gap-2 my-1 mr-1">
           <BlueBtn
             text="메인 페이지로 이동하기"
             onClick={() => router.push('/series')}
@@ -222,9 +222,9 @@ export default function GuideEditor() {
       </div>
       {generateAI.isLoading && <FakeEditor editor={fakeEditor} />}
       {(descriptionAI.isLoading || tagsAI.isLoading) && (
-        <div className="fixed top-0 left-0 w-screen h-screen flex flex-col justify-center items-center bg-white opacity-90">
+        <div className="fixed top-0 left-0 flex flex-col items-center justify-center w-screen h-screen bg-white opacity-90">
           <RingLoader className="self-center" color="#4992FF" />
-          <div className="text-center font-medium text-soma-grey-60 text-sm my-5">
+          <div className="my-5 text-sm font-medium text-center text-soma-grey-60">
             AI가 description, tags를 자동생성중입니다...
           </div>
         </div>

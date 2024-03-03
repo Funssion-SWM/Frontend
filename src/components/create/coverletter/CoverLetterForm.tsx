@@ -12,8 +12,8 @@ import {
   updateCoverletter,
 } from '@/service/coverletter';
 import { useEditor } from '@tiptap/react';
-import { handleTiptapExtensions } from '@/components/editor/extensions';
-import { handleTiptapEditorProps } from '@/components/editor/props';
+import { handleTiptapExtensions } from '@/lib/editor/extensions';
+import { handleTiptapEditorProps } from '@/lib/editor/props';
 import { useRouter } from 'next/navigation';
 import { developmentAreaOptions, stackOptions } from '@/utils/const';
 import { ModalContext } from '@/context/ModalProvider';

@@ -2,7 +2,7 @@
 
 import { Question } from '@/types/question';
 import { generateHTML } from '@tiptap/html';
-import { handleTiptapExtensions } from '../editor/extensions';
+import { handleTiptapExtensions } from '@/lib/editor/extensions';
 import QuestionHeader from './QuestionHeader';
 import QuestionFooter from './QuestionFooter';
 import AnswersList from './AnswersList';
@@ -10,7 +10,7 @@ import { Answer } from '@/types/answer';
 import AnswerForm from './AnswerForm';
 import { useEffect, useMemo, useState } from 'react';
 import { EditorContent, useEditor } from '@tiptap/react';
-import { handleTiptapEditorProps } from '../editor/props';
+import { handleTiptapEditorProps } from '@/lib/editor/props';
 
 type Props = {
   questionData: Question;
