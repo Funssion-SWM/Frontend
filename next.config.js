@@ -6,9 +6,6 @@ const withPWA = require('next-pwa')({
 
 const nextConfig = {
   output: 'standalone',
-  experimental: {
-    appDir: true,
-  },
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'store.inforum24.com' }],
   },
