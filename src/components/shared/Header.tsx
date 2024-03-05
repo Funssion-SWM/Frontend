@@ -1,17 +1,14 @@
 'use client';
 
-import basicProfileImg from '../../assets/profile.svg';
 import Link from 'next/link';
 import { checkUser, logout } from '@/service/auth';
-import searchIcon from '@/assets/icons/icon_search_32.svg';
 import Image from 'next/image';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import { useRouter } from 'next/navigation';
 import BlueBtn from './btn/BlueBtn';
 import { ModalContext } from '@/context/ModalProvider';
-import logo from '@/assets/inforum_logo.png';
-import bellIcon from '@/assets/icons/bell.svg';
+import logo from '@/assets/images/inforum_logo.png';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
 import { CreationModalContext } from '@/context/CreationModalProvider';
 import { Notification } from '@/types/notification';
@@ -19,8 +16,9 @@ import RelativeDate from './RelativeDate';
 import { checkNotifications } from '@/service/notification';
 import { FaRankingStar } from 'react-icons/fa6';
 import '@/styles/headerScrollbar.css';
-import { MAIN_PATH } from '@/utils/const';
-import { Authority } from '@/types';
+import { MAIN_PATH } from '@/constants/general';
+import { Authority } from '@/types/auth';
+import { Bell, DefaultProfile, Search } from '@/assets/svg';
 
 type Props = {
   isLogin: boolean;
@@ -135,8 +133,8 @@ export default function Header({
             <button onClick={() => router.push('/search/form')}>
               <Image
                 className="cursor-pointer"
-                src={searchIcon}
-                alt="search_icon"
+                src={Search}
+                alt="search-icon"
               />
             </button>
 
@@ -149,11 +147,7 @@ export default function Header({
 
             <nav className="relative flex items-center" ref={notificationRef}>
               <button onClick={handleClick} className="relative">
-                <Image
-                  className="cursor-pointer"
-                  src={bellIcon}
-                  alt="bell_icon"
-                />
+                <Image className="cursor-pointer" src={Bell} alt="bellIcon" />
                 <div
                   className={`${
                     isChecked === null || isChecked ? 'invisible' : 'visible'
@@ -183,7 +177,7 @@ export default function Header({
                             <Image
                               className="inline-block object-cover rounded-full cursor-pointer w-7 h-7"
                               src={
-                                notification.senderImagePath ?? basicProfileImg
+                                notification.senderImagePath ?? DefaultProfile
                               }
                               alt={notification.senderName}
                               width={28}
@@ -248,7 +242,7 @@ export default function Header({
             <nav className="flex items-center" ref={dropdownRef}>
               <button onClick={() => setIsActive((pre) => !pre)}>
                 <Image
-                  src={profileImageFilePath ?? basicProfileImg}
+                  src={profileImageFilePath ?? DefaultProfile}
                   alt="profileImg"
                   width={32}
                   height={32}
@@ -347,8 +341,8 @@ export default function Header({
             <button onClick={() => router.push('/search/form')}>
               <Image
                 className="cursor-pointer"
-                src={searchIcon}
-                alt="search_icon"
+                src={Search}
+                alt="search-icon"
               />
             </button>
             <button

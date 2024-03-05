@@ -1,10 +1,10 @@
-import { ErrorResponse, Orderby, Period } from '@/types';
+import { ErrorResponse, Orderby, Period } from '@/types/common';
 import {
   GetSeriesByIdResponse,
   PostSeriesResponse,
   Series,
 } from '@/types/series';
-import { SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/utils/const';
+import { SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/constants/limit';
 
 export async function getSeriesArray(
   period: Period = 'month',

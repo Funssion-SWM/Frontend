@@ -4,8 +4,8 @@ import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import { useRouter } from 'next/navigation';
 import { ModalContext } from '@/context/ModalProvider';
 import { deleteQuestion } from '@/service/questions';
-import { extractYMDHM } from '@/service/time';
-import { notifyToast } from '@/service/notify';
+import { extractYMDHM } from '@/utils/time';
+import { notifyToast } from '@/utils/notify';
 import MoreOptions from '../shared/MoreOptions';
 type Props = {
   questionId: number;

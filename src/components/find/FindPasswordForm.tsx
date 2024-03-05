@@ -3,16 +3,16 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import BlueBtn from '../shared/btn/BlueBtn';
 import IsValidBtn from '../shared/btn/IsValidBtn';
-import { BASIC_INPUT_STYLE } from '@/utils/tailwindcss';
-import { FindPasswrdFormData } from '@/types';
-import { validateEmail, validatePassword } from '@/service/validation';
+import { BASIC_INPUT_STYLE } from '@/constants/style';
+import { FindPasswrdFormData } from '@/types/auth';
+import { validateEmail, validatePassword } from '@/utils/validation';
 import {
   changePassword,
   checkEmailAndSendCode,
   confirmCode,
 } from '@/service/auth';
 import { useRouter } from 'next/navigation';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 
 export default function FindPasswordForm() {
   const router = useRouter();
@@ -154,7 +154,7 @@ export default function FindPasswordForm() {
           isValidCode ? 'visible' : 'opacity-0 invisible'
         }`}
       >
-        <div className="flex flex-col  my-1">
+        <div className="flex flex-col my-1">
           <label htmlFor="pw" className="text-xs sm:text-sm">
             비밀번호
           </label>
@@ -169,7 +169,7 @@ export default function FindPasswordForm() {
             placeholder="8~15자리 (영어, 숫자, 특수문자(@$!%*#?&)) 포함)"
           />
         </div>
-        <div className="flex flex-col  my-1">
+        <div className="flex flex-col my-1">
           <label htmlFor="confirmPw" className="text-xs sm:text-sm">
             비밀번호 확인
           </label>

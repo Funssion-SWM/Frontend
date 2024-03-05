@@ -4,7 +4,7 @@ import { checkUser } from '@/service/auth';
 import { getIsLike } from '@/service/like';
 import { getMemoById } from '@/service/memos';
 import { getQuestionById } from '@/service/questions';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/general';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 

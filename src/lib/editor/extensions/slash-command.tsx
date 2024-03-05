@@ -24,12 +24,11 @@ import {
   Code,
   CheckSquare,
 } from 'lucide-react';
-import LoadingCircle from '@/assets/icons/loading-circle';
+import LoadingCircle from '@/lib/editor/icons/loading-circle';
 import { toast } from 'sonner';
 // import va from '@vercel/analytics';
-import Magic from '@/assets/icons/magic';
-import { getPrevText } from '@/lib/editor';
 import { startImageUpload } from '../plugins/upload-images';
+import { getPrevText } from '../lib/editor';
 
 interface CommandItemProps {
   title: string;
@@ -378,7 +377,7 @@ const CommandList = ({
             key={index}
             onClick={() => selectItem(index)}
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-md border border-stone-200 bg-white">
+            <div className="flex items-center justify-center w-10 h-10 bg-white border rounded-md border-stone-200">
               {item.title === 'Continue writing' && isLoading ? (
                 <LoadingCircle />
               ) : (

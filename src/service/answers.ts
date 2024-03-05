@@ -1,4 +1,4 @@
-import { ErrorResponse, IsSuccessResponse } from '@/types';
+import { ErrorResponse, IsSuccessResponse } from '@/types/common';
 import { Answer } from '@/types/answer';
 import { PostImageResponse } from '@/types/image';
 

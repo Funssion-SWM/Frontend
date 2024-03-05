@@ -13,7 +13,7 @@ import { Toaster } from 'sonner';
 // import useLocalStorage from '@/lib/hooks/use-local-storage';
 // import {
 
-import { cn } from '../lib/utils';
+import { cn } from '../lib/editor/lib/utils';
 import { defaultFontMapper, displayFontMapper } from '@/styles/fonts';
 
 export const AppContext = createContext<{

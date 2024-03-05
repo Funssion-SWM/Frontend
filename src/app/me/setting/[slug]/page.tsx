@@ -1,7 +1,7 @@
 import MyInfoForm from '@/components/MyInfoForm';
 import { getUserInfo } from '@/service/auth';
 import { getDefaultTags } from '@/service/tag';
-import { MAIN_PATH } from '@/utils/const';
+import { MAIN_PATH } from '@/constants/general';
 import { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';

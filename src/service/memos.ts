@@ -1,7 +1,7 @@
-import { ErrorResponse, Orderby, Period } from '@/types';
+import { ErrorResponse, Orderby, Period } from '@/types/common';
 import { PostImageResponse } from '@/types/image';
 import { Memo, PostMemoData } from '@/types/memo';
-import { MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/utils/const';
+import { MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL } from '@/constants/limit';
 
 export async function getMemos(
   period: Period = 'month',

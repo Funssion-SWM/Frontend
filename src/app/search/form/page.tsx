@@ -3,7 +3,7 @@ import SearchForm from '@/components/search/SearchForm';
 import SearchHistoryContainer from '@/components/search/SearchHistoryContainer';
 import { checkUser } from '@/service/auth';
 import { getRecentSearchHistoryTop10 } from '@/service/search';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/general';
 import { cookies } from 'next/headers';
 
 export default async function SearchFormPage() {

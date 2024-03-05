@@ -4,16 +4,16 @@ import CommentsList from '@/components/memo/comment/CommentsList';
 import { Comment } from '@/types/comment';
 import MemoSidebarHeader from './MemoSidebarHeader';
 import CommentForm from '@/components/memo/comment/CommentForm';
-import arrowRight from '@/assets/icons/arrow_right.svg';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Question } from '@/types/question';
 import QuestionsList from '../question/QuestionsList';
 import { useRouter } from 'next/navigation';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import { Rank } from '@/types/rank';
 import { Memo } from '@/types/memo';
 import MemosGrid from './MemosGrid';
+import { ArrowRight } from '@/assets/svg';
 
 type Props = {
   authorName: string;
@@ -61,14 +61,14 @@ export default function MemoSideBar({
   }, []);
 
   return (
-    <div className="sticky top-24 flex max-h-for-fit-screen ">
+    <div className="sticky flex top-24 max-h-for-fit-screen ">
       <button
         className={`flex z-10 absolute -left-10 sm:-left-3 justify-center items-center border-[1px] border-soma-grey-30 w-10 h-10 shadow-inner bg-white rounded-full self-center ${
           !isVisible && '-scale-x-100'
         }`}
         onClick={() => setIsVisible((pre) => !pre)}
       >
-        <Image src={arrowRight} alt="arrowBtn" />
+        <Image src={ArrowRight} alt="arrowBtn" />
       </button>
       {isVisible && (
         <aside
@@ -89,7 +89,7 @@ export default function MemoSideBar({
           />
           {currnetCategory === 'comment' &&
             (comments.length === 0 ? (
-              <p className="flex justify-center items-center h-full text-sm text-soma-grey-49">
+              <p className="flex items-center justify-center h-full text-sm text-soma-grey-49">
                 작성된 댓글이 없습니다...
               </p>
             ) : (
@@ -111,7 +111,7 @@ export default function MemoSideBar({
           {currnetCategory === 'question' && (
             <>
               {questions.length === 0 ? (
-                <p className="flex justify-center items-center h-full text-sm text-soma-grey-49">
+                <p className="flex items-center justify-center h-full text-sm text-soma-grey-49">
                   해당 메모와 관련된 질문이 없습니다...
                 </p>
               ) : (
@@ -133,9 +133,9 @@ export default function MemoSideBar({
             </>
           )}
           {currnetCategory === 'recommendation' && (
-            <div className="p-2 overflow-y-auto h-full">
+            <div className="h-full p-2 overflow-y-auto">
               {recommendations.length === 0 ? (
-                <p className="flex justify-center items-center h-full text-sm text-soma-grey-49">
+                <p className="flex items-center justify-center h-full text-sm text-soma-grey-49">
                   해당 메모와 관련된 추천이 없습니다...
                 </p>
               ) : (

@@ -4,7 +4,7 @@ import { DevelopmentArea } from '@/types/coverletter';
 import { useContext, useEffect, useState } from 'react';
 import SelectStacksContainer from './SelectStacksContainer';
 import SelectDevelopmentAreaContainer from './SelectDevelopmentAreaContainer';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import { ModalContext } from '@/context/ModalProvider';
 import { useRouter, useSearchParams } from 'next/navigation';
 import UserListContainer from './UserListContainer';

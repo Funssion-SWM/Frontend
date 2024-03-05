@@ -1,16 +1,16 @@
 'use client';
 
 import Image from 'next/image';
-import basicProfileImg from '../../assets/profile.svg';
-import { UserInfo } from '@/types';
+import { UserInfo } from '@/types/auth';
 import FollowBtn from './FollowBtn';
 import CountInfo from './CountInfo';
 import MyProgressBar from '../shared/MyProgressBar';
 import { RankInfo } from '@/types/rank';
 import RankWithBadge from '../shared/RankWithBadge';
-import { calcRankPercentage } from '@/service/rank';
+import { calcRankPercentage } from '@/utils/rank';
 import { useContext } from 'react';
 import { ScoreDetailContext } from '@/context/ScoreDetailProvider';
+import { DefaultProfile } from '@/assets/svg';
 
 type Props = {
   userInfo: UserInfo;
@@ -35,13 +35,13 @@ export default function Profile({
     <section className="flex flex-col items-center w-full">
       <div className="flex flex-col items-center mb-3">
         <Image
-          src={userInfo.profileImageFilePath ?? basicProfileImg}
+          src={userInfo.profileImageFilePath ?? DefaultProfile}
           alt="profileImg"
           width={96}
           height={96}
-          className="rounded-full w-24 h-24 object-cover"
+          className="object-cover w-24 h-24 rounded-full"
         />
-        <p className="font-bold mt-2 text-lg">{userInfo.nickname}</p>
+        <p className="mt-2 text-lg font-bold">{userInfo.nickname}</p>
         <RankWithBadge rank={myRank} />
         <div className="flex items-center text-soma-grey-60 ">
           <div className="text-sm">{myScore}점</div>
@@ -56,7 +56,7 @@ export default function Profile({
           /*denominator = */ rankInterval
         )}
       />
-      <div className="flex justify-between self-stretch text-xs text-soma-grey-49">
+      <div className="flex self-stretch justify-between text-xs text-soma-grey-49">
         <div>{dailyScore}/200</div>
         {myScore !== 0 && (
           <button className="" onClick={() => openScoreDetail()}>
@@ -66,14 +66,14 @@ export default function Profile({
       </div>
 
       <CountInfo isMine={isMine} />
-      <p className="px-3 py-2 rounded-md w-full break-all text-sm overflow-y-auto text-soma-grey-60">
+      <p className="w-full px-3 py-2 overflow-y-auto text-sm break-all rounded-md text-soma-grey-60">
         {userInfo.introduce}
       </p>
       {userInfo.userTags.length !== 0 && (
-        <div className="flex text-sm gap-1 mt-2 self-start overflow-x-hidden w-full">
+        <div className="flex self-start w-full gap-1 mt-2 overflow-x-hidden text-sm">
           {userInfo.userTags.map((tag, idx) => (
             <div
-              className="bg-white font-semibold px-2 py-1  text-green-500 rounded-3xl somablue"
+              className="px-2 py-1 font-semibold text-green-500 bg-white rounded-3xl somablue"
               key={idx}
             >
               {tag}

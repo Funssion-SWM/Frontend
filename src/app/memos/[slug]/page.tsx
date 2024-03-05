@@ -4,7 +4,7 @@ import MemoSideBar from '@/components/memo/MemoSideBar';
 import { getCommentsByPostTypeAndPostId } from '@/service/comments';
 import { cookies } from 'next/headers';
 import { getIsLike } from '@/service/like';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/general';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { getQuestionsByMemoId } from '@/service/questions';
 import { notFound } from 'next/navigation';

@@ -1,12 +1,7 @@
-import { ErrorResponse, Orderby, SearchHistory } from '@/types';
+import { ErrorResponse, Orderby, SearchHistory } from '@/types/common';
 import { Memo } from '@/types/memo';
 import { Question } from '@/types/question';
 import { Series } from '@/types/series';
-import {
-  MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL,
-  QUESTION_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL,
-  SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL,
-} from '@/utils/const';
 
 const SEARCH_NUMBER_PER_PAGE_TEMPORARY = 100;
 

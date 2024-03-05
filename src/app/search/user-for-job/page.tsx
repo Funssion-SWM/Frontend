@@ -1,6 +1,6 @@
 import SearchUserForJobContainer from '@/components/search/user-for-job/SearchUserForJobContainer';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
-import { MAIN_PATH } from '@/utils/const';
+import { MAIN_PATH } from '@/constants/general';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 

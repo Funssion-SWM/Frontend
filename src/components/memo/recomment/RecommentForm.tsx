@@ -1,5 +1,5 @@
 import { createRecomment, getRecommentsByCommentId } from '@/service/comments';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import { Comment } from '@/types/comment';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useRef, useState } from 'react';

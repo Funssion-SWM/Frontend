@@ -4,8 +4,8 @@ import { useRouter } from 'next/navigation';
 import { deleteMemo } from '@/service/memos';
 import { ModalContext } from '@/context/ModalProvider';
 import LikeBox from '../shared/LikeBox';
-import { extractYMDHM } from '@/service/time';
-import { notifyToast } from '@/service/notify';
+import { extractYMDHM } from '@/utils/time';
+import { notifyToast } from '@/utils/notify';
 import Link from 'next/link';
 import MoreOptions from '../shared/MoreOptions';
 

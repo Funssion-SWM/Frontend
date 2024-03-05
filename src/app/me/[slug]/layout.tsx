@@ -7,7 +7,8 @@ import {
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { cookies } from 'next/headers';
-import { ACCESS_TOKEN, MY_TAG_MAX_COUNT, REFRESH_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/general';
+import { MY_TAG_MAX_COUNT } from '@/constants/limit';
 import MeSideBar from '@/components/me/MeSideBar';
 import { getUserTags } from '@/service/tag';
 import MeTagsContainer from '@/components/me/MeTagsContainer';

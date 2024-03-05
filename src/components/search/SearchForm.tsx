@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import searchIcon from '@/assets/icons/icon_search_32.svg';
 import React, {
   ChangeEvent,
   FormEvent,
@@ -11,6 +10,7 @@ import React, {
 } from 'react';
 import { addSearchHistory } from '@/service/search';
 import { useSearchParams } from 'next/navigation';
+import { Search } from '@/assets/svg';
 
 type Props = {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -62,8 +62,8 @@ export default function SearchForm({ onChange, isLogin }: Props) {
     >
       <Image
         className={`${isTag ? '' : 'cursor-pointer'} ml-8`}
-        src={searchIcon}
-        alt="search_icon"
+        src={Search}
+        alt="search-icon"
         onClick={handleClick}
       />
 

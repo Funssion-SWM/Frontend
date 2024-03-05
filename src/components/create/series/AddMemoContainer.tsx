@@ -1,9 +1,9 @@
 import BlueBtn from '@/components/shared/btn/BlueBtn';
 import { useDebounce } from '@/hooks/useDebounce';
 import { searchMemos } from '@/service/search';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import { Memo } from '@/types/memo';
-import { SEARCH_RESULT_TIME } from '@/utils/const';
+import { SEARCH_RESULT_TIME } from '@/constants/limit';
 import { useEffect, useRef, useState } from 'react';
 import SelectCard from './SelectCard';
 import useObserver from '@/hooks/useObserver';
@@ -105,12 +105,12 @@ export default function AddMemoContainer({
       />
       <input
         type="text"
-        className="rounded-lg my-2 bg-soma-grey-25 p-3 outline-none"
+        className="p-3 my-2 rounded-lg outline-none bg-soma-grey-25"
         placeholder="검색어를 입력해주세요..."
         onChange={(e) => setSearchString(e.target.value)}
         value={searchString}
       ></input>
-      <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {memos
           .filter((memo) => !memoIdsInSeries.includes(memo.memoId))
           .map((memo) => (

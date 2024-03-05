@@ -1,4 +1,4 @@
-import { COLORS } from '@/utils/const';
+import { COLORS } from '@/constants/general';
 import ColorCircle from './ColorCircle';
 import { MemoColor } from '@/types/memo';
 

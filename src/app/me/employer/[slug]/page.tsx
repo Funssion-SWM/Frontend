@@ -4,7 +4,7 @@ import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { checkUser, getUserInfo } from '@/service/auth';
 import { getEmployees } from '@/service/employer';
 import { getNotificationsTop30 } from '@/service/notification';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/general';
 import { cookies } from 'next/headers';
 
 type Props = {
@@ -14,7 +14,10 @@ type Props = {
   searchParams?: { [key: string]: string | string[] | undefined };
 };
 
-export default async function MeEmployerPage({ params: { slug }, searchParams }: Props) {
+export default async function MeEmployerPage({
+  params: { slug },
+  searchParams,
+}: Props) {
   const accessToken = cookies().get(ACCESS_TOKEN)?.value;
   const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
   const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
@@ -22,7 +25,7 @@ export default async function MeEmployerPage({ params: { slug }, searchParams }:
 
   const { id, isLogin, authority } = await checkUser(cookie);
   const myUserInfo = await getUserInfo(id);
-  const intervieweeId = Number(searchParams?.intervieweeId)
+  const intervieweeId = Number(searchParams?.intervieweeId);
   const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
 
   const employees = await getEmployees(false, cookie);
@@ -36,7 +39,10 @@ export default async function MeEmployerPage({ params: { slug }, searchParams }:
         authority={authority}
       />
       <LayoutWrapper paddingY="py-0">
-        <MeEmployerContainer employees={employees} intervieweeId={intervieweeId}/>
+        <MeEmployerContainer
+          employees={employees}
+          intervieweeId={intervieweeId}
+        />
       </LayoutWrapper>
     </section>
   );

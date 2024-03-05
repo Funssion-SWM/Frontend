@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import more from '@/assets/icons/more.svg';
+import { More } from '@/assets/svg';
 
 type Props = {
   isActive: boolean;
@@ -17,7 +17,7 @@ export default function MoreOptions({
   return (
     <div className="flex ml-2">
       <button onClick={onClick}>
-        <Image src={more} alt="more" />
+        <Image src={More} alt="more-icon" />
       </button>
       <nav
         className={`absolute top-6 right-0 bg-white flex flex-col z-10 gap-1 rounded-lg shadow-inner w-20 ${

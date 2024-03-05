@@ -1,4 +1,4 @@
-import { getDescription } from '@/service/description';
+import { getDescription } from '@/utils/description';
 
 describe('getDescription', () => {
   it("should combine each (text + ' ')", () => {

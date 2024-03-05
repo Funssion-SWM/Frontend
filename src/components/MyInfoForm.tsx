@@ -8,18 +8,17 @@ import {
   useRef,
   useState,
 } from 'react';
-
-import profileImage from '../assets/profile.svg';
-import editIcon from '../assets/icons/edit.svg';
 import BlueBtn from './shared/btn/BlueBtn';
 import WhiteBtn from './shared/btn/WhiteBtn';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { checkUser, registerUserInfo, updateUserInfo } from '@/service/auth';
-import { UserInfo } from '@/types';
+import { UserInfo } from '@/types/auth';
 import Tag from './shared/Tag';
-import { notifyToast } from '@/service/notify';
-import { MAIN_PATH, MAX_PROFILE_IMAGE_BYTE } from '@/utils/const';
+import { notifyToast } from '@/utils/notify';
+import { MAIN_PATH } from '@/constants/general';
+import { MAX_PROFILE_IMAGE_BYTE } from '@/constants/limit';
+import { Edit, DefaultProfile } from '@/assets/svg';
 
 type Props = {
   userId: number;
@@ -115,26 +114,22 @@ export default function MyInfoForm({
         />
         <button
           type="button"
-          className="relative w-fit m-auto"
+          className="relative m-auto w-fit"
           onClick={() => fileInput.current.click()}
         >
           <Image
-            src={imageUrl === '' ? profileImage : imageUrl}
+            src={imageUrl === '' ? DefaultProfile : imageUrl}
             width={96}
             height={96}
             alt="profile"
-            className="rounded-full w-24 h-24 object-cover"
+            className="object-cover w-24 h-24 rounded-full"
           />
-          <Image
-            src={editIcon}
-            alt="edit"
-            className="absolute bottom-0 right-0"
-          />
+          <Image src={Edit} alt="edit" className="absolute bottom-0 right-0" />
         </button>
       </div>
       <button
         type="button"
-        className="w-fit text-xs bg-soma-grey-25 hover:bg-soma-grey-30 self-center p-2 rounded-2xl"
+        className="self-center p-2 text-xs w-fit bg-soma-grey-25 hover:bg-soma-grey-30 rounded-2xl"
         onClick={() => {
           setImageFile(null);
           setImageUrl('');
@@ -148,7 +143,7 @@ export default function MyInfoForm({
           자기 소개
         </label>
         <textarea
-          className="border-2 my-2 py-2 px-4 rounded-lg bg-soma-grey-20 border-soma-grey-30 grow resize-none h-24 text-sm"
+          className="h-24 px-4 py-2 my-2 text-sm border-2 rounded-lg resize-none bg-soma-grey-20 border-soma-grey-30 grow"
           id="intro"
           name="intro"
           value={intro}
@@ -160,7 +155,7 @@ export default function MyInfoForm({
         <label className="text-sm">
           주요 분야 (최대 3가지의 keyword를 선택해주세요)
         </label>
-        <div className="flex flex-wrap gap-1 my-2 justify-center">
+        <div className="flex flex-wrap justify-center gap-1 my-2">
           {defaultTags.map((tag, idx) => (
             <Tag
               key={idx}

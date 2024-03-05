@@ -3,7 +3,7 @@
 import { FormEvent, useState } from 'react';
 import BlueBtn from '../shared/btn/BlueBtn';
 import { useRouter } from 'next/navigation';
-import { BASIC_INPUT_STYLE } from '@/utils/tailwindcss';
+import { BASIC_INPUT_STYLE } from '@/constants/style';
 
 export default function FindEmailForm() {
   const [nickname, setNickname] = useState<string>('');

@@ -1,4 +1,4 @@
-import { HistoryItem } from '@/types';
+import { HistoryItem } from '@/types/common';
 import { Memo } from '@/types/memo';
 import { Question } from '@/types/question';
 import { RankInfo, Stats } from '@/types/rank';
@@ -7,7 +7,7 @@ import {
   MEMO_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL,
   QUESTION_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL,
   SERIES_NUMBER_PER_PAGE_FOR_INFINITY_SCROLL,
-} from '@/utils/const';
+} from '@/constants/limit';
 
 export async function getHistory(
   userId: number,

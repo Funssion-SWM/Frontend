@@ -2,11 +2,9 @@ import GoogleLoginBtn from '@/components/login/GoogleLoginBtn';
 import LoginForm from '@/components/login/LoginForm';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import logo from '@/assets/inforum_logo.png';
+import logo from '@/assets/images/inforum_logo.png';
 import Image from 'next/image';
-import { MAIN_PATH } from '@/utils/const';
-import { headers } from 'next/headers';
-import { notifyToast } from '@/service/notify';
+import { MAIN_PATH } from '@/constants/general';
 
 export const metadata: Metadata = {
   title: '로그인',
@@ -15,10 +13,10 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <section className="relative flex flex-col w-full items-center max-w-screen-sm mx-auto mt-32 py-5 px-10 sm:px-32">
+    <section className="relative flex flex-col items-center w-full max-w-screen-sm px-10 py-5 mx-auto mt-32 sm:px-32">
       <Link
         href={MAIN_PATH}
-        className="absolute top-2 right-4 text-soma-grey-50 text-sm sm:text-base"
+        className="absolute text-sm top-2 right-4 text-soma-grey-50 sm:text-base"
       >
         메인으로
       </Link>
@@ -27,28 +25,28 @@ export default function LoginPage() {
       <GoogleLoginBtn />
       <div className="flex flex-col items-center mt-7">
         <div className="flex items-center ">
-          <p className="text-soma-grey-50 mr-3 text-xs sm:text-sm">
+          <p className="mr-3 text-xs text-soma-grey-50 sm:text-sm">
             계정이 없으신가요?
           </p>
           <Link
             href="/signup?login-type=user"
-            className="self-end font-semibold text-soma-blue-50 text-sm sm:text-base"
+            className="self-end text-sm font-semibold text-soma-blue-50 sm:text-base"
           >
             회원가입하기
           </Link>
         </div>
         <div className="flex items-center mb-3">
-          <p className="text-soma-grey-50 mr-3 text-xs sm:text-sm">
+          <p className="mr-3 text-xs text-soma-grey-50 sm:text-sm">
             채용 서비스를 이용하러 오셨나요?
           </p>
           <Link
             href="/signup?login-type=employeer"
-            className="self-end my-2 font-semibold text-soma-blue-50 text-sm sm:text-base"
+            className="self-end my-2 text-sm font-semibold text-soma-blue-50 sm:text-base"
           >
             시작하기
           </Link>
         </div>
-        <div className="flex text-soma-grey-50 text-xs sm:text-sm gap-2">
+        <div className="flex gap-2 text-xs text-soma-grey-50 sm:text-sm">
           <Link href="/find/email">이메일 찾기</Link>
           <p>|</p>
           <Link href="/find/password">비밀번호 변경</Link>

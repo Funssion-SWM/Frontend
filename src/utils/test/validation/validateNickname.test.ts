@@ -1,4 +1,4 @@
-import { validateNickname } from '@/service/validation';
+import { validateNickname } from '@/utils/validation';
 
 describe('validateNickname', () => {
   it('invalid when nickname includes thigns exepct English, Korean, and number', () => {

@@ -1,7 +1,7 @@
 import BlueBtn from '@/components/shared/btn/BlueBtn';
 import WhiteBtn from '@/components/shared/btn/WhiteBtn';
 import { createThreeQuestionsForInterview } from '@/service/mini-interview';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import { azertMono } from '@/styles/fonts';
 import { useCompletion } from 'ai/react';
 import { useState } from 'react';

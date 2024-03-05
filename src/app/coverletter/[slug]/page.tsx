@@ -2,7 +2,7 @@ import CoverLetterContainer from '@/components/covoerletter/CoverLetterContainer
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 import { getUserInfo } from '@/service/auth';
 import { getCoverletterInfoByUserId } from '@/service/coverletter';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/utils/const';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/general';
 import { cookies } from 'next/headers';
 
 type Props = {

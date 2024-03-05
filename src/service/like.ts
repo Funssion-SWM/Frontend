@@ -1,4 +1,4 @@
-import { ErrorResponse, IsSuccessResponse, Like } from '@/types';
+import { ErrorResponse, IsSuccessResponse, Like } from '@/types/common';
 
 type LikePostType = 'memos' | 'blogs' | 'questions' | 'answers' | 'series';
 

@@ -1,4 +1,4 @@
-import { ButtonSize } from '@/types';
+import { ButtonSize } from '@/types/common';
 
 type Props = {
   text: string;

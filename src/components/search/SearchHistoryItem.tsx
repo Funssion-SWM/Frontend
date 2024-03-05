@@ -1,6 +1,6 @@
 'use client';
 
-import { SearchHistory } from '@/types';
+import { SearchHistory } from '@/types/common';
 import CloseIcon from './CloseIcon';
 import { refreshSearchHistory, removeSearchHistory } from '@/service/search';
 import { useRouter } from 'next/navigation';

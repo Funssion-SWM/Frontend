@@ -1,6 +1,6 @@
 'use client'; // Error components must be Client Components
 
-import { MAIN_PATH } from '@/utils/const';
+import { MAIN_PATH } from '@/constants/general';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { formatDate } from '@/service/time';
+import { formatDate } from '@/utils/time';
 import { useEffect, useState } from 'react';
 
 type Props = {

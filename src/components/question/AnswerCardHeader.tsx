@@ -1,17 +1,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import basicProfileImg from '@/assets/profile.svg';
 import { useContext, useRef } from 'react';
 import { useDetectOutsideClick } from '@/hooks/useDeleteOutsideClick';
 import { useRouter } from 'next/navigation';
 import { deleteAnswer, selectAnswer } from '@/service/answers';
 import { ModalContext } from '@/context/ModalProvider';
 import BlueBtn from '../shared/btn/BlueBtn';
-import { notifyToast } from '@/service/notify';
+import { notifyToast } from '@/utils/notify';
 import RelativeDate from '../shared/RelativeDate';
 import { Rank } from '@/types/rank';
-import { getImageSrcFromRank } from '@/service/rank';
+import { getImageSrcFromRank } from '@/utils/rank';
 import MoreOptions from '../shared/MoreOptions';
+import { DefaultProfile } from '@/assets/svg';
 
 type Props = {
   answerId: number;
@@ -89,7 +89,7 @@ export default function AnswerCardHeader({
         <div className="relative">
           <Link href={`/me/${authorId}`} prefetch={false}>
             <Image
-              src={authorImagePath ?? basicProfileImg}
+              src={authorImagePath ?? DefaultProfile}
               alt="profileImg"
               width={36}
               height={36}

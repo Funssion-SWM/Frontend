@@ -1,6 +1,6 @@
 'use client';
 
-import closeIcon from '@/assets/icons/icon_close.svg';
+import { Close } from '@/assets/svg';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -19,8 +19,8 @@ export default function CloseIcon({ extraClass, onClick, size }: Props) {
         className="cursor-pointer"
         width={size}
         height={size}
-        src={closeIcon}
-        alt="close_icon"
+        src={Close}
+        alt="close-icon"
         onClick={onClick ? onClick : () => router.back()}
       />
     </button>

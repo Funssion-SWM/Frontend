@@ -1,4 +1,4 @@
-import MyEditor from '@/components/editor';
+import MyEditor from '@/lib/editor/index';
 import { useEffect, useRef, useState } from 'react';
 import BlueBtn from '@/components/shared/btn/BlueBtn';
 import { Editor } from '@tiptap/react';

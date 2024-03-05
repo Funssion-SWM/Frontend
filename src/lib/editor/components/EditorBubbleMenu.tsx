@@ -11,7 +11,7 @@ import {
 import { NodeSelector } from './node-selector';
 import { ColorSelector } from './color-selector';
 import { LinkSelector } from './link-selector';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/editor/lib/utils';
 
 export interface BubbleMenuItem {
   name: string;

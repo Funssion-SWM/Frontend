@@ -1,4 +1,4 @@
-import { validatePassword } from '@/service/validation';
+import { validatePassword } from '@/utils/validation';
 
 describe('validatePassword', () => {
   it('invalid when password length is less than 8', () => {

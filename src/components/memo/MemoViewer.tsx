@@ -2,11 +2,11 @@
 
 import { generateHTML } from '@tiptap/html';
 import MemoViewerHeader from './MemoViewerHeader';
-import { handleTiptapExtensions } from '@/components/editor/extensions';
+import { handleTiptapExtensions } from '@/lib/editor/extensions';
 import TagView from '../shared/TagView';
 import { useEffect, useMemo, useState } from 'react';
 import { EditorContent, useEditor } from '@tiptap/react';
-import { handleTiptapEditorProps } from '../editor/props';
+import { handleTiptapEditorProps } from '@/lib/editor/props';
 
 type Props = {
   title: string;

@@ -1,4 +1,4 @@
-import { validateEmail } from '@/service/validation';
+import { validateEmail } from '@/utils/validation';
 
 describe('validateEmail', () => {
   // email : local-part | @ | domain
