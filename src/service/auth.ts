@@ -13,8 +13,6 @@ import {
   UserSignUpData,
 } from '@/types/auth';
 
-import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url';
-
 export async function userSignUp(
   userData: UserSignUpData
 ): Promise<SignupResponse> {
