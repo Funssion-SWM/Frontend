@@ -1,4 +1,4 @@
-import Header from '@/components/shared/Header';
+import Header from '@/components/shared/header/Header';
 import {
   getHistory,
   getRankInfoByUserId,
@@ -15,7 +15,6 @@ import MeTagsContainer from '@/components/me/MeTagsContainer';
 import { getFollowers, getFollowings } from '@/service/follow';
 import FollowListModalProvider from '@/context/FollowListModalProvider';
 import FollowListModal from '@/components/me/FollowListModal';
-import { getNotificationsTop30 } from '@/service/notification';
 import { getScoreInfoByUserId } from '@/service/rank';
 import {
   getCoverletterInfoByUserId,
@@ -58,7 +57,7 @@ export default async function MeLayout({ children, params: { slug } }: Props) {
 
   const [
     history,
-    { id, isLogin, authority },
+    { id, isLogin },
     tags,
     followings,
     followers,
@@ -80,8 +79,6 @@ export default async function MeLayout({ children, params: { slug } }: Props) {
 
   const myUserInfo = await getUserInfo(id);
 
-  const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
-
   const isCoverletterCreated = await getCoverletterInfoByUserId(
     userId,
     cookie
@@ -94,12 +91,7 @@ export default async function MeLayout({ children, params: { slug } }: Props) {
 
   return (
     <section>
-      <Header
-        isLogin={isLogin}
-        notifications={notifications}
-        profileImageFilePath={myUserInfo?.profileImageFilePath}
-        authority={authority}
-      />
+      <Header />
       <LayoutWrapper paddingY="py-0">
         <div className="flex flex-col sm:flex-row">
           <FollowListModalProvider

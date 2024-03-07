@@ -1,10 +1,6 @@
-import Header from '@/components/shared/Header';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
-import { checkUser, getUserInfo } from '@/service/auth';
-import { getNotificationsTop30 } from '@/service/notification';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/general';
 import { Metadata } from 'next';
-import { cookies } from 'next/headers';
+import Header from '@/components/shared/header/Header';
 
 export const metadata: Metadata = {
   title: 'Memos - 인포럼',
@@ -17,26 +13,9 @@ export default async function MemoLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const accessToken = cookies().get(ACCESS_TOKEN)?.value;
-  const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
-  const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
-
-  const { id, isLogin, authority } = await checkUser(cookie);
-
-  const { profileImageFilePath } = isLogin
-    ? await getUserInfo(id)
-    : { profileImageFilePath: undefined };
-
-  const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
   return (
     <section>
-      <Header
-        isLogin={isLogin}
-        notifications={notifications}
-        profileImageFilePath={profileImageFilePath}
-        currentPage="memos"
-        authority={authority}
-      />
+      <Header currentPage="memos" />
       <LayoutWrapper paddingY="sm:py-5">{children}</LayoutWrapper>
     </section>
   );

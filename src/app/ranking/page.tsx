@@ -1,8 +1,7 @@
 import RankingContainer from '@/components/ranking/RankingContainer';
-import Header from '@/components/shared/Header';
+import Header from '@/components/shared/header/Header';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
-import { checkUser, getUserInfo } from '@/service/auth';
-import { getNotificationsTop30 } from '@/service/notification';
+import { checkUser } from '@/service/auth';
 import { getRankingByUserId, getTop10Ranking } from '@/service/rank';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/general';
 import { Metadata } from 'next';
@@ -30,27 +29,13 @@ export default async function RankingPage() {
 
   const top10RankingData = getTop10Ranking();
   const myData = checkUser(cookie);
-  const [top10Ranking, { id, isLogin, authority }] = await Promise.all([
-    top10RankingData,
-    myData,
-  ]);
+  const [top10Ranking, { id }] = await Promise.all([top10RankingData, myData]);
 
   const myRanking = id === 0 ? null : await getRankingByUserId(id);
 
-  const { profileImageFilePath } = isLogin
-    ? await getUserInfo(id)
-    : { profileImageFilePath: undefined };
-
-  const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
-
   return (
     <section>
-      <Header
-        isLogin={isLogin}
-        notifications={notifications}
-        profileImageFilePath={profileImageFilePath}
-        authority={authority}
-      />
+      <Header />
       <LayoutWrapper paddingY="sm:py-5">
         <RankingContainer
           top10Ranking={top10Ranking}

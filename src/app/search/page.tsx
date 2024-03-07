@@ -1,9 +1,7 @@
 import SearchContainer from '@/components/search/SearchContainer';
-import Footer from '@/components/shared/Footer';
-import Header from '@/components/shared/Header';
+import Header from '@/components/shared/header/Header';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
-import { checkUser, getUserInfo } from '@/service/auth';
-import { getNotificationsTop30 } from '@/service/notification';
+import { checkUser } from '@/service/auth';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/general';
 import { cookies } from 'next/headers';
 
@@ -12,24 +10,11 @@ export default async function SearchPage() {
   const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
   const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
 
-  const myData = checkUser(cookie);
-
-  const [{ id, isLogin, authority }] = await Promise.all([myData]);
-
-  const { profileImageFilePath } = isLogin
-    ? await getUserInfo(id)
-    : { profileImageFilePath: undefined };
-
-  const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
+  const { isLogin } = await checkUser(cookie);
 
   return (
     <section>
-      <Header
-        isLogin={isLogin}
-        notifications={notifications}
-        profileImageFilePath={profileImageFilePath}
-        authority={authority}
-      />
+      <Header />
       <LayoutWrapper paddingY="sm:py-5">
         <SearchContainer isLogin={isLogin} />
       </LayoutWrapper>

@@ -1,10 +1,6 @@
-import Header from '@/components/shared/Header';
+import Header from '@/components/shared/header/Header';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
-import { checkUser, getUserInfo } from '@/service/auth';
-import { getNotificationsTop30 } from '@/service/notification';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/general';
 import { Metadata } from 'next';
-import { cookies } from 'next/headers';
 
 export const metadata: Metadata = {
   title: 'Series - 인포럼',
@@ -17,26 +13,9 @@ export default async function SeriesLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const accessToken = cookies().get(ACCESS_TOKEN)?.value;
-  const refreshToken = cookies().get(REFRESH_TOKEN)?.value;
-  const cookie = `${ACCESS_TOKEN}=${accessToken}; ${REFRESH_TOKEN}=${refreshToken}`;
-
-  const { id, isLogin, authority } = await checkUser(cookie);
-
-  const { profileImageFilePath } = isLogin
-    ? await getUserInfo(id)
-    : { profileImageFilePath: undefined };
-
-  const notifications = isLogin ? await getNotificationsTop30(cookie) : [];
   return (
     <section>
-      <Header
-        isLogin={isLogin}
-        notifications={notifications}
-        profileImageFilePath={profileImageFilePath}
-        currentPage="series"
-        authority={authority}
-      />
+      <Header currentPage="series" />
       <LayoutWrapper paddingY="sm:py-5">{children}</LayoutWrapper>
     </section>
   );
