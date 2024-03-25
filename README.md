@@ -26,6 +26,8 @@
 
 <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"> <img src="https://img.shields.io/badge/aws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"> <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/github actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white">
 
+<br/>
+
 ## 화면 구성
 
 |                                                               랜딩 페이지                                                                |                                                                  로그인                                                                   |
@@ -45,6 +47,14 @@
 |    <img width="90%" alt="mypage" src="https://github.com/Funssion-SWM/Frontend/assets/68095803/98e4176f-ad36-4194-b3a9-72ea69605851">    |     <img width="90%" alt="intro" src="https://github.com/Funssion-SWM/Frontend/assets/68095803/9cf8bade-0a6a-4238-b26f-34f050185c1c">     |
 |                                                               채용 도우미                                                                |                                                               채용자 페이지                                                               |
 |     <img width="90%" alt="job1" src="https://github.com/Funssion-SWM/Frontend/assets/68095803/9c456eea-4b7e-42ad-916c-3f2d22a5599f">     |     <img width="90%" alt="job2" src="https://github.com/Funssion-SWM/Frontend/assets/68095803/24280746-5338-43cf-8cef-b084125b28ad">      |
+
+<br/>
+
+## 아키텍쳐
+
+<p align='center'><img width="90%" src="https://github.com/Funssion-SWM/Frontend/assets/68095803/d4c0f5bb-0786-4b23-90c6-765a00f234aa"/></p>
+
+<br/>
 
 ## 주요 기능
 
@@ -66,9 +76,11 @@
 
 ### 3. 일반 기능
 
-- 관심 기술 분야를 힌 눈에 확인할 수 있는 마이페이지
+- 관심 기술 분야를 한 눈에 확인할 수 있는 마이페이지
 - 커뮤니티 기능(댓글, 좋아요, 검색, 팔로우/팔로잉)
 - 태그 기반 게시물 추천
+
+<br/>
 
 ## 개발 현황
 
