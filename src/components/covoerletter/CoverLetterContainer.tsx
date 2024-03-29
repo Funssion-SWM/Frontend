@@ -3,7 +3,7 @@
 import { CoverletterInfo, StackInfo } from '@/types/coverletter';
 import { useState } from 'react';
 import BlueBtn from '../shared/btn/BlueBtn';
-import { AiOutlineInfoCircle } from 'react-icons/ai';
+import { AiOutlineInfoCircle } from '@react-icons/all-files/ai/AiOutlineInfoCircle';
 import MyEditor from '@/lib/editor';
 import { useEditor } from '@tiptap/react';
 import { handleTiptapExtensions } from '@/lib/editor/extensions';

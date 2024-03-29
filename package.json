@@ -11,7 +11,9 @@
     "test:coverage": "npm test -- --coverage"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^14.1.4",
     "@ramonak/react-progress-bar": "^5.0.3",
+    "@react-icons/all-files": "^4.1.0",
     "@sentry/nextjs": "^7.61.0",
     "@tailwindcss/typography": "^0.5.9",
     "@tiptap/core": "^2.0.3",
@@ -60,7 +62,6 @@
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "18.2.0",
-    "react-icons": "^4.10.1",
     "react-markdown": "^9.0.0",
     "react-moveable": "^0.54.1",
     "react-spinners": "^0.13.8",

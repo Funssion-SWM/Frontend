@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { AiOutlineMinusCircle } from 'react-icons/ai';
+import { AiOutlineMinusCircle } from '@react-icons/all-files/ai/AiOutlineMinusCircle';
 import { MemoInfo } from '@/types/series';
 
 type Props = {
@@ -96,14 +96,14 @@ export default function MemoDndCard({
       }`}
       data-handler-id={handlerId}
     >
-      <p className="line-clamp-3 font-semibold text-sm break-all text-soma-grey-70">
+      <p className="text-sm font-semibold break-all line-clamp-3 text-soma-grey-70">
         {title}
       </p>
       <button
         className="absolute top-0 right-0"
         onClick={() => onDeleteBtnClick(id)}
       >
-        <AiOutlineMinusCircle className="text-soma-blue-40 w-5 h-5" />
+        <AiOutlineMinusCircle className="w-5 h-5 text-soma-blue-40" />
       </button>
     </div>
   );

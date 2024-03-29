@@ -3,7 +3,7 @@
 import BlueBtn from '@/components/shared/btn/BlueBtn';
 import { notifyToast } from '@/utils/notify';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
-import { AiOutlineInfoCircle } from 'react-icons/ai';
+import { AiOutlineInfoCircle } from '@react-icons/all-files/ai/AiOutlineInfoCircle';
 import CoverLetterPage2 from './CoverLetterPage2';
 import { DevelopmentArea, StackInfo } from '@/types/coverletter';
 import {
