@@ -2,7 +2,7 @@ import { Question, QuestionCardSize } from '@/types/question';
 import QuestionCardHeader from './QuestionCardHeader';
 import QuestionCardMain from './QuestionCardMain';
 import QuestionCardFooter from './QuestionCardFooter';
-import { BsCheckLg } from 'react-icons/bs';
+import { AiOutlineCheck } from '@react-icons/all-files/ai/AiOutlineCheck';
 type Props = {
   question: Question;
   size: QuestionCardSize;
@@ -40,7 +40,7 @@ export default function QuestionCard({
           size === 'big' && 'sm:w-20 sm:text-base'
         } flex flex-col justify-center items-center`}
       >
-        <BsCheckLg
+        <AiOutlineCheck
           className={`w-10 h-10 ${
             solved ? 'text-soma-green' : 'text-soma-grey-45'
           }`}

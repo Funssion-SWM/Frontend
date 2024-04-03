@@ -5,7 +5,7 @@ import { Stats } from '@/types/rank';
 import { useContext } from 'react';
 import StatsInfo from './StatsInfo';
 import CloseIcon from '../search/CloseIcon';
-import { AiOutlineInfoCircle } from 'react-icons/ai';
+import { AiOutlineInfoCircle } from '@react-icons/all-files/ai/AiOutlineInfoCircle';
 
 type Props = {
   userStats: Stats;
@@ -23,11 +23,11 @@ export default function ScoreDetailModal({ userStats }: Props) {
 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:w-[750px]"
         >
           <div className="flex items-center">
-            <p className="sm:text-2xl font-semibold">Score Detail</p>
-            <div className="group mx-2 relative">
+            <p className="font-semibold sm:text-2xl">Score Detail</p>
+            <div className="relative mx-2 group">
               <AiOutlineInfoCircle />
               <div className="absolute top-0 right-0 w-[160px] p-3 bg-white opacity-0 pointer-events-none transition-all group-hover:opacity-100 group-hover:pointer-events-auto rounded-2xl shadow-lg">
-                <ul className="flex flex-col text-sm items-center">
+                <ul className="flex flex-col items-center text-sm">
                   <li>메모 작성 : 50</li>
                   <li>질문 작성 : 30</li>
                   <li>답변 작성 : 20</li>
@@ -59,7 +59,7 @@ top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:w-[750px]"
 function Overay({ onClick }: { onClick: () => void }) {
   return (
     <div
-      className="w-screen h-screen bg-white opacity-50 fixed top-0 left-0"
+      className="fixed top-0 left-0 w-screen h-screen bg-white opacity-50"
       onClick={onClick}
     ></div>
   );

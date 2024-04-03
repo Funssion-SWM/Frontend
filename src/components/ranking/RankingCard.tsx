@@ -1,7 +1,7 @@
 import { getImageSrcFromRank } from '@/utils/rank';
 import { Rank } from '@/types/rank';
 import Image from 'next/image';
-import { AiOutlineSmile } from 'react-icons/ai';
+import { AiOutlineSmile } from '@react-icons/all-files/ai/AiOutlineSmile';
 import { DefaultProfile } from '@/assets/svg';
 
 type Props = {

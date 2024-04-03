@@ -1,6 +1,7 @@
 import { Memo } from '@/types/memo';
 import { useState } from 'react';
-import { AiFillCheckCircle, AiOutlineCheckCircle } from 'react-icons/ai';
+import { AiFillCheckCircle } from '@react-icons/all-files/ai/AiFillCheckCircle';
+import { AiOutlineCheckCircle } from '@react-icons/all-files/ai/AiOutlineCheckCircle';
 
 type Props = {
   memo: Memo;
@@ -43,7 +44,7 @@ export default function SelectCard({ memo, onClick, seriesId }: Props) {
     >
       <div className="self-end text-soma-blue-40">
         {memo.seriesId && memo.seriesId !== seriesId ? (
-          <div className="text-xs h-5 font font-medium">
+          <div className="h-5 text-xs font-medium font">
             다른 시리즈에 속한 메모
           </div>
         ) : selected ? (
@@ -53,11 +54,11 @@ export default function SelectCard({ memo, onClick, seriesId }: Props) {
         )}
       </div>
 
-      <div className="w-full flex-1">
-        <h2 className="text-xl text-soma-grey-70 font-extrabold my-3 line-clamp-2 break-all h-14">
+      <div className="flex-1 w-full">
+        <h2 className="my-3 text-xl font-extrabold break-all text-soma-grey-70 line-clamp-2 h-14">
           {memoTitle}
         </h2>
-        <p className="line-clamp-3 text-sm break-all my-1 text-soma-grey-60">
+        <p className="my-1 text-sm break-all line-clamp-3 text-soma-grey-60">
           {memoDescription}
         </p>
       </div>
