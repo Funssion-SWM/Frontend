@@ -78,30 +78,30 @@ export default function CreateMemoModal({
         className="fixed flex flex-col sm:shadow-lg bg-white rounded-2xl p-4 sm:p-10 
 sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 mt-10 sm:mt-0 sm:-translate-y-1/2 w-full sm:w-[750px] sm:min-h-[400px] h-full sm:h-auto overflow-y-auto"
       >
-        <div className="flex flex-col gap-4 sm:flex-row w-full">
+        <div className="flex flex-col w-full gap-4 sm:flex-row">
           <div className="w-full sm:w-1/2">
-            <p className="font-semibold text-xl my-2">Description</p>
+            <p className="my-2 text-xl font-semibold">Description</p>
             <textarea
-              className="bg-soma-grey-20 p-3 resize-none break-all outline-none rounded-lg h-60 w-full text-sm"
+              className="w-full p-3 text-sm break-all rounded-lg outline-none resize-none bg-soma-grey-20 h-60"
               placeholder="메모를 소개해보세요..."
               onChange={(e) => setCurrentDescription(e.target.value)}
               value={currentDescription}
             ></textarea>
           </div>
-          <div className=" flex flex-col w-full">
-            <p className="font-semibold text-xl my-2">Series에 추가</p>
+          <div className="flex flex-col w-full ">
+            <p className="my-2 text-xl font-semibold">Series에 추가</p>
             {seriesArr.length === 0 ? (
-              <div className="flex justify-center items-center h-60">
-                <p className="text-soma-grey-49 text-sm">
+              <div className="flex items-center justify-center h-60">
+                <p className="text-sm text-soma-grey-49">
                   series가 없습니다...
                 </p>
               </div>
             ) : (
-              <ul className="flex flex-col gap-2 h-60 overflow-y-auto ">
+              <ul className="overflow-y-auto h-60">
                 {seriesArr.map((item) => (
                   <li
                     key={item.id}
-                    className={`py-1 px-2 cursor-pointer line-clamp-1 break-all rounded-lg hover:bg-soma-blue-40 hover:text-white transition-all ${
+                    className={`py-1 px-2 cursor-pointer line-clamp-1 break-all my-2 rounded-lg hover:bg-soma-blue-40 hover:text-white transition-all ${
                       item.id === selectedSeriesId
                         ? 'bg-soma-blue-40 text-white'
                         : 'bg-soma-grey-20'
@@ -124,7 +124,7 @@ sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 mt-10 sm:mt-0 sm:-transl
           </div>
         </div>
         <div className="flex flex-col">
-          <p className="font-semibold text-xl my-2">Tags</p>
+          <p className="my-2 text-xl font-semibold">Tags</p>
           <div className="flex flex-wrap gap-1 mx-3 mb-1">
             {currentTags.map((tag, idx) => (
               <Tag
@@ -144,7 +144,7 @@ sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 mt-10 sm:mt-0 sm:-transl
               value={inputTag}
               onChange={(e) => setInputTag(e.target.value)}
               onKeyDown={handleKeyDown}
-              className="grow outline-none p-1 text-sm sm:text-base bg-transparent"
+              className="p-1 text-sm bg-transparent outline-none grow sm:text-base"
             />
           </div>
         </div>
