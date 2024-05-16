@@ -4,7 +4,9 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import logo from '@/assets/images/inforum_logo.png';
 import Image from 'next/image';
-import { MAIN_PATH } from '@/constants/general';
+import { ACCESS_TOKEN, MAIN_PATH } from '@/constants/general';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: '로그인',
@@ -12,6 +14,10 @@ export const metadata: Metadata = {
 };
 
 export default function LoginPage() {
+  const accessToken = cookies().get(ACCESS_TOKEN)?.value;
+
+  if (accessToken !== undefined) redirect(MAIN_PATH);
+
   return (
     <section className="relative flex flex-col items-center w-full max-w-screen-sm px-10 py-5 mx-auto mt-32 sm:px-32">
       <Link
