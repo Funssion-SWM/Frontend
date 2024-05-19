@@ -1,3 +1,15 @@
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
 User-agent: *
 Disallow: /api
+Disallow: /mini-interview
+Disallow: /drafts
+Disallow: /create
+Disallow: /coverletter
+Disallow: /find
+
 Sitemap: https://www.inforum24.com/sitemap.xml
