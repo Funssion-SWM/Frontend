@@ -122,7 +122,7 @@ export async function postImageInQuestion(
   )
     .then((res) => {
       if (res.status === 413) {
-        return { code: 413, message: '이미지 크기가 10MB를 초과하였습니다.' };
+        return { code: 413, message: '이미지 크기가 5MB를 초과하였습니다.' };
       }
       return res.json();
     })
