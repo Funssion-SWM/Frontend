@@ -79,7 +79,7 @@ export function startImageUpload(
 
     // check if the file size is less than 20MB
   } else if (file.size > MAX_IMAGE_BYTE) {
-    notifyToast('최대 이미지 사이즈 10MB를 초과하였습니다.', 'error');
+    notifyToast('최대 이미지 사이즈 5MB를 초과하였습니다.', 'error');
     return;
   }
 
