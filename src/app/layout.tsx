@@ -53,7 +53,7 @@ export default async function RootLayout({
             <CreationModal />
           </CreationModalProvider>
         </ToastProvider>
-        <FallingContainer />
+        {/* <FallingContainer /> */}
       </body>
     </html>
   );
